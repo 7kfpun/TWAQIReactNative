@@ -1,14 +1,22 @@
+import { config } from '../config';
+
 const toObject = (arr) => {
   const rv = {};
   for (let i = 0; i < arr.length; i += 1) {
     rv[arr[i].SiteName] = arr[i];
+    if (rv[arr[i].SiteName].PM2_5) {
+      rv[arr[i].SiteName]['PM2.5'] = rv[arr[i].SiteName].PM2_5;
+    }
+
+    if (rv[arr[i].SiteName].PM2_5_AVG) {
+      rv[arr[i].SiteName]['PM2.5_AVG'] = rv[arr[i].SiteName].PM2_5_AVG;
+    }
   }
   return rv;
 };
 
 const AQI = () => {
-  // const AQIURL = `https://opendata.epa.gov.tw/ws/Data/REWIQA/?$orderby=SiteName&$skip=0&$top=100&format=json&${Math.random()}`;
-  const AQIURL = `https://www.taiwanstat.com/airs/latest/?t=${Math.random()}`;
+  const AQIURL = `${config.aqiUrl}?t=${Math.random()}`;
   return fetch(AQIURL)
     .then(res => res.json())
     .then(results => toObject(results));

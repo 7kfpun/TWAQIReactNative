@@ -59,7 +59,7 @@ export default class AirMarker extends React.Component {
       color = '#FEDE33';
     } else if (status === '對敏感族群不良') {
       color = '#FE9833';
-    } else if (status === '對所有族群不健康') {
+    } else if (status === '對所有族群不良') {
       color = '#CC0033';
     } else if (status === '非常不健康') {
       color = '#660098';
@@ -70,7 +70,7 @@ export default class AirMarker extends React.Component {
     }
 
     let showAmount;
-    if (amount === '/*' || amount === '-*' || amount === '-/-' || amount === '/-') {
+    if (amount === '/*' || amount === '-*' || amount === '-/-' || amount === '/-' || !amount) {
       showAmount = '-';
     } else {
       showAmount = amount;
@@ -94,5 +94,6 @@ AirMarker.propTypes = {
   fontSize: PropTypes.number,
 };
 AirMarker.defaultProps = {
+  amount: '-',
   fontSize: 16,
 };

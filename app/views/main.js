@@ -31,11 +31,11 @@ const { width, height } = Dimensions.get('window');
 const { RNLocation } = NativeModules;
 
 const ASPECT_RATIO = width / height;
-const LATITUDE = 25.105497;
-const LONGITUDE = 121.597366;
-const LATITUDE_DELTA = 0.8;
+const LATITUDE = 23.53;
+const LONGITUDE = 120.94;
+const LATITUDE_DELTA = 3.9;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-const OUT_OF_BOUND = 1;
+const OUT_OF_BOUND = 30;
 const FIVE_MINUTES = 5 * 60 * 1000;
 
 const styles = StyleSheet.create({
@@ -241,15 +241,7 @@ export default class MainView extends Component {
         });
       }
 
-      aqi(false).then((result) => {
-        console.log('AQI:', result);
-        that.setState({
-          aqiResult: result,
-          isLoading: false,
-        });
-      });
-
-      aqi(true).then((result) => {
+      aqi().then((result) => {
         console.log('AQI:', result);
         that.setState({
           aqiResult: result,
@@ -278,8 +270,8 @@ export default class MainView extends Component {
               return (<MapView.Marker
                 key={marker.SiteEngName}
                 coordinate={{
-                  latitude: marker.TWD97Lat,
-                  longitude: marker.TWD97Lon,
+                  latitude: parseFloat(marker.TWD97Lat),
+                  longitude: parseFloat(marker.TWD97Lon),
                 }}
                 title={title}
                 description={marker.SiteAddress}
