@@ -2,16 +2,16 @@ import {
   Platform,
 } from 'react-native';
 
-// import { AdMobInterstitial } from 'react-native-admob';
+import { AdMobInterstitial } from 'react-native-admob';
 import { StackNavigator } from 'react-navigation';
 
 import Main from './app/views/main';
 // import Help from './app/views/help';
 // import Settings from './app/views/settings';
 
-// import { config } from './app/config';
+import { config } from './app/config';
 
-// AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
+AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
 
 if (!__DEV__) {
   console.log = () => {};

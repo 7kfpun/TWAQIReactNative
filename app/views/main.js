@@ -13,10 +13,13 @@ import {
 } from 'react-native';
 
 // import * as Animatable from 'react-native-animatable';
+import { AdMobInterstitial } from 'react-native-admob';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
+import store from 'react-native-simple-store';
 import timer from 'react-native-timer';
 
+import AdMob from '../elements/admob';
 import Marker from '../elements/marker';
 
 import { indexes } from '../utils/indexes';
@@ -148,7 +151,7 @@ export default class MainView extends Component {
       longitude: LONGITUDE,
     },
     markers: [],
-    selectedIndex: 'O3',
+    selectedIndex: indexes[0],
     isLoading: false,
     gpsEnabled: false,
   };
@@ -198,6 +201,11 @@ export default class MainView extends Component {
     this.prepareData();
 
     timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
+
+    const FIVE_SECONDS = 5 * 1000;
+    timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
+      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+    }, FIVE_SECONDS);
   }
 
   onRegionChange(region) {
@@ -223,11 +231,31 @@ export default class MainView extends Component {
 
   prepareData() {
     this.setState({ isLoading: true });
-    aqi().then((result) => {
-      console.log('AQI:', result);
-      this.setState({
-        aqiResult: result,
-        isLoading: false,
+
+    const that = this;
+    store.get('aqiResult').then((aqiResult) => {
+      if (aqiResult) {
+        that.setState({
+          aqiResult,
+          isLoading: false,
+        });
+      }
+
+      aqi(false).then((result) => {
+        console.log('AQI:', result);
+        that.setState({
+          aqiResult: result,
+          isLoading: false,
+        });
+      });
+
+      aqi(true).then((result) => {
+        console.log('AQI:', result);
+        that.setState({
+          aqiResult: result,
+          isLoading: false,
+        });
+        store.save('aqiResult', result);
       });
     });
   }
@@ -245,7 +273,7 @@ export default class MainView extends Component {
             onRegionChange={region => this.onRegionChange(region)}
           >
             {this.state.aqiResult && this.state.markers.map((marker) => {
-              const title = `${marker.SiteName} ${this.state.selectedIndex} 值為 ${this.state.aqiResult[marker.SiteName] && this.state.aqiResult[marker.SiteName][this.state.selectedIndex]}`;
+              const title = `${marker.SiteName} ${this.state.selectedIndex} 值為 ${(this.state.aqiResult[marker.SiteName] && this.state.aqiResult[marker.SiteName][this.state.selectedIndex]) || '-'}`;
 
               return (<MapView.Marker
                 key={marker.SiteEngName}
@@ -323,6 +351,8 @@ export default class MainView extends Component {
             </ScrollView>
           </View>
         </View>
+
+        <AdMob />
       </View>
     );
   }
