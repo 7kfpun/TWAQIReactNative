@@ -1,0 +1,3 @@
+rootProject.name = 'TWAQI'
+
+include ':app'
