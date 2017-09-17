@@ -7,7 +7,7 @@ import { StackNavigator } from 'react-navigation';
 
 import Main from './app/views/main';
 // import Help from './app/views/help';
-// import Settings from './app/views/settings';
+import Settings from './app/views/settings';
 
 import { config } from './app/config';
 
@@ -19,7 +19,7 @@ if (!__DEV__) {
 
 const App = StackNavigator({
   Main: { screen: Main },
-  // Settings: { screen: Settings },
+  Settings: { screen: Settings },
   // Help: { screen: Help },
 }, {
   mode: 'modal',

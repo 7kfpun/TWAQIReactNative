@@ -12,7 +12,7 @@ import {
   NativeModules,
 } from 'react-native';
 
-// import * as Animatable from 'react-native-animatable';
+import * as Animatable from 'react-native-animatable';
 import { AdMobInterstitial } from 'react-native-admob';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
@@ -253,7 +253,7 @@ export default class MainView extends Component {
   }
 
   render() {
-    // const { navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation;
 
     return (
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
@@ -290,11 +290,11 @@ export default class MainView extends Component {
             />}
           </MapView>
 
-          {/* <TouchableOpacity style={styles.menu} onPress={() => navigate('Settings')}>
+          <TouchableOpacity style={styles.menu} onPress={() => navigate('Settings')}>
             <Animatable.View animation="tada" delay={2000} iterationCount={40}>
               <Icon name="notifications-active" size={26} color="#616161" />
             </Animatable.View>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
 
           {<View style={styles.infomationContainer}>
             <TouchableOpacity

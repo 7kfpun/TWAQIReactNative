@@ -14,6 +14,8 @@
 
 @implementation AppDelegate
 
+@synthesize oneSignal = _oneSignal;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
@@ -32,7 +34,17 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
+                                                         appId:@"e8925b88-4ab5-423b-8f49-c48e78928061"
+                                                      settings:@{kOSSettingsKeyAutoPrompt: @false}];
+  
   return YES;
+}
+
+// Required for the notification event.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
+  [RCTOneSignal didReceiveRemoteNotification:notification];
 }
 
 @end
