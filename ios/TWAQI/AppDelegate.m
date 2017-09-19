@@ -12,6 +12,9 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+#import <Fabric/Fabric.h>
+#import <Answers/Answers.h>
+
 @implementation AppDelegate
 
 @synthesize oneSignal = _oneSignal;
@@ -38,7 +41,10 @@
   self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
                                                          appId:@"e8925b88-4ab5-423b-8f49-c48e78928061"
                                                       settings:@{kOSSettingsKeyAutoPrompt: @false}];
-  
+
+  [Fabric with:@[[Answers class]]];
+
+
   return YES;
 }
 

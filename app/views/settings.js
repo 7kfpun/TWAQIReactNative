@@ -120,9 +120,18 @@ export default class SettingsView extends Component {
       return 0;
     };
 
-    locations().then((result) => {
-      console.log('Locations:', result);
-      this.setState({ locations: result.sort(compare) });
+    const that = this;
+    store.get('locationsCache').then((locationsCache) => {
+      if (locationsCache && locationsCache.length > 0) {
+        that.setState({ locations: locationsCache.sort(compare) });
+      }
+
+      locations().then((result) => {
+        if (result && result.length > 0) {
+          console.log('Locations:', result);
+          that.setState({ locations: result.sort(compare) });
+        }
+      });
     });
   }
 

@@ -150,7 +150,7 @@ export default class MainView extends Component {
       latitude: LATITUDE,
       longitude: LONGITUDE,
     },
-    markers: [],
+    locations: [],
     selectedIndex: indexes[0],
     isLoading: false,
     gpsEnabled: false,
@@ -223,31 +223,44 @@ export default class MainView extends Component {
   }
 
   prepareLocations() {
-    locations().then((result) => {
-      console.log('Locations:', result);
-      this.setState({ markers: result });
+    const that = this;
+    store.get('locationsCache').then((locationsCache) => {
+      if (locationsCache && locationsCache.length > 0) {
+        that.setState({ locations: locationsCache });
+      }
+
+      locations().then((result) => {
+        if (result && result.length > 0) {
+          console.log('Locations:', result);
+          that.setState({ locations: result });
+          store.save('locationsCache', result);
+        }
+      });
     });
   }
 
   prepareData() {
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true }, () => {
+      const that = this;
+      store.get('aqiResult').then((aqiResult) => {
+        if (aqiResult) {
+          that.setState({
+            aqiResult,
+            // isLoading: false,
+          });
+        }
 
-    const that = this;
-    store.get('aqiResult').then((aqiResult) => {
-      if (aqiResult) {
-        that.setState({
-          aqiResult,
-          isLoading: false,
-        });
-      }
+        aqi().then((result) => {
+          const keys = Object.keys(result || {}).length;
+          console.log('AQI:', result);
+          console.log('AQI length:', keys);
+          if (result && keys > 0) {
+            that.setState({ aqiResult: result });
+            store.save('aqiResult', result);
+          }
 
-      aqi().then((result) => {
-        console.log('AQI:', result);
-        that.setState({
-          aqiResult: result,
-          isLoading: false,
+          that.setState({ isLoading: false });
         });
-        store.save('aqiResult', result);
       });
     });
   }
@@ -264,23 +277,23 @@ export default class MainView extends Component {
             initialRegion={this.getCurrentLocation()}
             onRegionChange={region => this.onRegionChange(region)}
           >
-            {this.state.aqiResult && this.state.markers.map((marker) => {
-              const title = `${marker.SiteName} ${this.state.selectedIndex} 值為 ${(this.state.aqiResult[marker.SiteName] && this.state.aqiResult[marker.SiteName][this.state.selectedIndex]) || '-'}`;
+            {this.state.aqiResult && this.state.locations.map((location) => {
+              const title = `${location.SiteName} ${this.state.selectedIndex} 值為 ${(this.state.aqiResult[location.SiteName] && this.state.aqiResult[location.SiteName][this.state.selectedIndex]) || '-'}`;
 
               return (<MapView.Marker
-                key={marker.SiteEngName}
+                key={location.SiteEngName}
                 coordinate={{
-                  latitude: parseFloat(marker.TWD97Lat),
-                  longitude: parseFloat(marker.TWD97Lon),
+                  latitude: parseFloat(location.TWD97Lat),
+                  longitude: parseFloat(location.TWD97Lon),
                 }}
                 title={title}
-                description={marker.SiteAddress}
-                onPress={() => this.setState({ selectedLocation: marker.SiteName })}
+                description={location.SiteAddress}
+                onPress={() => this.setState({ selectedLocation: location.SiteName })}
               >
-                {this.state.aqiResult[marker.SiteName] && <Marker
-                  amount={this.state.aqiResult[marker.SiteName][this.state.selectedIndex]}
+                {this.state.aqiResult[location.SiteName] && <Marker
+                  amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
                   index={this.state.selectedIndex}
-                  status={this.state.aqiResult[marker.SiteName].Status}
+                  status={this.state.aqiResult[location.SiteName].Status}
                 />}
               </MapView.Marker>);
             })}
@@ -351,7 +364,7 @@ export default class MainView extends Component {
 }
 
 MainView.propTypes = {
-  // navigation: React.PropTypes.shape({
-  //   navigate: React.PropTypes.func.isRequired,
-  // }).isRequired,
+  navigation: React.PropTypes.shape({
+    navigate: React.PropTypes.func.isRequired,
+  }).isRequired,
 };

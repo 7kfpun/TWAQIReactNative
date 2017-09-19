@@ -61,9 +61,9 @@ export default class AirMarker extends React.Component {
       color = '#FE9833';
     } else if (status === '對所有族群不良') {
       color = '#CC0033';
-    } else if (status === '非常不健康') {
+    } else if (status === '非常不良') {
       color = '#660098';
-    } else if (status === '危害') {
+    } else if (status === '有害') {
       color = '#7E2200';
     } else {
       color = 'gray';
