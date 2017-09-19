@@ -8,10 +8,9 @@ import {
   View,
 } from 'react-native';
 
-// import { Answers } from 'react-native-fabric';
 import OneSignal from 'react-native-onesignal';
 
-// import tracker from '../utils/tracker';
+import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
   container: {
@@ -72,19 +71,7 @@ export default class SettingsItem extends Component {
       OneSignal.registerForPushNotifications();
     }
 
-    // const item = this.props.item;
-    // tracker.trackEvent('user-action', 'set-notification-pollution', {
-    //   label: value ? 'notification-pollution-on' : 'notification-pollution-off',
-    //   location: item.key,
-    //   pollution_therhold: this.state.pollutionTherhold,
-    //   cleanliness_therhold: this.state.cleanlinessTherhold,
-    // });
-    // Answers.logCustom('set-notification-pollution', {
-    //   event: value ? 'notification-pollution-on' : 'notification-pollution-off',
-    //   location: item.key,
-    //   pollution_therhold: this.state.pollutionTherhold,
-    //   cleanliness_therhold: this.state.cleanlinessTherhold,
-    // });
+    tracker.logEvent('set-notification', { label: value ? 'on' : 'off' });
   }
 
   setNotificationPollutionTherhold(value) {
@@ -155,6 +142,17 @@ export default class SettingsItem extends Component {
 }
 
 SettingsItem.propTypes = {
+  item: PropTypes.shape({
+    SiteName: PropTypes.string,
+    SiteEngName: PropTypes.string,
+    AreaName: PropTypes.string,
+    County: PropTypes.string,
+    Township: PropTypes.string,
+    SiteAddress: PropTypes.string,
+    TWD97Lon: PropTypes.string,
+    TWD97Lat: PropTypes.string,
+    SiteType: PropTypes.string,
+  }).isRequired,
 };
-SettingsItem.defaultProps = {
-};
+
+SettingsItem.defaultProps = {};

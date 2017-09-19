@@ -24,6 +24,7 @@ import Marker from '../elements/marker';
 
 import { indexes } from '../utils/indexes';
 import aqi from '../utils/aqi';
+import tracker from '../utils/tracker';
 import locations from '../utils/locations';
 
 const { width, height } = Dimensions.get('window');
@@ -266,6 +267,8 @@ export default class MainView extends Component {
   }
 
   render() {
+    tracker.view('Main');
+
     const { navigate } = this.props.navigation;
 
     return (
@@ -288,7 +291,10 @@ export default class MainView extends Component {
                 }}
                 title={title}
                 description={location.SiteAddress}
-                onPress={() => this.setState({ selectedLocation: location.SiteName })}
+                onPress={() => {
+                  this.setState({ selectedLocation: location.SiteName });
+                  tracker.logEvent('select-location', location);
+                }}
               >
                 {this.state.aqiResult[location.SiteName] && <Marker
                   amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
@@ -313,7 +319,7 @@ export default class MainView extends Component {
             <TouchableOpacity
               onPress={() => {
                 this.prepareData();
-                // tracker.trackEvent('user-action', 'fetch-latest-data');
+                tracker.logEvent('fetch-latest-data');
               }}
               style={styles.infomationBubble}
             >
@@ -333,7 +339,7 @@ export default class MainView extends Component {
             style={styles.currentLocation}
             onPress={() => {
               this.map.animateToRegion(this.getCurrentLocation());
-              // tracker.trackEvent('user-action', 'move-to-current-location');
+              tracker.logEvent('move-to-current-location');
             }}
           >
             <Icon name="near-me" size={26} color="#616161" />
@@ -346,7 +352,7 @@ export default class MainView extends Component {
                   key={item}
                   onPress={() => {
                     this.setState({ selectedIndex: item });
-                    // tracker.trackEvent('user-action', 'select-index', { label: item });
+                    tracker.logEvent('select-index', { label: item });
                   }}
                   style={[styles.bubble, styles.button]}
                 >

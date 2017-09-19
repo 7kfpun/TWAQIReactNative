@@ -15,7 +15,7 @@ import store from 'react-native-simple-store';
 // import Toast from 'react-native-root-toast';
 
 import locations from '../utils/locations';
-// import tracker from '../utils/tracker';
+import tracker from '../utils/tracker';
 import SettingsItem from '../elements/settings-item';
 
 const styles = StyleSheet.create({
@@ -37,7 +37,7 @@ function toastShow() {
   OneSignal.checkPermissions((permissions) => {
     console.log('OneSignal permissions', permissions);
     if (!permissions.alert && !permissions.badge && !permissions.sound) {
-      Toast.show('permissions_required', { duration: Toast.durations.LONG, position: Toast.positions.BOTTOM - 40 });
+      // Toast.show('permissions_required', { duration: Toast.durations.LONG, position: Toast.positions.BOTTOM - 40 });
     }
   });
 }
@@ -69,6 +69,8 @@ export default class SettingsView extends Component {
   };
 
   componentDidMount() {
+    tracker.view('Main');
+
     SettingsView.checkPermissions();
 
     OneSignal.getTags((receivedTags) => {
