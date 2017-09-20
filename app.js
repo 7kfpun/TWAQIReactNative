@@ -26,8 +26,8 @@ const App = StackNavigator({
 });
 
 console.ignoredYellowBox = [
-  '[xmldom warning]',
-  'Warning: setState(...): Can only update a mounted or mounting component.',
+  'NetInfo\'s "change" event is deprecated. Listen to the "connectionChange" event instead.',
+  'Warning: Can only update a mounted or mounting component.',
 ];
 
 module.exports = App;

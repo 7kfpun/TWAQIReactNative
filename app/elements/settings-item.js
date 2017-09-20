@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Switch,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -14,17 +15,22 @@ import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    paddingVertical: 5,
   },
   switchBlock: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   text: {
-    fontSize: 16,
+    fontSize: 14,
+  },
+  addressText: {
+    fontSize: 14,
+    fontWeight: '100',
   },
   noticeText: {
-    fontSize: 12,
+    fontSize: 14,
+    fontWeight: '100',
   },
   noticeWarningText: {
     fontSize: 10,
@@ -37,6 +43,7 @@ const DEFAULT_CLEANLINESS_THERHOLD = 40;
 
 export default class SettingsItem extends Component {
   state = {
+    isOpen: false,
     isEnabled: false,
     pollutionTherhold: DEFAULT_POLLUTION_THERHOLD,
     cleanlinessTherhold: DEFAULT_CLEANLINESS_THERHOLD,
@@ -103,7 +110,8 @@ export default class SettingsItem extends Component {
       <View style={styles.container}>
         <View style={styles.switchBlock}>
           <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-            <Text style={styles.text}>{`${item.County} - ${item.Township}`}</Text>
+            <Text style={styles.text}>{item.SiteName}</Text>
+            <Text style={styles.addressText}>{` ${item.SiteAddress}`}</Text>
           </View>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
             <Switch
@@ -113,7 +121,8 @@ export default class SettingsItem extends Component {
             />
           </View>
         </View>
-        {this.state.isEnabled && <View>
+
+        {this.state.isEnabled && <View style={{ paddingTop: 10 }}>
           <Text style={styles.noticeText}>{'AQI 指數超過'}: {this.state.pollutionTherhold}</Text>
           <Slider
             style={{ width: window.width - 20 }}

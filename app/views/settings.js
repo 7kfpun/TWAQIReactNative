@@ -16,7 +16,7 @@ import store from 'react-native-simple-store';
 
 import locations from '../utils/locations';
 import tracker from '../utils/tracker';
-import SettingsItem from '../elements/settings-item';
+import SettingsGroup from '../elements/settings-group';
 
 const styles = StyleSheet.create({
   container: {
@@ -69,8 +69,6 @@ export default class SettingsView extends Component {
   };
 
   componentDidMount() {
-    tracker.view('Main');
-
     SettingsView.checkPermissions();
 
     OneSignal.getTags((receivedTags) => {
@@ -112,26 +110,44 @@ export default class SettingsView extends Component {
   }
 
   prepareLocations() {
+    function uniq(a) {
+      const seen = {};
+      const out = [];
+      const len = a.length;
+      let j = 0;
+      for (let i = 0; i < len; i += 1) {
+        const item = a[i];
+        if (seen[item] !== 1) {
+          seen[item] = 1;
+          out[j++] = item;
+        }
+      }
+      return out;
+    }
+
     const compare = (a, b) => {
-      if (a.County < b.County) {
+      if (a.TWD97Lat > b.TWD97Lat) {
         return -1;
       }
-      if (a.County > b.County) {
+      if (a.TWD97Lat < b.TWD97Lat) {
         return 1;
       }
       return 0;
-    };
+    }
 
     const that = this;
     store.get('locationsCache').then((locationsCache) => {
       if (locationsCache && locationsCache.length > 0) {
-        that.setState({ locations: locationsCache.sort(compare) });
+        const countys = uniq(locationsCache.sort(compare).map(item => item.County));
+        that.setState({ locations: countys });
       }
+
 
       locations().then((result) => {
         if (result && result.length > 0) {
           console.log('Locations:', result);
-          that.setState({ locations: result.sort(compare) });
+          const countys = uniq(locationsCache.sort(compare).map(item => item.County));
+          that.setState({ locations: countys });
         }
       });
     });
@@ -142,6 +158,8 @@ export default class SettingsView extends Component {
   }
 
   render() {
+    tracker.view('Main');
+
     const { goBack } = this.props.navigation;
     // tracker.trackScreenView('Settings');
     return (
@@ -154,7 +172,7 @@ export default class SettingsView extends Component {
             style={{ paddingVertical: 30 }}
             data={this.state.locations}
             keyExtractor={(item, index) => `${index}-${item.key}`}
-            renderItem={({ item }) => <SettingsItem item={item} />}
+            renderItem={({ item }) => <SettingsGroup groupName={item} />}
           />
         </ScrollView>
 
