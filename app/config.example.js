@@ -22,4 +22,5 @@ exports.config = {
       interstital: '',
     },
   },
+  segment: '',
 };

@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   menu: {
     position: 'absolute',
     left: 15,
-    top: 25,
+    top: 30,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   help: {
     position: 'absolute',
     right: 15,
-    top: 25,
+    top: 30,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   infomationContainer: {
     position: 'absolute',
-    top: 28,
+    top: 35,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
