@@ -61,33 +61,36 @@ const context = {
 const tracker = {
   identify: () => {
     if (isTracking) {
-      analytics.identify({ userId, context });
+      fetch('http://checkip.amazonaws.com/')
+        .then(res => res.text())
+        .then((ip) => {
+          ip = ip.replace('\n', '');
+          if (ip) {
+            console.log('ip address', ip);
+            context.ip = ip;
+          }
+          analytics.identify({ userId, context });
+        });
     }
   },
   logEvent: (event, properties) => {
     if (isTracking) {
-      console.log({ userId, event, properties });
-      analytics.track({ userId, event, properties });
+      const message = { userId, event, properties, context };
+      console.log(message);
+      analytics.track(message);
       // Answers.logCustom(event, properties);
     }
   },
   view: (screen, properties) => {
     if (isTracking) {
-      analytics.screen({ userId, screen, properties });
+      const message = { userId, screen, properties, context };
+      console.log(message);
+      analytics.screen(message);
       // Answers.logContentView(screen, '', '', properties);
     }
   },
 };
 
-fetch('http://checkip.amazonaws.com/')
-  .then(res => res.text())
-  .then((ip) => {
-    ip = ip.replace('\n', '');
-    if (ip) {
-      console.log('ip address', ip);
-      context.ip = ip;
-    }
-    tracker.identify();
-  });
+tracker.identify();
 
 export default tracker;
