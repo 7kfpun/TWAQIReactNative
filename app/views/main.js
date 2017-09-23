@@ -12,7 +12,6 @@ import {
   NativeModules,
 } from 'react-native';
 
-import * as Animatable from 'react-native-animatable';
 import { AdMobInterstitial } from 'react-native-admob';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
@@ -135,7 +134,7 @@ export default class MainView extends Component {
     title: 'Main',
     tabBarLabel: '地圖',
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="home" size={21} color={tintColor || 'gray'} />
+      <Icon name="place" size={20} color={tintColor || 'gray'} />
     ),
   };
 
@@ -226,10 +225,13 @@ export default class MainView extends Component {
 
     timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
 
-    // const FIVE_SECONDS = 5 * 1000;
-    // timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
-    //   AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
-    // }, FIVE_SECONDS);
+    if (!__DEV__ && false) {
+      // disable popup ads
+      const FIVE_SECONDS = 5 * 1000;
+      timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
+        AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+      }, FIVE_SECONDS);
+    }
   }
 
   onRegionChange(region) {

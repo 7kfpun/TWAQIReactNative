@@ -15,19 +15,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  close: {
-    position: 'absolute',
-    right: 15,
-    top: 25,
-    backgroundColor: 'transparent',
+  titleBlock: {
+    paddingTop: 60,
+    paddingLeft: 10,
+    marginBottom: 20,
   },
   block: {
     paddingHorizontal: 10,
-    marginVertical: 30,
+    paddingVertical: 30,
   },
   title: {
     fontSize: 24,
-    marginBottom: 20,
   },
   row: {
     flexDirection: 'row',
@@ -159,7 +157,7 @@ export default class HelpView extends Component {
     title: 'Help',
     tabBarLabel: '幫助',
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="help-outline" size={20} color={tintColor || 'gray'} />
+      <Icon name="info-outline" size={21} color={tintColor || 'gray'} />
     ),
   };
 
@@ -167,10 +165,10 @@ export default class HelpView extends Component {
     tracker.view('Help');
     return (
       <View style={styles.container}>
+        <View style={styles.titleBlock}>
+          <Text style={styles.title}>{'空氣品質指標的定義'}</Text>
+        </View>
         <ScrollView>
-          <View style={{ paddingTop: 60, paddingLeft: 10 }}>
-            <Text style={styles.title}>{'空氣品質指標的定義'}</Text>
-          </View>
           <View style={styles.block}>
             {helpTexts.AQI.map((item) => {
               const itemCategory = item.hantwCategory;

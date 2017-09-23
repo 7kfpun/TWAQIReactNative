@@ -15,14 +15,14 @@ import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 5,
+    paddingVertical: 4,
   },
   switchBlock: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   text: {
-    fontSize: 14,
+    fontSize: 16,
   },
   addressText: {
     fontSize: 14,

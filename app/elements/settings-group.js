@@ -17,7 +17,8 @@ import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingBottom: 15,
   },
   switchBlock: {
     flexDirection: 'row',

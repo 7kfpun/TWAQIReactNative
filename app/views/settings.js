@@ -22,11 +22,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  close: {
-    position: 'absolute',
-    right: 15,
-    top: 25,
-    backgroundColor: 'transparent',
+  titleBlock: {
+    paddingTop: 60,
+    paddingLeft: 10,
+    marginBottom: 20,
   },
   text: {
     fontSize: 24,
@@ -48,7 +47,7 @@ export default class SettingsView extends Component {
     title: 'Settings',
     tabBarLabel: '通知設定',
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="notifications-active" size={20} color={tintColor || 'gray'} />
+      <Icon name="notifications-none" size={21} color={tintColor || 'gray'} />
     ),
   };
 
@@ -166,10 +165,10 @@ export default class SettingsView extends Component {
 
     return (
       <View style={styles.container}>
+        <View style={styles.titleBlock}>
+          <Text style={styles.text}>{'通知設定'}</Text>
+        </View>
         <ScrollView>
-          <View style={{ paddingTop: 60, paddingLeft: 10 }}>
-            <Text style={styles.text}>{'通知設定'}</Text>
-          </View>
           <FlatList
             style={{ paddingVertical: 30 }}
             data={this.state.locations}
