@@ -5,7 +5,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -21,6 +20,7 @@ import SettingsGroup from '../elements/settings-group';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   close: {
     position: 'absolute',
@@ -46,6 +46,10 @@ export default class SettingsView extends Component {
   static navigationOptions = {
     header: null,
     title: 'Settings',
+    tabBarLabel: '通知設定',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="notifications-active" size={20} color={tintColor || 'gray'} />
+    ),
   };
 
   static checkPermissions() {
@@ -160,13 +164,11 @@ export default class SettingsView extends Component {
   render() {
     tracker.view('Main');
 
-    const { goBack } = this.props.navigation;
-    // tracker.trackScreenView('Settings');
     return (
       <View style={styles.container}>
         <ScrollView>
           <View style={{ paddingTop: 60, paddingLeft: 10 }}>
-            <Text style={styles.text}>{'設定通知'}</Text>
+            <Text style={styles.text}>{'通知設定'}</Text>
           </View>
           <FlatList
             style={{ paddingVertical: 30 }}
@@ -175,17 +177,7 @@ export default class SettingsView extends Component {
             renderItem={({ item }) => <SettingsGroup groupName={item} />}
           />
         </ScrollView>
-
-        <TouchableOpacity style={styles.close} onPress={() => { this.popSettings(); goBack(); }} >
-          <Icon name="close" size={30} color="gray" />
-        </TouchableOpacity>
       </View>
     );
   }
 }
-
-SettingsView.propTypes = {
-  navigation: React.PropTypes.shape({
-    goBack: React.PropTypes.func.isRequired,
-  }).isRequired,
-};

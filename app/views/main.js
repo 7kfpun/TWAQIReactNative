@@ -32,9 +32,9 @@ const { width, height } = Dimensions.get('window');
 const { RNLocation } = NativeModules;
 
 const ASPECT_RATIO = width / height;
-const LATITUDE = 23.53;
-const LONGITUDE = 120.94;
-const LATITUDE_DELTA = 3.9;
+const LATITUDE = 23.3;
+const LONGITUDE = 120.8;
+const LATITUDE_DELTA = 4.4;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const OUT_OF_BOUND = 30;
 const FIVE_MINUTES = 5 * 60 * 1000;
@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 50,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
@@ -75,13 +74,13 @@ const styles = StyleSheet.create({
   currentLocation: {
     position: 'absolute',
     right: 14,
-    bottom: 60,
+    bottom: 120,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 44,
-    width: 44,
-    borderRadius: 22,
+    height: 48,
+    width: 48,
+    borderRadius: 24,
   },
   infomationContainer: {
     position: 'absolute',
@@ -109,10 +108,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   bubble: {
+    borderWidth: 2,
     backgroundColor: 'rgba(255,255,255,0.9)',
     paddingHorizontal: 2,
     paddingVertical: 12,
     borderRadius: 20,
+    borderColor: 'white',
+  },
+  selectedBubble: {
+    borderColor: '#29B6F6',
   },
   button: {
     width: 56,
@@ -129,6 +133,10 @@ export default class MainView extends Component {
   static navigationOptions = {
     header: null,
     title: 'Main',
+    tabBarLabel: '地圖',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="home" size={21} color={tintColor || 'gray'} />
+    ),
   };
 
   static isOutOfBound(latitude, longitude) {
@@ -137,7 +145,7 @@ export default class MainView extends Component {
     return distance > OUT_OF_BOUND;
   }
 
-  static getHongKongLocation() {
+  static getTaiwanLocation() {
     return {
       latitude: LATITUDE,
       longitude: LONGITUDE,
@@ -158,6 +166,7 @@ export default class MainView extends Component {
   };
 
   componentDidMount() {
+    let first = true;
     if (Platform.OS === 'ios') {
       RNLocation.requestWhenInUseAuthorization();
       // RNLocation.requestAlwaysAuthorization();
@@ -170,10 +179,17 @@ export default class MainView extends Component {
           gpsEnabled: true,
         });
 
-        if (MainView.isOutOfBound(location.coords.latitude, location.coords.longitude)) {
-          timer.setTimeout(this, 'MoveToHongKong', () => {
-            this.map.animateToRegion(MainView.getHongKongLocation());
-          }, 1000);
+        if (first) {
+          first = false;
+          if (MainView.isOutOfBound(location.coords.latitude, location.coords.longitude)) {
+            timer.setTimeout(this, 'MoveToTaiwan', () => {
+              this.map.animateToRegion(MainView.getTaiwanLocation());
+            }, 1000);
+          } else {
+            timer.setTimeout(this, 'MoveToTaiwan', () => {
+              this.map.animateToRegion(this.getCurrentLocation());
+            }, 500);
+          }
         }
       });
     } else {
@@ -187,10 +203,17 @@ export default class MainView extends Component {
           gpsEnabled: true,
         });
 
-        if (MainView.isOutOfBound(location.Latitude, location.Longitude)) {
-          timer.setTimeout(this, 'MoveToHongKong', () => {
-            this.map.animateToRegion(MainView.getHongKongLocation());
-          }, 1000);
+        if (first) {
+          first = false;
+          if (MainView.isOutOfBound(location.Latitude, location.Longitude)) {
+            timer.setTimeout(this, 'MoveToTaiwan', () => {
+              this.map.animateToRegion(MainView.getTaiwanLocation());
+            }, 1000);
+          } else {
+            timer.setTimeout(this, 'MoveToTaiwan', () => {
+              this.map.animateToRegion(this.getCurrentLocation());
+            }, 500);
+          }
         }
       });
 
@@ -203,10 +226,10 @@ export default class MainView extends Component {
 
     timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
 
-    const FIVE_SECONDS = 5 * 1000;
-    timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
-      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
-    }, FIVE_SECONDS);
+    // const FIVE_SECONDS = 5 * 1000;
+    // timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
+    //   AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+    // }, FIVE_SECONDS);
   }
 
   onRegionChange(region) {
@@ -268,9 +291,6 @@ export default class MainView extends Component {
 
   render() {
     tracker.view('Main');
-
-    const { navigate } = this.props.navigation;
-
     return (
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <View style={styles.container}>
@@ -290,7 +310,7 @@ export default class MainView extends Component {
                   longitude: parseFloat(location.TWD97Lon),
                 }}
                 title={title}
-                description={location.SiteAddress}
+                // description={location.SiteAddress}
                 onPress={() => {
                   this.setState({ selectedLocation: location.SiteName });
                   tracker.logEvent('select-location', location);
@@ -309,11 +329,11 @@ export default class MainView extends Component {
             />}
           </MapView>
 
-          <TouchableOpacity style={styles.menu} onPress={() => navigate('Settings')}>
+          {/* <TouchableOpacity style={styles.menu} onPress={() => navigate('Settings')}>
             <Animatable.View animation="tada" delay={2000} iterationCount={40}>
               <Icon name="notifications-active" size={26} color="#616161" />
             </Animatable.View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           {<View style={styles.infomationContainer}>
             <TouchableOpacity
@@ -354,23 +374,17 @@ export default class MainView extends Component {
                     this.setState({ selectedIndex: item });
                     tracker.logEvent('select-index', { label: item });
                   }}
-                  style={[styles.bubble, styles.button]}
+                  style={[styles.bubble, styles.button, this.state.selectedIndex === item ? styles.selectedBubble : {}]}
                 >
                   <Text style={styles.text}>{item}</Text>
                 </TouchableOpacity>
               ))}
             </ScrollView>
           </View>
-        </View>
 
-        <AdMob />
+          <AdMob />
+        </View>
       </View>
     );
   }
 }
-
-MainView.propTypes = {
-  navigation: React.PropTypes.shape({
-    navigate: React.PropTypes.func.isRequired,
-  }).isRequired,
-};
