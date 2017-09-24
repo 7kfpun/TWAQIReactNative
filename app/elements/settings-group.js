@@ -56,7 +56,7 @@ export default class SettingsGroup extends Component {
 
       locations().then((result) => {
         if (result && result.length > 0) {
-          that.setState({ locations: locationsCache.filter(item => item.County === groupName) });
+          that.setState({ locations: result.filter(item => item.County === groupName) });
         }
       });
     });

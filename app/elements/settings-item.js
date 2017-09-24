@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Switch,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -51,8 +50,9 @@ export default class SettingsItem extends Component {
 
   componentDidMount() {
     const that = this;
-    OneSignal.getTags((receivedTags) => {
-      console.log(receivedTags);
+    OneSignal.getTags((tags) => {
+      console.log('OneSignal tags', tags);
+      receivedTags = tags || {};
       const item = this.props.item;
 
       that.setState({
