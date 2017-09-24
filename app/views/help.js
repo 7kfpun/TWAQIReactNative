@@ -8,6 +8,7 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import AdMob from '../elements/admob';
 import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
@@ -186,6 +187,7 @@ export default class HelpView extends Component {
             })}
           </View>
         </ScrollView>
+        <AdMob />
       </View>
     );
   }

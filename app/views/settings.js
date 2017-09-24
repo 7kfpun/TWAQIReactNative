@@ -13,6 +13,7 @@ import OneSignal from 'react-native-onesignal';
 import store from 'react-native-simple-store';
 // import Toast from 'react-native-root-toast';
 
+import AdMob from '../elements/admob';
 import locations from '../utils/locations';
 import tracker from '../utils/tracker';
 import SettingsGroup from '../elements/settings-group';
@@ -176,6 +177,7 @@ export default class SettingsView extends Component {
             renderItem={({ item }) => <SettingsGroup groupName={item} />}
           />
         </ScrollView>
+        <AdMob />
       </View>
     );
   }

@@ -41,12 +41,10 @@ const FIVE_MINUTES = 5 * 60 * 1000;
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   map: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
   },
   menu: {
     position: 'absolute',
@@ -72,8 +70,8 @@ const styles = StyleSheet.create({
   },
   currentLocation: {
     position: 'absolute',
-    right: 14,
-    bottom: 120,
+    right: 12,
+    bottom: 110,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -82,7 +80,6 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   infomationContainer: {
-    position: 'absolute',
     top: 35,
     justifyContent: 'center',
     alignItems: 'center',
@@ -183,7 +180,7 @@ export default class MainView extends Component {
           if (MainView.isOutOfBound(location.coords.latitude, location.coords.longitude)) {
             timer.setTimeout(this, 'MoveToTaiwan', () => {
               this.map.animateToRegion(MainView.getTaiwanLocation());
-            }, 1000);
+            }, 800);
           } else {
             timer.setTimeout(this, 'MoveToTaiwan', () => {
               this.map.animateToRegion(this.getCurrentLocation());
@@ -337,7 +334,7 @@ export default class MainView extends Component {
             </Animatable.View>
           </TouchableOpacity> */}
 
-          {<View style={styles.infomationContainer}>
+          <View style={styles.infomationContainer}>
             <TouchableOpacity
               onPress={() => {
                 this.prepareData();
@@ -351,7 +348,7 @@ export default class MainView extends Component {
                 {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
               </View>
             </TouchableOpacity>
-          </View>}
+          </View>
 
           {/* <TouchableOpacity style={styles.help} onPress={() => navigate('Help')} >
             <Icon name="help-outline" size={26} color="#616161" />
@@ -367,24 +364,26 @@ export default class MainView extends Component {
             <Icon name="near-me" size={26} color="#616161" />
           </TouchableOpacity>}
 
-          <View style={styles.buttonContainer}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {indexes.map(item => (
-                <TouchableOpacity
-                  key={item}
-                  onPress={() => {
-                    this.setState({ selectedIndex: item });
-                    tracker.logEvent('select-index', { label: item });
-                  }}
-                  style={[styles.bubble, styles.button, this.state.selectedIndex === item ? styles.selectedBubble : {}]}
-                >
-                  <Text style={styles.text}>{item}</Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </View>
+          <View>
+            <View style={styles.buttonContainer}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {indexes.map(item => (
+                  <TouchableOpacity
+                    key={item}
+                    onPress={() => {
+                      this.setState({ selectedIndex: item });
+                      tracker.logEvent('select-index', { label: item });
+                    }}
+                    style={[styles.bubble, styles.button, this.state.selectedIndex === item ? styles.selectedBubble : {}]}
+                  >
+                    <Text style={styles.text}>{item}</Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
 
-          <AdMob />
+            <AdMob />
+          </View>
         </View>
       </View>
     );

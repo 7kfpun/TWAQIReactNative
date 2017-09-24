@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Platform,
-  StyleSheet,
   View,
 } from 'react-native';
 
@@ -9,18 +8,25 @@ import { AdMobBanner } from 'react-native-admob';
 
 import { config } from '../config';
 
-const styles = StyleSheet.create({
-  container: {
-    height: 50,
-  },
-});
+export default class AdmobCell extends Component {
+  state = {
+    isReceived: false,
+  };
 
-function AdmobCell(props) {
-  return (
-    <View style={[styles.container, { margin: props.margin, backgroundColor: props.backgroundColor }]}>
-      <AdMobBanner bannerSize={props.bannerSize} adUnitID={config.admob[Platform.OS].banner} />
-    </View>
-  );
+  render() {
+    return (
+      <View style={{ height: this.state.isReceived ? 50 : 0, margin: this.props.margin, backgroundColor: this.props.backgroundColor }}>
+        <AdMobBanner
+          bannerSize={this.props.bannerSize}
+          adUnitID={config.admob[Platform.OS].banner}
+          adViewDidReceiveAd={() => {
+            console.log('Ads received');
+            this.setState({ isReceived: true });
+          }}
+        />
+      </View>
+    );
+  }
 }
 
 AdmobCell.propTypes = {
