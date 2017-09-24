@@ -27,13 +27,18 @@ const App = TabNavigator({
   animationEnabled: true,
   tabBarOptions: {
     activeTintColor: '#29B6F6',
+    inactiveTintColor: 'gray',
+    // showIcon and pressColor are for Android
+    showIcon: true,
+    pressColor: '#E0E0E0',
     labelStyle: {
       fontSize: 13,
-      paddingBottom: 4,
+      paddingBottom: Platform.OS === 'ios' ? 4 : 0,
     },
     style: {
       backgroundColor: 'white',
     },
+
   },
 });
 

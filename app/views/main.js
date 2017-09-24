@@ -15,6 +15,7 @@ import {
 import { AdMobInterstitial } from 'react-native-admob';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
+import RNALocation from 'react-native-android-location';
 import store from 'react-native-simple-store';
 import timer from 'react-native-timer';
 
