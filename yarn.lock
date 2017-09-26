@@ -3910,6 +3910,10 @@ react-native-fabric@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/react-native-fabric/-/react-native-fabric-0.5.1.tgz#e5eb65c56196355b41f230c14adcc9c4bcf60dda"
 
+react-native-fused-location@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-fused-location/-/react-native-fused-location-0.0.9.tgz#379e153ee58983c957efda38f9c8ceec51a05ed8"
+
 "react-native-location@github:timfpark/react-native-location#723d46382d8c370f6e6b795006276f98e80b2d84":
   version "0.14.3"
   resolved "https://codeload.github.com/timfpark/react-native-location/tar.gz/723d46382d8c370f6e6b795006276f98e80b2d84"

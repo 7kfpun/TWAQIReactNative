@@ -6,6 +6,7 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
+  PermissionsAndroid,
   Text,
   TouchableOpacity,
   View,
@@ -13,9 +14,9 @@ import {
 } from 'react-native';
 
 import { AdMobInterstitial } from 'react-native-admob';
+import FusedLocation from 'react-native-fused-location';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
-import RNALocation from 'react-native-android-location';
 import store from 'react-native-simple-store';
 import timer from 'react-native-timer';
 
@@ -162,13 +163,27 @@ export default class MainView extends Component {
     gpsEnabled: false,
   };
 
-  componentDidMount() {
-    let first = true;
+  async componentDidMount() {
+    this.prepareLocations();
+    this.prepareData();
+
+    timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
+
+    if (!__DEV__ && false) {
+      // disable popup ads
+      const FIVE_SECONDS = 5 * 1000;
+      timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
+        AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
+      }, FIVE_SECONDS);
+    }
+
     if (Platform.OS === 'ios') {
       RNLocation.requestWhenInUseAuthorization();
       // RNLocation.requestAlwaysAuthorization();
       RNLocation.startUpdatingLocation();
       RNLocation.setDistanceFilter(5.0);
+
+      let first = true;
       DeviceEventEmitter.addListener('locationUpdated', (location) => {
         console.log('Location updated', location);
         this.setState({
@@ -190,45 +205,57 @@ export default class MainView extends Component {
         }
       });
     } else {
-      DeviceEventEmitter.addListener('updateLocation', (location) => {
-        console.log('Location updated', location);
-        this.setState({
-          location: {
-            latitude: location.Latitude,
-            longitude: location.Longitude,
-          },
-          gpsEnabled: true,
-        });
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: '應用程序需要訪問您的位置',
+          message: '應用程序需要訪問您的位置',
+        },
+      );
+      console.log('granted', granted);
+      if (granted) {
+        FusedLocation.setLocationPriority(FusedLocation.Constants.HIGH_ACCURACY);
 
-        if (first) {
-          first = false;
-          if (MainView.isOutOfBound(location.Latitude, location.Longitude)) {
-            timer.setTimeout(this, 'MoveToTaiwan', () => {
-              this.map.animateToRegion(MainView.getTaiwanLocation());
-            }, 1000);
+        console.log('Getting GPS location');
+        // Get location once.
+        const location = await FusedLocation.getFusedLocation();
+        if (location.latitude && location.longitude) {
+          this.setState({
+            location: {
+              latitude: location.latitude,
+              longitude: location.longitude,
+            },
+            gpsEnabled: true,
+          });
+
+          if (MainView.isOutOfBound(location.latitude, location.longitude)) {
+            this.map.animateToRegion(MainView.getTaiwanLocation());
           } else {
-            timer.setTimeout(this, 'MoveToTaiwan', () => {
-              this.map.animateToRegion(this.getCurrentLocation());
-            }, 500);
+            this.map.animateToRegion(this.getCurrentLocation());
           }
         }
-      });
 
-      // Initialize RNALocation
-      RNALocation.getLocation();
-    }
+        // Set options.
+        FusedLocation.setLocationPriority(FusedLocation.Constants.BALANCED);
+        FusedLocation.setLocationInterval(3000);
+        FusedLocation.setFastestLocationInterval(1500);
+        FusedLocation.setSmallestDisplacement(10);
 
-    this.prepareLocations();
-    this.prepareData();
+        // Keep getting updated location.
+        FusedLocation.startLocationUpdates();
 
-    timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
-
-    if (!__DEV__ && false) {
-      // disable popup ads
-      const FIVE_SECONDS = 5 * 1000;
-      timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
-        AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
-      }, FIVE_SECONDS);
+        // Place listeners.
+        this.subscription = FusedLocation.on('fusedLocation', (updatedLocation) => {
+          console.log('GPS location updated', updatedLocation);
+          this.setState({
+            location: {
+              latitude: updatedLocation.latitude,
+              longitude: updatedLocation.longitude,
+            },
+            gpsEnabled: true,
+          });
+        });
+      }
     }
   }
 
