@@ -22,6 +22,7 @@ import timer from 'react-native-timer';
 
 import AdMob from '../elements/admob';
 import Marker from '../elements/marker';
+import Rating from '../elements/rating';
 
 import { indexes } from '../utils/indexes';
 import aqi from '../utils/aqi';
@@ -381,6 +382,8 @@ export default class MainView extends Component {
           {/* <TouchableOpacity style={styles.help} onPress={() => navigate('Help')} >
             <Icon name="help-outline" size={26} color="#616161" />
           </TouchableOpacity> */}
+
+          <Rating />
 
           {this.state.gpsEnabled && <TouchableOpacity
             style={styles.currentLocation}
