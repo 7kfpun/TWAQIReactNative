@@ -15,7 +15,7 @@ import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 4,
+    paddingVertical: 6,
   },
   switchBlock: {
     flexDirection: 'row',
@@ -24,17 +24,15 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
   },
-  addressText: {
-    fontSize: 14,
-    fontWeight: '100',
-  },
   noticeText: {
     fontSize: 14,
     fontWeight: '100',
+    paddingBottom: 8,
   },
   noticeWarningText: {
     fontSize: 10,
-    marginBottom: 15,
+    paddingTop: 8,
+    paddingBottom: 15,
   },
 });
 
@@ -112,7 +110,6 @@ export default class SettingsItem extends Component {
         <View style={styles.switchBlock}>
           <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
             <Text style={styles.text}>{item.SiteName}</Text>
-            {/* <Text style={styles.addressText}>{` ${item.SiteAddress}`}</Text> */}
           </View>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
             <Switch
