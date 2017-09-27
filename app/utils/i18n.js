@@ -19,14 +19,10 @@ I18n.translations = {
     notify_cleanliness_title: '當空氣質素優良時通知我',
     notify_cleanliness_therhold: 'AQI 指數低於',
     aqi_full: '空氣質素指數（AQI）',
-    aqhi_full: '空氣質素健康指數（AQHI）',
-    last_update: '更新時間',
-
 
     permissions_required: '請允許通知以獲取最新空氣質素報告',
     too_small_therhold: '您所設定的值偏低，或將會收到很多通知',
     too_large_therhold: '您所設定的值偏高，或將會收到很多通知',
-
 
     help_definition: '空氣品質指標的定義',
   },

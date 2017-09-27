@@ -147,7 +147,7 @@ export default class SettingsView extends Component {
         return 1;
       }
       return 0;
-    }
+    };
 
     const that = this;
     store.get('locationsCache').then((locationsCache) => {
@@ -165,10 +165,6 @@ export default class SettingsView extends Component {
         }
       });
     });
-  }
-
-  popSettings() {
-    SettingsView.checkPermissions();
   }
 
   render() {

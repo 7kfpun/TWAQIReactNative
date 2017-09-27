@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Linking,
   Platform,
@@ -12,6 +12,7 @@ import * as StoreReview from 'react-native-store-review';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import StarRating from 'react-native-star-rating';
 import store from 'react-native-simple-store';
+import timer from 'react-native-timer';
 
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Rating extends React.Component {
+export default class Rating extends Component {
   static openFeedbackUrl() {
     const url = 'https://goo.gl/forms/1WcZFmVjQJkrLqJi1';
     Linking.canOpenURL(url).then((supported) => {
@@ -77,6 +78,15 @@ export default class Rating extends React.Component {
         that.setState({ isRatingGiven });
       }
     });
+
+    timer.clearTimeout(this, 'ShowRatingBlock');
+    timer.setTimeout(this, 'ShowRatingBlock', () => {
+      this.setState({ isRatingClose: false });
+    }, TEN_MINUTES);
+  }
+
+  componentWillUnmount() {
+    timer.clearTimeout(this, 'ShowRatingBlock');
   }
 
   onStarRatingPress(rating) {
@@ -103,7 +113,7 @@ export default class Rating extends React.Component {
   }
 
   render() {
-    if (this.state.isRatingGiven || this.state.isRatingClose || Platform.OS === 'android') {
+    if (this.state.isRatingGiven || this.state.isRatingClose) {
       return null;
     }
 
