@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import StarRating from 'react-native-star-rating';
 import store from 'react-native-simple-store';
 
+import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
 const STARS_TO_APP_STORE = 4;
@@ -32,7 +33,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#3B5998',
     borderRadius: 2,
   },
-  text: {
+  ratingTitleText: {
+    fontSize: 14,
+    marginTop: 20,
+  },
+  ratingDescriptionText: {
+    fontSize: 12,
+    marginVertical: 15,
+  },
+  feedbackDescriptionText: {
     color: 'white',
     fontSize: 14,
   },
@@ -103,8 +112,8 @@ export default class Rating extends React.Component {
         <Icon name="clear" size={24} color="#616161" />
       </TouchableOpacity>
       <Icon name="thumb-up" size={32} color="#616161" />
-      <Text style={{ fontSize: 14, marginTop: 20 }}>{'喜歡「台灣空氣品質指標」嗎？'}</Text>
-      <Text style={{ fontSize: 12, marginVertical: 15 }}>{'請給我們5顆星以鼓勵我們'}</Text>
+      <Text style={styles.ratingTitleText}>{I18n.t('rating_title')}</Text>
+      <Text style={styles.ratingDescriptionText}>{I18n.t('rating_description')}</Text>
       <StarRating
         starSize={36}
         rating={this.state.starCount}
@@ -114,7 +123,7 @@ export default class Rating extends React.Component {
       && this.state.starCount < STARS_TO_APP_STORE
       && <TouchableOpacity onPress={() => Rating.openFeedbackUrl()}>
         <Animatable.View style={styles.button} animation="fadeIn">
-          <Text style={styles.text}>{'我們很需要您給點建議，讓此APP越來越好。'}</Text>
+          <Text style={styles.feedbackDescriptionText}>{I18n.t('feedback_description')}</Text>
         </Animatable.View>
       </TouchableOpacity>}
     </Animatable.View>);

@@ -26,8 +26,9 @@ import Rating from '../elements/rating';
 
 import { indexes } from '../utils/indexes';
 import aqi from '../utils/aqi';
-import tracker from '../utils/tracker';
+import I18n from '../utils/i18n';
 import locations from '../utils/locations';
+import tracker from '../utils/tracker';
 
 const { width, height } = Dimensions.get('window');
 
@@ -132,7 +133,7 @@ export default class MainView extends Component {
   static navigationOptions = {
     header: null,
     title: 'Main',
-    tabBarLabel: '地圖',
+    tabBarLabel: I18n.t('main'),
     tabBarIcon: ({ tintColor }) => (
       <Icon name="place" size={20} color={tintColor || 'gray'} />
     ),

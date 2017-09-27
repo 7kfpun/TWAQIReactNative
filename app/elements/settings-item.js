@@ -10,6 +10,7 @@ import {
 
 import OneSignal from 'react-native-onesignal';
 
+import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
@@ -123,7 +124,7 @@ export default class SettingsItem extends Component {
         </View>
 
         {this.state.isEnabled && <View style={{ paddingTop: 10 }}>
-          <Text style={styles.noticeText}>{'AQI 指數超過'}: {this.state.pollutionTherhold}</Text>
+          <Text style={styles.noticeText}>{I18n.t('notify_pollution_therhold')}: {this.state.pollutionTherhold}</Text>
           <Slider
             style={{ width: window.width - 20 }}
             step={1}
@@ -132,9 +133,9 @@ export default class SettingsItem extends Component {
             maximumValue={500}
             onValueChange={value => this.setNotificationPollutionTherhold(value)}
           />
-          {this.state.pollutionTherhold < DEFAULT_POLLUTION_THERHOLD && <Text style={styles.noticeWarningText}>{'您所設定的值偏低，或會收到很多通知'}</Text>}
+          {this.state.pollutionTherhold < DEFAULT_POLLUTION_THERHOLD && <Text style={styles.noticeWarningText}>{I18n.t('too_small_therhold')}</Text>}
 
-          <Text style={styles.noticeText}>{'AQI 指数低于'}: {this.state.cleanlinessTherhold}</Text>
+          <Text style={styles.noticeText}>{I18n.t('notify_cleanliness_therhold')}: {this.state.cleanlinessTherhold}</Text>
           <Slider
             style={{ width: window.width - 20 }}
             step={1}
@@ -143,7 +144,7 @@ export default class SettingsItem extends Component {
             maximumValue={500}
             onValueChange={value => this.setNotificationCleanlinessTherhold(value)}
           />
-          {this.state.cleanlinessTherhold > DEFAULT_CLEANLINESS_THERHOLD && <Text style={styles.noticeWarningText}>{'您所設定的值偏高，或會收到很多通知'}</Text>}
+          {this.state.cleanlinessTherhold > DEFAULT_CLEANLINESS_THERHOLD && <Text style={styles.noticeWarningText}>{I18n.t('too_large_therhold')}</Text>}
         </View>}
       </View>
     );

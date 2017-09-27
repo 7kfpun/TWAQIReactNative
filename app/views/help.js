@@ -9,6 +9,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import AdMob from '../elements/admob';
+
+import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
@@ -156,7 +158,7 @@ export default class HelpView extends Component {
   static navigationOptions = {
     header: null,
     title: 'Help',
-    tabBarLabel: '幫助',
+    tabBarLabel: I18n.t('help'),
     tabBarIcon: ({ tintColor }) => (
       <Icon name="info-outline" size={21} color={tintColor || 'gray'} />
     ),
@@ -167,7 +169,7 @@ export default class HelpView extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
-          <Text style={styles.title}>{'空氣品質指標的定義'}</Text>
+          <Text style={styles.title}>{I18n.t('help_definition')}</Text>
         </View>
         <ScrollView>
           <View style={styles.block}>

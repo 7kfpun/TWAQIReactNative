@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  groupNameBlock: {
+    paddingVertical: 5,
+  },
   text: {
     fontSize: 16,
   },
@@ -33,6 +36,9 @@ const styles = StyleSheet.create({
   noticeWarningText: {
     fontSize: 10,
     marginBottom: 15,
+  },
+  list: {
+    paddingVertical: 10,
   },
 });
 
@@ -73,12 +79,12 @@ export default class SettingsGroup extends Component {
             tracker.logEvent('toggle-group', { label: groupName });
           }}
         >
-          <View style={{ paddingVertical: 5 }}>
+          <View style={styles.groupNameBlock}>
             <Text style={styles.text}>{groupName}</Text>
           </View>
         </TouchableOpacity>
         {this.state.isOpen && <FlatList
-          style={{ paddingVertical: 10 }}
+          style={styles.list}
           data={this.state.locations}
           keyExtractor={(item, index) => `${index}-${item.key}`}
           renderItem={({ item }) => <SettingsItem item={item} />}
