@@ -1,17 +1,21 @@
 import {
   Dimensions,
   PixelRatio,
+  Platform,
 } from 'react-native';
 
 // import { Answers } from 'react-native-fabric';
 import Analytics from 'analytics-react-native';
 import DeviceInfo from 'react-native-device-info';
+// import crashlytics from 'react-native-fabric-crashlytics';
 
 import { config } from '../config';
 
 const { width, height } = Dimensions.get('window');
 
 const analytics = new Analytics(config.segment);
+
+// crashlytics.init();
 
 const userId = DeviceInfo.getUniqueID();
 
@@ -78,7 +82,9 @@ const tracker = {
       const message = { userId, event, properties, context };
       console.log(message);
       analytics.track(message);
-      // Answers.logCustom(event, properties);
+      if (Platform.OS !== 'ios') {
+        Answers.logCustom(event, properties);
+      }
     }
   },
   view: (screen, properties) => {
@@ -86,7 +92,9 @@ const tracker = {
       const message = { userId, screen, properties, context };
       console.log(message);
       analytics.screen(message);
-      // Answers.logContentView(screen, '', '', properties);
+      if (Platform.OS !== 'ios') {
+        Answers.logContentView(screen, '', '', properties);
+      }
     }
   },
 };

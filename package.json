@@ -20,6 +20,7 @@
 		"react-native-animatable": "^1.2.3",
 		"react-native-device-info": "^0.11.0",
 		"react-native-fabric": "^0.5.1",
+		"react-native-fabric-crashlytics": "^0.1.8",
 		"react-native-fused-location": "^0.0.9",
 		"react-native-i18n": "^2.0.6",
 		"react-native-location": "github:timfpark/react-native-location#723d46382d8c370f6e6b795006276f98e80b2d84",
