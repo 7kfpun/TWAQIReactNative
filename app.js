@@ -8,6 +8,7 @@ import { TabNavigator } from 'react-navigation';
 import Main from './app/views/main';
 import Help from './app/views/help';
 import Settings from './app/views/settings';
+import Contact from './app/views/contact';
 
 import { config } from './app/config';
 
@@ -21,6 +22,7 @@ const App = TabNavigator({
   Main: { screen: Main },
   Settings: { screen: Settings },
   Help: { screen: Help },
+  Contact: { screen: Contact },
 }, {
   headerMode: 'none',
   swipeEnabled: true,

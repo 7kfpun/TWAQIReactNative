@@ -7,10 +7,11 @@ I18n.translations = {
     main: '地圖',
     settings: '通知設定',
     help: '幫助',
+    contact: '聯絡',
 
     rating_title: '喜歡「台灣空氣品質指標」嗎？',
     rating_description: '請給我們5顆星以鼓勵我們',
-    feedback_description: '我們很需要您給點建議，讓此APP越來越好。',
+    feedback_description: '我們很需要您給點意見，讓此APP越做越好。',
 
     notify_title: '空氣質素通知',
 
@@ -25,6 +26,8 @@ I18n.translations = {
     too_large_therhold: '您所設定的值偏高，或將會收到很多通知',
 
     help_definition: '空氣品質指標的定義',
+
+    contact_title: '聯絡我們',
   },
 };
 
