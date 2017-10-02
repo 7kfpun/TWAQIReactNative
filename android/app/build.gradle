@@ -1,5 +1,20 @@
 apply plugin: "com.android.application"
 
+buildscript {
+  repositories {
+    maven { url 'https://maven.fabric.io/public' }
+  }
+  dependencies {
+    // The Fabric Gradle plugin uses an open ended version to react
+    // quickly to Android tooling updates
+    classpath 'io.fabric.tools:gradle:1.+'
+  }
+}
+apply plugin: 'io.fabric'
+repositories {
+  maven { url 'https://maven.fabric.io/public' }
+}
+
 import com.android.build.OutputFile
 
 /**
@@ -94,14 +109,17 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.twaqi"
+        applicationId "com.kfpun.twaqi"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+
+        manifestPlaceholders = [onesignal_app_id: ONESIGNAL_APP_ID,
+                                onesignal_google_project_number: ONESIGNAL_GOOGLE_PROJECT_NUMBER]
     }
     splits {
         abi {
@@ -111,10 +129,19 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            storeFile file(TWAQI_RELEASE_STORE_FILE)
+            storePassword TWAQI_RELEASE_STORE_PASSWORD
+            keyAlias TWAQI_RELEASE_KEY_ALIAS
+            keyPassword TWAQI_RELEASE_KEY_PASSWORD
+        }
+    }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -133,6 +160,29 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fabric')
+    compile project(':react-native-i18n')
+    compile project(':react-native-fused-location')
+    compile project(':react-native-android-location')
+    compile project(':react-native-onesignal')
+    compile project(':react-native-device-info')
+    compile project(':react-native-admob')
+    compile project(':react-native-vector-icons')
+
+    compile(project(':react-native-maps')){
+       exclude group: 'com.google.android.gms', module: 'play-services-base'
+       exclude group: 'com.google.android.gms', module: 'play-services-maps'
+    }
+    compile 'com.google.android.gms:play-services-base:+'
+    compile 'com.google.android.gms:play-services-maps:+'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+      transitive = true;
+    }
+    compile("com.crashlytics.sdk.android:answers:1.3.13@aar") {
+        transitive = true;
+    }
+
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
