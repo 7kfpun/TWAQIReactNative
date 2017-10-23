@@ -81,13 +81,15 @@ export default class SettingsItem extends Component {
   }
 
   setNotificationPollutionTherhold(value) {
-    this.setState({ pollutionTherhold: value });
-    this.sendTags();
+    this.setState({ pollutionTherhold: value }, () => {
+      this.sendTags();
+    });
   }
 
   setNotificationCleanlinessTherhold(value) {
-    this.setState({ cleanlinessTherhold: value });
-    this.sendTags();
+    this.setState({ cleanlinessTherhold: value }, () => {
+      this.sendTags();
+    });
   }
 
   sendTags() {

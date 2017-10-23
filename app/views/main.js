@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginBottom: 6,
+    marginBottom: 4,
     backgroundColor: 'transparent',
   },
   bubble: {
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     paddingVertical: 12,
     borderRadius: 20,
-    borderColor: 'white',
+    borderColor: '#EEEEEE',
   },
   selectedBubble: {
     borderColor: '#29B6F6',
@@ -270,8 +270,8 @@ export default class MainView extends Component {
     return {
       latitude: this.state.location.latitude,
       longitude: this.state.location.longitude,
-      latitudeDelta: this.state.gpsEnabled ? 0.6 : LATITUDE_DELTA,
-      longitudeDelta: this.state.gpsEnabled ? 0.6 * ASPECT_RATIO : LONGITUDE_DELTA,
+      latitudeDelta: this.state.gpsEnabled ? 0.2 : LATITUDE_DELTA,
+      longitudeDelta: this.state.gpsEnabled ? 0.2 * ASPECT_RATIO : LONGITUDE_DELTA,
     };
   }
 
