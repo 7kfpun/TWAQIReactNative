@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Platform,
   View,
@@ -30,9 +31,9 @@ export default class AdmobCell extends Component {
 }
 
 AdmobCell.propTypes = {
-  bannerSize: React.PropTypes.string,
-  margin: React.PropTypes.number,
-  backgroundColor: React.PropTypes.string,
+  bannerSize: PropTypes.string,
+  margin: PropTypes.number,
+  backgroundColor: PropTypes.string,
 };
 
 AdmobCell.defaultProps = {
