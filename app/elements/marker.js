@@ -58,13 +58,13 @@ export default class AirMarker extends React.Component {
       color = '#009866';
     } else if (status === '普通') {
       color = '#FEDE33';
-    } else if (status === '對敏感族群不良') {
+    } else if (status === '對敏感族群不良' || status === '對敏感族群不健康') {
       color = '#FE9833';
-    } else if (status === '對所有族群不良') {
+    } else if (status === '對所有族群不良' || status === '對所有族群不健康') {
       color = '#CC0033';
-    } else if (status === '非常不良') {
+    } else if (status === '非常不良' || status === '非常不健康') {
       color = '#660098';
-    } else if (status === '有害') {
+    } else if (status === '有害' || status === '危害') {
       color = '#7E2200';
     } else {
       color = 'gray';
