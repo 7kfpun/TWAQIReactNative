@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class AirMarker extends React.Component {
+export default class AirMarker extends React.PureComponent {
   render() {
     const { fontSize, amount, status } = this.props;
 
