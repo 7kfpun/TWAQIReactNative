@@ -3906,9 +3906,11 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-admob@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/react-native-admob/-/react-native-admob-1.3.2.tgz#bcf9841158b1686361b9328ce7c5b5b0a7791c8a"
+react-native-admob@next:
+  version "2.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/react-native-admob/-/react-native-admob-2.0.0-beta.2.tgz#b803bd144347342c12fd1896504b847d7d43955f"
+  dependencies:
+    prop-types "^15.5.10"
 
 react-native-animatable@^1.2.4:
   version "1.2.4"

@@ -16,14 +16,23 @@ export default class AdmobCell extends Component {
 
   render() {
     return (
-      <View style={{ height: this.state.isReceived ? 50 : 0, margin: this.props.margin, backgroundColor: this.props.backgroundColor }}>
+      <View
+        style={{
+          height: this.state.isReceived ? 50 : 0,
+          margin: this.props.margin,
+          backgroundColor: this.props.backgroundColor,
+          alignItems: this.props.alignItems,
+          justifyContent: 'flex-end',
+        }}
+      >
         <AdMobBanner
           bannerSize={this.props.bannerSize}
           adUnitID={config.admob[Platform.OS].banner}
-          adViewDidReceiveAd={() => {
+          onAdLoaded={() => {
             console.log('Ads received');
             this.setState({ isReceived: true });
           }}
+          onAdFailedToLoad={error => console.log(error)}
         />
       </View>
     );
@@ -34,12 +43,14 @@ AdmobCell.propTypes = {
   bannerSize: PropTypes.string,
   margin: PropTypes.number,
   backgroundColor: PropTypes.string,
+  alignItems: PropTypes.string,
 };
 
 AdmobCell.defaultProps = {
   margin: 0,
   bannerSize: 'smartBannerPortrait',
-  backgroundColor: 'white',
+  backgroundColor: 'rgba(0,0,0,0)',
+  alignItems: 'center',
 };
 
 module.exports = AdmobCell;
