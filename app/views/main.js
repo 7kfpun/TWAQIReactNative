@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import { AdMobInterstitial } from 'react-native-admob';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
 import FusedLocation from 'react-native-fused-location';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
@@ -84,7 +85,11 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   infomationContainer: {
-    top: 35,
+    ...ifIphoneX({
+      top: 35,
+    }, {
+      top: 30,
+    }),
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
@@ -358,12 +363,6 @@ export default class MainView extends Component {
             />}
           </MapView>
 
-          {/* <TouchableOpacity style={styles.menu} onPress={() => navigate('Settings')}>
-            <Animatable.View animation="tada" delay={2000} iterationCount={40}>
-              <Icon name="notifications-active" size={26} color="#616161" />
-            </Animatable.View>
-          </TouchableOpacity> */}
-
           <View style={styles.infomationContainer}>
             <TouchableOpacity
               onPress={() => {
@@ -379,10 +378,6 @@ export default class MainView extends Component {
               </View>
             </TouchableOpacity>
           </View>
-
-          {/* <TouchableOpacity style={styles.help} onPress={() => navigate('Help')} >
-            <Icon name="help-outline" size={26} color="#616161" />
-          </TouchableOpacity> */}
 
           <Rating />
 

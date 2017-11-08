@@ -3969,6 +3969,10 @@ react-native-i18n@^2.0.6:
   dependencies:
     i18n-js "github:fnando/i18n-js#v3.0.1"
 
+react-native-iphone-x-helper@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.0.1.tgz#950dbdaca66f458689a7e9697c5beb9bd53f98f2"
+
 "react-native-location@github:timfpark/react-native-location#723d46382d8c370f6e6b795006276f98e80b2d84":
   version "0.14.3"
   resolved "https://codeload.github.com/timfpark/react-native-location/tar.gz/723d46382d8c370f6e6b795006276f98e80b2d84"
