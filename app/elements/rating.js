@@ -67,22 +67,22 @@ export default class Rating extends Component {
 
   state = {
     starCount: 0,
-    isRatingGiven: false,
-    isRatingClose: false,
+    isRatingClose: true,
   };
 
   componentDidMount() {
+    timer.clearTimeout(this, 'ShowRatingBlock');
+
     const that = this;
     store.get('isRatingGiven').then((isRatingGiven) => {
       if (isRatingGiven) {
-        that.setState({ isRatingGiven });
+        that.setState({ isRatingClose: true });
+      } else {
+        timer.setTimeout(that, 'ShowRatingBlock', () => {
+          that.setState({ isRatingClose: false });
+        }, TEN_MINUTES);
       }
     });
-
-    timer.clearTimeout(this, 'ShowRatingBlock');
-    timer.setTimeout(this, 'ShowRatingBlock', () => {
-      this.setState({ isRatingClose: false });
-    }, TEN_MINUTES);
   }
 
   componentWillUnmount() {
@@ -113,11 +113,11 @@ export default class Rating extends Component {
   }
 
   render() {
-    if (this.state.isRatingGiven || this.state.isRatingClose) {
+    if (this.state.isRatingClose) {
       return null;
     }
 
-    return (<Animatable.View style={styles.container} animation="fadeIn" delay={TEN_MINUTES}>
+    return (<Animatable.View style={styles.container} animation="fadeIn">
       <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
         <Icon name="clear" size={24} color="#616161" />
       </TouchableOpacity>

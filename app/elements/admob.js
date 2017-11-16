@@ -9,7 +9,7 @@ import { AdMobBanner } from 'react-native-admob';
 
 import { config } from '../config';
 
-export default class AdmobCell extends Component {
+export default class Admob extends Component {
   state = {
     isReceived: false,
   };
@@ -39,18 +39,18 @@ export default class AdmobCell extends Component {
   }
 }
 
-AdmobCell.propTypes = {
+Admob.propTypes = {
   bannerSize: PropTypes.string,
   margin: PropTypes.number,
   backgroundColor: PropTypes.string,
   alignItems: PropTypes.string,
 };
 
-AdmobCell.defaultProps = {
+Admob.defaultProps = {
   margin: 0,
   bannerSize: 'smartBannerPortrait',
   backgroundColor: 'rgba(0,0,0,0)',
   alignItems: 'center',
 };
 
-module.exports = AdmobCell;
+module.exports = Admob;
