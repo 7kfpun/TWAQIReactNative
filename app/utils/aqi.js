@@ -19,7 +19,10 @@ const AQI = () => {
   const AQIURL = `${config.aqiUrl}?t=${Math.random()}`;
   return fetch(AQIURL)
     .then(res => res.json())
-    .then(results => toObject(results));
+    .then(results => toObject(results))
+    .catch((err) => {
+      console.log('Request for aqi failed', err);
+    });
 };
 
 export default AQI;

@@ -1,7 +1,7 @@
 import {
   Dimensions,
   PixelRatio,
-  Platform,
+  // Platform,
 } from 'react-native';
 
 // import { Answers } from 'react-native-fabric';
@@ -82,9 +82,9 @@ const tracker = {
       const message = { userId, event, properties, context };
       console.log(message);
       analytics.track(message);
-      if (Platform.OS !== 'ios') {
-        Answers.logCustom(event, properties);
-      }
+      // if (Platform.OS !== 'ios') {
+      //   Answers.logCustom(event, properties);
+      // }
     }
   },
   view: (screen, properties) => {
@@ -92,9 +92,9 @@ const tracker = {
       const message = { userId, screen, properties, context };
       console.log(message);
       analytics.screen(message);
-      if (Platform.OS !== 'ios') {
-        Answers.logContentView(screen, '', '', properties);
-      }
+      // if (Platform.OS !== 'ios') {
+      //   Answers.logContentView(screen, '', '', properties);
+      // }
     }
   },
 };

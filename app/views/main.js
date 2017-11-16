@@ -282,44 +282,64 @@ export default class MainView extends Component {
 
   prepareLocations() {
     const that = this;
-    store.get('locationsCache').then((locationsCache) => {
-      if (locationsCache && locationsCache.length > 0) {
-        that.setState({ locations: locationsCache });
+    store.delete('locationsCache');
+    locations().then((result) => {
+      if (result && Array.isArray(result) && result.length > 0) {
+        console.log('Locations:', result);
+        that.setState({ locations: result });
       }
-
-      locations().then((result) => {
-        if (result && result.length > 0) {
-          console.log('Locations:', result);
-          that.setState({ locations: result });
-          store.save('locationsCache', result);
-        }
-      });
     });
+
+    // store.get('locationsCache').then((locationsCache) => {
+    //   if (locationsCache && Array.isArray(locationsCache) && locationsCache.length > 0) {
+    //     that.setState({ locations: locationsCache });
+    //   }
+    //
+    //   locations().then((result) => {
+    //     if (result && Array.isArray(result) && result.length > 0) {
+    //       console.log('Locations:', result);
+    //       that.setState({ locations: result });
+    //       store.save('locationsCache', result);
+    //     }
+    //   });
+    // });
   }
 
   prepareData() {
     this.setState({ isLoading: true }, () => {
       const that = this;
-      store.get('aqiResult').then((aqiResult) => {
-        if (aqiResult) {
-          that.setState({
-            aqiResult,
-            // isLoading: false,
-          });
+      store.delete('aqiResult');
+      aqi().then((result) => {
+        const keys = Object.keys(result || {}).length;
+        console.log('AQI:', result);
+        console.log('AQI length:', keys);
+        if (result && keys > 0) {
+          that.setState({ aqiResult: result });
         }
 
-        aqi().then((result) => {
-          const keys = Object.keys(result || {}).length;
-          console.log('AQI:', result);
-          console.log('AQI length:', keys);
-          if (result && keys > 0) {
-            that.setState({ aqiResult: result });
-            store.save('aqiResult', result);
-          }
-
-          that.setState({ isLoading: false });
-        });
+        that.setState({ isLoading: false });
       });
+
+      // store.get('aqiResult').then((aqiResult) => {
+      //   if (aqiResult) {
+      //     that.setState({
+      //       aqiResult,
+      //       // isLoading: false,
+      //     });
+      //   }
+      //
+      //   aqi().then((result) => {
+      //     const keys = Object.keys(result || {}).length;
+      //     console.log('AQI:', result);
+      //     console.log('AQI length:', keys);
+      //     if (result && keys > 0) {
+      //       that.setState({ aqiResult: result });
+      //       store.save('aqiResult', result);
+      //     }
+      //
+      //     that.setState({ isLoading: false });
+      //   });
+      // });
     });
   }
 

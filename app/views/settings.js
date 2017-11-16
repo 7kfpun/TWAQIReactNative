@@ -168,21 +168,30 @@ export default class SettingsView extends Component {
     };
 
     const that = this;
-    store.get('locationsCache').then((locationsCache) => {
-      if (locationsCache && locationsCache.length > 0) {
-        const countys = uniq(locationsCache.sort(compare).map(item => item.County));
+    store.delete('locationsCache');
+    locations().then((result) => {
+      if (result && result.length > 0) {
+        console.log('Locations:', result);
+        const countys = uniq(result.sort(compare).map(item => item.County));
         that.setState({ locations: countys });
       }
-
-
-      locations().then((result) => {
-        if (result && result.length > 0) {
-          console.log('Locations:', result);
-          const countys = uniq(result.sort(compare).map(item => item.County));
-          that.setState({ locations: countys });
-        }
-      });
     });
+
+    // store.get('locationsCache').then((locationsCache) => {
+    //   if (locationsCache && locationsCache.length > 0) {
+    //     const countys = uniq(locationsCache.sort(compare).map(item => item.County));
+    //     that.setState({ locations: countys });
+    //   }
+    //
+    //
+    //   locations().then((result) => {
+    //     if (result && result.length > 0) {
+    //       console.log('Locations:', result);
+    //       const countys = uniq(result.sort(compare).map(item => item.County));
+    //       that.setState({ locations: countys });
+    //     }
+    //   });
+    // });
   }
 
   render() {
