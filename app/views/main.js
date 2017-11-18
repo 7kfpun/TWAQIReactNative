@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   currentLocation: {
     position: 'absolute',
     right: 12,
-    bottom: 110,
+    bottom: 102,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -164,6 +164,15 @@ export default class MainView extends Component {
         AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
       }, FIVE_SECONDS);
     }
+
+    const that = this;
+    store.get('selectedIndex').then((selectedIndex) => {
+      if (selectedIndex) {
+        that.setState({
+          selectedIndex,
+        });
+      }
+    });
 
     if (Platform.OS === 'ios') {
       RNLocation.requestWhenInUseAuthorization();
@@ -398,6 +407,7 @@ export default class MainView extends Component {
                 key={item}
                 onPress={() => {
                   this.setState({ selectedIndex: item });
+                  store.save('selectedIndex', item);
                   tracker.logEvent('select-index', { label: item });
                 }}
                 style={[styles.bubble, styles.button, this.state.selectedIndex === item ? styles.selectedBubble : {}]}

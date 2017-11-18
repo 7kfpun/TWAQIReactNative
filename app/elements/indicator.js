@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     left: 12,
-    top: 60,
+    top: 56,
     width: 82,
     flexDirection: 'column',
     backgroundColor: 'transparent',
@@ -42,29 +42,41 @@ const colors = [{
   key: 0,
   status: '良好',
   color: '#009866',
+  min: 0,
+  max: 50,
 }, {
   key: 1,
   status: '普通',
   color: '#FEDE33',
+  min: 51,
+  max: 100,
 }, {
   key: 2,
   status: '對敏感族群不良',
   color: '#FE9833',
+  min: 101,
+  max: 150,
 }, {
   key: 3,
   status: '對所有族群不良',
   color: '#CC0033',
+  min: 151,
+  max: 200,
 }, {
   key: 4,
   status: '非常不良',
   color: '#660098',
+  min: 201,
+  max: 300,
 }, {
   key: 5,
   status: '有害',
   color: '#7E2200',
+  min: 301,
+  max: 500,
 }];
 
-export default class Indicator extends PureComponent {
+export default class Indicator extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>
