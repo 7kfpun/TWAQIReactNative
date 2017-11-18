@@ -6,6 +6,8 @@ import {
   Text,
 } from 'react-native';
 
+import { indexRanges } from '../utils/indexes';
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
@@ -44,37 +46,22 @@ const styles = StyleSheet.create({
 
 export default class AirMarker extends React.PureComponent {
   render() {
-    const { fontSize, amount, status } = this.props;
-
-    let color;
-
-    // 0-50 Good Air pollution risk is low.
-    // 51-100 Moderate Air quality is acceptable.
-    // 101-150 Unhealthy for high-risk group High-risk group may have health effects. General public is not affected.
-    // 151-200 Unhealthy High-risk group may have more serious health effects. Some of the general public may have health effects.
-    // 201-300 Very Unhealthy General public have health effects.
-    // 301-500 Hazardous Some of the general public may have more serious health effects.
-    if (status === '良好') {
-      color = '#009866';
-    } else if (status === '普通') {
-      color = '#FEDE33';
-    } else if (status === '對敏感族群不良' || status === '對敏感族群不健康') {
-      color = '#FE9833';
-    } else if (status === '對所有族群不良' || status === '對所有族群不健康') {
-      color = '#CC0033';
-    } else if (status === '非常不良' || status === '非常不健康') {
-      color = '#660098';
-    } else if (status === '有害' || status === '危害') {
-      color = '#7E2200';
-    } else {
-      color = 'gray';
-    }
+    const { index, fontSize, amount } = this.props;
+    let color = 'gray';
 
     let showAmount;
-    if (amount === '/*' || amount === '-*' || amount === '-/-' || amount === '/-' || !amount) {
+    if (amount === '-' || amount === '-0.1' || amount === '/*' || amount === '-*' || amount === '-/-' || amount === '/-' || !amount) {
       showAmount = '-';
+    } else if (amount === 'ND') {
+      showAmount = '-';
+      color = '#009866';
     } else {
       showAmount = amount;
+
+      const isMatched = indexRanges[index].filter(item => amount >= item.min && amount <= item.max);
+      if (isMatched && isMatched.length >= 1) {
+        color = isMatched[0].color;
+      }
     }
 
     return (
@@ -90,11 +77,13 @@ export default class AirMarker extends React.PureComponent {
 }
 
 AirMarker.propTypes = {
+  index: PropTypes.string.isRequired,
   amount: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   fontSize: PropTypes.number,
 };
 AirMarker.defaultProps = {
+  index: 'AQI',
   amount: '-',
   fontSize: 16,
 };

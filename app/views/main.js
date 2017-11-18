@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   currentLocation: {
     position: 'absolute',
     right: 12,
-    bottom: 102,
+    bottom: 104,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   bubble: {
-    height: 38,
+    height: 42,
     borderWidth: 2,
     backgroundColor: 'rgba(255,255,255,0.9)',
     paddingHorizontal: 2,
@@ -401,7 +401,7 @@ export default class MainView extends Component {
         </TouchableOpacity>}
 
         <View>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ height: 40, flexGrow: 0 }}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ height: 45, flexGrow: 0 }}>
             {indexes.map(item => (
               <TouchableOpacity
                 key={item}
@@ -409,6 +409,7 @@ export default class MainView extends Component {
                   this.setState({ selectedIndex: item });
                   store.save('selectedIndex', item);
                   tracker.logEvent('select-index', { label: item });
+                  console.log('Select index', item);
                 }}
                 style={[styles.bubble, styles.button, this.state.selectedIndex === item ? styles.selectedBubble : {}]}
               >

@@ -18,7 +18,7 @@ import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
 const STARS_TO_APP_STORE = 4;
-const TEN_MINUTES = 10 * 60 * 1000;
+const TEN_MINUTES = 15 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
