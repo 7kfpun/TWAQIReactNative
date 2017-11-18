@@ -22,6 +22,7 @@ import store from 'react-native-simple-store';
 import timer from 'react-native-timer';
 
 import AdMob from '../elements/admob';
+import Indicator from '../elements/indicator';
 import Marker from '../elements/marker';
 import Rating from '../elements/rating';
 
@@ -47,31 +48,10 @@ const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   map: {
     ...StyleSheet.absoluteFillObject,
-  },
-  menu: {
-    position: 'absolute',
-    left: 15,
-    top: 30,
-    backgroundColor: 'rgba(255,255,255,0.9)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 44,
-    width: 44,
-    borderRadius: 22,
-  },
-  help: {
-    position: 'absolute',
-    right: 15,
-    top: 30,
-    backgroundColor: 'rgba(255,255,255,0.9)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 44,
-    width: 44,
-    borderRadius: 22,
   },
   currentLocation: {
     position: 'absolute',
@@ -84,7 +64,7 @@ const styles = StyleSheet.create({
     width: 48,
     borderRadius: 24,
   },
-  infomationContainer: {
+  refreshContainer: {
     ...ifIphoneX({
       top: 35,
     }, {
@@ -94,17 +74,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
     backgroundColor: 'transparent',
-  },
-  infomationBubble: {
     paddingHorizontal: 16,
     paddingVertical: 6,
     borderRadius: 16,
   },
-  infomationBubbleBody: {
+  refreshContainerBody: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  infomationBubbleText: {
+  refreshContainerText: {
     fontSize: 12,
   },
   buttonContainer: {
@@ -113,12 +91,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   bubble: {
+    height: 38,
     borderWidth: 2,
     backgroundColor: 'rgba(255,255,255,0.9)',
     paddingHorizontal: 2,
     paddingVertical: 12,
     borderRadius: 20,
     borderColor: '#EEEEEE',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   selectedBubble: {
     borderColor: '#29B6F6',
@@ -346,92 +327,89 @@ export default class MainView extends Component {
   render() {
     tracker.view('Main');
     return (
-      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-        <View style={styles.container}>
-          <MapView
-            style={styles.map}
-            ref={(ref) => { this.map = ref; }}
-            initialRegion={this.getCurrentLocation()}
-            onRegionChange={region => this.onRegionChange(region)}
-          >
-            {this.state.aqiResult && this.state.locations.map((location) => {
-              const title = `${location.SiteName} ${this.state.selectedIndex} 值為 ${(this.state.aqiResult[location.SiteName] && this.state.aqiResult[location.SiteName][this.state.selectedIndex]) || '-'}`;
+      <View style={styles.container}>
+        <MapView
+          style={styles.map}
+          ref={(ref) => { this.map = ref; }}
+          initialRegion={this.getCurrentLocation()}
+          onRegionChange={region => this.onRegionChange(region)}
+        >
+          {this.state.aqiResult && this.state.locations.map((location) => {
+            const title = `${location.SiteName} ${this.state.selectedIndex} 值為 ${(this.state.aqiResult[location.SiteName] && this.state.aqiResult[location.SiteName][this.state.selectedIndex]) || '-'}`;
 
-              return (<MapView.Marker
-                key={location.SiteEngName}
-                coordinate={{
-                  latitude: parseFloat(location.TWD97Lat),
-                  longitude: parseFloat(location.TWD97Lon),
-                }}
-                title={title}
-                // description={location.SiteAddress}
-                onPress={() => {
-                  this.setState({ selectedLocation: location.SiteName });
-                  tracker.logEvent('select-location', location);
-                }}
-              >
-                {this.state.aqiResult[location.SiteName] && <Marker
-                  amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
-                  index={this.state.selectedIndex}
-                  status={this.state.aqiResult[location.SiteName].Status}
-                />}
-              </MapView.Marker>);
-            })}
-
-            {this.state.gpsEnabled && this.state.location && <MapView.Marker
-              coordinate={this.state.location}
-            />}
-          </MapView>
-
-          <View style={styles.infomationContainer}>
-            <TouchableOpacity
-              onPress={() => {
-                this.prepareData();
-                tracker.logEvent('fetch-latest-data');
+            return (<MapView.Marker
+              key={location.SiteEngName}
+              coordinate={{
+                latitude: parseFloat(location.TWD97Lat),
+                longitude: parseFloat(location.TWD97Lon),
               }}
-              style={styles.infomationBubble}
+              title={title}
+              // description={location.SiteAddress}
+              onPress={() => {
+                this.setState({ selectedLocation: location.SiteName });
+                tracker.logEvent('select-location', location);
+              }}
             >
-              <View style={styles.infomationBubbleBody}>
-                <Text style={styles.infomationBubbleText}>{this.state.aqiResult && this.state.aqiResult['中山'] && this.state.aqiResult['中山'].PublishTime}</Text>
-                {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
-                {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
-              </View>
-            </TouchableOpacity>
+              {this.state.aqiResult[location.SiteName] && <Marker
+                amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
+                index={this.state.selectedIndex}
+                status={this.state.aqiResult[location.SiteName].Status}
+              />}
+            </MapView.Marker>);
+          })}
+
+          {this.state.gpsEnabled && this.state.location && <MapView.Marker
+            coordinate={this.state.location}
+          />}
+        </MapView>
+
+        <TouchableOpacity
+          onPress={() => {
+            this.prepareData();
+            tracker.logEvent('fetch-latest-data');
+          }}
+          style={styles.refreshContainer}
+        >
+          <View style={styles.refreshContainerBody}>
+            <Text style={styles.refreshContainerText}>{this.state.aqiResult && this.state.aqiResult['中山'] && this.state.aqiResult['中山'].PublishTime}</Text>
+            {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
+            {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
           </View>
+        </TouchableOpacity>
 
-          <Rating />
+        <Indicator />
 
-          {this.state.gpsEnabled && <TouchableOpacity
-            style={styles.currentLocation}
-            onPress={() => {
-              this.map.animateToRegion(this.getCurrentLocation());
-              tracker.logEvent('move-to-current-location');
-            }}
-          >
-            <Icon name="near-me" size={26} color="#616161" />
-          </TouchableOpacity>}
+        <Rating />
 
-          <View>
-            <View style={styles.buttonContainer}>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {indexes.map(item => (
-                  <TouchableOpacity
-                    key={item}
-                    onPress={() => {
-                      this.setState({ selectedIndex: item });
-                      tracker.logEvent('select-index', { label: item });
-                    }}
-                    style={[styles.bubble, styles.button, this.state.selectedIndex === item ? styles.selectedBubble : {}]}
-                  >
-                    <Text style={styles.text}>{item}</Text>
-                  </TouchableOpacity>
-                ))}
-              </ScrollView>
-            </View>
+        {this.state.gpsEnabled && <TouchableOpacity
+          style={styles.currentLocation}
+          onPress={() => {
+            this.map.animateToRegion(this.getCurrentLocation());
+            tracker.logEvent('move-to-current-location');
+          }}
+        >
+          <Icon name="near-me" size={26} color="#616161" />
+        </TouchableOpacity>}
 
-            <AdMob />
-          </View>
+        <View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ height: 40, flexGrow: 0 }}>
+            {indexes.map(item => (
+              <TouchableOpacity
+                key={item}
+                onPress={() => {
+                  this.setState({ selectedIndex: item });
+                  tracker.logEvent('select-index', { label: item });
+                }}
+                style={[styles.bubble, styles.button, this.state.selectedIndex === item ? styles.selectedBubble : {}]}
+              >
+                <Text style={styles.text}>{item}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+
+          <AdMob />
         </View>
+
       </View>
     );
   }

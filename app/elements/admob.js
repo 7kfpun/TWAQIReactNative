@@ -52,5 +52,3 @@ Admob.defaultProps = {
   backgroundColor: 'rgba(0,0,0,0)',
   alignItems: 'center',
 };
-
-module.exports = Admob;
