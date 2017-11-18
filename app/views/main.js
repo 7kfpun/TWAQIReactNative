@@ -53,6 +53,17 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
+  defaultLocation: {
+    position: 'absolute',
+    right: 12,
+    bottom: 162,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 48,
+    width: 48,
+    borderRadius: 24,
+  },
   currentLocation: {
     position: 'absolute',
     right: 12,
@@ -131,7 +142,7 @@ export default class MainView extends Component {
     return distance > OUT_OF_BOUND;
   }
 
-  static getTaiwanLocation() {
+  static getDefaultLocation() {
     return {
       latitude: LATITUDE,
       longitude: LONGITUDE,
@@ -192,7 +203,7 @@ export default class MainView extends Component {
           first = false;
           if (MainView.isOutOfBound(location.coords.latitude, location.coords.longitude)) {
             timer.setTimeout(this, 'MoveToTaiwan', () => {
-              this.map.animateToRegion(MainView.getTaiwanLocation());
+              this.map.animateToRegion(MainView.getDefaultLocation());
             }, 800);
           } else {
             timer.setTimeout(this, 'MoveToTaiwan', () => {
@@ -226,7 +237,7 @@ export default class MainView extends Component {
           });
 
           if (MainView.isOutOfBound(location.latitude, location.longitude)) {
-            this.map.animateToRegion(MainView.getTaiwanLocation());
+            this.map.animateToRegion(MainView.getDefaultLocation());
           } else {
             this.map.animateToRegion(this.getCurrentLocation());
           }
@@ -389,6 +400,16 @@ export default class MainView extends Component {
         <Indicator />
 
         <Rating />
+
+        {<TouchableOpacity
+          style={styles.defaultLocation}
+          onPress={() => {
+            this.map.animateToRegion(MainView.getDefaultLocation());
+            tracker.logEvent('move-to-default-location');
+          }}
+        >
+          <Icon name="crop-free" size={26} color="#616161" />
+        </TouchableOpacity>}
 
         {this.state.gpsEnabled && <TouchableOpacity
           style={styles.currentLocation}

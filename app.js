@@ -26,7 +26,7 @@ const App = TabNavigator({
   Contact: { screen: Contact },
 }, {
   headerMode: 'none',
-  swipeEnabled: true,
+  swipeEnabled: false,
   animationEnabled: true,
   tabBarOptions: {
     activeTintColor: '#29B6F6',

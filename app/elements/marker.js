@@ -50,7 +50,7 @@ export default class AirMarker extends React.PureComponent {
     let color = 'gray';
 
     let showAmount;
-    if (amount === '-' || amount === '-0.1' || amount === '/*' || amount === '-*' || amount === '-/-' || amount === '/-' || !amount) {
+    if (amount === '-' || amount < '0' || amount === '/*' || amount === '-*' || amount === '-/-' || amount === '/-' || !amount) {
       showAmount = '-';
     } else if (amount === 'ND') {
       showAmount = '-';
