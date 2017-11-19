@@ -163,7 +163,6 @@ dependencies {
     compile project(':react-native-fabric')
     compile project(':react-native-i18n')
     compile project(':react-native-fused-location')
-    compile project(':react-native-android-location')
     compile project(':react-native-onesignal')
     compile project(':react-native-device-info')
     compile project(':react-native-admob')

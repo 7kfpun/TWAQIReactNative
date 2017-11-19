@@ -6,7 +6,6 @@ import com.facebook.react.ReactApplication;
 import com.smixx.fabric.FabricPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.mustansirzia.fused.FusedLocationPackage;
-import com.syarul.rnalocation.RNALocation;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.sbugert.rnadmob.RNAdMobPackage;
@@ -39,7 +38,6 @@ public class MainApplication extends Application implements ReactApplication {
           new FabricPackage(),
           new RNI18nPackage(),
           new FusedLocationPackage(),
-          new RNALocation(),
           new ReactNativeOneSignalPackage(),
           new RNDeviceInfo(),
           new RNAdMobPackage(),
