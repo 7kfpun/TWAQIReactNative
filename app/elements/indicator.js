@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Platform,
   StyleSheet,
   Text,
   View,
@@ -10,7 +11,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     left: 12,
-    top: 56,
+    top: Platform.OS === 'ios' ? 56 : 22,
     width: 82,
     flexDirection: 'column',
     backgroundColor: 'transparent',

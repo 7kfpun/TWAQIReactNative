@@ -26,7 +26,7 @@ export default class Admob extends Component {
         }}
       >
         <AdMobBanner
-          bannerSize={this.props.bannerSize}
+          adSize={this.props.bannerSize}
           adUnitID={config.admob[Platform.OS].banner}
           onAdLoaded={() => {
             console.log('Ads received');

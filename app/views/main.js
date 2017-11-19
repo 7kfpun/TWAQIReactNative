@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     ...ifIphoneX({
       top: 35,
     }, {
-      top: 30,
+      top: Platform.OS === 'ios' ? 30 : 0,
     }),
     justifyContent: 'center',
     alignItems: 'center',
