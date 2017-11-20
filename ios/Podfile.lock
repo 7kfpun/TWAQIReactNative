@@ -56,12 +56,13 @@ PODS:
     - yoga (= 0.50.3.React)
   - React/cxxreact_legacy (0.50.3):
     - React/jschelpers_legacy
-  - React/DevSupport (0.50.3):
-    - React/Core
-    - React/RCTWebSocket
   - React/fishhook (0.50.3)
   - React/jschelpers_legacy (0.50.3)
   - React/RCTBlob (0.50.3):
+    - React/Core
+  - React/RCTNetwork (0.50.3):
+    - React/Core
+  - React/RCTText (0.50.3):
     - React/Core
   - React/RCTWebSocket (0.50.3):
     - React/Core
@@ -79,7 +80,9 @@ DEPENDENCIES:
   - Firebase/Performance
   - React/BatchedBridge (from `../node_modules/react-native`)
   - React/Core (from `../node_modules/react-native`)
-  - React/DevSupport (from `../node_modules/react-native`)
+  - React/RCTNetwork (from `../node_modules/react-native`)
+  - React/RCTText (from `../node_modules/react-native`)
+  - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNFirebase (from `../node_modules/react-native-firebase`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -107,6 +110,6 @@ SPEC CHECKSUMS:
   RNFirebase: a76befd482c5e84df7f69893358abda498ee9f76
   yoga: faecc6be81ca7823ccbb470b93a1b228499fa1c0
 
-PODFILE CHECKSUM: 7f44ff24aafbdbfd2b051000d26b19484192f7f2
+PODFILE CHECKSUM: 6c557ee6f90e4563252dcfb91d68de81395a20c0
 
 COCOAPODS: 1.2.1
