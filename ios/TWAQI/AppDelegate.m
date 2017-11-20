@@ -15,12 +15,15 @@
 #import <Fabric/Fabric.h>
 #import <Answers/Answers.h>
 
+#import <Firebase.h>
+
 @implementation AppDelegate
 
 @synthesize oneSignal = _oneSignal;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [FIRApp configure];
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];

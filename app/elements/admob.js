@@ -5,9 +5,14 @@ import {
   View,
 } from 'react-native';
 
-import { AdMobBanner } from 'react-native-admob';
+import firebase from 'react-native-firebase';
 
 import { config } from '../config';
+
+const AdRequest = firebase.admob.AdRequest;
+const request = new AdRequest();
+
+const Banner = firebase.admob.Banner;
 
 export default class Admob extends Component {
   state = {
@@ -25,14 +30,15 @@ export default class Admob extends Component {
           justifyContent: 'flex-end',
         }}
       >
-        <AdMobBanner
-          adSize={this.props.bannerSize}
-          adUnitID={config.admob[Platform.OS].banner}
+        <Banner
+          size={this.props.bannerSize}
+          unitId={config.admob[Platform.OS].banner}
+          request={request.build()}
           onAdLoaded={() => {
             console.log('Ads received');
             this.setState({ isReceived: true });
           }}
-          onAdFailedToLoad={error => console.log(error)}
+          onAdFailedToLoad={error => console.log('Ads error', error)}
         />
       </View>
     );
@@ -48,7 +54,7 @@ Admob.propTypes = {
 
 Admob.defaultProps = {
   margin: 0,
-  bannerSize: 'smartBannerPortrait',
+  bannerSize: 'SMART_BANNER',
   backgroundColor: 'rgba(0,0,0,0)',
   alignItems: 'center',
 };

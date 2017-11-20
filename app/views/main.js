@@ -13,7 +13,6 @@ import {
   NativeModules,
 } from 'react-native';
 
-import { AdMobInterstitial } from 'react-native-admob';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
 import FusedLocation from 'react-native-fused-location';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -167,14 +166,6 @@ export default class MainView extends Component {
     this.prepareData();
 
     timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
-
-    if (!__DEV__ && false) {
-      // disable popup ads
-      const FIVE_SECONDS = 5 * 1000;
-      timer.setTimeout(this, 'AdMobInterstitialTimeout', () => {
-        AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(errorAdmob => errorAdmob && console.log(errorAdmob)));
-      }, FIVE_SECONDS);
-    }
 
     const that = this;
     store.get('selectedIndex').then((selectedIndex) => {

@@ -4,18 +4,16 @@ import {
   // Platform,
 } from 'react-native';
 
-// import { Answers } from 'react-native-fabric';
 import Analytics from 'analytics-react-native';
 import DeviceInfo from 'react-native-device-info';
-// import crashlytics from 'react-native-fabric-crashlytics';
+
+import firebase from 'react-native-firebase';
 
 import { config } from '../config';
 
 const { width, height } = Dimensions.get('window');
-
 const analytics = new Analytics(config.segment);
-
-// crashlytics.init();
+firebase.analytics().setAnalyticsCollectionEnabled(true);
 
 const userId = DeviceInfo.getUniqueID();
 
@@ -63,18 +61,20 @@ const context = {
 };
 
 const tracker = {
-  identify: () => {
+  identify: async () => {
     if (isTracking) {
-      fetch('http://checkip.amazonaws.com/')
+      const ip = await fetch('http://checkip.amazonaws.com/')
         .then(res => res.text())
-        .then((ip) => {
-          ip = ip.replace('\n', '');
-          if (ip) {
-            console.log('ip address', ip);
-            context.ip = ip;
-          }
-          analytics.identify({ userId, context });
-        });
+        .then(ipText => ipText.replace('\n', ''))
+        .catch(err => console.log(err));
+
+      if (ip) {
+        console.log('IP address', ip);
+        context.ip = ip;
+      }
+      analytics.identify({ userId, context });
+      firebase.analytics().setUserId(userId);
+      // firebase.analytics().setUserProperties(context);
     }
   },
   logEvent: (event, properties) => {
@@ -82,9 +82,7 @@ const tracker = {
       const message = { userId, event, properties, context };
       console.log(message);
       analytics.track(message);
-      // if (Platform.OS !== 'ios') {
-      //   Answers.logCustom(event, properties);
-      // }
+      firebase.analytics().logEvent(event.replace(/-/g, '_'), properties);
     }
   },
   view: (screen, properties) => {
@@ -92,9 +90,7 @@ const tracker = {
       const message = { userId, screen, properties, context };
       console.log(message);
       analytics.screen(message);
-      // if (Platform.OS !== 'ios') {
-      //   Answers.logContentView(screen, '', '', properties);
-      // }
+      firebase.analytics().setCurrentScreen(screen, screen);
     }
   },
 };
