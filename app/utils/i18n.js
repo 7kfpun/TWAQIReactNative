@@ -4,6 +4,40 @@ I18n.fallbacks = true;
 
 I18n.translations = {
   en: {
+    main: 'Map',
+    settings: 'Settings',
+    help: 'Help',
+    contact: 'Contact',
+
+    rating_title: 'Enjoy using "Taiwan Air Quality"?',
+    rating_description: 'Please give us 5 stars to cheer we up if you like this app.',
+    feedback_description: 'Give us some feedbacks. We will definitely keep improving.',
+
+    notify_title: 'Notification',
+
+    notify_pollution_title: 'Notice me when the air quality gets significantly worse',
+    notify_pollution_therhold: 'Notice me when AQI is above',
+    notify_cleanliness_title: 'Notice me when the air gets clean',
+    notify_cleanliness_therhold: 'Notice me when AQI is below',
+    aqi_full: 'Air Quality Index (AQI)',
+
+    permissions_required: 'Notification permission required',
+    too_small_therhold: 'The value is too small, you would get lots of notifications',
+    too_large_therhold: 'The value is too large, you would get lots of notifications',
+
+    help_definition: 'Definition',
+
+    contact_title: 'Contact Us',
+
+    status_good: 'Good',
+    status_moderate: 'Moderate',
+    status_unhealthy_for_sensitive_groups: 'Unhealthy for Sensitive Groups',
+    status_unhealthy: 'Unhealthy',
+    status_very_unhealthy: 'Very Unhealthy',
+    status_hazardous: 'Hazardous',
+
+  },
+  zh: {
     main: '地圖',
     settings: '通知設定',
     help: '幫助',
@@ -28,11 +62,20 @@ I18n.translations = {
     help_definition: '空氣品質指標的定義',
 
     contact_title: '聯絡我們',
+
+    status_good: '良好',
+    status_moderate: '普通',
+    status_unhealthy_for_sensitive_groups: '對敏感族群不良',
+    status_unhealthy: '對所有族群不良',
+    status_very_unhealthy: '非常不良',
+    status_hazardous: '有害',
   },
 };
 
 I18n.translations['zh-Hans-US'] = I18n.translations.zh;
 I18n.translations['zh-Hans-HK'] = I18n.translations.zh;
 I18n.translations['zh-Hans-MN'] = I18n.translations.zh;
+
+I18n.isZh = I18n.locale.startsWith('zh');
 
 export default I18n;

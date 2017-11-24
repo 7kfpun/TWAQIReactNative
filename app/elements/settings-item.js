@@ -112,7 +112,7 @@ export default class SettingsItem extends Component {
       <View style={styles.container}>
         <View style={styles.switchBlock}>
           <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-            <Text style={styles.text}>{item.SiteName}</Text>
+            <Text style={styles.text}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
           </View>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
             <Switch

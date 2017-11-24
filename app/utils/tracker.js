@@ -1,7 +1,6 @@
 import {
   Dimensions,
   PixelRatio,
-  // Platform,
 } from 'react-native';
 
 import Analytics from 'analytics-react-native';

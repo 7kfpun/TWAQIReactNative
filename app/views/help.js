@@ -176,8 +176,8 @@ export default class HelpView extends Component {
         <ScrollView>
           <View style={styles.block}>
             {helpTexts.AQI.map((item) => {
-              const itemCategory = item.hantwCategory;
-              const itemDescription = item.hantwMeaning;
+              const itemCategory = I18n.isZh ? item.hantwCategory : item.category;
+              const itemDescription = I18n.isZh ? item.hantwMeaning : item.meaning;
 
               return (<View key={`help-text-${Math.random()}`}>
                 <View style={styles.row}>

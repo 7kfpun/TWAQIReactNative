@@ -354,7 +354,7 @@ export default class MainView extends Component {
                 latitude: parseFloat(location.TWD97Lat),
                 longitude: parseFloat(location.TWD97Lon),
               }}
-              title={title}
+              title={I18n.isZh ? title : null}
               // description={location.SiteAddress}
               onPress={() => {
                 this.setState({ selectedLocation: location.SiteName });

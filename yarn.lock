@@ -3909,7 +3909,7 @@ react-native-fused-location@^0.0.9:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/react-native-fused-location/-/react-native-fused-location-0.0.9.tgz#379e153ee58983c957efda38f9c8ceec51a05ed8"
 
-react-native-i18n@2.0.9:
+react-native-i18n@^2.0.9:
   version "2.0.9"
   resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.9.tgz#cd2afcf184bbaa7244917d30a57e81e939f79b88"
   dependencies:

@@ -79,7 +79,6 @@ export default class AirMarker extends React.PureComponent {
 AirMarker.propTypes = {
   index: PropTypes.string.isRequired,
   amount: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
   fontSize: PropTypes.number,
 };
 AirMarker.defaultProps = {

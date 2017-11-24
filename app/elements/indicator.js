@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Platform,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+
+import I18n from '../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,37 +42,37 @@ const styles = StyleSheet.create({
 
 const colors = [{
   key: 0,
-  status: '良好',
+  status: I18n.t('status_good'),
   color: '#009866',
   min: 0,
   max: 50,
 }, {
   key: 1,
-  status: '普通',
+  status: I18n.t('status_moderate'),
   color: '#FEDE33',
   min: 51,
   max: 100,
 }, {
   key: 2,
-  status: '對敏感族群不良',
+  status: I18n.t('status_unhealthy_for_sensitive_groups'),
   color: '#FE9833',
   min: 101,
   max: 150,
 }, {
   key: 3,
-  status: '對所有族群不良',
+  status: I18n.t('status_unhealthy'),
   color: '#CC0033',
   min: 151,
   max: 200,
 }, {
   key: 4,
-  status: '非常不良',
+  status: I18n.t('status_very_unhealthy'),
   color: '#660098',
   min: 201,
   max: 300,
 }, {
   key: 5,
-  status: '有害',
+  status: I18n.t('status_hazardous'),
   color: '#7E2200',
   min: 301,
   max: 500,
