@@ -12,8 +12,10 @@ import store from 'react-native-simple-store';
 
 import SettingsItem from '../elements/settings-item';
 
+import { countyZh2En } from '../utils/county-mapping';
 import locations from '../utils/locations';
 import tracker from '../utils/tracker';
+import I18n from '../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -79,7 +81,7 @@ export default class SettingsGroup extends Component {
           }}
         >
           <View style={styles.groupNameBlock}>
-            <Text style={styles.text}>{groupName}</Text>
+            <Text style={styles.text}>{I18n.isZh ? groupName : countyZh2En[groupName]}</Text>
           </View>
         </TouchableOpacity>
         {this.state.isOpen && <FlatList

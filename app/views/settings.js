@@ -173,6 +173,7 @@ export default class SettingsView extends Component {
       if (result && result.length > 0) {
         console.log('Locations:', result);
         const countys = uniq(result.sort(compare).map(item => item.County));
+        console.log('countys', countys);
         that.setState({ locations: countys });
       }
     });

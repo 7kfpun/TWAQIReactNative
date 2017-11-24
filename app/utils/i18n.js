@@ -69,6 +69,8 @@ I18n.translations = {
     status_unhealthy: '對所有族群不良',
     status_very_unhealthy: '非常不良',
     status_hazardous: '有害',
+
+    lienchiang: '連江縣',
   },
 };
 
