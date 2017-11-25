@@ -13,6 +13,7 @@ import OneSignal from 'react-native-onesignal';
 import store from 'react-native-simple-store';
 
 import AdMob from '../elements/admob';
+import EnabledItems from '../elements/enabled-items';
 import SettingsGroup from '../elements/settings-group';
 
 import I18n from '../utils/i18n';
@@ -206,7 +207,9 @@ export default class SettingsView extends Component {
         {this.state.isShowPermissionReminderBlock && <View style={styles.permissionReminderBlock}>
           <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
         </View>}
+
         <ScrollView>
+          <EnabledItems />
           <FlatList
             style={styles.list}
             data={this.state.locations}

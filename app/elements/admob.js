@@ -15,6 +15,20 @@ const request = new AdRequest();
 const Banner = firebase.admob.Banner;
 
 export default class Admob extends Component {
+  static propTypes = {
+    bannerSize: PropTypes.string,
+    margin: PropTypes.number,
+    backgroundColor: PropTypes.string,
+    alignItems: PropTypes.string,
+  }
+
+  static defaultProps = {
+    margin: 0,
+    bannerSize: 'SMART_BANNER',
+    backgroundColor: 'rgba(0,0,0,0)',
+    alignItems: 'center',
+  }
+
   state = {
     isReceived: false,
   };
@@ -44,17 +58,3 @@ export default class Admob extends Component {
     );
   }
 }
-
-Admob.propTypes = {
-  bannerSize: PropTypes.string,
-  margin: PropTypes.number,
-  backgroundColor: PropTypes.string,
-  alignItems: PropTypes.string,
-};
-
-Admob.defaultProps = {
-  margin: 0,
-  bannerSize: 'SMART_BANNER',
-  backgroundColor: 'rgba(0,0,0,0)',
-  alignItems: 'center',
-};

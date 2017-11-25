@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
 });
 
 export default class SettingsGroup extends Component {
+  static propTypes = {
+    groupName: PropTypes.string.isRequired,
+  }
+
   state = {
     isOpen: false,
     locations: [],
@@ -94,9 +98,3 @@ export default class SettingsGroup extends Component {
     );
   }
 }
-
-SettingsGroup.propTypes = {
-  groupName: PropTypes.string.isRequired,
-};
-
-SettingsGroup.defaultProps = {};

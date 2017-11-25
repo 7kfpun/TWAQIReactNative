@@ -761,25 +761,3 @@ export default [
     SiteType: '一般測站',
   },
 ];
-
-// [{
-//   SiteName: '臺東',
-//   SiteEngName: 'Taitung',
-//   AreaName: '花東空品區',
-//   County: '臺東縣',
-//   Township: '臺東市',
-//   SiteAddress: '臺東市中山路276號',
-//   TWD97Lon: '121.1504500000',
-//   TWD97Lat: '22.7553580000',
-//   SiteType: '一般測站',
-// }, {
-//   SiteName: '臺南',
-//   SiteEngName: 'Tainan',
-//   AreaName: '雲嘉南空品區',
-//   County: '臺南市',
-//   Township: '中西區',
-//   SiteAddress: '臺南市中西區南寧街45號',
-//   TWD97Lon: '120.2026170000',
-//   TWD97Lat: '22.9845810000',
-//   SiteType: '一般測站',
-// }]

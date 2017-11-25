@@ -41,6 +41,20 @@ const DEFAULT_POLLUTION_THERHOLD = 120;
 const DEFAULT_CLEANLINESS_THERHOLD = 40;
 
 export default class SettingsItem extends Component {
+  static propTypes = {
+    item: PropTypes.shape({
+      SiteName: PropTypes.string,
+      SiteEngName: PropTypes.string,
+      AreaName: PropTypes.string,
+      County: PropTypes.string,
+      Township: PropTypes.string,
+      SiteAddress: PropTypes.string,
+      TWD97Lon: PropTypes.string,
+      TWD97Lat: PropTypes.string,
+      SiteType: PropTypes.string,
+    }).isRequired,
+  }
+
   state = {
     isOpen: false,
     isEnabled: false,
@@ -150,19 +164,3 @@ export default class SettingsItem extends Component {
     );
   }
 }
-
-SettingsItem.propTypes = {
-  item: PropTypes.shape({
-    SiteName: PropTypes.string,
-    SiteEngName: PropTypes.string,
-    AreaName: PropTypes.string,
-    County: PropTypes.string,
-    Township: PropTypes.string,
-    SiteAddress: PropTypes.string,
-    TWD97Lon: PropTypes.string,
-    TWD97Lat: PropTypes.string,
-    SiteType: PropTypes.string,
-  }).isRequired,
-};
-
-SettingsItem.defaultProps = {};

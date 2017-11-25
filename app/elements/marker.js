@@ -45,6 +45,18 @@ const styles = StyleSheet.create({
 });
 
 export default class AirMarker extends React.PureComponent {
+  static propTypes = {
+    index: PropTypes.string.isRequired,
+    amount: PropTypes.string.isRequired,
+    fontSize: PropTypes.number,
+  }
+
+  static defaultProps = {
+    index: 'AQI',
+    amount: '-',
+    fontSize: 16,
+  }
+
   render() {
     const { index, fontSize, amount } = this.props;
     let color = 'gray';
@@ -75,14 +87,3 @@ export default class AirMarker extends React.PureComponent {
     );
   }
 }
-
-AirMarker.propTypes = {
-  index: PropTypes.string.isRequired,
-  amount: PropTypes.string.isRequired,
-  fontSize: PropTypes.number,
-};
-AirMarker.defaultProps = {
-  index: 'AQI',
-  amount: '-',
-  fontSize: 16,
-};

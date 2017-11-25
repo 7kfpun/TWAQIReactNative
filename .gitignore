@@ -53,4 +53,5 @@ fastlane/Preview.html
 fastlane/screenshots
 
 # App
+ios/GoogleService-Info.plist
 app/config.js

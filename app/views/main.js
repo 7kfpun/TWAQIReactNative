@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper';
+import firebase from 'react-native-firebase';
 import FusedLocation from 'react-native-fused-location';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MapView from 'react-native-maps';
@@ -275,11 +276,14 @@ export default class MainView extends Component {
   prepareLocations() {
     const that = this;
     store.delete('locationsCache');
+    const trace = firebase.perf().newTrace('api_get_locations');
+    trace.start();
     locations().then((result) => {
       if (result && Array.isArray(result) && result.length > 0) {
         console.log('Locations:', result);
         that.setState({ locations: result });
       }
+      trace.stop();
     });
 
     // store.get('locationsCache').then((locationsCache) => {
@@ -301,6 +305,8 @@ export default class MainView extends Component {
     this.setState({ isLoading: true }, () => {
       const that = this;
       store.delete('aqiResult');
+      const trace = firebase.perf().newTrace('api_get_aqi');
+      trace.start();
       aqi().then((result) => {
         const keys = Object.keys(result || {}).length;
         console.log('AQI:', result);
@@ -310,6 +316,7 @@ export default class MainView extends Component {
         }
 
         that.setState({ isLoading: false });
+        trace.stop();
       });
 
       // store.get('aqiResult').then((aqiResult) => {
