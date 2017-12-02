@@ -16,7 +16,7 @@ firebase.analytics().setAnalyticsCollectionEnabled(true);
 
 const userId = DeviceInfo.getUniqueID();
 
-const isTracking = true || !(
+const isTracking = !(
   __DEV__
   || DeviceInfo.getDeviceName().includes('kf')
   || DeviceInfo.getManufacturer() === 'Genymotion'

@@ -6,9 +6,12 @@ import { TabNavigator } from 'react-navigation';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
 
 import Main from './app/views/main';
-import Help from './app/views/help';
 import Settings from './app/views/settings';
+import Forecast from './app/views/forecast';
+import Help from './app/views/help';
 import Contact from './app/views/contact';
+
+import I18n from './app/utils/i18n';
 
 if (!__DEV__) {
   console.log = () => {};
@@ -17,6 +20,7 @@ if (!__DEV__) {
 const App = TabNavigator({
   Main: { screen: Main },
   Settings: { screen: Settings },
+  Forecast: { screen: Forecast },
   Help: { screen: Help },
   Contact: { screen: Contact },
 }, {
@@ -30,8 +34,8 @@ const App = TabNavigator({
     showIcon: true,
     pressColor: '#E0E0E0',
     labelStyle: {
-      fontSize: 13,
-      paddingBottom: Platform.OS === 'ios' ? 4 : 0,
+      fontSize: Platform.OS === 'ios' && I18n.isZh ? 12 : 10,
+      paddingBottom: 4,
     },
     style: {
       backgroundColor: 'white',

@@ -19,14 +19,14 @@ import I18n from '../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    paddingHorizontal: 10,
   },
   switchBlock: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   groupNameBlock: {
-    paddingVertical: 5,
+    paddingVertical: 15,
   },
   text: {
     fontSize: 16,

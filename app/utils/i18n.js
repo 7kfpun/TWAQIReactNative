@@ -5,6 +5,7 @@ I18n.fallbacks = true;
 I18n.translations = {
   en: {
     main: 'Map',
+    forecast: 'Forecast',
     settings: 'Settings',
     help: 'Help',
     contact: 'Contact',
@@ -25,6 +26,9 @@ I18n.translations = {
     too_small_therhold: 'The value is too small, you would get lots of notifications',
     too_large_therhold: 'The value is too large, you would get lots of notifications',
 
+    forecast_title: 'Forecast',
+    forecast_notification_label: 'Forecast Notification',
+
     help_definition: 'Definition',
 
     contact_title: 'Contact Us',
@@ -39,6 +43,7 @@ I18n.translations = {
   },
   zh: {
     main: '地圖',
+    forecast: '預測',
     settings: '通知設定',
     help: '幫助',
     contact: '聯絡',
@@ -47,17 +52,20 @@ I18n.translations = {
     rating_description: '請給我們5顆星以鼓勵我們',
     feedback_description: '我們很需要您給點意見，讓此APP越做越好。',
 
-    notify_title: '空氣質素通知',
+    notify_title: '空氣品質通知',
 
-    notify_pollution_title: '當空氣質素明顯惡化時通知我',
+    notify_pollution_title: '當空氣品質明顯惡化時通知我',
     notify_pollution_therhold: 'AQI 指數超過',
-    notify_cleanliness_title: '當空氣質素優良時通知我',
+    notify_cleanliness_title: '當空氣品質優良時通知我',
     notify_cleanliness_therhold: 'AQI 指數低於',
-    aqi_full: '空氣質素指數（AQI）',
+    aqi_full: '空氣品質指數（AQI）',
 
-    permissions_required: '請允許通知以獲取最新空氣質素報告',
+    permissions_required: '請允許通知以獲取最新空氣品質報告',
     too_small_therhold: '您所設定的值偏低，或將會收到很多通知',
     too_large_therhold: '您所設定的值偏高，或將會收到很多通知',
+
+    forecast_title: '空氣品質預報',
+    forecast_notification_label: '空氣品質預報通知',
 
     help_definition: '空氣品質指標的定義',
 

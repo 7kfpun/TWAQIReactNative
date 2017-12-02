@@ -18,29 +18,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'flex-start',
     backgroundColor: '#FF5A5F',
-    padding: 4,
+    paddingVertical: 4,
+    paddingHorizontal: 6,
     borderRadius: 5,
     borderColor: '#D23F44',
     borderWidth: 0.5,
   },
-  amount: {
+  text: {
     color: '#FFFFFF',
-  },
-  arrow: {
-    backgroundColor: 'transparent',
-    borderWidth: 4,
-    borderColor: 'transparent',
-    borderTopColor: '#FF5A5F',
-    alignSelf: 'center',
-    marginTop: -9,
-  },
-  arrowBorder: {
-    backgroundColor: 'transparent',
-    borderWidth: 4,
-    borderColor: 'transparent',
-    borderTopColor: '#D23F44',
-    alignSelf: 'center',
-    marginTop: -0.5,
+    fontWeight: '100',
   },
 });
 
@@ -49,16 +35,18 @@ export default class AirMarker extends React.PureComponent {
     index: PropTypes.string.isRequired,
     amount: PropTypes.string.isRequired,
     fontSize: PropTypes.number,
+    isStatusShow: PropTypes.bool,
   }
 
   static defaultProps = {
     index: 'AQI',
     amount: '-',
-    fontSize: 16,
+    fontSize: 15,
+    isStatusShow: false,
   }
 
   render() {
-    const { index, fontSize, amount } = this.props;
+    const { index, fontSize, amount, isStatusShow } = this.props;
     let color = 'gray';
 
     let showAmount;
@@ -73,16 +61,16 @@ export default class AirMarker extends React.PureComponent {
       const isMatched = indexRanges[index].filter(item => amount >= item.min && amount <= item.max);
       if (isMatched && isMatched.length >= 1) {
         color = isMatched[0].color;
+        fontColor = isMatched[0].fontColor;
+        status = isMatched[0].status;
       }
     }
 
     return (
       <View style={styles.container}>
         <View style={[styles.bubble, { backgroundColor: color, borderColor: 'white' }]}>
-          <Text style={[styles.amount, { fontSize }]}>{showAmount}</Text>
+          <Text style={[styles.text, { fontSize, color: fontColor }]}>{isStatusShow ? `${status} ${showAmount}` : showAmount}</Text>
         </View>
-        <View style={[styles.arrowBorder, { borderTopColor: 'white' }]} />
-        <View style={[styles.arrow, { borderTopColor: color }]} />
       </View>
     );
   }

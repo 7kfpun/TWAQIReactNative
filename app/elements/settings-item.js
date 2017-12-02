@@ -14,6 +14,8 @@ import OneSignal from 'react-native-onesignal';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
+import Marker from '../elements/marker';
+
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 6,
@@ -25,10 +27,16 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
   },
+  noticeBlock: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: 8,
+  },
   noticeText: {
     fontSize: 14,
     fontWeight: '100',
-    paddingBottom: 8,
+    marginRight: 5,
   },
   noticeWarningText: {
     fontSize: 10,
@@ -79,44 +87,44 @@ export default class SettingsItem extends Component {
 
   setNotification(value) {
     this.setState({ isEnabled: value }, () => {
-      this.sendTags();
+      this.sendTags(value);
+
+      if (value && Platform.OS === 'ios') {
+        permissions = {
+          alert: true,
+          badge: true,
+          sound: true,
+        };
+        OneSignal.requestPermissions(permissions);
+        OneSignal.registerForPushNotifications();
+      }
     });
-
-    if (value && Platform.OS === 'ios') {
-      permissions = {
-        alert: true,
-        badge: true,
-        sound: true,
-      };
-      OneSignal.requestPermissions(permissions);
-      OneSignal.registerForPushNotifications();
-    }
-
-    tracker.logEvent('set-notification', { label: value ? 'on' : 'off' });
   }
 
   setNotificationPollutionTherhold(value) {
     this.setState({ pollutionTherhold: value }, () => {
-      this.sendTags();
+      this.sendTags(value);
     });
   }
 
   setNotificationCleanlinessTherhold(value) {
     this.setState({ cleanlinessTherhold: value }, () => {
-      this.sendTags();
+      this.sendTags(value);
     });
   }
 
-  sendTags() {
+  sendTags(value) {
     const item = this.props.item;
 
     const tags = {};
-    tags[item.SiteEngName] = this.state.isEnabled;
-    tags[`${item.SiteEngName}_pollution_therhold`] = this.state.isEnabled ? this.state.pollutionTherhold : false;
-    tags[`${item.SiteEngName}_cleanliness_therhold`] = this.state.isEnabled ? this.state.cleanlinessTherhold : false;
+    tags[item.SiteEngName] = value;
+    tags[`${item.SiteEngName}_pollution_therhold`] = value ? this.state.pollutionTherhold : false;
+    tags[`${item.SiteEngName}_cleanliness_therhold`] = value ? this.state.cleanlinessTherhold : false;
 
     console.log('Send tags', tags);
     OneSignal.sendTags(tags);
+
+    tracker.logEvent('set-notification', { label: value ? 'on' : 'off', ...tags });
   }
 
   render() {
@@ -138,7 +146,15 @@ export default class SettingsItem extends Component {
         </View>
 
         {this.state.isEnabled && <View style={{ paddingTop: 10 }}>
-          <Text style={styles.noticeText}>{I18n.t('notify_pollution_therhold')}: {this.state.pollutionTherhold}</Text>
+          <View style={styles.noticeBlock}>
+            <Text style={styles.noticeText}>{I18n.t('notify_pollution_therhold')}: </Text>
+            <Marker
+              amount={this.state.pollutionTherhold.toString()}
+              index={'AQI'}
+              isStatusShow={true}
+              fontSize={14}
+            />
+          </View>
           <Slider
             style={{ width: window.width - 20 }}
             step={1}
@@ -149,7 +165,15 @@ export default class SettingsItem extends Component {
           />
           {this.state.pollutionTherhold < DEFAULT_POLLUTION_THERHOLD && <Text style={styles.noticeWarningText}>{I18n.t('too_small_therhold')}</Text>}
 
-          <Text style={styles.noticeText}>{I18n.t('notify_cleanliness_therhold')}: {this.state.cleanlinessTherhold}</Text>
+          <View style={styles.noticeBlock}>
+            <Text style={styles.noticeText}>{I18n.t('notify_cleanliness_therhold')}: </Text>
+            <Marker
+              amount={this.state.cleanlinessTherhold.toString()}
+              index={'AQI'}
+              isStatusShow={true}
+              fontSize={14}
+            />
+          </View>
           <Slider
             style={{ width: window.width - 20 }}
             step={1}

@@ -352,29 +352,24 @@ export default class MainView extends Component {
           initialRegion={this.getCurrentLocation()}
           onRegionChange={region => this.onRegionChange(region)}
         >
-          {this.state.aqiResult && this.state.locations.map((location) => {
-            const title = `${location.SiteName} ${this.state.selectedIndex} 值為 ${(this.state.aqiResult[location.SiteName] && this.state.aqiResult[location.SiteName][this.state.selectedIndex]) || '-'}`;
-
-            return (<MapView.Marker
-              key={location.SiteEngName}
-              coordinate={{
-                latitude: parseFloat(location.TWD97Lat),
-                longitude: parseFloat(location.TWD97Lon),
-              }}
-              title={I18n.isZh ? title : null}
-              // description={location.SiteAddress}
-              onPress={() => {
-                this.setState({ selectedLocation: location.SiteName });
-                tracker.logEvent('select-location', location);
-              }}
-            >
-              {this.state.aqiResult[location.SiteName] && <Marker
-                amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
-                index={this.state.selectedIndex}
-                status={this.state.aqiResult[location.SiteName].Status}
-              />}
-            </MapView.Marker>);
-          })}
+          {this.state.aqiResult && this.state.locations.map(location => (<MapView.Marker
+            key={location.SiteEngName}
+            coordinate={{
+              latitude: parseFloat(location.TWD97Lat),
+              longitude: parseFloat(location.TWD97Lon),
+            }}
+            title={I18n.isZh ? location.SiteName : location.SiteEngName}
+            // description={location.SiteAddress}
+            onPress={() => {
+              this.setState({ selectedLocation: location.SiteName });
+              tracker.logEvent('select-location', location);
+            }}
+          >
+            {this.state.aqiResult[location.SiteName] && <Marker
+              amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
+              index={this.state.selectedIndex}
+            />}
+          </MapView.Marker>))}
 
           {this.state.gpsEnabled && this.state.location && <MapView.Marker
             coordinate={this.state.location}

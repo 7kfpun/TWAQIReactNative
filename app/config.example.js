@@ -1,5 +1,6 @@
 exports.config = {
   aqiUrl: 'http://opendata.epa.gov.tw/ws/Data/REWIQA/?$orderby=SiteName&$skip=0&$top=100&format=json',
+  forecastUrl: 'http://opendata.epa.gov.tw/ws/Data/AQFN/?$orderby=PublishTime%20desc&$skip=0&$top=100&format=json',
   admob: {
     ios: {
       banner: '',

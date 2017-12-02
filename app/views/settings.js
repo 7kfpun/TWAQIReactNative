@@ -67,40 +67,6 @@ export default class SettingsView extends Component {
     ),
   };
 
-  static migrateOldSettings(receivedTags) {
-    const {
-      pollutionIsEnabled,
-      pollutionLocation,
-      pollutionTherhold,
-      cleanlinessIsEnabled,
-      cleanlinessLocation,
-      cleanlinessTherhold,
-    } = receivedTags || {};
-
-    const tags = {};
-
-    if (pollutionIsEnabled === 'true' && pollutionLocation) {
-      const valueLocation = pollutionLocation.replace('/', '_').replace(' ', '_').toLowerCase();
-      tags[valueLocation] = true;
-      tags[`${valueLocation}_pollution_therhold`] = pollutionTherhold || 100;
-    }
-
-    if (cleanlinessIsEnabled === 'true' && cleanlinessLocation) {
-      const valueLocation = cleanlinessLocation.replace('/', '_').replace(' ', '_').toLowerCase();
-      tags[valueLocation] = true;
-      tags[`${valueLocation}_pollution_therhold`] = cleanlinessTherhold || 40;
-    }
-
-    console.log('Send tags', tags);
-    OneSignal.sendTags(tags);
-    OneSignal.deleteTag('pollutionIsEnabled');
-    OneSignal.deleteTag('pollutionLocation');
-    OneSignal.deleteTag('pollutionTherhold');
-    OneSignal.deleteTag('cleanlinessIsEnabled');
-    OneSignal.deleteTag('cleanlinessLocation');
-    OneSignal.deleteTag('cleanlinessTherhold');
-  }
-
   static requestPermissions() {
     if (Platform.OS === 'ios') {
       const permissions = {
@@ -126,7 +92,6 @@ export default class SettingsView extends Component {
 
     const tags = await OneSignalGetTags();
     this.checkPermissions(tags);
-    SettingsView.migrateOldSettings(tags);
   }
 
   checkPermissions(tags) {
@@ -197,7 +162,7 @@ export default class SettingsView extends Component {
   }
 
   render() {
-    tracker.view('Main');
+    tracker.view('Settings');
 
     return (
       <View style={styles.container}>
