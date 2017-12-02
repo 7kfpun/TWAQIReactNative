@@ -31,9 +31,14 @@ export default class Admob extends Component {
 
   state = {
     isReceived: false,
+    isReceivedFailed: false,
   };
 
   render() {
+    if (this.state.isReceivedFailed) {
+      return null;
+    }
+
     return (
       <View
         style={{
@@ -52,7 +57,10 @@ export default class Admob extends Component {
             console.log('Ads received');
             this.setState({ isReceived: true });
           }}
-          onAdFailedToLoad={error => console.log('Ads error', error)}
+          onAdFailedToLoad={(error) => {
+            console.log('Ads error', error);
+            this.setState({ isReceivedFailed: true });
+          }}
         />
       </View>
     );

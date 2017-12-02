@@ -1,4 +1,4 @@
-exports.indexes = ['AQI', 'PM2.5', 'PM10', 'O3', 'CO', 'SO2', 'NO2'];
+exports.indexes = ['AQI', 'O3', 'PM2.5', 'PM10', 'CO', 'SO2', 'NO2'];
 
 // 0-50 Good Air pollution risk is low.
 // 51-100 Moderate Air quality is acceptable.

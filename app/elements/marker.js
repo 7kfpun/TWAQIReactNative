@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import { indexRanges } from '../utils/indexes';
+import I18n from '../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,9 +21,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF5A5F',
     paddingVertical: 4,
     paddingHorizontal: 6,
-    borderRadius: 5,
+    borderRadius: 8,
     borderColor: '#D23F44',
-    borderWidth: 0.5,
+    borderWidth: 0.6,
   },
   text: {
     color: '#FFFFFF',
@@ -69,7 +70,7 @@ export default class AirMarker extends React.PureComponent {
     return (
       <View style={styles.container}>
         <View style={[styles.bubble, { backgroundColor: color, borderColor: 'white' }]}>
-          <Text style={[styles.text, { fontSize, color: fontColor }]}>{isStatusShow ? `${status} ${showAmount}` : showAmount}</Text>
+          <Text style={[styles.text, { fontSize, color: fontColor }]}>{isStatusShow && I18n.isZh ? `${status} ${showAmount}` : showAmount}</Text>
         </View>
       </View>
     );
