@@ -51,6 +51,7 @@ export default class ContactView extends Component {
   };
 
   render() {
+    const email = 'info@dllm.io';
     tracker.view('Help');
     return (
       <View style={styles.container}>
@@ -58,10 +59,10 @@ export default class ContactView extends Component {
           <Text style={styles.title}>{I18n.t('contact_title')}</Text>
         </View>
         <ScrollView>
-          <TouchableOpacity onPress={() => Communications.email(['twaqi@dllm.io'], null, null, '「台灣空氣品質指標」改進意見', '')} >
+          <TouchableOpacity onPress={() => Communications.email([email], null, null, '「台灣空氣品質指標」改進意見', '')} >
             <View style={styles.emailBlock}>
               <Text style={styles.emailText}>{I18n.t('feedback_description')}</Text>
-              <Text style={[styles.emailText, { textDecorationLine: 'underline' }]}>twaqi@dllm.io</Text>
+              <Text style={[styles.emailText, { textDecorationLine: 'underline' }]}>{email}</Text>
             </View>
           </TouchableOpacity>
         </ScrollView>

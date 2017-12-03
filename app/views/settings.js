@@ -163,7 +163,6 @@ export default class SettingsView extends Component {
 
   render() {
     tracker.view('Settings');
-
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>

@@ -64,7 +64,6 @@ export default class ForecastView extends Component {
 
   render() {
     tracker.view('Forecast');
-
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
