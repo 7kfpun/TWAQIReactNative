@@ -139,13 +139,18 @@ export default class SettingsItem extends Component {
       I18n.t('notify_pollution_therhold'),
       I18n.t('notify_pollution_title'),
       [
-        { text: I18n.t('cancel'), onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        {
+          text: I18n.t('cancel'),
+          onPress: () => tracker.logEvent('pollution-selector', { label: 'cancel' }),
+          style: 'cancel',
+        },
         ...indexRanges.AQI.map(item => ({
           text: `${item.status} (${item.min})`,
           onPress: () => {
             this.setState({ pollutionTherhold: item.min }, () => {
               this.setNotificationPollutionTherhold(item.min);
             });
+            tracker.logEvent('pollution-selector', { label: item.status });
           },
         })),
       ],
@@ -158,13 +163,18 @@ export default class SettingsItem extends Component {
       I18n.t('notify_cleanliness_therhold'),
       I18n.t('notify_cleanliness_title'),
       [
-        { text: I18n.t('cancel'), onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        {
+          text: I18n.t('cancel'),
+          onPress: () => tracker.logEvent('cleanliness-selector', { label: 'cancel' }),
+          style: 'cancel',
+        },
         ...indexRanges.AQI.map(item => ({
           text: `${item.status} (${item.max})`,
           onPress: () => {
             this.setState({ cleanlinessTherhold: item.max }, () => {
               this.setNotificationCleanlinessTherhold(item.max);
             });
+            tracker.logEvent('cleanliness-selector', { label: item.status });
           },
         })),
       ],
@@ -195,7 +205,7 @@ export default class SettingsItem extends Component {
             <Text style={styles.noticeText}>{I18n.t('notify_pollution_therhold')}: </Text>
             <TouchableOpacity onPress={() => this.showPollutionSelector()}>
               <Marker
-                amount={this.state.pollutionTherhold.toString()}
+                amount={String(this.state.pollutionTherhold)}
                 index={'AQI'}
                 isStatusShow={true}
                 fontSize={14}
@@ -217,7 +227,7 @@ export default class SettingsItem extends Component {
             <Text style={styles.noticeText}>{I18n.t('notify_cleanliness_therhold')}: </Text>
             <TouchableOpacity onPress={() => this.showCleanlinessSelector()}>
               <Marker
-                amount={this.state.cleanlinessTherhold.toString()}
+                amount={String(this.state.cleanlinessTherhold)}
                 index={'AQI'}
                 isStatusShow={true}
                 fontSize={14}

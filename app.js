@@ -6,8 +6,8 @@ import { TabNavigator } from 'react-navigation';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
 
 import Main from './app/views/main';
-import Settings from './app/views/settings';
 import Forecast from './app/views/forecast';
+import Settings from './app/views/settings';
 import Help from './app/views/help';
 import Contact from './app/views/contact';
 
@@ -19,8 +19,8 @@ if (!__DEV__) {
 
 const App = TabNavigator({
   Main: { screen: Main },
-  Settings: { screen: Settings },
   Forecast: { screen: Forecast },
+  Settings: { screen: Settings },
   Help: { screen: Help },
   Contact: { screen: Contact },
 }, {

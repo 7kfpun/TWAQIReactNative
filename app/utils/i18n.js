@@ -16,9 +16,9 @@ I18n.translations = {
 
     notify_title: 'Notification',
 
-    notify_pollution_title: 'Notice me when the air quality gets significantly worse',
+    notify_pollution_title: 'When the air quality gets significantly worse',
     notify_pollution_therhold: 'Notice me when AQI is above',
-    notify_cleanliness_title: 'Notice me when the air gets clean',
+    notify_cleanliness_title: 'When the air gets clean',
     notify_cleanliness_therhold: 'Notice me when AQI is below',
     aqi_full: 'Air Quality Index (AQI)',
 
@@ -27,7 +27,7 @@ I18n.translations = {
     too_large_therhold: 'The value is too large, you would get lots of notifications',
 
     forecast_title: 'Forecast',
-    forecast_notification_label: 'Forecast Notification',
+    forecast_notification_label: 'Forecast Notification (daily)',
 
     help_definition: 'Definition',
 
@@ -66,7 +66,7 @@ I18n.translations = {
     too_large_therhold: '您所設定的值偏高，或將會收到很多通知',
 
     forecast_title: '空氣品質預報',
-    forecast_notification_label: '空氣品質預報通知',
+    forecast_notification_label: '空氣品質預報通知（每日）',
 
     help_definition: '空氣品質指標的定義',
 

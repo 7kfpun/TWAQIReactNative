@@ -109,7 +109,7 @@ export default class Rating extends Component {
     }
 
     store.save('isRatingGiven', true);
-    tracker.logEvent('give-rating', { type, rating: rating.toString() });
+    tracker.logEvent('give-rating', { type, rating: String(rating) });
   }
 
   render() {

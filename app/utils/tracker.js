@@ -16,7 +16,7 @@ firebase.analytics().setAnalyticsCollectionEnabled(true);
 
 const userId = DeviceInfo.getUniqueID();
 
-const isTracking = !(
+const isTracking = true || !(
   __DEV__
   || DeviceInfo.getDeviceName().includes('kf')
   || DeviceInfo.getManufacturer() === 'Genymotion'
@@ -59,6 +59,19 @@ const context = {
   isTablet: DeviceInfo.isTablet(),
 };
 
+const firebaseContext = {};
+Object.entries(context).forEach(([key, value]) => {
+  console.log(key, value);
+  if (typeof value === 'object') {
+    Object.entries(value).forEach(([k, v]) => {
+      firebaseContext[`${key}-${k}`] = String(v);
+    });
+  } else {
+    firebaseContext[key] = String(value);
+  }
+});
+console.log('firebaseContext', firebaseContext);
+
 const tracker = {
   identify: async () => {
     if (isTracking) {
@@ -73,7 +86,7 @@ const tracker = {
       }
       analytics.identify({ userId, context });
       firebase.analytics().setUserId(userId);
-      // firebase.analytics().setUserProperties(context);
+      firebase.analytics().setUserProperties(firebaseContext);
     }
   },
   logEvent: (event, properties) => {
