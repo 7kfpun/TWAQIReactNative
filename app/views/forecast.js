@@ -46,7 +46,7 @@ export default class ForecastView extends Component {
     title: 'Help',
     tabBarLabel: I18n.t('forecast'),
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="visibility" size={21} color={tintColor || 'gray'} />
+      <Icon name="track-changes" size={21} color={tintColor || 'gray'} />
     ),
   };
 

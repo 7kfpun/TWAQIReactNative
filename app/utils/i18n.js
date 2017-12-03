@@ -40,6 +40,7 @@ I18n.translations = {
     status_very_unhealthy: 'Very Unhealthy',
     status_hazardous: 'Hazardous',
 
+    cancel: 'Cancel',
   },
   zh: {
     main: '地圖',
@@ -78,7 +79,7 @@ I18n.translations = {
     status_very_unhealthy: '非常不良',
     status_hazardous: '有害',
 
-    lienchiang: '連江縣',
+    cancel: '取消',
   },
 };
 
