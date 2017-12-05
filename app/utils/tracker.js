@@ -64,7 +64,7 @@ Object.entries(context).forEach(([key, value]) => {
   console.log(key, value);
   if (typeof value === 'object') {
     Object.entries(value).forEach(([k, v]) => {
-      firebaseContext[`${key}-${k}`] = String(v);
+      firebaseContext[`${key}.${k}`] = String(v);
     });
   } else {
     firebaseContext[key] = String(value);

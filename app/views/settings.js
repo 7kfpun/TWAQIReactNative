@@ -108,7 +108,7 @@ export default class SettingsView extends Component {
   }
 
   prepareLocations() {
-    function uniq(a) {
+    const uniq = (a) => {
       const seen = {};
       const out = [];
       const len = a.length;
@@ -121,7 +121,7 @@ export default class SettingsView extends Component {
         }
       }
       return out;
-    }
+    };
 
     const compare = (a, b) => {
       if (a.TWD97Lat > b.TWD97Lat) {
@@ -177,7 +177,7 @@ export default class SettingsView extends Component {
           <FlatList
             style={styles.list}
             data={this.state.locations}
-            keyExtractor={(item, index) => `${index}-${item.key}`}
+            keyExtractor={(item, index) => `${index}-${item.SiteName}`}
             renderItem={({ item }) => <SettingsGroup groupName={item} />}
           />
         </ScrollView>

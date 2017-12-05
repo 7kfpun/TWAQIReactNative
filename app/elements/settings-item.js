@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 });
 
 const DEFAULT_POLLUTION_THERHOLD = 120;
-const DEFAULT_CLEANLINESS_THERHOLD = 40;
+const DEFAULT_CLEANLINESS_THERHOLD = 30;
 
 export default class SettingsItem extends Component {
   static propTypes = {
@@ -137,7 +137,7 @@ export default class SettingsItem extends Component {
   showPollutionSelector() {
     Alert.alert(
       I18n.t('notify_pollution_therhold'),
-      I18n.t('notify_pollution_title'),
+      `(${I18n.t('notify_pollution_title')})`,
       [
         {
           text: I18n.t('cancel'),
@@ -161,7 +161,7 @@ export default class SettingsItem extends Component {
   showCleanlinessSelector() {
     Alert.alert(
       I18n.t('notify_cleanliness_therhold'),
-      I18n.t('notify_cleanliness_title'),
+      `(${I18n.t('notify_cleanliness_title')})`,
       [
         {
           text: I18n.t('cancel'),

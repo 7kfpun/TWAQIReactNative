@@ -18,7 +18,7 @@ import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
 const STARS_TO_APP_STORE = 4;
-const TEN_MINUTES = 15 * 60 * 1000;
+const SHOW_RATING_AFTER = 20 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
@@ -80,7 +80,7 @@ export default class Rating extends Component {
       } else {
         timer.setTimeout(that, 'ShowRatingBlock', () => {
           that.setState({ isRatingClose: false });
-        }, TEN_MINUTES);
+        }, SHOW_RATING_AFTER);
       }
     });
   }
