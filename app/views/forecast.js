@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   Platform,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -70,10 +71,12 @@ export default class ForecastView extends Component {
           <Text style={styles.titleText}>{I18n.t('forecast_title')}</Text>
         </View>
 
-        <ForecastNotificationSettings />
-        <View style={{ flex: 1, padding: 10 }}>
-          <Text style={{ lineHeight: 22, fontSize: 14 }}>{this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content}</Text>
-        </View>
+        <ScrollView>
+          <ForecastNotificationSettings />
+          <View style={{ flex: 1, padding: 10 }}>
+            <Text style={{ lineHeight: 22, fontSize: 14 }}>{this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content}</Text>
+          </View>
+        </ScrollView>
         <AdMob />
       </View>
     );

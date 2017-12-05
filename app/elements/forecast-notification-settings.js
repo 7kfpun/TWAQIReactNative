@@ -76,7 +76,7 @@ export default class ForecastNotificationSettings extends Component {
         <Switch
           onValueChange={this.setNotification}
           value={this.state.isEnabled}
-          tintColor="white"
+          tintColor="#E0E0E0"
         />
       </View>
     );
