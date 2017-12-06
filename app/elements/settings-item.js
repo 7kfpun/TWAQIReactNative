@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 
+import firebase from 'react-native-firebase';
 import OneSignal from 'react-native-onesignal';
 
 import { indexRanges } from '../utils/indexes';

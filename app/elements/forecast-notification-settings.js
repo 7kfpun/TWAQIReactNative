@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 
+import firebase from 'react-native-firebase';
 import OneSignal from 'react-native-onesignal';
 
 import I18n from '../utils/i18n';

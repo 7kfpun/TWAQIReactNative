@@ -336,8 +336,6 @@ export default class MainView extends Component {
               this.map.animateToRegion({
                 latitude: parseFloat(location.TWD97Lat),
                 longitude: parseFloat(location.TWD97Lon),
-                latitudeDelta: LATITUDE_DELTA * 0.2,
-                longitudeDelta: LONGITUDE_DELTA * 0.2,
               });
               tracker.logEvent('select-location', location);
             }}

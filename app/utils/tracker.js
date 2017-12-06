@@ -5,7 +5,6 @@ import {
 
 import Analytics from 'analytics-react-native';
 import DeviceInfo from 'react-native-device-info';
-
 import firebase from 'react-native-firebase';
 
 import { config } from '../config';
