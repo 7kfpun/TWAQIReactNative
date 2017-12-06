@@ -8,7 +8,7 @@ import firebase from 'react-native-firebase';
 import OneSignal from 'react-native-onesignal';
 
 import SettingsItem from '../elements/settings-item';
-import locations from '../utils/locations';
+import { locations } from '../utils/locations';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,24 +24,16 @@ export default class EnabledItems extends Component {
 
   componentDidMount() {
     const that = this;
+    const trace = firebase.perf().newTrace('onesignal_get_tags');
+    trace.start();
     OneSignal.getTags((tags) => {
       console.log('OneSignal tags', tags);
+      trace.stop();
 
       if (tags) {
-        const trace = firebase.perf().newTrace('api_get_locations');
-        trace.start();
-        locations().then((result) => {
-          if (result && Array.isArray(result) && result.length > 0) {
-            console.log('Locations:', result);
-
-            const enabledItems = result
-              .filter(item => tags[item.SiteEngName] && (tags[item.SiteEngName] === true || tags[item.SiteEngName] === 'true')).sort();
-
-            that.setState({ locations: enabledItems });
-            console.log('enabledItems', enabledItems);
-          }
-          trace.stop();
-        });
+        const enabledItems = locations.filter(item => tags[item.SiteEngName] && (tags[item.SiteEngName] === true || tags[item.SiteEngName] === 'true')).sort();
+        that.setState({ locations: enabledItems });
+        console.log('enabledItems', enabledItems);
       }
     });
   }

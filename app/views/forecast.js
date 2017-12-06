@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 
+import firebase from 'react-native-firebase';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import AdMob from '../elements/admob';
@@ -57,9 +58,12 @@ export default class ForecastView extends Component {
   }
 
   componentDidMount() {
+    const trace = firebase.perf().newTrace('api_get_aqfn');
+    trace.start();
     aqfn().then((json) => {
       console.log('aqfnResult', json);
       this.setState({ aqfnResult: json });
+      trace.stop();
     });
   }
 

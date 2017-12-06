@@ -8,12 +8,10 @@ import {
   View,
 } from 'react-native';
 
-import store from 'react-native-simple-store';
-
 import SettingsItem from '../elements/settings-item';
 
 import { countyZh2En } from '../utils/county-mapping';
-import locations from '../utils/locations';
+import { locations } from '../utils/locations';
 import tracker from '../utils/tracker';
 import I18n from '../utils/i18n';
 
@@ -49,8 +47,8 @@ export default class SettingsGroup extends Component {
   }
 
   state = {
-    isOpen: false,
     locations: [],
+    isOpen: false,
   };
 
   componentDidMount() {
@@ -58,19 +56,7 @@ export default class SettingsGroup extends Component {
   }
 
   prepareLocations() {
-    const that = this;
-    const groupName = this.props.groupName;
-    store.get('locationsCache').then((locationsCache) => {
-      if (locationsCache && locationsCache.length > 0) {
-        that.setState({ locations: locationsCache.filter(item => item.County === groupName) });
-      }
-
-      locations().then((result) => {
-        if (result && result.length > 0) {
-          that.setState({ locations: result.filter(item => item.County === groupName) });
-        }
-      });
-    });
+    this.setState({ locations: locations.filter(item => item.County === this.props.groupName).sort() });
   }
 
   render() {

@@ -27,9 +27,9 @@ import Marker from '../elements/marker';
 import Rating from '../elements/rating';
 
 import { indexes } from '../utils/indexes';
+import { locations } from '../utils/locations';
 import aqi from '../utils/aqi';
 import I18n from '../utils/i18n';
-import locations from '../utils/locations';
 import tracker from '../utils/tracker';
 
 const { width, height } = Dimensions.get('window');
@@ -98,11 +98,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginBottom: 2,
+    marginBottom: 1,
     backgroundColor: 'transparent',
   },
   bubble: {
-    height: 42,
+    height: 40,
     borderWidth: 2,
     backgroundColor: 'rgba(255,255,255,0.9)',
     paddingHorizontal: 2,
@@ -152,18 +152,17 @@ export default class MainView extends Component {
   }
 
   state = {
+    locations,
     location: {
       latitude: LATITUDE,
       longitude: LONGITUDE,
     },
-    locations: [],
     selectedIndex: indexes[0],
     isLoading: false,
     gpsEnabled: false,
   };
 
   async componentDidMount() {
-    this.prepareLocations();
     this.prepareData();
 
     timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
@@ -271,34 +270,6 @@ export default class MainView extends Component {
       latitudeDelta: this.state.gpsEnabled ? 0.2 : LATITUDE_DELTA,
       longitudeDelta: this.state.gpsEnabled ? 0.2 * ASPECT_RATIO : LONGITUDE_DELTA,
     };
-  }
-
-  prepareLocations() {
-    const that = this;
-    store.delete('locationsCache');
-    const trace = firebase.perf().newTrace('api_get_locations');
-    trace.start();
-    locations().then((result) => {
-      if (result && Array.isArray(result) && result.length > 0) {
-        console.log('Locations:', result);
-        that.setState({ locations: result });
-      }
-      trace.stop();
-    });
-
-    // store.get('locationsCache').then((locationsCache) => {
-    //   if (locationsCache && Array.isArray(locationsCache) && locationsCache.length > 0) {
-    //     that.setState({ locations: locationsCache });
-    //   }
-    //
-    //   locations().then((result) => {
-    //     if (result && Array.isArray(result) && result.length > 0) {
-    //       console.log('Locations:', result);
-    //       that.setState({ locations: result });
-    //       store.save('locationsCache', result);
-    //     }
-    //   });
-    // });
   }
 
   prepareData() {

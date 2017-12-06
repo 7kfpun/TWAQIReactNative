@@ -10,14 +10,13 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import OneSignal from 'react-native-onesignal';
-import store from 'react-native-simple-store';
 
 import AdMob from '../elements/admob';
 import EnabledItems from '../elements/enabled-items';
 import SettingsGroup from '../elements/settings-group';
 
+import { countys } from '../utils/locations';
 import I18n from '../utils/i18n';
-import locations from '../utils/locations';
 import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
@@ -108,57 +107,7 @@ export default class SettingsView extends Component {
   }
 
   prepareLocations() {
-    const uniq = (a) => {
-      const seen = {};
-      const out = [];
-      const len = a.length;
-      let j = 0;
-      for (let i = 0; i < len; i += 1) {
-        const item = a[i];
-        if (seen[item] !== 1) {
-          seen[item] = 1;
-          out[j++] = item;
-        }
-      }
-      return out;
-    };
-
-    const compare = (a, b) => {
-      if (a.TWD97Lat > b.TWD97Lat) {
-        return -1;
-      }
-      if (a.TWD97Lat < b.TWD97Lat) {
-        return 1;
-      }
-      return 0;
-    };
-
-    const that = this;
-    store.delete('locationsCache');
-    locations().then((result) => {
-      if (result && result.length > 0) {
-        console.log('Locations:', result);
-        const countys = uniq(result.sort(compare).map(item => item.County));
-        console.log('countys', countys);
-        that.setState({ locations: countys });
-      }
-    });
-
-    // store.get('locationsCache').then((locationsCache) => {
-    //   if (locationsCache && locationsCache.length > 0) {
-    //     const countys = uniq(locationsCache.sort(compare).map(item => item.County));
-    //     that.setState({ locations: countys });
-    //   }
-    //
-    //
-    //   locations().then((result) => {
-    //     if (result && result.length > 0) {
-    //       console.log('Locations:', result);
-    //       const countys = uniq(result.sort(compare).map(item => item.County));
-    //       that.setState({ locations: countys });
-    //     }
-    //   });
-    // });
+    this.setState({ locations: countys });
   }
 
   render() {

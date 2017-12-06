@@ -50,7 +50,7 @@ I18n.translations = {
     contact: '聯絡',
 
     rating_title: '喜歡「台灣空氣品質指標」嗎？',
-    rating_description: '請給我們5顆星以鼓勵我們',
+    rating_description: '給我們5顆星以鼓勵我們吧',
     feedback_description: '我們很需要您給點意見，讓此APP越做越好。',
 
     notify_title: '空氣品質通知',
