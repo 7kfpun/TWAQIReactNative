@@ -50,7 +50,12 @@ const styles = StyleSheet.create({
 
 const OneSignalGetTags = () => new Promise((resolve, reject) => {
   try {
-    OneSignal.getTags(tags => resolve(tags));
+    const trace = firebase.perf().newTrace('onesignal_get_tags');
+    trace.start();
+    OneSignal.getTags((tags) => {
+      trace.stop();
+      resolve(tags);
+    });
   } catch (err) {
     reject(err);
   }

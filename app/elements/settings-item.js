@@ -79,8 +79,12 @@ export default class SettingsItem extends Component {
 
   componentDidMount() {
     const that = this;
+    const trace = firebase.perf().newTrace('onesignal_get_tags');
+    trace.start();
     OneSignal.getTags((tags) => {
+      trace.stop();
       console.log('OneSignal tags', tags);
+
       receivedTags = tags || {};
       const item = this.props.item;
 

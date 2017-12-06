@@ -27,8 +27,8 @@ export default class EnabledItems extends Component {
     const trace = firebase.perf().newTrace('onesignal_get_tags');
     trace.start();
     OneSignal.getTags((tags) => {
-      console.log('OneSignal tags', tags);
       trace.stop();
+      console.log('OneSignal tags', tags);
 
       if (tags) {
         const enabledItems = locations.filter(item => tags[item.SiteEngName] && (tags[item.SiteEngName] === true || tags[item.SiteEngName] === 'true')).sort();
