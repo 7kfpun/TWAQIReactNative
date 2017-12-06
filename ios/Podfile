@@ -29,4 +29,6 @@ target 'TWAQI' do
   pod 'Firebase/Performance'
 
   pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
+
+
 end

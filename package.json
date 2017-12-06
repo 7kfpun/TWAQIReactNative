@@ -15,12 +15,12 @@
 		"analytics-react-native": "1.2.0",
 		"prop-types": "^15.6.0",
 		"react": "16.0.0",
-		"react-native": "0.50.3",
+		"react-native": "0.50.4",
 		"react-native-animatable": "^1.2.4",
 		"react-native-communications": "^2.2.1",
-		"react-native-device-info": "0.12.1",
+		"react-native-device-info": "0.13.0",
 		"react-native-fabric": "^0.5.1",
-		"react-native-firebase": "^3.1.0",
+		"react-native-firebase": "3.1.1",
 		"react-native-fused-location": "0.0.10",
 		"react-native-i18n": "^2.0.9",
 		"react-native-iphone-x-helper": "^1.0.1",
@@ -35,16 +35,16 @@
 		"react-navigation": "1.0.0-beta.17"
 	},
 	"devDependencies": {
-		"babel-eslint": "8.0.2",
+		"babel-eslint": "8.0.3",
 		"babel-jest": "21.2.0",
 		"babel-preset-react-native": "4.0.0",
-		"eslint": "4.11.0",
+		"eslint": "4.12.1",
 		"eslint-config-airbnb": "16.1.0",
 		"eslint-plugin-import": "2.8.0",
 		"eslint-plugin-jsx-a11y": "^6.0.2",
 		"eslint-plugin-react": "7.5.1",
 		"jest": "21.2.1",
-		"react-test-renderer": "16.1.1"
+		"react-test-renderer": "16.2.0"
 	},
 	"jest": {
 		"preset": "react-native"
