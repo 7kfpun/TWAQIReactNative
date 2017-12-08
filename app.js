@@ -2,14 +2,16 @@ import {
   Platform,
 } from 'react-native';
 
-import { TabNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
 
 import Main from './app/views/main';
+import List from './app/views/list';
+import Details from './app/views/details';
 import Forecast from './app/views/forecast';
 import Settings from './app/views/settings';
 import Help from './app/views/help';
-import Contact from './app/views/contact';
+// import Contact from './app/views/contact';
 
 import I18n from './app/utils/i18n';
 
@@ -19,10 +21,16 @@ if (!__DEV__) {
 
 const App = TabNavigator({
   Main: { screen: Main },
+  History: {
+    screen: StackNavigator({
+      HistoryList: { screen: List },
+      HistoryDetails: { screen: Details },
+    }),
+  },
   Forecast: { screen: Forecast },
   Settings: { screen: Settings },
   Help: { screen: Help },
-  Contact: { screen: Contact },
+  // Contact: { screen: Contact },
 }, {
   headerMode: 'none',
   swipeEnabled: false,

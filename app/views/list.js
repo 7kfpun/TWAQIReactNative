@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  FlatList,
   Platform,
   ScrollView,
   StyleSheet,
@@ -10,9 +11,9 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import AdMob from '../elements/admob';
-import ForecastNotificationSettings from '../elements/forecast-notification-settings';
+import HistoryGroup from '../elements/history-group';
 
-import aqfn from '../utils/aqfn';
+import { countys } from '../utils/locations';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -30,52 +31,41 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'black',
   },
-  permissionReminderBlock: {
-    backgroundColor: '#3949AB',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 1,
-  },
-  permissionReminderText: {
-    fontSize: 12,
-    color: 'white',
+  list: {
+    paddingVertical: 30,
   },
 });
 
-export default class ForecastView extends Component {
+
+export default class SettingsView extends Component {
   static navigationOptions = {
     header: null,
-    title: 'Help',
-    tabBarLabel: I18n.t('forecast'),
+    tabBarLabel: I18n.t('list'),
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="track-changes" size={21} color={tintColor || 'gray'} />
+      <Icon name="view-list" size={21} color={tintColor || 'gray'} />
     ),
   };
 
   state = {
-    aqfnResult: null,
-  }
-
-  componentDidMount() {
-    aqfn().then((json) => {
-      console.log('aqfnResult', json);
-      this.setState({ aqfnResult: json });
-    });
-  }
+    locations: countys,
+  };
 
   render() {
+    console.log(countys);
     tracker.view('List');
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
-          <Text style={styles.titleText}>{I18n.t('forecast_title')}</Text>
+          <Text style={styles.titleText}>{I18n.t('list_title')}</Text>
         </View>
 
         <ScrollView>
-          <ForecastNotificationSettings />
-          <View style={{ flex: 1, padding: 10 }}>
-            <Text style={{ lineHeight: 22, fontSize: 14 }}>{this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content}</Text>
-          </View>
+          <FlatList
+            style={styles.list}
+            data={this.state.locations}
+            keyExtractor={(item, index) => `${index}-${item}`}
+            renderItem={({ item }) => <HistoryGroup style={{ fontSize: 30 }} groupName={item} navigation={this.props.navigation} />}
+          />
         </ScrollView>
         <AdMob />
       </View>

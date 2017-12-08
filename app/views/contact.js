@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
 export default class ContactView extends Component {
   static navigationOptions = {
     header: null,
-    title: 'Help',
     tabBarLabel: I18n.t('contact'),
     tabBarIcon: ({ tintColor }) => (
       <Icon name="email" size={21} color={tintColor || 'gray'} />

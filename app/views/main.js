@@ -3,14 +3,14 @@ import {
   ActivityIndicator,
   DeviceEventEmitter,
   Dimensions,
+  NativeModules,
+  PermissionsAndroid,
   Platform,
   ScrollView,
   StyleSheet,
-  PermissionsAndroid,
   Text,
   TouchableOpacity,
   View,
-  NativeModules,
 } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper';
@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
 export default class MainView extends Component {
   static navigationOptions = {
     header: null,
-    title: 'Main',
     tabBarLabel: I18n.t('main'),
     tabBarIcon: ({ tintColor }) => (
       <Icon name="place" size={20} color={tintColor || 'gray'} />

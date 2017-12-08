@@ -159,7 +159,6 @@ const helpTexts = {
 export default class HelpView extends Component {
   static navigationOptions = {
     header: null,
-    title: 'Help',
     tabBarLabel: I18n.t('help'),
     tabBarIcon: ({ tintColor }) => (
       <Icon name="info-outline" size={21} color={tintColor || 'gray'} />

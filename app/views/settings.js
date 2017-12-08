@@ -65,7 +65,6 @@ const OneSignalGetTags = () => new Promise((resolve, reject) => {
 export default class SettingsView extends Component {
   static navigationOptions = {
     header: null,
-    title: 'Settings',
     tabBarLabel: I18n.t('settings'),
     tabBarIcon: ({ tintColor }) => (
       <Icon name="notifications-none" size={21} color={tintColor || 'gray'} />
@@ -85,13 +84,11 @@ export default class SettingsView extends Component {
   }
 
   state = {
-    locations: [],
+    locations: countys,
     isShowPermissionReminderBlock: false,
   };
 
   async componentDidMount() {
-    this.prepareLocations();
-
     // Request permission on start
     SettingsView.requestPermissions();
 
@@ -112,10 +109,6 @@ export default class SettingsView extends Component {
     }
   }
 
-  prepareLocations() {
-    this.setState({ locations: countys });
-  }
-
   render() {
     tracker.view('Settings');
     return (
@@ -132,7 +125,7 @@ export default class SettingsView extends Component {
           <FlatList
             style={styles.list}
             data={this.state.locations}
-            keyExtractor={(item, index) => `${index}-${item.SiteName}`}
+            keyExtractor={(item, index) => `${index}-${item}`}
             renderItem={({ item }) => <SettingsGroup groupName={item} />}
           />
         </ScrollView>

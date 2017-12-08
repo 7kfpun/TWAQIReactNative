@@ -8,7 +8,7 @@ exports.indexes = ['AQI', 'O3', 'PM2.5', 'PM10', 'CO', 'SO2', 'NO2'];
 // 151-200 Unhealthy High-risk group may have more serious health effects. Some of the general public may have health effects.
 // 201-300 Very Unhealthy General public have health effects.
 // 301-500 Hazardous Some of the general public may have more serious health effects.
-exports.indexRanges = {
+const indexRanges = {
   AQI: [{
     key: 0,
     status: I18n.t('status_good'),
@@ -317,3 +317,14 @@ exports.indexRanges = {
     max: 2049,
   }],
 };
+
+exports.indexRanges = indexRanges;
+
+const getColor = (index, amount) => {
+  const isMatched = (indexRanges[index] || indexRanges[index.replace('_', '.')]).filter(item => amount >= item.min && amount <= item.max);
+  if (isMatched && isMatched.length >= 1) {
+    return isMatched[0];
+  }
+};
+
+exports.getColor = getColor;

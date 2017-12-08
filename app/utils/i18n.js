@@ -5,10 +5,14 @@ I18n.fallbacks = true;
 I18n.translations = {
   en: {
     main: 'Map',
+    list: 'Details',
+    details: 'Details',
     forecast: 'Forecast',
     settings: 'Settings',
     help: 'Help',
     contact: 'Contact',
+
+    list_title: 'Detail Data',
 
     rating_title: 'Enjoy using "Taiwan Air Quality"?',
     rating_description: 'Please give us 5 stars to cheer we up if you like this app.',
@@ -44,10 +48,14 @@ I18n.translations = {
   },
   zh: {
     main: '地圖',
+    list: '詳細',
+    details: '詳細',
     forecast: '預測',
     settings: '通知設定',
     help: '幫助',
     contact: '聯絡',
+
+    list_title: '詳細紀錄',
 
     rating_title: '喜歡「台灣空氣品質指標」嗎？',
     rating_description: '給我們5顆星以鼓勵我們吧',

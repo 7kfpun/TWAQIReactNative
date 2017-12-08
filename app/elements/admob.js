@@ -5,6 +5,7 @@ import {
   View,
 } from 'react-native';
 
+import DeviceInfo from 'react-native-device-info';
 import firebase from 'react-native-firebase';
 
 import { config } from '../config';
@@ -39,10 +40,12 @@ export default class Admob extends Component {
       return null;
     }
 
+    const height = DeviceInfo.isTablet() ? 90 : 50;
+
     return (
       <View
         style={{
-          height: this.state.isReceived ? 50 : 0,
+          height: this.state.isReceived ? height : 0,
           margin: this.props.margin,
           backgroundColor: this.props.backgroundColor,
           alignItems: this.props.alignItems,

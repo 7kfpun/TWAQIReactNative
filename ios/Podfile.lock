@@ -56,13 +56,29 @@ PODS:
     - yoga (= 0.50.4.React)
   - React/cxxreact_legacy (0.50.4):
     - React/jschelpers_legacy
+  - React/DevSupport (0.50.4):
+    - React/Core
+    - React/RCTWebSocket
   - React/fishhook (0.50.4)
   - React/jschelpers_legacy (0.50.4)
+  - React/RCTActionSheet (0.50.4):
+    - React/Core
   - React/RCTBlob (0.50.4):
+    - React/Core
+  - React/RCTGeolocation (0.50.4):
+    - React/Core
+  - React/RCTImage (0.50.4):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTLinkingIOS (0.50.4):
     - React/Core
   - React/RCTNetwork (0.50.4):
     - React/Core
+  - React/RCTSettings (0.50.4):
+    - React/Core
   - React/RCTText (0.50.4):
+    - React/Core
+  - React/RCTVibration (0.50.4):
     - React/Core
   - React/RCTWebSocket (0.50.4):
     - React/Core
@@ -80,8 +96,15 @@ DEPENDENCIES:
   - Firebase/Performance
   - React/BatchedBridge (from `../node_modules/react-native`)
   - React/Core (from `../node_modules/react-native`)
+  - React/DevSupport (from `../node_modules/react-native`)
+  - React/RCTActionSheet (from `../node_modules/react-native`)
+  - React/RCTGeolocation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
+  - React/RCTLinkingIOS (from `../node_modules/react-native`)
   - React/RCTNetwork (from `../node_modules/react-native`)
+  - React/RCTSettings (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
+  - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNFirebase (from `../node_modules/react-native-firebase`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -110,6 +133,6 @@ SPEC CHECKSUMS:
   RNFirebase: 30522211772f22affff6f3a61981110852d2668b
   yoga: b9aebf996711e50fc31f5608c10aa108a5a0c29e
 
-PODFILE CHECKSUM: f639c45a948e4da485e38d806d2f88bb0795e887
+PODFILE CHECKSUM: 8dc1d72bd26dcc6e11252b02e369ac138698de91
 
 COCOAPODS: 1.2.1

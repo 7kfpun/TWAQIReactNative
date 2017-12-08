@@ -31,22 +31,15 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'black',
   },
-  permissionReminderBlock: {
-    backgroundColor: '#3949AB',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 1,
-  },
-  permissionReminderText: {
-    fontSize: 12,
-    color: 'white',
+  text: {
+    lineHeight: 22,
+    fontSize: 14,
   },
 });
 
 export default class ForecastView extends Component {
   static navigationOptions = {
     header: null,
-    title: 'Help',
     tabBarLabel: I18n.t('forecast'),
     tabBarIcon: ({ tintColor }) => (
       <Icon name="track-changes" size={21} color={tintColor || 'gray'} />
@@ -58,13 +51,15 @@ export default class ForecastView extends Component {
   }
 
   componentDidMount() {
-    const trace = firebase.perf().newTrace('api_get_aqfn');
-    trace.start();
-    aqfn().then((json) => {
-      console.log('aqfnResult', json);
-      this.setState({ aqfnResult: json });
-      trace.stop();
-    });
+    if (!I18n.isZh) {
+      const trace = firebase.perf().newTrace('api_get_aqfn');
+      trace.start();
+      aqfn().then((json) => {
+        console.log('aqfnResult', json);
+        this.setState({ aqfnResult: json });
+        trace.stop();
+      });
+    }
   }
 
   render() {
@@ -78,7 +73,7 @@ export default class ForecastView extends Component {
         <ScrollView>
           <ForecastNotificationSettings />
           <View style={{ flex: 1, padding: 10 }}>
-            <Text style={{ lineHeight: 22, fontSize: 14 }}>{this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content}</Text>
+            <Text style={styles.text}>{this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content}</Text>
           </View>
         </ScrollView>
         <AdMob />

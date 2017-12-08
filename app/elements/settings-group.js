@@ -18,6 +18,8 @@ import I18n from '../utils/i18n';
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
+    borderBottomColor: '#EEEEEE',
+    borderBottomWidth: 1,
   },
   switchBlock: {
     flexDirection: 'row',
@@ -27,6 +29,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   text: {
+    fontWeight: '600',
     fontSize: 16,
   },
   noticeText: {
@@ -67,7 +70,7 @@ export default class SettingsGroup extends Component {
         <TouchableOpacity
           onPress={() => {
             this.setState({ isOpen: !this.state.isOpen });
-            tracker.logEvent('toggle-group', { label: groupName });
+            tracker.logEvent('toggle-settings-group', { label: groupName });
           }}
         >
           <View style={styles.groupNameBlock}>
