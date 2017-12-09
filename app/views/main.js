@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper';
-import { iOSColors } from 'react-native-typography'
+import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
 import FusedLocation from 'react-native-fused-location';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -391,7 +391,7 @@ export default class MainView extends Component {
             tracker.logEvent('move-to-default-location');
           }}
         >
-          <Icon name="crop-free" size={26} color={iOSColors.gray} />
+          <Icon name="crop-free" size={28} color={iOSColors.gray} />
         </TouchableOpacity>}
 
         {this.state.gpsEnabled && <TouchableOpacity
@@ -401,7 +401,7 @@ export default class MainView extends Component {
             tracker.logEvent('move-to-current-location');
           }}
         >
-          <Icon name="near-me" size={26} color={iOSColors.gray} />
+          <Icon name="near-me" size={28} color={iOSColors.gray} />
         </TouchableOpacity>}
 
         <View>

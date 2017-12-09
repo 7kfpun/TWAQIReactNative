@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Dimensions,
 } from 'react-native';
@@ -12,6 +13,11 @@ const { width } = Dimensions.get('window');
 const isFloat = n => Number(n) === n && n % 1 !== 0;
 
 export default class Chart extends Component {
+  static propTypes = {
+    index: PropTypes.string.isRequired,
+    result: PropTypes.object.isRequired,
+  }
+
   render() {
     const { index, result } = this.props;
 
@@ -30,9 +36,9 @@ export default class Chart extends Component {
     const max = parseFloat(Math.max(...data)) || 1;
 
     return (<VictoryBar
-      height={60}
+      height={65}
       width={width - 6}
-      padding={{ top: 15, bottom: 2, left: 7, right: 7 }}
+      padding={{ top: 20, bottom: 2, left: 7, right: 7 }}
       domain={{ x: [0, 24], y: [min, max] }}
       labels={(d) => {
         if (d.y === 0) {

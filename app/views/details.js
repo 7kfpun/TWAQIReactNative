@@ -125,20 +125,23 @@ export default class DetailsView extends Component {
             style={{ width, height: this.state.ratio * width }}
             source={{ uri: item.ImageUrl }}
           />}
-          {!this.state.refreshing && indexTypes.map(i => (
-            <View key={i.key} style={styles.block}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={styles.text}>{i.name}</Text>
-                <Text style={styles.amountText}>{`${this.state.result[i.key][this.state.result.PublishTime.length - 1]} ${i.unit}`}</Text>
-              </View>
+          {!this.state.refreshing && indexTypes.map((indexType) => {
+            const length = this.state.result.PublishTime.length;
+            return (
+              <View key={indexType.key} style={styles.block}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={styles.text}>{indexType.name}</Text>
+                  <Text style={styles.amountText}>{`${this.state.result[indexType.key][length - 1]} ${indexType.unit}`}</Text>
+                </View>
 
-              <Chart result={this.state.result} index={i.key} />
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={styles.dateText}>{this.state.result.PublishTime[0]}</Text>
-                <Text style={styles.dateText}>{this.state.result.PublishTime[this.state.result.PublishTime.length - 1]}</Text>
+                <Chart result={this.state.result} index={indexType.key} />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={styles.dateText}>{this.state.result.PublishTime[0]}</Text>
+                  <Text style={styles.dateText}>{this.state.result.PublishTime[length - 1]}</Text>
+                </View>
               </View>
-            </View>
-          ))}
+            );
+          })}
         </ScrollView>
         <AdMob />
       </View>
