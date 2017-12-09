@@ -26,7 +26,7 @@ import Indicator from '../elements/indicator';
 import Marker from '../elements/marker';
 import Rating from '../elements/rating';
 
-import { indexes } from '../utils/indexes';
+import { indexTypes } from '../utils/indexes';
 import { locations } from '../utils/locations';
 import aqi from '../utils/aqi';
 import I18n from '../utils/i18n';
@@ -156,7 +156,7 @@ export default class MainView extends Component {
       latitude: LATITUDE,
       longitude: LONGITUDE,
     },
-    selectedIndex: indexes[0],
+    selectedIndex: indexTypes[0].key,
     isLoading: false,
     gpsEnabled: false,
   };
@@ -407,18 +407,18 @@ export default class MainView extends Component {
 
         <View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ height: 45, flexGrow: 0 }}>
-            {indexes.map(item => (
+            {indexTypes.map(item => (
               <TouchableOpacity
-                key={item}
+                key={item.key}
                 onPress={() => {
-                  this.setState({ selectedIndex: item });
-                  store.save('selectedIndex', item);
-                  tracker.logEvent('select-index', { label: item });
-                  console.log('Select index', item);
+                  this.setState({ selectedIndex: item.name });
+                  store.save('selectedIndex', item.name);
+                  tracker.logEvent('select-index', { label: item.name });
+                  console.log('Select index', item.name);
                 }}
-                style={[styles.bubble, styles.button, this.state.selectedIndex === item ? styles.selectedBubble : {}]}
+                style={[styles.bubble, styles.button, this.state.selectedIndex === item.name ? styles.selectedBubble : {}]}
               >
-                <Text style={styles.text}>{item}</Text>
+                <Text style={styles.text}>{item.name}</Text>
               </TouchableOpacity>
             ))}
           </ScrollView>

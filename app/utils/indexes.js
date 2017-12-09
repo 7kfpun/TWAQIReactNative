@@ -1,6 +1,34 @@
 import I18n from './i18n';
 
-exports.indexes = ['AQI', 'O3', 'PM2.5', 'PM10', 'CO', 'SO2', 'NO2'];
+exports.indexTypes = [{
+  key: 'AQI',
+  name: 'AQI',
+  unit: '',
+}, {
+  key: 'O3',
+  name: 'O3',
+  unit: '(ppb)',
+}, {
+  key: 'PM2_5',
+  name: 'PM2.5',
+  unit: '(μg/m3)',
+}, {
+  key: 'PM10',
+  name: 'PM10',
+  unit: '(μg/m3)',
+}, {
+  key: 'CO',
+  name: 'CO',
+  unit: '(ppm)',
+}, {
+  key: 'SO2',
+  name: 'SO2',
+  unit: '(ppb)',
+}, {
+  key: 'NO2',
+  name: 'NO2',
+  unit: '(ppb)',
+}];
 
 // 0-50 Good Air pollution risk is low.
 // 51-100 Moderate Air quality is acceptable.

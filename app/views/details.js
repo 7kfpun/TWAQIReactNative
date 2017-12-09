@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import AdMob from '../elements/admob';
 import Chart from '../elements/chart';
 
-import { indexes } from '../utils/indexes';
+import { indexTypes } from '../utils/indexes';
 import AQIHistory from '../utils/history';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
@@ -42,6 +42,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     color: 'black',
+  },
+  amountText: {
+    fontSize: 14,
+    color: 'gray',
   },
   dateText: {
     fontSize: 10,
@@ -86,10 +90,14 @@ export default class DetailsView extends Component {
         </View>
         <ScrollView>
           {this.state.result && <View style={styles.block}>
-            {indexes.map(i => (
-              <View key={i} style={{ paddingVertical: 20, borderBottomColor: '#EEEEEE', borderBottomWidth: 1 }}>
-                <Text style={styles.text}>{i}</Text>
-                <Chart result={this.state.result} index={i.replace('.', '_')} />
+            {indexTypes.map(i => (
+              <View key={i.key} style={{ paddingVertical: 20, borderBottomColor: '#EEEEEE', borderBottomWidth: 1 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={styles.text}>{i.name}</Text>
+                  <Text style={styles.amountText}>{`${this.state.result[i.key][this.state.result.PublishTime.length - 1]} ${i.unit}`}</Text>
+                </View>
+
+                <Chart result={this.state.result} index={i.key} />
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Text style={styles.dateText}>{this.state.result.PublishTime[0]}</Text>
                   <Text style={styles.dateText}>{this.state.result.PublishTime[this.state.result.PublishTime.length - 1]}</Text>
