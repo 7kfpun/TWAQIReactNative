@@ -51,7 +51,7 @@ export default class ForecastView extends Component {
   }
 
   componentDidMount() {
-    if (!I18n.isZh) {
+    if (I18n.isZh) {
       const trace = firebase.perf().newTrace('api_get_aqfn');
       trace.start();
       aqfn().then((json) => {

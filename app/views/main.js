@@ -313,6 +313,8 @@ export default class MainView extends Component {
   }
 
   render() {
+    const navigation = this.props.navigation;
+
     tracker.view('Main');
     return (
       <View style={styles.container}>
@@ -322,28 +324,43 @@ export default class MainView extends Component {
           initialRegion={this.getCurrentLocation()}
           onRegionChange={region => this.onRegionChange(region)}
         >
-          {this.state.aqiResult && this.state.locations.map(location => (<MapView.Marker
-            key={location.SiteEngName}
-            coordinate={{
-              latitude: parseFloat(location.TWD97Lat),
-              longitude: parseFloat(location.TWD97Lon),
-            }}
-            title={I18n.isZh ? location.SiteName : location.SiteEngName}
-            // description={location.SiteAddress}
-            onPress={() => {
-              this.setState({ selectedLocation: location.SiteName });
-              this.map.animateToRegion({
+          {this.state.aqiResult && this.state.locations
+            .filter(i => this.state.aqiResult[i.SiteName])
+            .map(location => (<MapView.Marker
+              key={location.SiteEngName}
+              coordinate={{
                 latitude: parseFloat(location.TWD97Lat),
                 longitude: parseFloat(location.TWD97Lon),
-              });
-              tracker.logEvent('select-location', location);
-            }}
-          >
-            {this.state.aqiResult[location.SiteName] && <Marker
-              amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
-              index={this.state.selectedIndex}
-            />}
-          </MapView.Marker>))}
+              }}
+              onPress={() => {
+                this.setState({ selectedLocation: location.SiteName });
+                this.map.animateToRegion({
+                  latitude: parseFloat(location.TWD97Lat),
+                  longitude: parseFloat(location.TWD97Lon),
+                });
+                tracker.logEvent('select-location', location);
+              }}
+            >
+              <View>
+                <Marker
+                  amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
+                  index={this.state.selectedIndex}
+                />
+              </View>
+              <MapView.Callout>
+                <TouchableOpacity
+                  onPress={() => {
+                    tracker.logEvent('check-main-details', location);
+                    navigation.navigate('MainDetails', { item: location });
+                  }}
+                >
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: I18n.isZh ? 50 : 80, marginLeft: 10 }}>
+                    <Text>{I18n.isZh ? location.SiteName : location.SiteEngName}</Text>
+                    <Icon name="chevron-right" size={24} color={'gray'} />
+                  </View>
+                </TouchableOpacity>
+              </MapView.Callout>
+            </MapView.Marker>))}
 
           {this.state.gpsEnabled && this.state.location && <MapView.Marker
             coordinate={this.state.location}

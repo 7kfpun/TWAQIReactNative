@@ -49,7 +49,10 @@ export default class HistoryItem extends Component {
     const item = this.props.item;
     const navigation = this.props.navigation;
     return (<TouchableOpacity
-      onPress={() => navigation.navigate('HistoryDetails', { item })}
+      onPress={() => {
+        tracker.logEvent('check-list-details', item);
+        navigation.navigate('HistoryDetails', { item });
+      }}
     >
       <View style={styles.container}>
         <Text style={styles.text}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>

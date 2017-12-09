@@ -53,7 +53,7 @@ export default class DetailsView extends Component {
     header: null,
     tabBarLabel: I18n.t('details'),
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="view-list" size={21} color={tintColor || 'gray'} />
+      <Icon name="timeline" size={21} color={tintColor || 'gray'} />
     ),
   };
 

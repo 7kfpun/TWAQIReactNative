@@ -20,7 +20,12 @@ if (!__DEV__) {
 }
 
 const App = TabNavigator({
-  Main: { screen: Main },
+  Main: {
+    screen: StackNavigator({
+      MainMap: { screen: Main },
+      MainDetails: { screen: Details },
+    }),
+  },
   History: {
     screen: StackNavigator({
       HistoryList: { screen: List },

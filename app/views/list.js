@@ -52,7 +52,7 @@ export default class SettingsView extends Component {
 
   render() {
     console.log(countys);
-    tracker.view('List');
+    tracker.view('History-List');
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
