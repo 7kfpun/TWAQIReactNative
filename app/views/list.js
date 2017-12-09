@@ -41,9 +41,7 @@ export default class SettingsView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('list'),
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="view-list" size={21} color={tintColor || 'gray'} />
-    ),
+    tabBarIcon: ({ tintColor }) => <Icon name="view-list" size={22} color={tintColor} />,
   };
 
   state = {

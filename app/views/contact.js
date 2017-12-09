@@ -44,9 +44,7 @@ export default class ContactView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('contact'),
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="email" size={21} color={tintColor || 'gray'} />
-    ),
+    tabBarIcon: ({ tintColor }) => <Icon name="email" size={21} color={tintColor} />,
   };
 
   render() {

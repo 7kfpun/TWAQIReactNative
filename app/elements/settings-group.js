@@ -8,6 +8,8 @@ import {
   View,
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import SettingsItem from '../elements/settings-item';
 
 import { countyZh2En } from '../utils/county-mapping';
@@ -17,7 +19,8 @@ import I18n from '../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
+    marginLeft: 10,
+    paddingRight: 10,
     borderBottomColor: '#EEEEEE',
     borderBottomWidth: 1,
   },
@@ -26,6 +29,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   groupNameBlock: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingVertical: 15,
   },
   text: {
@@ -75,6 +80,7 @@ export default class SettingsGroup extends Component {
         >
           <View style={styles.groupNameBlock}>
             <Text style={styles.text}>{I18n.isZh ? groupName : countyZh2En[groupName]}</Text>
+            <Icon name={this.state.isOpen ? 'keyboard-arrow-down' : 'chevron-right'} size={21} color={'gray'} />
           </View>
         </TouchableOpacity>
         {this.state.isOpen && <FlatList

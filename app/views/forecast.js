@@ -41,9 +41,7 @@ export default class ForecastView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('forecast'),
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="track-changes" size={21} color={tintColor || 'gray'} />
-    ),
+    tabBarIcon: ({ tintColor }) => <Icon name="track-changes" size={21} color={tintColor} />,
   };
 
   state = {

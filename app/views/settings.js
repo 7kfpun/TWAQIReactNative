@@ -66,9 +66,7 @@ export default class SettingsView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('settings'),
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="notifications-none" size={21} color={tintColor || 'gray'} />
-    ),
+    tabBarIcon: ({ tintColor }) => <Icon name="notifications-none" size={21} color={tintColor} />,
   };
 
   static requestPermissions() {

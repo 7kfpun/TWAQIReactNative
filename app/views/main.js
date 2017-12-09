@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper';
+import { iOSColors } from 'react-native-typography'
 import firebase from 'react-native-firebase';
 import FusedLocation from 'react-native-fused-location';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -108,12 +109,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     paddingVertical: 12,
     borderRadius: 20,
-    borderColor: '#E0E0E0',
+    borderColor: iOSColors.lightGray,
     justifyContent: 'center',
     alignItems: 'center',
   },
   selectedBubble: {
-    borderColor: '#29B6F6',
+    borderColor: iOSColors.tealBlue,
   },
   button: {
     width: 56,
@@ -130,9 +131,7 @@ export default class MainView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('main'),
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="place" size={20} color={tintColor || 'gray'} />
-    ),
+    tabBarIcon: ({ tintColor }) => <Icon name="place" size={19} color={tintColor} />,
   };
 
   static isOutOfBound(latitude, longitude) {
@@ -392,7 +391,7 @@ export default class MainView extends Component {
             tracker.logEvent('move-to-default-location');
           }}
         >
-          <Icon name="crop-free" size={26} color="#616161" />
+          <Icon name="crop-free" size={26} color={iOSColors.gray} />
         </TouchableOpacity>}
 
         {this.state.gpsEnabled && <TouchableOpacity
@@ -402,7 +401,7 @@ export default class MainView extends Component {
             tracker.logEvent('move-to-current-location');
           }}
         >
-          <Icon name="near-me" size={26} color="#616161" />
+          <Icon name="near-me" size={26} color={iOSColors.gray} />
         </TouchableOpacity>}
 
         <View>

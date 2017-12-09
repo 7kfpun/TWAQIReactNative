@@ -4,6 +4,7 @@ import {
 
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
+import { iOSColors } from 'react-native-typography';
 
 import Main from './app/views/main';
 import List from './app/views/list';
@@ -41,8 +42,8 @@ const App = TabNavigator({
   swipeEnabled: false,
   animationEnabled: true,
   tabBarOptions: {
-    activeTintColor: '#29B6F6',
-    inactiveTintColor: 'gray',
+    activeTintColor: iOSColors.tealBlue,
+    inactiveTintColor: iOSColors.gray,
     // showIcon and pressColor are for Android
     showIcon: true,
     pressColor: '#E0E0E0',

@@ -160,9 +160,7 @@ export default class HelpView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('help'),
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="info-outline" size={21} color={tintColor || 'gray'} />
-    ),
+    tabBarIcon: ({ tintColor }) => <Icon name="info-outline" size={21} color={tintColor} />,
   };
 
   render() {
