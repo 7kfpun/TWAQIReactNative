@@ -18,6 +18,7 @@ const Banner = firebase.admob.Banner;
 export default class Admob extends Component {
   static propTypes = {
     bannerSize: PropTypes.string,
+    unitId: PropTypes.string,
     margin: PropTypes.number,
     backgroundColor: PropTypes.string,
     alignItems: PropTypes.string,
@@ -25,6 +26,7 @@ export default class Admob extends Component {
 
   static defaultProps = {
     margin: 0,
+    unitId: null,
     bannerSize: 'SMART_BANNER',
     backgroundColor: 'rgba(0,0,0,0)',
     alignItems: 'center',
@@ -54,7 +56,7 @@ export default class Admob extends Component {
       >
         <Banner
           size={this.props.bannerSize}
-          unitId={config.admob[Platform.OS].banner}
+          unitId={(this.props.unitId && config.admob[Platform.OS][this.props.unitId]) || config.admob[Platform.OS].banner}
           request={request.build()}
           onAdLoaded={() => {
             console.log('Ads received');

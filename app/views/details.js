@@ -31,8 +31,9 @@ const styles = StyleSheet.create({
   titleBlock: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: Platform.OS === 'ios' ? 60 : 20,
+    paddingTop: Platform.OS === 'ios' ? 50 : 20,
     paddingLeft: 2,
+    marginBottom: 10,
   },
   block: {
     marginLeft: 10,
@@ -143,7 +144,7 @@ export default class DetailsView extends Component {
             );
           })}
         </ScrollView>
-        <AdMob />
+        <AdMob unitId={'twaqi-ios-details-footer'} />
       </View>
     );
   }

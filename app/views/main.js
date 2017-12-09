@@ -422,7 +422,7 @@ export default class MainView extends Component {
             ))}
           </ScrollView>
 
-          <AdMob />
+          <AdMob unitId={'twaqi-ios-main-footer'} />
         </View>
 
       </View>

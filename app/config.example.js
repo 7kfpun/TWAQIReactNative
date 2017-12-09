@@ -6,6 +6,12 @@ exports.config = {
     ios: {
       banner: '',
       interstital: '',
+      'twaqi-ios-main-footer': '',
+      'twaqi-ios-list-footer': '',
+      'twaqi-ios-details-footer': '',
+      'twaqi-ios-forecast-footer': '',
+      'twaqi-ios-settings-footer': '',
+      'twaqi-ios-help-footer': '',
     },
     android: {
       banner: '',

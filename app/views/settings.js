@@ -127,7 +127,7 @@ export default class SettingsView extends Component {
             renderItem={({ item }) => <SettingsGroup groupName={item} />}
           />
         </ScrollView>
-        <AdMob />
+        <AdMob unitId={'twaqi-ios-settings-footer'} />
       </View>
     );
   }

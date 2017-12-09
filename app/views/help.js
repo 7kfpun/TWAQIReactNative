@@ -188,7 +188,7 @@ export default class HelpView extends Component {
             })}
           </View>
         </ScrollView>
-        <AdMob />
+        <AdMob unitId={'twaqi-ios-help-footer'} />
       </View>
     );
   }
