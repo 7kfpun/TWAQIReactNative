@@ -34,6 +34,7 @@ const locations = [
     TWD97Lon: '121.1504500000',
     TWD97Lat: '22.7553580000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=62&type=l',
   }, {
     SiteName: '臺南',
     SiteEngName: 'Tainan',
@@ -54,6 +55,7 @@ const locations = [
     TWD97Lon: '120.2028420000',
     TWD97Lat: '23.7175330000',
     SiteType: '工業測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=41&type=l',
   }, {
     SiteName: '觀音',
     SiteEngName: 'Guanyin',
@@ -64,6 +66,7 @@ const locations = [
     TWD97Lon: '121.0827610000',
     TWD97Lat: '25.0355030000',
     SiteType: '背景測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=19&type=l',
   }, {
     SiteName: '關山',
     SiteEngName: 'Guanshan',
@@ -74,6 +77,7 @@ const locations = [
     TWD97Lon: '121.1619330000',
     TWD97Lat: '23.0450830000',
     SiteType: '其它測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=80&type=l',
   }, {
     SiteName: '豐原',
     SiteEngName: 'Fengyuan',
@@ -84,6 +88,7 @@ const locations = [
     TWD97Lon: '120.7417110000',
     TWD97Lat: '24.2565860000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=28&type=l',
   }, {
     SiteName: '龍潭',
     SiteEngName: 'Longtan',
@@ -124,6 +129,7 @@ const locations = [
     TWD97Lon: '120.4690610000',
     TWD97Lat: '24.1316720000',
     SiteType: '工業測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=34&type=l',
   }, {
     SiteName: '潮州',
     SiteEngName: 'Chaozhou',
@@ -134,6 +140,7 @@ const locations = [
     TWD97Lon: '120.5611750000',
     TWD97Lat: '22.5231080000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=60&type=l',
   }, {
     SiteName: '鳳山',
     SiteEngName: 'Fengshan',
@@ -144,6 +151,7 @@ const locations = [
     TWD97Lon: '120.3580830000',
     TWD97Lat: '22.6273920000',
     SiteType: '交通測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=50&type=l',
   }, {
     SiteName: '彰化',
     SiteEngName: 'Changhua',
@@ -164,6 +172,7 @@ const locations = [
     TWD97Lon: '120.4408330000',
     TWD97Lat: '23.4627780000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=42&type=l',
   }, {
     SiteName: '萬華',
     SiteEngName: 'Wanhua',
@@ -174,6 +183,7 @@ const locations = [
     TWD97Lon: '121.5079720000',
     TWD97Lat: '25.0465030000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=13&type=l',
   }, {
     SiteName: '萬里',
     SiteEngName: 'Wanli',
@@ -204,6 +214,7 @@ const locations = [
     TWD97Lon: '120.3172500000',
     TWD97Lat: '23.3056330000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=43&type=l',
   }, {
     SiteName: '新港',
     SiteEngName: 'Xingang',
@@ -214,6 +225,7 @@ const locations = [
     TWD97Lon: '120.3455310000',
     TWD97Lat: '23.5548390000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=39&type=l',
   }, {
     SiteName: '新莊',
     SiteEngName: 'Xinzhuang',
@@ -224,6 +236,7 @@ const locations = [
     TWD97Lon: '121.4325000000',
     TWD97Lat: '25.0379720000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=7&type=l',
   }, {
     SiteName: '新店',
     SiteEngName: 'Xindian',
@@ -234,6 +247,7 @@ const locations = [
     TWD97Lon: '121.5377780000',
     TWD97Lat: '24.9772220000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=4&type=l',
   }, {
     SiteName: '新竹',
     SiteEngName: 'Hsinchu',
@@ -254,6 +268,7 @@ const locations = [
     TWD97Lon: '121.5295830000',
     TWD97Lat: '25.1827220000',
     SiteType: '公園測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=64&type=l',
   }, {
     SiteName: '菜寮',
     SiteEngName: 'Cailiao',
@@ -274,6 +289,7 @@ const locations = [
     TWD97Lon: '120.2971420000',
     TWD97Lat: '23.1150970000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=44&type=l',
   }, {
     SiteName: '湖口',
     SiteEngName: 'Hukou',
@@ -304,6 +320,7 @@ const locations = [
     TWD97Lon: '120.2518250000',
     TWD97Lat: '23.7535060000',
     SiteType: '工業測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=83&type=l',
   }, {
     SiteName: '淡水',
     SiteEngName: 'Tamsui',
@@ -324,6 +341,7 @@ const locations = [
     TWD97Lon: '120.3487420000',
     TWD97Lat: '23.7575470000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=38&type=l',
   }, {
     SiteName: '基隆',
     SiteEngName: 'Keelung',
@@ -334,6 +352,7 @@ const locations = [
     TWD97Lon: '121.7600560000',
     TWD97Lat: '25.1291670000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=1&type=l',
   }, {
     SiteName: '馬祖',
     SiteEngName: 'Matsu',
@@ -344,6 +363,7 @@ const locations = [
     TWD97Lon: '119.9498750000',
     TWD97Lat: '26.1604690000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=75&type=l',
   }, {
     SiteName: '馬公',
     SiteEngName: 'Magong',
@@ -354,6 +374,7 @@ const locations = [
     TWD97Lon: '119.5661580000',
     TWD97Lat: '23.5690310000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=78&type=l',
   }, {
     SiteName: '桃園',
     SiteEngName: 'Taoyuan',
@@ -364,6 +385,7 @@ const locations = [
     TWD97Lon: '121.3199640000',
     TWD97Lat: '24.9947890000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=18&type=l',
   }, {
     SiteName: '埔里',
     SiteEngName: 'Puli',
@@ -394,6 +416,7 @@ const locations = [
     TWD97Lon: '120.5305420000',
     TWD97Lat: '22.8835830000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=47&type=l',
   }, {
     SiteName: '恆春',
     SiteEngName: 'Hengchun',
@@ -424,6 +447,7 @@ const locations = [
     TWD97Lon: '120.6853060000',
     TWD97Lat: '23.9130000000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=36&type=l',
   }, {
     SiteName: '前鎮',
     SiteEngName: 'Qianzhen',
@@ -434,6 +458,7 @@ const locations = [
     TWD97Lon: '120.3075640000',
     TWD97Lat: '22.6053860000',
     SiteType: '工業測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=57&type=l',
   }, {
     SiteName: '前金',
     SiteEngName: 'Qianjin',
@@ -454,6 +479,7 @@ const locations = [
     TWD97Lon: '118.3122560000',
     TWD97Lat: '24.4321330000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=77&type=l',
   }, {
     SiteName: '花蓮',
     SiteEngName: 'Hualien',
@@ -464,6 +490,7 @@ const locations = [
     TWD97Lon: '121.5997690000',
     TWD97Lat: '23.9713060000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=63&type=l',
   }, {
     SiteName: '松山',
     SiteEngName: 'Songshan',
@@ -494,6 +521,7 @@ const locations = [
     TWD97Lon: '120.4117500000',
     TWD97Lat: '22.4795000000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=52&type=l',
   }, {
     SiteName: '林口',
     SiteEngName: 'Linkou',
@@ -504,6 +532,7 @@ const locations = [
     TWD97Lon: '121.3768690000',
     TWD97Lat: '25.0771970000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=9&type=l',
   }, {
     SiteName: '忠明',
     SiteEngName: 'Zhongming',
@@ -514,6 +543,7 @@ const locations = [
     TWD97Lon: '120.6410920000',
     TWD97Lat: '24.1519580000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=31&type=l',
   }, {
     SiteName: '宜蘭',
     SiteEngName: 'Yilan',
@@ -524,6 +554,7 @@ const locations = [
     TWD97Lon: '121.7463940000',
     TWD97Lat: '24.7479170000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=65&type=l',
   }, {
     SiteName: '沙鹿',
     SiteEngName: 'Shalu',
@@ -534,6 +565,7 @@ const locations = [
     TWD97Lon: '120.5687940000',
     TWD97Lat: '24.2256280000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=29&type=l',
   }, {
     SiteName: '西屯',
     SiteEngName: 'Xitun',
@@ -544,6 +576,7 @@ const locations = [
     TWD97Lon: '120.6169170000',
     TWD97Lat: '24.1621970000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=32&type=l',
   }, {
     SiteName: '竹東',
     SiteEngName: 'Zhudong',
@@ -564,6 +597,7 @@ const locations = [
     TWD97Lon: '120.6773060000',
     TWD97Lat: '23.7563890000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=69&type=l',
   }, {
     SiteName: '汐止',
     SiteEngName: 'Xizhi',
@@ -574,6 +608,7 @@ const locations = [
     TWD97Lon: '121.6423000000',
     TWD97Lat: '25.0671310000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=2&type=l',
   }, {
     SiteName: '朴子',
     SiteEngName: 'Puzi',
@@ -584,6 +619,7 @@ const locations = [
     TWD97Lon: '120.2473500000',
     TWD97Lat: '23.4653080000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=40&type=l',
   }, {
     SiteName: '安南',
     SiteEngName: 'Annan',
@@ -594,6 +630,7 @@ const locations = [
     TWD97Lon: '120.2175000000',
     TWD97Lat: '23.0481970000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=45&type=l',
   }, {
     SiteName: '永和',
     SiteEngName: 'Yonghe',
@@ -604,6 +641,7 @@ const locations = [
     TWD97Lon: '121.5163060000',
     TWD97Lat: '25.0170000000',
     SiteType: '交通測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=70&type=l',
   }, {
     SiteName: '平鎮',
     SiteEngName: 'Pingzhen',
@@ -644,6 +682,7 @@ const locations = [
     TWD97Lon: '121.7929280000',
     TWD97Lat: '24.6322030000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=66&type=l',
   }, {
     SiteName: '斗六',
     SiteEngName: 'Douliu',
@@ -654,6 +693,7 @@ const locations = [
     TWD97Lon: '120.5449940000',
     TWD97Lat: '23.7118530000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=37&type=l',
   }, {
     SiteName: '仁武',
     SiteEngName: 'Renwu',
@@ -664,6 +704,7 @@ const locations = [
     TWD97Lon: '120.3326310000',
     TWD97Lat: '22.6890560000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=49&type=l',
   }, {
     SiteName: '中壢',
     SiteEngName: 'Zhongli',
@@ -674,6 +715,7 @@ const locations = [
     TWD97Lon: '121.2216670000',
     TWD97Lat: '24.9532780000',
     SiteType: '交通測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=68&type=l',
   }, {
     SiteName: '中山',
     SiteEngName: 'Zhongshan',
@@ -694,6 +736,7 @@ const locations = [
     TWD97Lon: '120.3377360000',
     TWD97Lat: '22.5658330000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=58&type=l',
   }, {
     SiteName: '大寮',
     SiteEngName: 'Daliao',
@@ -704,6 +747,7 @@ const locations = [
     TWD97Lon: '120.4250810000',
     TWD97Lat: '22.5657470000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=51&type=l',
   }, {
     SiteName: '大園',
     SiteEngName: 'Dayuan',
@@ -714,6 +758,7 @@ const locations = [
     TWD97Lon: '121.2018110000',
     TWD97Lat: '25.0603440000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=18&type=l',
   }, {
     SiteName: '大里',
     SiteEngName: 'Dali',
@@ -744,6 +789,7 @@ const locations = [
     TWD97Lon: '121.5153890000',
     TWD97Lat: '25.1054170000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=11&type=l',
   }, {
     SiteName: '土城',
     SiteEngName: 'Tucheng',
@@ -764,6 +810,7 @@ const locations = [
     TWD97Lon: '120.7588330000',
     TWD97Lat: '24.3829420000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=27&type=l',
   }, {
     SiteName: '三重',
     SiteEngName: 'Sanchong',
@@ -784,6 +831,7 @@ const locations = [
     TWD97Lon: '120.4096530000',
     TWD97Lat: '23.9251750000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=35&type=l',
   }, {
     SiteName: '富貴角',
     SiteEngName: 'FugueiCape',
@@ -794,6 +842,7 @@ const locations = [
     TWD97Lon: '121.5652580000',
     TWD97Lat: '25.2637830000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=84&type=l',
   },
 ];
 

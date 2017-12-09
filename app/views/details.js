@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {
+  Dimensions,
+  Image,
   Platform,
   RefreshControl,
   ScrollView,
@@ -18,6 +20,8 @@ import { indexTypes } from '../utils/indexes';
 import AQIHistory from '../utils/history';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -68,6 +72,15 @@ export default class DetailsView extends Component {
 
   componentDidMount() {
     this.prepareData();
+
+    const { state } = this.props.navigation;
+    const { item } = state.params;
+    if (item.ImageUrl) {
+      Image.getSize(item.ImageUrl, (imageWidth, imageHeight) => {
+        console.log('getSize', imageWidth, imageHeight);
+        this.setState({ ratio: imageHeight / imageWidth });
+      });
+    }
   }
 
   prepareData = () => {
@@ -108,6 +121,10 @@ export default class DetailsView extends Component {
             />
           }
         >
+          {item.ImageUrl && <Image
+            style={{ width, height: this.state.ratio * width }}
+            source={{ uri: item.ImageUrl }}
+          />}
           {!this.state.refreshing && indexTypes.map(i => (
             <View key={i.key} style={styles.block}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

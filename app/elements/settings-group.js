@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   groupNameBlock: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     paddingVertical: 15,
   },
   text: {
