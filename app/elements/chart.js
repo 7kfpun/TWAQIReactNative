@@ -39,14 +39,13 @@ export default class Chart extends Component {
       height={65}
       width={width - 6}
       padding={{ top: 20, bottom: 2, left: 7, right: 7 }}
-      domain={{ x: [0, 24], y: [min, max] }}
+      domain={{ x: [0, 24], y: [min / 4, max] }}
       labels={(d) => {
         if (d.y === 0) {
           return '';
         }
 
         if (d.y === min || d.y === max || d.x === 0 || d.x === data.length - 1) {
-          isMaxShow = true;
           return isFloat(d.y) ? d.y.toFixed(1) : d.y;
         }
 

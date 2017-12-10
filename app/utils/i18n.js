@@ -5,7 +5,7 @@ I18n.fallbacks = true;
 I18n.translations = {
   en: {
     main: 'Map',
-    list: 'Details',
+    list: 'List',
     details: 'Details',
     forecast: 'Forecast',
     settings: 'Settings',
@@ -48,7 +48,7 @@ I18n.translations = {
   },
   zh: {
     main: '地圖',
-    list: '詳細',
+    list: '列表',
     details: '詳細',
     forecast: '預測',
     settings: '通知設定',
