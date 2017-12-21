@@ -16,8 +16,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import AdMob from '../elements/admob';
 import Chart from '../elements/chart';
 
+import { history } from '../utils/api';
 import { indexTypes } from '../utils/indexes';
-import AQIHistory from '../utils/history';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -90,7 +90,7 @@ export default class DetailsView extends Component {
 
     const trace = firebase.perf().newTrace('api_get_aqi_history');
     trace.start();
-    AQIHistory(item.SiteName).then((result) => {
+    history(item.SiteName).then((result) => {
       trace.stop();
       // console.log(result);
       if (result.SiteName) {
@@ -132,7 +132,7 @@ export default class DetailsView extends Component {
               <View key={indexType.key} style={styles.block}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Text style={styles.text}>{indexType.name}</Text>
-                  <Text style={styles.amountText}>{`${this.state.result[indexType.key][length - 1]} ${indexType.unit}`}</Text>
+                  <Text style={styles.amountText}>{`${this.state.result[indexType.key][length - 1]}${indexType.unit ? ` app/elements/chart.js${indexType.unit}` : ''}`}</Text>
                 </View>
 
                 <Chart result={this.state.result} index={indexType.key} />

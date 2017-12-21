@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import AdMob from '../elements/admob';
 import ForecastNotificationSettings from '../elements/forecast-notification-settings';
 
-import aqfn from '../utils/aqfn';
+import { aqfn } from '../utils/api';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 

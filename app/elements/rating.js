@@ -41,10 +41,12 @@ const styles = StyleSheet.create({
   ratingDescriptionText: {
     fontSize: 12,
     marginVertical: 15,
+    textAlign: 'center',
   },
   feedbackDescriptionText: {
     color: 'white',
     fontSize: 14,
+    textAlign: 'center',
   },
   close: {
     position: 'absolute',

@@ -27,9 +27,9 @@ import Indicator from '../elements/indicator';
 import Marker from '../elements/marker';
 import Rating from '../elements/rating';
 
+import { aqi } from '../utils/api';
 import { indexTypes } from '../utils/indexes';
 import { locations } from '../utils/locations';
-import aqi from '../utils/aqi';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 

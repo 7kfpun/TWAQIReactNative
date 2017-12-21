@@ -32,6 +32,7 @@ export default class Chart extends Component {
       return amount;
     });
 
+    const length = result[index].length;
     const min = parseFloat(Math.min(...data)) || 0;
     const max = parseFloat(Math.max(...data)) || 1;
 
@@ -39,13 +40,13 @@ export default class Chart extends Component {
       height={65}
       width={width - 6}
       padding={{ top: 20, bottom: 2, left: 7, right: 7 }}
-      domain={{ x: [0, 24], y: [min / 4, max] }}
+      domain={{ x: [0, length], y: [min / 3, max] }}
       labels={(d) => {
         if (d.y === 0) {
           return '';
         }
 
-        if (d.y === min || d.y === max || d.x === 0 || d.x === data.length - 1) {
+        if (d.y === min || d.y === max || d.x === 0 || d.x === length - 1) {
           return isFloat(d.y) ? d.y.toFixed(1) : d.y;
         }
 
@@ -67,7 +68,7 @@ export default class Chart extends Component {
       data={data.map((value, i) => ({
         x: i,
         y: parseFloat(value),
-        width: (width - 100) / 24,
+        width: (width - 100) / length,
       }))}
     />);
   }
