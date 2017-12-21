@@ -33,7 +33,7 @@
 		85DBC5535EB8495C92F2370D /* libRNLocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 335EF0D0313E4574823494D6 /* libRNLocation.a */; };
 		8B1E7777A43345838354D4F2 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19C8D358C1AA4EA5BC9B56AA /* libAirMaps.a */; };
 		9E06C3201FD84578002AFE5B /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E06C31A1FD84542002AFE5B /* libRNSVG.a */; };
-		9E6E40931FC180B200FCFCDC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E6E40631FC180B100FCFCDC /* GoogleService-Info.plist */; };
+		9E6220261FEBE3BD002DB737 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E6220251FEBE3BD002DB737 /* GoogleService-Info.plist */; };
 		9ED72E081F715FB900CEE907 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		9ED72E411F71608000CEE907 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ED72E3F1F71608000CEE907 /* Fabric.framework */; };
 		9ED72E421F71608000CEE907 /* Answers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ED72E401F71608000CEE907 /* Answers.framework */; };
@@ -443,7 +443,7 @@
 		9E06C2E71FD84541002AFE5B /* RNSVG.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		9E28A7368E1643199CFD7DFA /* RNStoreReview.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNStoreReview.xcodeproj; path = "../node_modules/react-native-store-review/ios/RNStoreReview.xcodeproj"; sourceTree = "<group>"; };
 		9E32D9FE1F6ED6A400A692BE /* TWAQI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TWAQI.entitlements; path = TWAQI/TWAQI.entitlements; sourceTree = "<group>"; };
-		9E6E40631FC180B100FCFCDC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9E6220251FEBE3BD002DB737 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9ED72E091F715FCF00CEE907 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		9ED72E3F1F71608000CEE907 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		9ED72E401F71608000CEE907 /* Answers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Answers.framework; sourceTree = "<group>"; };
@@ -586,13 +586,13 @@
 			children = (
 				9E32D9FE1F6ED6A400A692BE /* TWAQI.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				9E6220251FEBE3BD002DB737 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				9E6E40631FC180B100FCFCDC /* GoogleService-Info.plist */,
 			);
 			name = TWAQI;
 			sourceTree = "<group>";
@@ -1376,7 +1376,7 @@
 				EE09900EC9CC480EB1B4AA67 /* Octicons.ttf in Resources */,
 				DEEDCECDEF99415D9F731D8C /* SimpleLineIcons.ttf in Resources */,
 				C61DC07081A94C2D9D44F0BF /* Zocial.ttf in Resources */,
-				9E6E40931FC180B200FCFCDC /* GoogleService-Info.plist in Resources */,
+				9E6220261FEBE3BD002DB737 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

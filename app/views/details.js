@@ -132,7 +132,7 @@ export default class DetailsView extends Component {
               <View key={indexType.key} style={styles.block}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Text style={styles.text}>{indexType.name}</Text>
-                  <Text style={styles.amountText}>{`${this.state.result[indexType.key][length - 1]}${indexType.unit ? ` app/elements/chart.js${indexType.unit}` : ''}`}</Text>
+                  <Text style={styles.amountText}>{`${this.state.result[indexType.key][length - 1]}${indexType.unit ? ` ${indexType.unit}` : ''}`}</Text>
                 </View>
 
                 <Chart result={this.state.result} index={indexType.key} />
