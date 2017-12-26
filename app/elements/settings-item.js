@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Switch,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -30,6 +31,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+  },
+  input: {
+    width: 30,
+    borderBottomColor: '#EEEEEE',
+    borderBottomWidth: 1,
+    textAlign: 'center',
+    marginRight: 8,
+    height: 22,
   },
   noticeBlock: {
     flexDirection: 'row',
@@ -114,13 +123,27 @@ export default class SettingsItem extends Component {
   }
 
   setNotificationPollutionTherhold(value) {
-    this.setState({ pollutionTherhold: value }, () => {
+    let tempValue = parseInt(value, 10) || 0;
+    if (!value || value <= 0) {
+      tempValue = 0;
+    } if (value > 500) {
+      tempValue = 500;
+    }
+
+    this.setState({ pollutionTherhold: tempValue }, () => {
       this.sendTags(true);
     });
   }
 
   setNotificationCleanlinessTherhold(value) {
-    this.setState({ cleanlinessTherhold: value }, () => {
+    let tempValue = parseInt(value, 10) || 0;
+    if (!value || value <= 0) {
+      tempValue = 0;
+    } if (value > 500) {
+      tempValue = 500;
+    }
+
+    this.setState({ cleanlinessTherhold: tempValue }, () => {
       this.sendTags(true);
     });
   }
@@ -208,14 +231,22 @@ export default class SettingsItem extends Component {
         {this.state.isEnabled && <View style={{ paddingTop: 10 }}>
           <View style={styles.noticeBlock}>
             <Text style={styles.noticeText}>{I18n.t('notify_pollution_therhold')}: </Text>
-            <TouchableOpacity onPress={() => this.showPollutionSelector()}>
-              <Marker
-                amount={String(this.state.pollutionTherhold)}
-                index={'AQI'}
-                isStatusShow={true}
-                fontSize={14}
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <TextInput
+                style={styles.input}
+                keyboardType={'numeric'}
+                onChangeText={value => this.setNotificationPollutionTherhold(value)}
+                value={this.state.pollutionTherhold.toString()}
               />
-            </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.showPollutionSelector()}>
+                <Marker
+                  amount={String(this.state.pollutionTherhold)}
+                  index={'AQI'}
+                  isStatusShow={true}
+                  fontSize={14}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
           <Text style={styles.noticeDescriptionText}>({I18n.t('notify_pollution_title')})</Text>
           <Slider
@@ -230,14 +261,23 @@ export default class SettingsItem extends Component {
 
           <View style={styles.noticeBlock}>
             <Text style={styles.noticeText}>{I18n.t('notify_cleanliness_therhold')}: </Text>
-            <TouchableOpacity onPress={() => this.showCleanlinessSelector()}>
-              <Marker
-                amount={String(this.state.cleanlinessTherhold)}
-                index={'AQI'}
-                isStatusShow={true}
-                fontSize={14}
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <TextInput
+                style={styles.input}
+                keyboardType={'numeric'}
+                onChangeText={value => this.setNotificationCleanlinessTherhold(value)}
+                value={this.state.cleanlinessTherhold.toString()}
               />
-            </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.showCleanlinessSelector()}>
+                <Marker
+                  amount={String(this.state.cleanlinessTherhold)}
+                  index={'AQI'}
+                  isStatusShow={true}
+                  isNumericShow={false}
+                  fontSize={14}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
           <Text style={styles.noticeDescriptionText}>({I18n.t('notify_cleanliness_title')})</Text>
           <Slider

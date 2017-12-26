@@ -58,15 +58,16 @@ const context = {
   isTablet: DeviceInfo.isTablet(),
 };
 
+const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
+
 const firebaseContext = {};
-Object.entries(context).forEach(([key, value]) => {
-  console.log(key, value);
-  if (typeof value === 'object') {
-    Object.entries(value).forEach(([k, v]) => {
-      firebaseContext[`${key}.${k}`] = String(v);
+Object.entries(context).forEach(([key0, value0]) => {
+  if (typeof value0 === 'object') {
+    Object.entries(value0).forEach(([key1, value1]) => {
+      firebaseContext[`${key0}${capitalizeFirstLetter(key1)}`] = String(value1);
     });
   } else {
-    firebaseContext[key] = String(value);
+    firebaseContext[key0] = String(value0);
   }
 });
 console.log('firebaseContext', firebaseContext);

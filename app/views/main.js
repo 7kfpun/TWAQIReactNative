@@ -43,7 +43,7 @@ const LONGITUDE = 120.8;
 const LATITUDE_DELTA = 4.4;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const OUT_OF_BOUND = 30;
-const FIVE_MINUTES = 5 * 60 * 1000;
+const RELOAD_INTERVAL = 10 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
@@ -163,7 +163,7 @@ export default class MainView extends Component {
   async componentDidMount() {
     this.prepareData();
 
-    timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), FIVE_MINUTES);
+    timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), RELOAD_INTERVAL);
 
     const that = this;
     store.get('selectedIndex').then((selectedIndex) => {
@@ -344,6 +344,7 @@ export default class MainView extends Component {
                 <Marker
                   amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
                   index={this.state.selectedIndex}
+                  isNumericShow={true}
                 />
               </View>
               <MapView.Callout>

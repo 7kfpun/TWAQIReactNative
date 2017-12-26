@@ -94,6 +94,9 @@ I18n.translations = {
 I18n.translations['zh-Hans-US'] = I18n.translations.zh;
 I18n.translations['zh-Hans-HK'] = I18n.translations.zh;
 I18n.translations['zh-Hans-MN'] = I18n.translations.zh;
+I18n.translations['zh-Hant-US'] = I18n.translations.zh;
+I18n.translations['zh-Hant-HK'] = I18n.translations.zh;
+I18n.translations['zh-Hant-MN'] = I18n.translations.zh;
 
 I18n.isZh = I18n.locale.startsWith('zh');
 

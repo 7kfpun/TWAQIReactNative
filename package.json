@@ -7,7 +7,7 @@
 		"build-android": "npm run release-android; osascript -e 'display notification \"DONE!\" with title \"Android built\"'",
 		"bundle-android": "$NVM_BIN/react-native bundle --platform android --dev false --entry-file ./index.android.js --bundle-output android/app/src/main/assets/index.android.bundle # --assets-dest android/app/src/main/res/",
 		"release-android": "cd android && ./gradlew assembleRelease && cd ..",
-		"install-android": "adb uninstall com.kfpun.aqi && adb install android/app/build/outputs/apk/app-release.apk",
+		"install-android": "adb uninstall com.kfpun.twaqi && adb install android/app/build/outputs/apk/app-release.apk",
 		"capture-android": "adb shell screencap /sdcard/temp.png && adb pull /sdcard/temp.png screenshot.png",
 		"test": "jest"
 	},
@@ -27,6 +27,7 @@
 		"react-native-location": "github:timfpark/react-native-location#723d46382d8c370f6e6b795006276f98e80b2d84",
 		"react-native-maps": "0.19.0",
 		"react-native-onesignal": "3.0.7",
+		"react-native-safari-view": "^2.1.0",
 		"react-native-simple-store": "^1.3.0",
 		"react-native-star-rating": "^1.0.8",
 		"react-native-store-review": "^0.1.3",

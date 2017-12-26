@@ -37,6 +37,7 @@ export default class AirMarker extends React.PureComponent {
     amount: PropTypes.string.isRequired,
     fontSize: PropTypes.number,
     isStatusShow: PropTypes.bool,
+    isNumericShow: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -44,10 +45,11 @@ export default class AirMarker extends React.PureComponent {
     amount: '-',
     fontSize: 15,
     isStatusShow: false,
+    isNumericShow: false,
   }
 
   render() {
-    const { index, fontSize, amount, isStatusShow } = this.props;
+    const { index, fontSize, amount, isStatusShow, isNumericShow } = this.props;
     let color = 'gray';
 
     let showAmount;
@@ -65,10 +67,19 @@ export default class AirMarker extends React.PureComponent {
       }
     }
 
+    let text = '';
+    if (isStatusShow && I18n.isZh) {
+      text = status;
+    }
+
+    if (isNumericShow) {
+      text = text ? `${text} ${showAmount}` : showAmount;
+    }
+
     return (
       <View style={styles.container}>
         <View style={[styles.bubble, { backgroundColor: color, borderColor: 'white' }]}>
-          <Text style={[styles.text, { fontSize, color: fontColor }]}>{isStatusShow && I18n.isZh ? `${status} ${showAmount}` : showAmount}</Text>
+          <Text style={[styles.text, { fontSize, color: fontColor }]}>{text}</Text>
         </View>
       </View>
     );

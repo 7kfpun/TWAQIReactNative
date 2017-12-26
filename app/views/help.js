@@ -4,10 +4,13 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
+import { iOSColors } from 'react-native-typography';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import SafariView from 'react-native-safari-view';
 
 import AdMob from '../elements/admob';
 
@@ -20,8 +23,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   titleBlock: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingTop: Platform.OS === 'ios' ? 60 : 20,
-    paddingLeft: 10,
+    paddingHorizontal: 10,
     marginBottom: 20,
   },
   block: {
@@ -163,12 +169,25 @@ export default class HelpView extends Component {
     tabBarIcon: ({ tintColor }) => <Icon name="info-outline" size={21} color={tintColor} />,
   };
 
+  static openFeedbackUrl() {
+    SafariView.isAvailable()
+      .then(SafariView.show({
+        url: 'https://airtable.com/shriylkR9MGWbc7fd',
+      }))
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     tracker.view('Help');
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
           <Text style={styles.title}>{I18n.t('help_definition')}</Text>
+          <TouchableOpacity onPress={HelpView.openFeedbackUrl}>
+            <Icon name="help-outline" size={30} color={iOSColors.gray} />
+          </TouchableOpacity>
         </View>
         <ScrollView>
           <View style={styles.block}>
