@@ -388,6 +388,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		9E45F04F1FFA637C00DF0067 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9E45F33B1FFA790D00DF0067 /* libReactNativeFabric.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReactNativeFabric.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E47EC861FFA8F1B004E70CD /* TWAQI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TWAQI.entitlements; path = TWAQI/TWAQI.entitlements; sourceTree = "<group>"; };
 		A13AD442C77B4790B9409762 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		A9156596E7A54D6CB69DA821 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -569,6 +570,7 @@
 		13B07FAE1A68108700A75B9A /* TWAQI */ = {
 			isa = PBXGroup;
 			children = (
+				9E47EC861FFA8F1B004E70CD /* TWAQI.entitlements */,
 				9E45F04F1FFA637C00DF0067 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -834,6 +836,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = CC4C8V8BXN;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1482,6 +1489,7 @@
 			baseConfigurationReference = D6DB602C3F4DB95D02026C61 /* Pods-TWAQI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TWAQI/TWAQI.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = CC4C8V8BXN;
@@ -1501,6 +1509,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kfpun.twaqi;
 				PRODUCT_NAME = TWAQI;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1510,6 +1519,7 @@
 			baseConfigurationReference = 5828891766A9216EE69DD8D4 /* Pods-TWAQI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TWAQI/TWAQI.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CC4C8V8BXN;
 				HEADER_SEARCH_PATHS = (
@@ -1528,6 +1538,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kfpun.twaqi;
 				PRODUCT_NAME = TWAQI;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
