@@ -10,6 +10,7 @@ import {
 import * as Animatable from 'react-native-animatable';
 import * as StoreReview from 'react-native-store-review';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import SafariView from 'react-native-safari-view';
 import StarRating from 'react-native-star-rating';
 import store from 'react-native-simple-store';
 import timer from 'react-native-timer';
@@ -58,13 +59,13 @@ const styles = StyleSheet.create({
 
 export default class Rating extends Component {
   static openFeedbackUrl() {
-    const url = 'https://goo.gl/forms/1WcZFmVjQJkrLqJi1';
-    Linking.canOpenURL(url).then((supported) => {
-      if (supported) {
-        Linking.openURL(url);
-        tracker.logEvent('open-feedback-url');
-      }
-    });
+    SafariView.isAvailable()
+      .then(SafariView.show({
+        url: I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en,
+      }))
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   state = {

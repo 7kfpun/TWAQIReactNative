@@ -13,9 +13,10 @@
 #import <React/RCTRootView.h>
 
 #import <Fabric/Fabric.h>
-#import <Answers/Answers.h>
+#import <Crashlytics/Crashlytics.h>
 
 #import <Firebase.h>
+
 
 @implementation AppDelegate
 
@@ -33,7 +34,7 @@
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
   // rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-  rootView.backgroundColor = [UIColor colorWithRed:0.72 green:0.88 blue:0.95 alpha:1.0];
+  rootView.backgroundColor = [UIColor colorWithRed:0.96 green:0.95 blue:0.92 alpha:1.0];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
@@ -45,8 +46,7 @@
                                                          appId:@"e8925b88-4ab5-423b-8f49-c48e78928061"
                                                       settings:@{kOSSettingsKeyAutoPrompt: @false}];
 
-  [Fabric with:@[[Answers class]]];
-
+  [Fabric with:@[[Crashlytics class]]];
 
   return YES;
 }

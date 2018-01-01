@@ -3,6 +3,7 @@ import {
   PixelRatio,
 } from 'react-native';
 
+import { Answers } from 'react-native-fabric';
 import Analytics from 'analytics-react-native';
 import DeviceInfo from 'react-native-device-info';
 import firebase from 'react-native-firebase';
@@ -18,7 +19,7 @@ const userId = DeviceInfo.getUniqueID();
 const isTracking = !(
   __DEV__
   // || DeviceInfo.getDeviceName().includes('kf')
-  // || DeviceInfo.getManufacturer() === 'Genymotion'
+  || DeviceInfo.getManufacturer() === 'Genymotion'
   || DeviceInfo.isEmulator()
 );
 
@@ -95,6 +96,7 @@ const tracker = {
       console.log(message);
       analytics.track(message);
       firebase.analytics().logEvent(event.replace(/-/g, '_'), properties);
+      Answers.logCustom(event, properties);
     }
   },
   view: (screen, properties) => {
@@ -103,6 +105,7 @@ const tracker = {
       console.log(message);
       analytics.screen(message);
       firebase.analytics().setCurrentScreen(screen, screen);
+      Answers.logContentView(screen, '', '', properties);
     }
   },
 };

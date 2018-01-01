@@ -98,9 +98,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    marginBottom: 1,
-    backgroundColor: 'transparent',
+    height: 45,
+    flexGrow: 0,
   },
   bubble: {
     height: 40,
@@ -406,7 +405,7 @@ export default class MainView extends Component {
         </TouchableOpacity>}
 
         <View>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ height: 45, flexGrow: 0 }}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.buttonContainer}>
             {indexTypes.map(item => (
               <TouchableOpacity
                 key={item.key}

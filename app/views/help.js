@@ -17,6 +17,8 @@ import AdMob from '../elements/admob';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
+import { config } from '../config';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -172,7 +174,7 @@ export default class HelpView extends Component {
   static openFeedbackUrl() {
     SafariView.isAvailable()
       .then(SafariView.show({
-        url: 'https://airtable.com/shriylkR9MGWbc7fd',
+        url: I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en,
       }))
       .catch((error) => {
         console.log(error);

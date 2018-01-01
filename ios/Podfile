@@ -1,4 +1,4 @@
-platform :ios, '8.0'
+platform :ios, '9.0'
 inhibit_all_warnings!
 
 source 'https://github.com/CocoaPods/Specs.git'
@@ -12,10 +12,17 @@ target 'TWAQI' do
   #React Pods
   pod "yoga", :path => "../node_modules/react-native/ReactCommon/yoga"
   pod 'React', :path => '../node_modules/react-native', :subspecs => [
-    'Core',
     'BatchedBridge',
-    'RCTText',
+    'Core',
+    'RCTActionSheet',
+    'RCTAnimation',
+    'RCTGeolocation',
+    'RCTImage',
+    'RCTLinkingIOS',
     'RCTNetwork',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
     'RCTWebSocket',
   ]
 
@@ -28,8 +35,30 @@ target 'TWAQI' do
   pod 'Firebase/Crash'
   pod 'Firebase/Performance'
 
-  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
+
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
   pod 'react-native-safari-view', :path => '../node_modules/react-native-safari-view'
+  pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+  pod 'RNI18n', :path => '../node_modules/react-native-i18n'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+end
 
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == 'react-native-google-maps'
+      target.build_configurations.each do |config|
+        config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
+      end
+    end
+    if target.name == "React"
+      target.remove_from_project
+    end
+  end
 end
