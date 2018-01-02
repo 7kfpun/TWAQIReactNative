@@ -92,7 +92,12 @@ const tracker = {
   },
   logEvent: (event, properties) => {
     if (isTracking) {
-      const message = { userId, event, properties, context };
+      const message = {
+        userId,
+        event,
+        properties,
+        context,
+      };
       console.log(message);
       analytics.track(message);
       firebase.analytics().logEvent(event.replace(/-/g, '_'), properties);
@@ -101,7 +106,12 @@ const tracker = {
   },
   view: (screen, properties) => {
     if (isTracking) {
-      const message = { userId, screen, properties, context };
+      const message = {
+        userId,
+        screen,
+        properties,
+        context,
+      };
       console.log(message);
       analytics.screen(message);
       firebase.analytics().setCurrentScreen(screen, screen);

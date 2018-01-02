@@ -40,7 +40,7 @@ export default class ForecastNotificationSettings extends Component {
   }
 
   state = {
-    isEnabled: true,
+    isEnabled: false,
   }
 
   componentDidMount() {

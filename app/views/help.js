@@ -198,19 +198,21 @@ export default class HelpView extends Component {
               const itemCategory = I18n.isZh ? item.hantwCategory : item.category;
               const itemDescription = I18n.isZh ? item.hantwMeaning : item.meaning;
 
-              return (<View key={`help-text-${Math.random()}`}>
-                <View style={styles.row}>
-                  <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
-                    <Text style={{ color: item.fontColor }}>{item.index}</Text>
+              return (
+                <View key={`help-text-${Math.random()}`}>
+                  <View style={styles.row}>
+                    <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
+                      <Text style={{ color: item.fontColor }}>{item.index}</Text>
+                    </View>
+                    <Text>{itemCategory}</Text>
                   </View>
-                  <Text>{itemCategory}</Text>
+                  <Text style={styles.description}>{itemDescription}</Text>
                 </View>
-                <Text style={styles.description}>{itemDescription}</Text>
-              </View>);
+              );
             })}
           </View>
         </ScrollView>
-        <AdMob unitId={'twaqi-ios-help-footer'} />
+        <AdMob unitId="twaqi-ios-help-footer" />
       </View>
     );
   }

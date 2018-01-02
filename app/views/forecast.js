@@ -74,7 +74,7 @@ export default class ForecastView extends Component {
             <Text style={styles.text}>{this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content && this.state.aqfnResult[0].Content.replace(/\r/g, '\n\n')}</Text>
           </View>
         </ScrollView>
-        <AdMob unitId={'twaqi-ios-forecast-footer'} />
+        <AdMob unitId="twaqi-ios-forecast-footer" />
       </View>
     );
   }

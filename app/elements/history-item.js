@@ -46,21 +46,23 @@ export default class HistoryItem extends Component {
   }
 
   render() {
-    const item = this.props.item;
-    const navigation = this.props.navigation;
-    return (<TouchableOpacity
-      onPress={() => {
-        tracker.logEvent('check-list-details', item);
-        navigation.navigate('HistoryDetails', { item });
-      }}
-    >
-      <View style={styles.container}>
-        <Text style={styles.text}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={styles.addressText}>{I18n.isZh ? item.SiteAddress : ''}</Text>
-          <Icon name="chevron-right" size={21} color={'gray'} />
+    const { item } = this.props;
+    const { navigation } = this.props;
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          tracker.logEvent('check-list-details', item);
+          navigation.navigate('HistoryDetails', { item });
+        }}
+      >
+        <View style={styles.container}>
+          <Text style={styles.text}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={styles.addressText}>{I18n.isZh ? item.SiteAddress : ''}</Text>
+            <Icon name="chevron-right" size={21} color="gray" />
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>);
+      </TouchableOpacity>
+    );
   }
 }

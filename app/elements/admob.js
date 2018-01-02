@@ -10,10 +10,8 @@ import firebase from 'react-native-firebase';
 
 import { config } from '../config';
 
-const AdRequest = firebase.admob.AdRequest;
+const { AdRequest, Banner } = firebase.admob;
 const request = new AdRequest();
-
-const Banner = firebase.admob.Banner;
 
 export default class Admob extends Component {
   static propTypes = {

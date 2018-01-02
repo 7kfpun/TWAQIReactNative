@@ -114,9 +114,10 @@ export default class SettingsView extends Component {
         <View style={styles.titleBlock}>
           <Text style={styles.titleText}>{I18n.t('notify_title')}</Text>
         </View>
-        {this.state.isShowPermissionReminderBlock && <View style={styles.permissionReminderBlock}>
-          <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
-        </View>}
+        {this.state.isShowPermissionReminderBlock &&
+          <View style={styles.permissionReminderBlock}>
+            <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
+          </View>}
 
         <ScrollView>
           <EnabledItems />
@@ -127,7 +128,7 @@ export default class SettingsView extends Component {
             renderItem={({ item }) => <SettingsGroup groupName={item} />}
           />
         </ScrollView>
-        <AdMob unitId={'twaqi-ios-settings-footer'} />
+        <AdMob unitId="twaqi-ios-settings-footer" />
       </View>
     );
   }

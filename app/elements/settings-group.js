@@ -69,7 +69,7 @@ export default class SettingsGroup extends Component {
   }
 
   render() {
-    const groupName = this.props.groupName;
+    const { groupName } = this.props;
 
     return (
       <View style={styles.container}>
@@ -81,7 +81,7 @@ export default class SettingsGroup extends Component {
         >
           <View style={styles.groupNameBlock}>
             <Text style={styles.text}>{I18n.isZh ? groupName : countyZh2En[groupName]}</Text>
-            <Icon name={this.state.isOpen ? 'keyboard-arrow-down' : 'chevron-right'} size={21} color={'gray'} />
+            <Icon name={this.state.isOpen ? 'keyboard-arrow-down' : 'chevron-right'} size={21} color="gray" />
           </View>
         </TouchableOpacity>
         {this.state.isOpen && <FlatList

@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
 
 export default class EnabledItems extends Component {
   state = {
-    isOpen: true,
     locations: [],
   };
 

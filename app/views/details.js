@@ -111,7 +111,7 @@ export default class DetailsView extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
-          <Icon name="chevron-left" size={40} color={'gray'} onPress={this.goBack} />
+          <Icon name="chevron-left" size={40} color="gray" onPress={this.goBack} />
           <Text style={styles.title}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
         </View>
         <ScrollView
@@ -127,7 +127,7 @@ export default class DetailsView extends Component {
             source={{ uri: item.ImageUrl }}
           />}
           {!this.state.refreshing && indexTypes.map((indexType) => {
-            const length = this.state.result.PublishTime.length;
+            const { length } = this.state.result.PublishTime;
             return (
               <View key={indexType.key} style={styles.block}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
