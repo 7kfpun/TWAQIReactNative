@@ -18,6 +18,8 @@ import timer from 'react-native-timer';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
+import { config } from '../config';
+
 const STARS_TO_APP_STORE = 4;
 const SHOW_RATING_AFTER = 20 * 60 * 1000;
 
