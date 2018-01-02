@@ -61,12 +61,12 @@ const styles = StyleSheet.create({
 
 export default class Rating extends Component {
   static openFeedbackUrl() {
+    const url = I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en;
     SafariView.isAvailable()
-      .then(SafariView.show({
-        url: I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en,
-      }))
+      .then(SafariView.show({ url }))
       .catch((error) => {
         console.log(error);
+        Linking.openURL(url);
       });
   }
 
@@ -122,25 +122,27 @@ export default class Rating extends Component {
       return null;
     }
 
-    return (<Animatable.View style={styles.container} animation="fadeIn">
-      <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
-        <Icon name="clear" size={24} color="#616161" />
-      </TouchableOpacity>
-      <Icon name="thumb-up" size={32} color="#616161" />
-      <Text style={styles.ratingTitleText}>{I18n.t('rating_title')}</Text>
-      <Text style={styles.ratingDescriptionText}>{I18n.t('rating_description')}</Text>
-      <StarRating
-        starSize={36}
-        rating={this.state.starCount}
-        selectedStar={rating => this.onStarRatingPress(rating)}
-      />
-      {this.state.starCount > 0
-      && this.state.starCount < STARS_TO_APP_STORE
-      && <TouchableOpacity onPress={() => Rating.openFeedbackUrl()}>
-        <Animatable.View style={styles.button} animation="fadeIn">
-          <Text style={styles.feedbackDescriptionText}>{I18n.t('feedback_description')}</Text>
-        </Animatable.View>
-      </TouchableOpacity>}
-    </Animatable.View>);
+    return (
+      <Animatable.View style={styles.container} animation="fadeIn">
+        <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
+          <Icon name="clear" size={24} color="#616161" />
+        </TouchableOpacity>
+        <Icon name="thumb-up" size={32} color="#616161" />
+        <Text style={styles.ratingTitleText}>{I18n.t('rating_title')}</Text>
+        <Text style={styles.ratingDescriptionText}>{I18n.t('rating_description')}</Text>
+        <StarRating
+          starSize={36}
+          rating={this.state.starCount}
+          selectedStar={rating => this.onStarRatingPress(rating)}
+        />
+        {this.state.starCount > 0 &&
+          this.state.starCount < STARS_TO_APP_STORE &&
+          <TouchableOpacity onPress={() => Rating.openFeedbackUrl()}>
+            <Animatable.View style={styles.button} animation="fadeIn">
+              <Text style={styles.feedbackDescriptionText}>{I18n.t('feedback_description')}</Text>
+            </Animatable.View>
+          </TouchableOpacity>}
+      </Animatable.View>
+    );
   }
 }

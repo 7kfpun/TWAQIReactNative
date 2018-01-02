@@ -189,15 +189,15 @@ export default class MainView extends Component {
 
         if (first) {
           first = false;
-          if (MainView.isOutOfBound(location.coords.latitude, location.coords.longitude)) {
-            timer.setTimeout(this, 'MoveToTaiwan', () => {
-              this.map.animateToRegion(MainView.getDefaultLocation());
-            }, 800);
-          } else {
-            timer.setTimeout(this, 'MoveToTaiwan', () => {
-              this.map.animateToRegion(this.getCurrentLocation());
-            }, 500);
-          }
+          timer.setTimeout(this, 'MoveInitialLocation', () => {
+            const moveLocation = MainView.isOutOfBound(location.coords.latitude, location.coords.longitude) ? MainView.getDefaultLocation() : this.getCurrentLocation();
+            try {
+              this.map.animateToRegion(moveLocation);
+            } catch (err) {
+              firebase.crash().log('Map animateToRegion failed');
+              firebase.crash().report(JSON.stringify(err));
+            }
+          }, 1200);
         }
       });
     } else {
@@ -286,32 +286,11 @@ export default class MainView extends Component {
         that.setState({ isLoading: false });
         trace.stop();
       });
-
-      // store.get('aqiResult').then((aqiResult) => {
-      //   if (aqiResult) {
-      //     that.setState({
-      //       aqiResult,
-      //       // isLoading: false,
-      //     });
-      //   }
-      //
-      //   aqi().then((result) => {
-      //     const keys = Object.keys(result || {}).length;
-      //     console.log('AQI:', result);
-      //     console.log('AQI length:', keys);
-      //     if (result && keys > 0) {
-      //       that.setState({ aqiResult: result });
-      //       store.save('aqiResult', result);
-      //     }
-      //
-      //     that.setState({ isLoading: false });
-      //   });
-      // });
     });
   }
 
   render() {
-    const navigation = this.props.navigation;
+    const { navigation } = this.props;
 
     tracker.view('Main');
     return (
@@ -324,42 +303,51 @@ export default class MainView extends Component {
         >
           {this.state.aqiResult && this.state.locations
             .filter(i => this.state.aqiResult[i.SiteName])
-            .map(location => (<MapView.Marker
-              key={location.SiteEngName}
-              coordinate={{
-                latitude: parseFloat(location.TWD97Lat),
-                longitude: parseFloat(location.TWD97Lon),
-              }}
-              onPress={() => {
-                this.setState({ selectedLocation: location.SiteName });
-                this.map.animateToRegion({
+            .map(location => (
+              <MapView.Marker
+                key={location.SiteEngName}
+                coordinate={{
                   latitude: parseFloat(location.TWD97Lat),
                   longitude: parseFloat(location.TWD97Lon),
-                });
-                tracker.logEvent('select-location', location);
-              }}
-            >
-              <View>
-                <Marker
-                  amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
-                  index={this.state.selectedIndex}
-                  isNumericShow={true}
-                />
-              </View>
-              <MapView.Callout>
-                <TouchableOpacity
-                  onPress={() => {
-                    tracker.logEvent('check-main-details', location);
-                    navigation.navigate('MainDetails', { item: location });
-                  }}
-                >
-                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: I18n.isZh ? 50 : 80, marginLeft: 10 }}>
-                    <Text>{I18n.isZh ? location.SiteName : location.SiteEngName}</Text>
-                    <Icon name="chevron-right" size={24} color={'gray'} />
-                  </View>
-                </TouchableOpacity>
-              </MapView.Callout>
-            </MapView.Marker>))}
+                }}
+                onPress={() => {
+                  this.setState({ selectedLocation: location.SiteName });
+                  this.map.animateToRegion({
+                    latitude: parseFloat(location.TWD97Lat),
+                    longitude: parseFloat(location.TWD97Lon),
+                  });
+                  tracker.logEvent('select-location', location);
+                }}
+              >
+                <View>
+                  <Marker
+                    amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
+                    index={this.state.selectedIndex}
+                    isNumericShow={true}
+                  />
+                </View>
+                <MapView.Callout>
+                  <TouchableOpacity
+                    onPress={() => {
+                      tracker.logEvent('check-main-details', location);
+                      navigation.navigate('MainDetails', { item: location });
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: I18n.isZh ? 50 : 80,
+                        marginLeft: 10,
+                      }}
+                    >
+                      <Text>{I18n.isZh ? location.SiteName : location.SiteEngName}</Text>
+                      <Icon name="chevron-right" size={24} color="gray" />
+                    </View>
+                  </TouchableOpacity>
+                </MapView.Callout>
+              </MapView.Marker>))}
 
           {this.state.gpsEnabled && this.state.location && <MapView.Marker
             coordinate={this.state.location}
@@ -384,7 +372,7 @@ export default class MainView extends Component {
 
         <Rating />
 
-        {<TouchableOpacity
+        <TouchableOpacity
           style={styles.defaultLocation}
           onPress={() => {
             this.map.animateToRegion(MainView.getDefaultLocation());
@@ -392,17 +380,18 @@ export default class MainView extends Component {
           }}
         >
           <Icon name="crop-free" size={28} color={iOSColors.gray} />
-        </TouchableOpacity>}
+        </TouchableOpacity>
 
-        {this.state.gpsEnabled && <TouchableOpacity
-          style={styles.currentLocation}
-          onPress={() => {
-            this.map.animateToRegion(this.getCurrentLocation());
-            tracker.logEvent('move-to-current-location');
-          }}
-        >
-          <Icon name="near-me" size={28} color={iOSColors.gray} />
-        </TouchableOpacity>}
+        {this.state.gpsEnabled &&
+          <TouchableOpacity
+            style={styles.currentLocation}
+            onPress={() => {
+              this.map.animateToRegion(this.getCurrentLocation());
+              tracker.logEvent('move-to-current-location');
+            }}
+          >
+            <Icon name="near-me" size={28} color={iOSColors.gray} />
+          </TouchableOpacity>}
 
         <View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.buttonContainer}>
@@ -422,7 +411,7 @@ export default class MainView extends Component {
             ))}
           </ScrollView>
 
-          <AdMob unitId={'twaqi-ios-main-footer'} />
+          <AdMob unitId="twaqi-ios-main-footer" />
         </View>
 
       </View>

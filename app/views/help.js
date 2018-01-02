@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Linking,
   Platform,
   ScrollView,
   StyleSheet,
@@ -172,12 +173,12 @@ export default class HelpView extends Component {
   };
 
   static openFeedbackUrl() {
+    const url = I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en;
     SafariView.isAvailable()
-      .then(SafariView.show({
-        url: I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en,
-      }))
+      .then(SafariView.show({ url }))
       .catch((error) => {
         console.log(error);
+        Linking.openURL(url);
       });
   }
 
