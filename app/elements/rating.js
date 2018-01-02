@@ -21,7 +21,7 @@ import tracker from '../utils/tracker';
 import { config } from '../config';
 
 const STARS_TO_APP_STORE = 4;
-const SHOW_RATING_AFTER = 20 * 60 * 1000;
+const SHOW_RATING_AFTER = 30 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {

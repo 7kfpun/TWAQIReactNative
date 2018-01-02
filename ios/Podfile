@@ -10,7 +10,7 @@ target 'TWAQI' do
   # use_frameworks!
 
   #React Pods
-  pod "yoga", :path => "../node_modules/react-native/ReactCommon/yoga"
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
   pod 'React', :path => '../node_modules/react-native', :subspecs => [
     'BatchedBridge',
     'Core',
@@ -28,22 +28,20 @@ target 'TWAQI' do
 
   # Pods for TWAQI
   pod 'Firebase/Core'
-
-  # Authentication module for RNFirebase
   pod 'Firebase/AdMob'
   pod 'Firebase/Analytics'
   pod 'Firebase/Crash'
   pod 'Firebase/Performance'
 
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
+
   pod 'Fabric'
   pod 'Crashlytics'
-
-  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
+  pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
   pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
   pod 'react-native-safari-view', :path => '../node_modules/react-native-safari-view'
-  pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
   pod 'RNI18n', :path => '../node_modules/react-native-i18n'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
@@ -57,7 +55,7 @@ post_install do |installer|
         config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
       end
     end
-    if target.name == "React"
+    if target.name == 'React'
       target.remove_from_project
     end
   end
