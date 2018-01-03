@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import {
   ActivityIndicator,
   DeviceEventEmitter,
@@ -127,6 +129,12 @@ const styles = StyleSheet.create({
 });
 
 export default class MainView extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
+  }
+
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('main'),
@@ -159,11 +167,41 @@ export default class MainView extends Component {
     gpsEnabled: false,
   };
 
-  async componentDidMount() {
-    this.prepareData();
+  onRegionChange(region) {
+    console.log(region);
+    this.setState({ region, selectedLocation: null });
+  }
 
-    timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), RELOAD_INTERVAL);
+  getCurrentLocation() {
+    return {
+      latitude: this.state.location.latitude,
+      longitude: this.state.location.longitude,
+      latitudeDelta: this.state.gpsEnabled ? 0.2 : LATITUDE_DELTA,
+      longitudeDelta: this.state.gpsEnabled ? 0.2 * ASPECT_RATIO : LONGITUDE_DELTA,
+    };
+  }
 
+  prepareData() {
+    this.setState({ isLoading: true }, () => {
+      const that = this;
+      store.delete('aqiResult');
+      const trace = firebase.perf().newTrace('api_get_aqi');
+      trace.start();
+      aqi().then((result) => {
+        const keys = Object.keys(result || {}).length;
+        console.log('AQI:', result);
+        console.log('AQI length:', keys);
+        if (result && keys > 0) {
+          that.setState({ aqiResult: result });
+        }
+
+        that.setState({ isLoading: false });
+        trace.stop();
+      });
+    });
+  }
+
+  loadMapContent = async () => {
     const that = this;
     store.get('selectedIndex').then((selectedIndex) => {
       if (selectedIndex) {
@@ -253,40 +291,9 @@ export default class MainView extends Component {
         });
       }
     }
-  }
 
-  onRegionChange(region) {
-    console.log(region);
-    this.setState({ region, selectedLocation: null });
-  }
-
-  getCurrentLocation() {
-    return {
-      latitude: this.state.location.latitude,
-      longitude: this.state.location.longitude,
-      latitudeDelta: this.state.gpsEnabled ? 0.2 : LATITUDE_DELTA,
-      longitudeDelta: this.state.gpsEnabled ? 0.2 * ASPECT_RATIO : LONGITUDE_DELTA,
-    };
-  }
-
-  prepareData() {
-    this.setState({ isLoading: true }, () => {
-      const that = this;
-      store.delete('aqiResult');
-      const trace = firebase.perf().newTrace('api_get_aqi');
-      trace.start();
-      aqi().then((result) => {
-        const keys = Object.keys(result || {}).length;
-        console.log('AQI:', result);
-        console.log('AQI length:', keys);
-        if (result && keys > 0) {
-          that.setState({ aqiResult: result });
-        }
-
-        that.setState({ isLoading: false });
-        trace.stop();
-      });
-    });
+    this.prepareData();
+    timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), RELOAD_INTERVAL);
   }
 
   render() {
@@ -300,6 +307,7 @@ export default class MainView extends Component {
           ref={(ref) => { this.map = ref; }}
           initialRegion={this.getCurrentLocation()}
           onRegionChange={region => this.onRegionChange(region)}
+          onMapReady={this.loadMapContent}
         >
           {this.state.aqiResult && this.state.locations
             .filter(i => this.state.aqiResult[i.SiteName])
@@ -411,7 +419,7 @@ export default class MainView extends Component {
             ))}
           </ScrollView>
 
-          <AdMob unitId="twaqi-ios-main-footer" />
+          {this.state.aqiResult && <AdMob unitId="twaqi-ios-main-footer" />}
         </View>
 
       </View>
