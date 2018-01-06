@@ -41,6 +41,11 @@ PODS:
     - Protobuf (~> 3.1)
   - FirebaseSwizzlingUtilities (1.0.0)
   - Google-Mobile-Ads-SDK (7.27.0)
+  - GoogleMaps (2.5.0):
+    - GoogleMaps/Maps (= 2.5.0)
+  - GoogleMaps/Base (2.5.0)
+  - GoogleMaps/Maps (2.5.0):
+    - GoogleMaps/Base
   - GoogleToolboxForMac/Defines (2.1.3)
   - GoogleToolboxForMac/Logger (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
@@ -56,6 +61,9 @@ PODS:
   - Protobuf (3.5.0)
   - React (0.51.0):
     - React/Core (= 0.51.0)
+  - react-native-google-maps (0.19.0):
+    - GoogleMaps (= 2.5.0)
+    - React
   - react-native-maps (0.19.0):
     - React
   - react-native-onesignal (3.0.7):
@@ -119,6 +127,8 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Crash
   - Firebase/Performance
+  - GoogleMaps
+  - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-safari-view (from `../node_modules/react-native-safari-view`)
@@ -144,6 +154,8 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   React:
     :path: "../node_modules/react-native"
+  react-native-google-maps:
+    :path: "../node_modules/react-native-maps"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
   react-native-onesignal:
@@ -174,12 +186,14 @@ SPEC CHECKSUMS:
   FirebasePerformance: 3877d097c59956aa2d7a317dbae503c2b4e78459
   FirebaseSwizzlingUtilities: f1c49a5a372ac852c853722a5891a0a5e2344a6c
   Google-Mobile-Ads-SDK: 83f7f890e638ce8f1debd440ea363338c9f6be3b
+  GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   OneSignal: 4786d2ed24ea315ceff66d83cbd418af0cc94311
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   React: 352f02f1db6e4744f9a758527e13e3fdefbbd6ba
+  react-native-google-maps: dc6d7644b0517e6e232644d2b66004714b91e152
   react-native-maps: d3b689927722398a12a4b3007fd9a0c60e1c48cd
   react-native-onesignal: 9d55c8fa78c83ef01059890966ea2d88852b8d6d
   react-native-safari-view: 955d7160d159241b8e9395d12d10ea0ef863dcdd
@@ -190,6 +204,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: c1821d56c775cc5a3bca66c77dfc8cb4a90d27e2
   yoga: b5d96400ca8b2936965a7a6516da7c1177f432a3
 
-PODFILE CHECKSUM: 59d1424c68f1a5d9751c225d49e1f7067e6a740f
+PODFILE CHECKSUM: 59d48544cc6304870ca8a9bf2da20b045779b4ba
 
 COCOAPODS: 1.2.1

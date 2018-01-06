@@ -8,6 +8,7 @@ ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 target 'TWAQI' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
+  rn_maps_path = '../node_modules/react-native-maps'
 
   #React Pods
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
@@ -39,14 +40,16 @@ target 'TWAQI' do
   pod 'Crashlytics'
   pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
 
-  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+  pod 'GoogleMaps'
+  pod 'react-native-google-maps', path: rn_maps_path
+  pod 'react-native-maps', path: rn_maps_path
+
   pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
   pod 'react-native-safari-view', :path => '../node_modules/react-native-safari-view'
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
   pod 'RNI18n', :path => '../node_modules/react-native-i18n'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 end
-
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
