@@ -7,9 +7,9 @@ import {
   View,
 } from 'react-native';
 
-import firebase from 'react-native-firebase';
 import OneSignal from 'react-native-onesignal';
 
+import { OneSignalGetTags } from '../utils/onesignal';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -44,18 +44,7 @@ export default class ForecastNotificationSettings extends Component {
   }
 
   componentDidMount() {
-    const that = this;
-    const trace = firebase.perf().newTrace('onesignal_get_tags');
-    trace.start();
-    OneSignal.getTags((tags) => {
-      trace.stop();
-      console.log('OneSignal tags', tags);
-      receivedTags = tags || {};
-
-      that.setState({
-        isEnabled: receivedTags.isForecastEnabled === 'true',
-      });
-    });
+    this.loadForecastSettings();
   }
 
   setNotification = (value) => {
@@ -72,6 +61,15 @@ export default class ForecastNotificationSettings extends Component {
         OneSignal.registerForPushNotifications();
       }
     });
+  }
+
+  async loadForecastSettings() {
+    const tags = await OneSignalGetTags();
+    if (tags) {
+      this.setState({
+        isEnabled: tags.isForecastEnabled === 'true',
+      });
+    }
   }
 
   render() {

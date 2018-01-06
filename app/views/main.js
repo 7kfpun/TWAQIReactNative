@@ -157,7 +157,6 @@ export default class MainView extends Component {
   }
 
   state = {
-    locations,
     location: {
       latitude: LATITUDE,
       longitude: LONGITUDE,
@@ -308,8 +307,9 @@ export default class MainView extends Component {
           initialRegion={this.getCurrentLocation()}
           onRegionChange={region => this.onRegionChange(region)}
           onMapReady={this.loadMapContent}
+          showsUserLocation={true}
         >
-          {this.state.aqiResult && this.state.locations
+          {this.state.aqiResult && locations
             .filter(i => this.state.aqiResult[i.SiteName])
             .map(location => (
               <MapView.Marker
@@ -356,10 +356,6 @@ export default class MainView extends Component {
                   </TouchableOpacity>
                 </MapView.Callout>
               </MapView.Marker>))}
-
-          {this.state.gpsEnabled && this.state.location && <MapView.Marker
-            coordinate={this.state.location}
-          />}
         </MapView>
 
         <TouchableOpacity
@@ -419,7 +415,7 @@ export default class MainView extends Component {
             ))}
           </ScrollView>
 
-          {this.state.aqiResult && <AdMob unitId="twaqi-ios-main-footer" />}
+          <AdMob unitId="twaqi-ios-main-footer" />
         </View>
 
       </View>

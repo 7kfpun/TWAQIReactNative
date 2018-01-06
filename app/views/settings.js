@@ -8,15 +8,14 @@ import {
   View,
 } from 'react-native';
 
-import firebase from 'react-native-firebase';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import OneSignal from 'react-native-onesignal';
 
 import AdMob from '../elements/admob';
-import EnabledItems from '../elements/enabled-items';
 import SettingsGroup from '../elements/settings-group';
 
 import { countys } from '../utils/locations';
+import { OneSignalGetTags } from '../utils/onesignal';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -49,18 +48,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const OneSignalGetTags = () => new Promise((resolve, reject) => {
-  try {
-    const trace = firebase.perf().newTrace('onesignal_get_tags');
-    trace.start();
-    OneSignal.getTags((tags) => {
-      trace.stop();
-      resolve(tags);
-    });
-  } catch (err) {
-    reject(err);
-  }
-});
 
 export default class SettingsView extends Component {
   static navigationOptions = {
@@ -120,7 +107,6 @@ export default class SettingsView extends Component {
           </View>}
 
         <ScrollView>
-          <EnabledItems />
           <FlatList
             style={styles.list}
             data={this.state.locations}

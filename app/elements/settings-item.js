@@ -12,10 +12,10 @@ import {
   View,
 } from 'react-native';
 
-import firebase from 'react-native-firebase';
 import OneSignal from 'react-native-onesignal';
 
 import { indexRanges } from '../utils/indexes';
+import { OneSignalGetTags } from '../utils/onesignal';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -86,22 +86,7 @@ export default class SettingsItem extends Component {
   };
 
   componentDidMount() {
-    const that = this;
-    const trace = firebase.perf().newTrace('onesignal_get_tags');
-    trace.start();
-    OneSignal.getTags((tags) => {
-      trace.stop();
-      console.log('OneSignal tags', tags);
-
-      receivedTags = tags || {};
-      const { item } = this.props;
-
-      that.setState({
-        isEnabled: receivedTags[item.SiteEngName] === 'true',
-        pollutionTherhold: receivedTags[`${item.SiteEngName}_pollution_therhold`] ? parseInt(receivedTags[`${item.SiteEngName}_pollution_therhold`], 10) : DEFAULT_POLLUTION_THERHOLD,
-        cleanlinessTherhold: receivedTags[`${item.SiteEngName}_cleanliness_therhold`] ? parseInt(receivedTags[`${item.SiteEngName}_cleanliness_therhold`], 10) : DEFAULT_CLEANLINESS_THERHOLD,
-      });
-    });
+    this.loadEnabledItems();
   }
 
   setNotification(value) {
@@ -144,6 +129,18 @@ export default class SettingsItem extends Component {
     this.setState({ cleanlinessTherhold: tempValue }, () => {
       this.sendTags(true);
     });
+  }
+
+  async loadEnabledItems() {
+    const { item } = this.props;
+    const tags = await OneSignalGetTags();
+    if (tags) {
+      this.setState({
+        isEnabled: tags[item.SiteEngName] === 'true',
+        pollutionTherhold: tags[`${item.SiteEngName}_pollution_therhold`] ? parseInt(tags[`${item.SiteEngName}_pollution_therhold`], 10) : DEFAULT_POLLUTION_THERHOLD,
+        cleanlinessTherhold: tags[`${item.SiteEngName}_cleanliness_therhold`] ? parseInt(tags[`${item.SiteEngName}_cleanliness_therhold`], 10) : DEFAULT_CLEANLINESS_THERHOLD,
+      });
+    }
   }
 
   sendTags(value) {
@@ -234,7 +231,10 @@ export default class SettingsItem extends Component {
                 <TextInput
                   style={styles.input}
                   keyboardType="numeric"
-                  onChangeText={value => this.setNotificationPollutionTherhold(value)}
+                  onChangeText={(value) => {
+                    this.setNotificationPollutionTherhold(value);
+                    tracker.logEvent('pollution-textinput', item);
+                  }}
                   value={this.state.pollutionTherhold.toString()}
                 />
                 <TouchableOpacity onPress={() => this.showPollutionSelector()}>
@@ -264,7 +264,10 @@ export default class SettingsItem extends Component {
                 <TextInput
                   style={styles.input}
                   keyboardType="numeric"
-                  onChangeText={value => this.setNotificationCleanlinessTherhold(value)}
+                  onChangeText={(value) => {
+                    this.setNotificationCleanlinessTherhold(value);
+                    tracker.logEvent('cleanliness-textinput', item);
+                  }}
                   value={this.state.cleanlinessTherhold.toString()}
                 />
                 <TouchableOpacity onPress={() => this.showCleanlinessSelector()}>
