@@ -15,7 +15,6 @@ import {
 import OneSignal from 'react-native-onesignal';
 
 import { indexRanges } from '../utils/indexes';
-import { OneSignalGetTags } from '../utils/onesignal';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -78,7 +77,7 @@ const DEFAULT_CLEANLINESS_THERHOLD = 30;
 
 export default class SettingsItem extends Component {
   static propTypes = {
-    tags: PropTypes.shape.isRequired,
+    tags: PropTypes.shape({}),
     item: PropTypes.shape({
       SiteName: PropTypes.string,
       SiteEngName: PropTypes.string,
@@ -90,6 +89,10 @@ export default class SettingsItem extends Component {
       TWD97Lat: PropTypes.string,
       SiteType: PropTypes.string,
     }).isRequired,
+  }
+
+  static defaultProps = {
+    tags: {},
   }
 
   state = {

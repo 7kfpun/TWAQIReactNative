@@ -10,6 +10,7 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import OneSignal from 'react-native-onesignal';
+import timer from 'react-native-timer';
 
 import AdMob from '../elements/admob';
 import SettingsGroup from '../elements/settings-group';
@@ -18,6 +19,8 @@ import { countys } from '../utils/locations';
 import { OneSignalGetTags } from '../utils/onesignal';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
+
+const CHECK_INTERVAL = 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
@@ -73,12 +76,17 @@ export default class SettingsView extends Component {
     isShowPermissionReminderBlock: false,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     // Request permission on start
     SettingsView.requestPermissions();
+    this.loadEnabledItems();
+  }
 
+  async loadEnabledItems() {
     const tags = await OneSignalGetTags();
+
     this.checkPermissions(tags);
+    timer.setInterval(this, 'checkPermissionsInterval', () => this.checkPermissions(tags), CHECK_INTERVAL);
   }
 
   checkPermissions(tags) {

@@ -61,11 +61,11 @@ const styles = StyleSheet.create({
 });
 
 export default class DetailsView extends Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     header: null,
     tabBarLabel: I18n.t('details'),
-    tabBarIcon: ({ tintColor }) => <Icon name="timeline" size={21} color={tintColor} />,
-  };
+    tabBarIcon: ({ tintColor }) => <Icon name="timeline" size={21} color={tintColor} onPress={() => navigation.goBack(null)} />,
+  })
 
   state = {
     refreshing: true,
