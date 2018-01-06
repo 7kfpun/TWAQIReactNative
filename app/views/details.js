@@ -61,17 +61,13 @@ const styles = StyleSheet.create({
 });
 
 export default class DetailsView extends Component {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = () => ({
     header: null,
     tabBarLabel: I18n.t('details'),
     tabBarIcon: ({ tintColor }) => (<Icon
       name="timeline"
       size={21}
       color={tintColor}
-      onPress={() => {
-        console.log('navigation', navigation);
-        // navigation.goBack(null);
-      }}
     />),
   })
 

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import OneSignal from 'react-native-onesignal';
+import timer from 'react-native-timer';
 
 import { indexRanges } from '../utils/indexes';
 import I18n from '../utils/i18n';
@@ -89,6 +90,8 @@ export default class SettingsItem extends Component {
       TWD97Lat: PropTypes.string,
       SiteType: PropTypes.string,
     }).isRequired,
+    increaseEnabledCount: PropTypes.func.isRequired,
+    descreaseEnabledCount: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -159,7 +162,7 @@ export default class SettingsItem extends Component {
   }
 
   sendTags(value) {
-    const { item } = this.props;
+    const { item, increaseEnabledCount, descreaseEnabledCount } = this.props;
 
     const tags = {};
     tags[item.SiteEngName] = value;
@@ -168,6 +171,12 @@ export default class SettingsItem extends Component {
 
     console.log('Send tags', tags);
     OneSignal.sendTags(tags);
+
+    if (value) {
+      increaseEnabledCount();
+    } else {
+      descreaseEnabledCount();
+    }
 
     tracker.logEvent('set-notification', { label: value ? 'on' : 'off', ...tags });
   }

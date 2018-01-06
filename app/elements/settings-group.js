@@ -74,6 +74,7 @@ export default class SettingsGroup extends Component {
   state = {
     locations: [],
     isOpen: false,
+    enabledCount: 0,
   };
 
   componentDidMount() {
@@ -97,6 +98,10 @@ export default class SettingsGroup extends Component {
       });
     }
   }
+
+  increaseEnabledCount = () => this.setState({ enabledCount: this.state.enabledCount + 1 })
+
+  descreaseEnabledCount = () => this.setState({ enabledCount: this.state.enabledCount - 1 })
 
   render() {
     const { groupName } = this.props;
@@ -124,7 +129,14 @@ export default class SettingsGroup extends Component {
           style={styles.list}
           data={this.state.locations}
           keyExtractor={(item, index) => `${index}-${item.key}`}
-          renderItem={({ item }) => <SettingsItem item={item} tags={this.state.tags || {}} />}
+          renderItem={({ item }) => (
+            <SettingsItem
+              item={item}
+              tags={this.state.tags || {}}
+              increaseEnabledCount={this.increaseEnabledCount}
+              descreaseEnabledCount={this.descreaseEnabledCount}
+            />
+          )}
         />}
       </View>
     );
