@@ -13,6 +13,7 @@ import { config } from '../config';
 const { width, height } = Dimensions.get('window');
 const analytics = new Analytics(config.segment);
 firebase.analytics().setAnalyticsCollectionEnabled(true);
+firebase.perf().setPerformanceCollectionEnabled(true);
 
 const userId = DeviceInfo.getUniqueID();
 

@@ -89,6 +89,7 @@ export default class SettingsGroup extends Component {
     const tags = await OneSignalGetTags();
     if (tags) {
       this.setState({
+        tags,
         enabledCount: locations
           .filter(item => item.County === this.props.groupName)
           .filter(item => tags[item.SiteEngName] === 'true')
@@ -123,7 +124,7 @@ export default class SettingsGroup extends Component {
           style={styles.list}
           data={this.state.locations}
           keyExtractor={(item, index) => `${index}-${item.key}`}
-          renderItem={({ item }) => <SettingsItem item={item} />}
+          renderItem={({ item }) => <SettingsItem item={item} tags={this.state.tags || {}} />}
         />}
       </View>
     );

@@ -33,6 +33,7 @@ import { aqi } from '../utils/api';
 import { indexTypes } from '../utils/indexes';
 import { locations } from '../utils/locations';
 import I18n from '../utils/i18n';
+import log from '../utils/log';
 import tracker from '../utils/tracker';
 
 const { width, height } = Dimensions.get('window');
@@ -231,10 +232,9 @@ export default class MainView extends Component {
             try {
               this.map.animateToRegion(moveLocation);
             } catch (err) {
-              firebase.crash().log('Map animateToRegion failed');
-              firebase.crash().report(JSON.stringify(err));
+              log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
             }
-          }, 1200);
+          }, 2000);
         }
       });
     } else {

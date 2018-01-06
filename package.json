@@ -30,7 +30,7 @@
 		"react-native-safari-view": "^2.1.0",
 		"react-native-simple-store": "^1.3.0",
 		"react-native-star-rating": "^1.0.8",
-		"react-native-store-review": "^0.1.3",
+		"react-native-store-review": "^0.1.5",
 		"react-native-svg": "6.0.1-rc.1",
 		"react-native-timer": "^1.3.1",
 		"react-native-typography": "^1.0.3",
@@ -39,15 +39,15 @@
 		"victory-native": "0.16.1"
 	},
 	"devDependencies": {
-		"babel-eslint": "8.0.3",
-		"babel-jest": "21.2.0",
+		"babel-eslint": "^8.1.2",
+		"babel-jest": "^22.0.4",
 		"babel-preset-react-native": "4.0.0",
-		"eslint": "4.12.1",
+		"eslint": "^4.14.0",
 		"eslint-config-airbnb": "16.1.0",
 		"eslint-plugin-import": "2.8.0",
 		"eslint-plugin-jsx-a11y": "^6.0.2",
 		"eslint-plugin-react": "7.5.1",
-		"jest": "21.2.1",
+		"jest": "^22.0.4",
 		"react-test-renderer": "16.2.0"
 	},
 	"jest": {

@@ -5,10 +5,6 @@ exports.indexTypes = [{
   name: 'AQI',
   unit: '',
 }, {
-  key: 'O3',
-  name: 'O3',
-  unit: '(ppb)',
-}, {
   key: 'PM2_5',
   name: 'PM2.5',
   unit: '(μg/m3)',
@@ -16,6 +12,10 @@ exports.indexTypes = [{
   key: 'PM10',
   name: 'PM10',
   unit: '(μg/m3)',
+}, {
+  key: 'O3',
+  name: 'O3',
+  unit: '(ppb)',
 }, {
   key: 'CO',
   name: 'CO',

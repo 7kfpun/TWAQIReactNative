@@ -29,6 +29,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  siteNameBlock: {
+    flex: 3,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  switch: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
   text: {
     fontSize: 16,
   },
@@ -66,6 +78,7 @@ const DEFAULT_CLEANLINESS_THERHOLD = 30;
 
 export default class SettingsItem extends Component {
   static propTypes = {
+    tags: PropTypes.shape.isRequired,
     item: PropTypes.shape({
       SiteName: PropTypes.string,
       SiteEngName: PropTypes.string,
@@ -131,9 +144,8 @@ export default class SettingsItem extends Component {
     });
   }
 
-  async loadEnabledItems() {
-    const { item } = this.props;
-    const tags = await OneSignalGetTags();
+  loadEnabledItems() {
+    const { item, tags } = this.props;
     if (tags) {
       this.setState({
         isEnabled: tags[item.SiteEngName] === 'true',
@@ -211,10 +223,10 @@ export default class SettingsItem extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.switchBlock}>
-          <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+          <View style={styles.siteNameBlock}>
             <Text style={styles.text}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
           </View>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+          <View style={styles.switch}>
             <Switch
               onValueChange={value => this.setNotification(value)}
               value={this.state.isEnabled}
