@@ -64,7 +64,15 @@ export default class DetailsView extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null,
     tabBarLabel: I18n.t('details'),
-    tabBarIcon: ({ tintColor }) => <Icon name="timeline" size={21} color={tintColor} onPress={() => navigation.goBack(null)} />,
+    tabBarIcon: ({ tintColor }) => (<Icon
+      name="timeline"
+      size={21}
+      color={tintColor}
+      onPress={() => {
+        console.log('navigation', navigation);
+        // navigation.goBack(null);
+      }}
+    />),
   })
 
   state = {

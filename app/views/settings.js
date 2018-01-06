@@ -95,6 +95,8 @@ export default class SettingsView extends Component {
         console.log('checkPermissions', permissions);
         if (!permissions || (permissions && !permissions.alert)) {
           this.setState({ isShowPermissionReminderBlock: true });
+        } else {
+          this.setState({ isShowPermissionReminderBlock: false });
         }
       });
 
