@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
 
 export default class AirMarker extends React.PureComponent {
   static propTypes = {
-    index: PropTypes.string.isRequired,
-    amount: PropTypes.string.isRequired,
+    index: PropTypes.string,
+    amount: PropTypes.string,
     fontSize: PropTypes.number,
     isStatusShow: PropTypes.bool,
     isNumericShow: PropTypes.bool,
@@ -49,10 +49,17 @@ export default class AirMarker extends React.PureComponent {
   }
 
   render() {
-    const { index, fontSize, amount, isStatusShow, isNumericShow } = this.props;
+    const {
+      index,
+      fontSize,
+      amount,
+      isStatusShow,
+      isNumericShow,
+    } = this.props;
     let color = 'gray';
 
     let showAmount;
+    let status;
     if (['ND', '-', '/*', '-*', '-/-'].includes(amount) || amount < '0' || !amount) {
       showAmount = '-';
       color = '#009866';

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 
 export default class HistoryItem extends Component {
   static propTypes = {
-    // navigation: React.PropTypes.object.isRequired,
+    navigation: PropTypes.shape({}).isRequired,
     item: PropTypes.shape({
       SiteName: PropTypes.string,
       SiteEngName: PropTypes.string,

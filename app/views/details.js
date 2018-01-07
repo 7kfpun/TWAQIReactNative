@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Dimensions,
   Image,
@@ -62,6 +63,13 @@ const styles = StyleSheet.create({
 });
 
 export default class DetailsView extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      state: PropTypes.shape({}).isRequired,
+      goBack: PropTypes.func.isRequired,
+    }).isRequired,
+  }
+
   static navigationOptions = () => ({
     header: null,
     tabBarLabel: I18n.t('details'),

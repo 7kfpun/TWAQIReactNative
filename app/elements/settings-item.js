@@ -16,6 +16,7 @@ import { iOSColors } from 'react-native-typography';
 import OneSignal from 'react-native-onesignal';
 
 import { indexRanges } from '../utils/indexes';
+import { OneSignalGetTags } from '../utils/onesignal';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -97,7 +98,7 @@ export default class SettingsItem extends Component {
 
   static defaultProps = {
     text: '',
-    tags: {},
+    tags: null,
   }
 
   state = {
@@ -162,14 +163,25 @@ export default class SettingsItem extends Component {
     });
   }
 
-  loadEnabledItems() {
-    const { item, tags } = this.props;
+  async loadEnabledItems() {
+    const { item, tags, text } = this.props;
     if (tags) {
       this.setState({
         isEnabled: tags[item.SiteEngName] === 'true',
         pollutionTherhold: tags[`${item.SiteEngName}_pollution_therhold`] ? parseInt(tags[`${item.SiteEngName}_pollution_therhold`], 10) : DEFAULT_POLLUTION_THERHOLD,
         cleanlinessTherhold: tags[`${item.SiteEngName}_cleanliness_therhold`] ? parseInt(tags[`${item.SiteEngName}_cleanliness_therhold`], 10) : DEFAULT_CLEANLINESS_THERHOLD,
       });
+    }
+
+    if (text) {
+      const onesignalTags = await OneSignalGetTags();
+      if (onesignalTags) {
+        this.setState({
+          isEnabled: onesignalTags[item.SiteEngName] === 'true',
+          pollutionTherhold: onesignalTags[`${item.SiteEngName}_pollution_therhold`] ? parseInt(onesignalTags[`${item.SiteEngName}_pollution_therhold`], 10) : DEFAULT_POLLUTION_THERHOLD,
+          cleanlinessTherhold: onesignalTags[`${item.SiteEngName}_cleanliness_therhold`] ? parseInt(onesignalTags[`${item.SiteEngName}_cleanliness_therhold`], 10) : DEFAULT_CLEANLINESS_THERHOLD,
+        });
+      }
     }
   }
 

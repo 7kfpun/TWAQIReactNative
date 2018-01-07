@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   FlatList,
   Platform,
@@ -43,6 +44,10 @@ export default class SettingsView extends Component {
     tabBarLabel: I18n.t('list'),
     tabBarIcon: ({ tintColor }) => <Icon name="view-list" size={22} color={tintColor} />,
   };
+
+  static propTypes = {
+    navigation: PropTypes.shape({}).isRequired,
+  }
 
   state = {
     locations: countys,

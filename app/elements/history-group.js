@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
 export default class HistoryGroup extends Component {
   static propTypes = {
     groupName: PropTypes.string.isRequired,
+    navigation: PropTypes.shape({}).isRequired,
   }
 
   state = {

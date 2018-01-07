@@ -15,7 +15,7 @@ const isFloat = n => Number(n) === n && n % 1 !== 0;
 export default class Chart extends Component {
   static propTypes = {
     index: PropTypes.string.isRequired,
-    result: PropTypes.object.isRequired,
+    result: PropTypes.shape({}).isRequired,
   }
 
   render() {
@@ -32,7 +32,7 @@ export default class Chart extends Component {
       return amount;
     });
 
-    const length = result[index].length;
+    const { length } = result[index];
     const min = parseFloat(Math.min(...data)) || 0;
     const max = parseFloat(Math.max(...data)) || 1;
 
