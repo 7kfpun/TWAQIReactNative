@@ -111,6 +111,8 @@ export default class SettingsItem extends Component {
   }
 
   setNotification(value) {
+    const { increaseEnabledCount, descreaseEnabledCount } = this.props;
+
     this.setState({ isEnabled: value }, () => {
       this.sendTags(value);
 
@@ -124,6 +126,14 @@ export default class SettingsItem extends Component {
         OneSignal.registerForPushNotifications();
       }
     });
+
+    if (value) {
+      increaseEnabledCount();
+    } else {
+      descreaseEnabledCount();
+    }
+
+    tracker.logEvent('set-notification-on-off', { label: value ? 'on' : 'off' });
   }
 
   setNotificationPollutionTherhold(value) {
@@ -164,7 +174,7 @@ export default class SettingsItem extends Component {
   }
 
   sendTags(value) {
-    const { item, increaseEnabledCount, descreaseEnabledCount } = this.props;
+    const { item } = this.props;
 
     const tags = {};
     tags[item.SiteEngName] = value;
@@ -173,12 +183,6 @@ export default class SettingsItem extends Component {
 
     console.log('Send tags', tags);
     OneSignal.sendTags(tags);
-
-    if (value) {
-      increaseEnabledCount();
-    } else {
-      descreaseEnabledCount();
-    }
 
     tracker.logEvent('set-notification', { label: value ? 'on' : 'off', ...tags });
   }
