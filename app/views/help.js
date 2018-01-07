@@ -70,7 +70,7 @@ const helpTexts = {
     hantwMeaning: '空氣品質為良好，污染程度低或無污染。',
     hansMeaning: '空气污染风险很少。',
     backgroundColor: '#009866',
-    fontColor: 'black',
+    fontColor: 'white',
   }, {
     index: '51 - 100',
     category: 'Moderate',

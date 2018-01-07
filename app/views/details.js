@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import AdMob from '../elements/admob';
 import Chart from '../elements/chart';
+import SettingsItem from '../elements/settings-item';
 
 import { history } from '../utils/api';
 import { indexTypes } from '../utils/indexes';
@@ -108,6 +109,10 @@ export default class DetailsView extends Component {
     this.props.navigation.goBack(null);
   }
 
+  increaseEnabledCount = () => console.log()
+
+  descreaseEnabledCount = () => console.log()
+
   render() {
     const { state } = this.props.navigation;
     const { item } = state.params;
@@ -130,6 +135,18 @@ export default class DetailsView extends Component {
             style={{ width, height: this.state.ratio * width }}
             source={{ uri: item.ImageUrl }}
           />}
+
+          {!this.state.refreshing &&
+            <View style={{ padding: 10 }}>
+              <SettingsItem
+                text={I18n.t('notify_title')}
+                item={item}
+                tags={this.state.tags || {}}
+                increaseEnabledCount={this.increaseEnabledCount}
+                descreaseEnabledCount={this.descreaseEnabledCount}
+              />
+            </View>}
+
           {!this.state.refreshing && indexTypes.map((indexType) => {
             const { length } = this.state.result.PublishTime;
             return (
@@ -148,7 +165,7 @@ export default class DetailsView extends Component {
             );
           })}
         </ScrollView>
-        <AdMob unitId={'twaqi-ios-details-footer'} />
+        <AdMob unitId="twaqi-ios-details-footer" />
       </View>
     );
   }

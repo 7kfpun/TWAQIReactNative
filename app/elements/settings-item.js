@@ -12,8 +12,8 @@ import {
   View,
 } from 'react-native';
 
+import { iOSColors } from 'react-native-typography';
 import OneSignal from 'react-native-onesignal';
-import timer from 'react-native-timer';
 
 import { indexRanges } from '../utils/indexes';
 import I18n from '../utils/i18n';
@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   input: {
-    width: 30,
-    borderBottomColor: '#EEEEEE',
+    width: 50,
+    borderBottomColor: iOSColors.midGray,
     borderBottomWidth: 1,
     textAlign: 'center',
-    marginRight: 8,
+    marginRight: 10,
     height: 22,
   },
   noticeBlock: {
@@ -78,6 +78,7 @@ const DEFAULT_CLEANLINESS_THERHOLD = 30;
 
 export default class SettingsItem extends Component {
   static propTypes = {
+    text: PropTypes.string,
     tags: PropTypes.shape({}),
     item: PropTypes.shape({
       SiteName: PropTypes.string,
@@ -95,6 +96,7 @@ export default class SettingsItem extends Component {
   }
 
   static defaultProps = {
+    text: '',
     tags: {},
   }
 
@@ -230,13 +232,19 @@ export default class SettingsItem extends Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, text } = this.props;
+    let title;
+    if (text) {
+      title = text;
+    } else {
+      title = I18n.isZh ? item.SiteName : item.SiteEngName;
+    }
 
     return (
       <View style={styles.container}>
         <View style={styles.switchBlock}>
           <View style={styles.siteNameBlock}>
-            <Text style={styles.text}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
+            <Text style={styles.text}>{title}</Text>
           </View>
           <View style={styles.switch}>
             <Switch
@@ -271,7 +279,7 @@ export default class SettingsItem extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-            <Text style={styles.noticeDescriptionText}>({I18n.t('notify_pollution_title')})</Text>
+            {/* <Text style={styles.noticeDescriptionText}>({I18n.t('notify_pollution_title')})</Text> */}
             <Slider
               style={{ width: window.width - 20 }}
               step={1}
@@ -305,7 +313,7 @@ export default class SettingsItem extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-            <Text style={styles.noticeDescriptionText}>({I18n.t('notify_cleanliness_title')})</Text>
+            {/* <Text style={styles.noticeDescriptionText}>({I18n.t('notify_cleanliness_title')})</Text> */}
             <Slider
               style={{ width: window.width - 20 }}
               step={1}
