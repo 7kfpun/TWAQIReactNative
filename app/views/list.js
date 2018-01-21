@@ -9,12 +9,17 @@ import {
   View,
 } from 'react-native';
 
+import { iOSColors } from 'react-native-typography';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Search from 'react-native-search-box';
+
+import Fuse from 'fuse.js';
 
 import AdMob from '../elements/admob';
 import HistoryGroup from '../elements/history-group';
+import HistoryItem from '../elements/history-item';
 
-import { countys } from '../utils/locations';
+import { countys, locations } from '../utils/locations';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -50,11 +55,38 @@ export default class SettingsView extends Component {
   }
 
   state = {
-    locations: countys,
+    searchText: '',
+    searchResult: [],
   };
 
+  onChangeText = (searchText) => {
+    const options = {
+      shouldSort: true,
+      threshold: 0.2,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: [
+        'SiteName',
+        'SiteEngName',
+        'AreaName',
+        'County',
+        'Township',
+        'SiteAddress',
+      ],
+    };
+    const fuse = new Fuse(locations, options);
+    const searchResult = fuse.search(searchText);
+
+    this.setState({ searchText, searchResult });
+  }
+
+  onCancelOrDelete = () => {
+    this.setState({ searchText: '' });
+  }
+
   render() {
-    console.log(countys);
     tracker.view('History-List');
     return (
       <View style={styles.container}>
@@ -62,13 +94,34 @@ export default class SettingsView extends Component {
           <Text style={styles.titleText}>{I18n.t('list_title')}</Text>
         </View>
 
+        <Search
+          backgroundColor={iOSColors.lightGray}
+          onChangeText={this.onChangeText}
+          onCancel={this.onCancelOrDelete}
+          onDelete={this.onCancelOrDelete}
+          cancelTitle={I18n.t('cancel')}
+          placeholder={I18n.t('search')}
+          titleCancelColor={iOSColors.gray}
+        />
+
         <ScrollView>
-          <FlatList
+          {!!this.state.searchText && <FlatList
             style={styles.list}
-            data={this.state.locations}
+            data={this.state.searchResult}
+            keyExtractor={(item, index) => `${index}-${item}`}
+            renderItem={({ item }) => (
+              <View style={{ paddingHorizontal: 10 }}>
+                <HistoryItem item={item} navigation={this.props.navigation} />
+              </View>
+            )}
+          />}
+
+          {!this.state.searchText && <FlatList
+            style={styles.list}
+            data={countys}
             keyExtractor={(item, index) => `${index}-${item}`}
             renderItem={({ item }) => <HistoryGroup style={{ fontSize: 30 }} groupName={item} navigation={this.props.navigation} />}
-          />
+          />}
         </ScrollView>
         <AdMob unitId="twaqi-ios-list-footer" />
       </View>

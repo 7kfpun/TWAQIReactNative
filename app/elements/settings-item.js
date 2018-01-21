@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DEFAULT_POLLUTION_THERHOLD = 120;
+const DEFAULT_POLLUTION_THERHOLD = 100;
 const DEFAULT_CLEANLINESS_THERHOLD = 30;
 
 export default class SettingsItem extends Component {
@@ -92,13 +92,15 @@ export default class SettingsItem extends Component {
       TWD97Lat: PropTypes.string,
       SiteType: PropTypes.string,
     }).isRequired,
-    increaseEnabledCount: PropTypes.func.isRequired,
-    descreaseEnabledCount: PropTypes.func.isRequired,
+    increaseEnabledCount: PropTypes.func,
+    descreaseEnabledCount: PropTypes.func,
   }
 
   static defaultProps = {
     text: '',
-    tags: null,
+    tags: {},
+    increaseEnabledCount: () => console.log(),
+    descreaseEnabledCount: () => console.log(),
   }
 
   state = {
@@ -276,15 +278,16 @@ export default class SettingsItem extends Component {
             <View style={styles.noticeBlock}>
               <Text style={styles.noticeText}>{I18n.t('notify_pollution_therhold')}: </Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <TextInput
-                  style={styles.input}
-                  keyboardType="numeric"
-                  onChangeText={(value) => {
-                    this.setNotificationPollutionTherhold(value);
-                    tracker.logEvent('pollution-textinput', item);
-                  }}
-                  value={this.state.pollutionTherhold.toString()}
-                />
+                {Platform.OS === 'ios' &&
+                  <TextInput
+                    style={styles.input}
+                    keyboardType="numeric"
+                    onChangeText={(value) => {
+                      this.setNotificationPollutionTherhold(value);
+                      tracker.logEvent('pollution-textinput', item);
+                    }}
+                    value={this.state.pollutionTherhold.toString()}
+                  />}
                 <TouchableOpacity onPress={() => this.showPollutionSelector()}>
                   <Marker
                     amount={String(this.state.pollutionTherhold)}
@@ -309,15 +312,16 @@ export default class SettingsItem extends Component {
             <View style={styles.noticeBlock}>
               <Text style={styles.noticeText}>{I18n.t('notify_cleanliness_therhold')}: </Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <TextInput
-                  style={styles.input}
-                  keyboardType="numeric"
-                  onChangeText={(value) => {
-                    this.setNotificationCleanlinessTherhold(value);
-                    tracker.logEvent('cleanliness-textinput', item);
-                  }}
-                  value={this.state.cleanlinessTherhold.toString()}
-                />
+                {Platform.OS === 'ios' &&
+                  <TextInput
+                    style={styles.input}
+                    keyboardType="numeric"
+                    onChangeText={(value) => {
+                      this.setNotificationCleanlinessTherhold(value);
+                      tracker.logEvent('cleanliness-textinput', item);
+                    }}
+                    value={this.state.cleanlinessTherhold.toString()}
+                  />}
                 <TouchableOpacity onPress={() => this.showCleanlinessSelector()}>
                   <Marker
                     amount={String(this.state.cleanlinessTherhold)}

@@ -45,6 +45,7 @@ I18n.translations = {
     status_hazardous: 'Hazardous',
 
     cancel: 'Cancel',
+    search: 'Search',
   },
   zh: {
     main: '地圖',
@@ -88,6 +89,7 @@ I18n.translations = {
     status_hazardous: '有害',
 
     cancel: '取消',
+    search: '搜素',
   },
 };
 

@@ -250,7 +250,7 @@ export default class MainView extends Component {
         FusedLocation.setLocationPriority(FusedLocation.Constants.HIGH_ACCURACY);
 
         console.log('Getting GPS location');
-        // Get location once.
+        // Get location once
         const location = await FusedLocation.getFusedLocation();
         if (location.latitude && location.longitude) {
           this.setState({
@@ -323,6 +323,8 @@ export default class MainView extends Component {
                   this.map.animateToRegion({
                     latitude: parseFloat(location.TWD97Lat),
                     longitude: parseFloat(location.TWD97Lon),
+                    latitudeDelta: LATITUDE_DELTA,
+                    longitudeDelta: LONGITUDE_DELTA,
                   });
                   tracker.logEvent('select-location', location);
                 }}
@@ -376,17 +378,18 @@ export default class MainView extends Component {
 
         <Rating />
 
-        <TouchableOpacity
-          style={styles.defaultLocation}
-          onPress={() => {
-            this.map.animateToRegion(MainView.getDefaultLocation());
-            tracker.logEvent('move-to-default-location');
-          }}
-        >
-          <Icon name="crop-free" size={28} color={iOSColors.gray} />
-        </TouchableOpacity>
+        {Platform.OS === 'ios' &&
+          <TouchableOpacity
+            style={styles.defaultLocation}
+            onPress={() => {
+              this.map.animateToRegion(MainView.getDefaultLocation());
+              tracker.logEvent('move-to-default-location');
+            }}
+          >
+            <Icon name="crop-free" size={28} color={iOSColors.gray} />
+          </TouchableOpacity>}
 
-        {this.state.gpsEnabled &&
+        {Platform.OS === 'ios' && this.state.gpsEnabled &&
           <TouchableOpacity
             style={styles.currentLocation}
             onPress={() => {

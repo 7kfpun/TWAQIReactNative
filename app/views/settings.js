@@ -8,14 +8,19 @@ import {
   View,
 } from 'react-native';
 
+import { iOSColors } from 'react-native-typography';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import OneSignal from 'react-native-onesignal';
+import Search from 'react-native-search-box';
 import timer from 'react-native-timer';
+
+import Fuse from 'fuse.js';
 
 import AdMob from '../elements/admob';
 import SettingsGroup from '../elements/settings-group';
+import SettingsItem from '../elements/settings-item';
 
-import { countys } from '../utils/locations';
+import { countys, locations } from '../utils/locations';
 import { OneSignalGetTags } from '../utils/onesignal';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
@@ -72,8 +77,9 @@ export default class SettingsView extends Component {
   }
 
   state = {
-    locations: countys,
     isShowPermissionReminderBlock: false,
+    searchText: '',
+    searchResult: [],
   };
 
   componentDidMount() {
@@ -82,11 +88,31 @@ export default class SettingsView extends Component {
     this.loadEnabledItems();
   }
 
-  async loadEnabledItems() {
-    const tags = await OneSignalGetTags();
+  onChangeText = (searchText) => {
+    const options = {
+      shouldSort: true,
+      threshold: 0.2,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: [
+        'SiteName',
+        'SiteEngName',
+        'AreaName',
+        'County',
+        'Township',
+        'SiteAddress',
+      ],
+    };
+    const fuse = new Fuse(locations, options);
+    const searchResult = fuse.search(searchText);
 
-    this.checkPermissions(tags);
-    timer.setInterval(this, 'checkPermissionsInterval', () => this.checkPermissions(tags), CHECK_INTERVAL);
+    this.setState({ searchText, searchResult });
+  }
+
+  onCancelOrDelete = () => {
+    this.setState({ searchText: '' });
   }
 
   checkPermissions(tags) {
@@ -104,6 +130,13 @@ export default class SettingsView extends Component {
     }
   }
 
+  async loadEnabledItems() {
+    const tags = await OneSignalGetTags();
+
+    this.checkPermissions(tags);
+    timer.setInterval(this, 'checkPermissionsInterval', () => this.checkPermissions(tags), CHECK_INTERVAL);
+  }
+
   render() {
     tracker.view('Settings');
     return (
@@ -116,13 +149,37 @@ export default class SettingsView extends Component {
             <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
           </View>}
 
+        <Search
+          backgroundColor={iOSColors.lightGray}
+          onChangeText={this.onChangeText}
+          onCancel={this.onCancelOrDelete}
+          onDelete={this.onCancelOrDelete}
+          cancelTitle={I18n.t('cancel')}
+          placeholder={I18n.t('search')}
+          titleCancelColor={iOSColors.gray}
+        />
+
         <ScrollView>
-          <FlatList
+          {!!this.state.searchText && <FlatList
             style={styles.list}
-            data={this.state.locations}
+            data={this.state.searchResult}
+            keyExtractor={(item, index) => `${index}-${item}`}
+            renderItem={({ item }) => (
+              <View style={{ paddingHorizontal: 10 }}>
+                <SettingsItem
+                  item={item}
+                  tags={this.state.tags}
+                />
+              </View>
+            )}
+          />}
+
+          {!this.state.searchText && <FlatList
+            style={styles.list}
+            data={countys}
             keyExtractor={(item, index) => `${index}-${item}`}
             renderItem={({ item }) => <SettingsGroup groupName={item} />}
-          />
+          />}
         </ScrollView>
         <AdMob unitId="twaqi-ios-settings-footer" />
       </View>
