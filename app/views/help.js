@@ -193,27 +193,22 @@ export default class HelpView extends Component {
         <View style={styles.titleBlock}>
           <Text style={styles.title}>{I18n.t('help_definition')}</Text>
           <TouchableOpacity onPress={HelpView.openFeedbackUrl}>
-            <Icon name="feedback" size={30} color={iOSColors.gray} />
+            <Icon name="mail-outline" size={30} color={iOSColors.gray} />
           </TouchableOpacity>
         </View>
         <ScrollView>
           <View style={styles.block}>
-            {helpTexts.AQI.map((item) => {
-              const itemCategory = I18n.isZh ? item.hantwCategory : item.category;
-              const itemDescription = I18n.isZh ? item.hantwMeaning : item.meaning;
-
-              return (
-                <View key={`help-text-${Math.random()}`}>
-                  <View style={styles.row}>
-                    <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
-                      <Text style={{ color: item.fontColor }}>{item.index}</Text>
-                    </View>
-                    <Text>{itemCategory}</Text>
+            {helpTexts.AQI.map(item => (
+              <View key={`help-text-${Math.random()}`}>
+                <View style={styles.row}>
+                  <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
+                    <Text style={{ color: item.fontColor }}>{item.index}</Text>
                   </View>
-                  <Text style={styles.description}>{itemDescription}</Text>
+                  <Text>{I18n.isZh ? item.hantwCategory : item.category}</Text>
                 </View>
-              );
-            })}
+                <Text style={styles.description}>{I18n.isZh ? item.hantwMeaning : item.meaning}</Text>
+              </View>
+            ))}
           </View>
         </ScrollView>
         <AdMob unitId="twaqi-ios-help-footer" />

@@ -86,6 +86,8 @@ export default class SettingsView extends Component {
     // Request permission on start
     SettingsView.requestPermissions();
     this.loadEnabledItems();
+
+    timer.setInterval(this, 'loadEnabledItems', () => this.loadEnabledItems(), CHECK_INTERVAL);
   }
 
   onChangeText = (searchText) => {
@@ -132,6 +134,7 @@ export default class SettingsView extends Component {
 
   async loadEnabledItems() {
     const tags = await OneSignalGetTags();
+    this.setState({ tags });
 
     this.checkPermissions(tags);
     timer.setInterval(this, 'checkPermissionsInterval', () => this.checkPermissions(tags), CHECK_INTERVAL);
