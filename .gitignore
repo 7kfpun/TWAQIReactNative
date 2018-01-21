@@ -53,5 +53,7 @@ buck-out/
 */fastlane/screenshots
 
 # App
-ios/GoogleService-Info.plist
 app/config.js
+android/app/google-services.json
+ios/GoogleService-Info.plist
+ios/kf-twaqi-firebase-crashreporting-gxrex-89dbb75fdc.json

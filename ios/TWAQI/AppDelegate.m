@@ -17,6 +17,7 @@
 
 #import <Firebase.h>
 
+@import GoogleMaps;
 
 @implementation AppDelegate
 
@@ -24,6 +25,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [GMSServices provideAPIKey:@"AIzaSyAu0XNE9Vp6QD6OM3OmKd3Pl0wWwsky6Bk"];
+
   [FIRApp configure];
   NSURL *jsCodeLocation;
 
