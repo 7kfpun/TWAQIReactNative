@@ -169,7 +169,7 @@ export default class MainView extends Component {
 
   onRegionChange(region) {
     console.log(region);
-    this.setState({ region, selectedLocation: null });
+    // this.setState({ region, selectedLocation: null });
   }
 
   getCurrentLocation() {
@@ -323,8 +323,6 @@ export default class MainView extends Component {
                   this.map.animateToRegion({
                     latitude: parseFloat(location.TWD97Lat),
                     longitude: parseFloat(location.TWD97Lon),
-                    latitudeDelta: LATITUDE_DELTA,
-                    longitudeDelta: LONGITUDE_DELTA,
                   });
                   tracker.logEvent('select-location', location);
                 }}

@@ -42,7 +42,12 @@ export default class Admob extends Component {
       return null;
     }
 
-    const height = DeviceInfo.isTablet() ? 90 : 50;
+    let height = 50;
+    if (this.props.bannerSize === 'LARGE_BANNER') {
+      height = 100;
+    } else if (DeviceInfo.isTablet()) {
+      height = 90;
+    }
 
     return (
       <View

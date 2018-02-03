@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DEFAULT_POLLUTION_THERHOLD = 100;
+const DEFAULT_POLLUTION_THERHOLD = 101;
 const DEFAULT_CLEANLINESS_THERHOLD = 30;
 
 export default class SettingsItem extends Component {
