@@ -7,27 +7,27 @@ exports.indexTypes = [{
 }, {
   key: 'PM2_5',
   name: 'PM2.5',
-  unit: '(μg/m3)',
+  unit: 'μg/m3',
 }, {
   key: 'PM10',
   name: 'PM10',
-  unit: '(μg/m3)',
+  unit: 'μg/m3',
 }, {
   key: 'O3',
   name: 'O3',
-  unit: '(ppb)',
+  unit: 'ppb',
 }, {
   key: 'CO',
   name: 'CO',
-  unit: '(ppm)',
+  unit: 'ppm',
 }, {
   key: 'SO2',
   name: 'SO2',
-  unit: '(ppb)',
+  unit: 'ppb',
 }, {
   key: 'NO2',
   name: 'NO2',
-  unit: '(ppb)',
+  unit: 'ppb',
 }];
 
 // 0-50 Good Air pollution risk is low.

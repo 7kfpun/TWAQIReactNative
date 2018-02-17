@@ -319,42 +319,15 @@ export default class MainView extends Component {
                   longitude: parseFloat(location.TWD97Lon),
                 }}
                 onPress={() => {
-                  this.setState({ selectedLocation: location.SiteName });
-                  this.map.animateToRegion({
-                    latitude: parseFloat(location.TWD97Lat),
-                    longitude: parseFloat(location.TWD97Lon),
-                  });
-                  tracker.logEvent('select-location', location);
+                  tracker.logEvent('check-main-details', location);
+                  navigation.navigate('MainDetails', { item: location });
                 }}
               >
-                <View>
-                  <Marker
-                    amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
-                    index={this.state.selectedIndex}
-                    isNumericShow={true}
-                  />
-                </View>
-                <MapView.Callout>
-                  <TouchableOpacity
-                    onPress={() => {
-                      tracker.logEvent('check-main-details', location);
-                      navigation.navigate('MainDetails', { item: location });
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: I18n.isZh ? 50 : 80,
-                        marginLeft: 10,
-                      }}
-                    >
-                      <Text>{I18n.isZh ? location.SiteName : location.SiteEngName}</Text>
-                      <Icon name="chevron-right" size={24} color="gray" />
-                    </View>
-                  </TouchableOpacity>
-                </MapView.Callout>
+                <Marker
+                  amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
+                  index={this.state.selectedIndex}
+                  isNumericShow={true}
+                />
               </MapView.Marker>))}
         </MapView>
 
@@ -418,7 +391,6 @@ export default class MainView extends Component {
 
           <AdMob unitId="twaqi-ios-main-footer" />
         </View>
-
       </View>
     );
   }

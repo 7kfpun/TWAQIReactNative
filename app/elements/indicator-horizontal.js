@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -10,33 +9,25 @@ import I18n from '../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    left: 12,
-    top: Platform.OS === 'ios' ? 56 : 22,
-    width: 82,
-    flexDirection: 'column',
-    backgroundColor: 'transparent',
+    flex: 1,
+    flexDirection: 'row',
+    padding: 10,
   },
   item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 1,
+    flex: 1,
+    flexDirection: 'column',
+    padding: 4,
   },
   bar: {
-    width: 16,
-    height: 5,
-    marginRight: 4,
+    height: 4,
+    borderRadius: 2,
   },
   text: {
     color: 'black',
-    fontSize: 10,
+    fontSize: I18n.isZh ? 12 : 8,
     fontWeight: '300',
-    textShadowColor: 'gray',
-    textShadowOffset: {
-      width: 0.6,
-      height: 0.6,
-    },
-    textShadowRadius: 1,
+    marginTop: 10,
+    textAlign: 'center',
   },
 });
 
@@ -78,7 +69,7 @@ const colors = [{
   max: 500,
 }];
 
-const Indicator = () => (
+const IndicatorHorizontal = () => (
   <View style={styles.container}>
     {colors.map(color => (
       <View style={styles.item} key={color.key}>
@@ -88,4 +79,4 @@ const Indicator = () => (
   </View>
 );
 
-export default Indicator;
+export default IndicatorHorizontal;

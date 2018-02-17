@@ -16,6 +16,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import AdMob from '../elements/admob';
 import Chart from '../elements/chart';
+import IndicatorHorizontal from '../elements/indicator-horizontal';
+import Marker from '../elements/marker';
 import SettingsItem from '../elements/settings-item';
 
 import { history } from '../utils/api';
@@ -38,11 +40,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   block: {
+    flexDirection: 'row',
     marginLeft: 10,
     paddingRight: 10,
     paddingVertical: 20,
     borderBottomColor: '#EEEEEE',
     borderBottomWidth: 1,
+  },
+  currentBlock: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 24,
@@ -50,11 +59,12 @@ const styles = StyleSheet.create({
     marginLeft: 2,
   },
   text: {
-    fontSize: 14,
+    marginTop: 4,
+    fontSize: 12,
     color: 'black',
   },
-  amountText: {
-    fontSize: 14,
+  unitText: {
+    fontSize: 10,
     color: 'gray',
   },
   dateText: {
@@ -144,30 +154,40 @@ export default class DetailsView extends Component {
             source={{ uri: item.ImageUrl }}
           />}
 
-          {!this.state.refreshing &&
-            <View style={{ padding: 10 }}>
-              <SettingsItem
-                text={I18n.t('notify_title')}
-                item={item}
-                tags={this.state.tags || {}}
-                increaseEnabledCount={this.increaseEnabledCount}
-                descreaseEnabledCount={this.descreaseEnabledCount}
-              />
-            </View>}
+          <View style={{ padding: 10 }}>
+            <SettingsItem
+              text={I18n.t('notify_title')}
+              item={item}
+              tags={this.state.tags || {}}
+              increaseEnabledCount={this.increaseEnabledCount}
+              descreaseEnabledCount={this.descreaseEnabledCount}
+            />
+
+            {I18n.isZh && <Text style={{ marginTop: 10 }}>{item.SiteAddress}</Text>}
+          </View>
+
+          <IndicatorHorizontal />
 
           {!this.state.refreshing && indexTypes.map((indexType) => {
             const { length } = this.state.result.PublishTime;
             return (
               <View key={indexType.key} style={styles.block}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={styles.currentBlock}>
+                  <Marker
+                    amount={this.state.result[indexType.key][length - 1]}
+                    index={indexType.name}
+                    isNumericShow={true}
+                  />
                   <Text style={styles.text}>{indexType.name}</Text>
-                  <Text style={styles.amountText}>{`${this.state.result[indexType.key][length - 1]}${indexType.unit ? ` ${indexType.unit}` : ''}`}</Text>
+                  <Text style={styles.unitText}>{indexType.unit}</Text>
                 </View>
 
-                <Chart result={this.state.result} index={indexType.key} />
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={styles.dateText}>{this.state.result.PublishTime[0]}</Text>
-                  <Text style={styles.dateText}>{this.state.result.PublishTime[length - 1]}</Text>
+                <View style={{ width: width - 80 }}>
+                  <Chart result={this.state.result} index={indexType.key} />
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={styles.dateText}>{this.state.result.PublishTime[0]}</Text>
+                    <Text style={styles.dateText}>{this.state.result.PublishTime[length - 1]}</Text>
+                  </View>
                 </View>
               </View>
             );

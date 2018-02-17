@@ -12,7 +12,6 @@ import I18n from '../utils/i18n';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    alignSelf: 'flex-start',
   },
   bubble: {
     flex: 0,

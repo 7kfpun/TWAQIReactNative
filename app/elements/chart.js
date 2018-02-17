@@ -37,9 +37,9 @@ export default class Chart extends Component {
     const max = parseFloat(Math.max(...data)) || 1;
 
     return (<VictoryBar
-      height={65}
-      width={width - 6}
-      padding={{ top: 20, bottom: 2, left: 7, right: 7 }}
+      height={62}
+      width={width - 66}
+      padding={{ top: 10, bottom: 2, left: 7, right: 7 }}
       domain={{ x: [0, length], y: [min / 3, max] }}
       labels={(d) => {
         if (d.y === 0) {
@@ -55,7 +55,7 @@ export default class Chart extends Component {
       style={{
         labels: {
           fill: 'black',
-          fontSize: 10,
+          fontSize: 8,
           padding: 2,
         },
         data: {
@@ -68,7 +68,7 @@ export default class Chart extends Component {
       data={data.map((value, i) => ({
         x: i,
         y: parseFloat(value),
-        width: (width - 100) / length,
+        width: (width - 180) / length,
       }))}
     />);
   }
