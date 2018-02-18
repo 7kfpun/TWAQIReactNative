@@ -46,7 +46,7 @@ const LONGITUDE = 120.8;
 const LATITUDE_DELTA = 4.4;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const OUT_OF_BOUND = 30;
-const RELOAD_INTERVAL = 10 * 60 * 1000;
+const RELOAD_INTERVAL = 30 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
@@ -292,7 +292,10 @@ export default class MainView extends Component {
     }
 
     this.prepareData();
-    timer.setInterval(this, 'ReloadDataInterval', () => this.prepareData(), RELOAD_INTERVAL);
+    timer.setInterval(this, 'ReloadDataInterval', () => {
+      this.prepareData();
+      tracker.logEvent('reload-fetch-latest-data');
+    }, RELOAD_INTERVAL);
   }
 
   render() {

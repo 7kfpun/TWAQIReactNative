@@ -132,37 +132,6 @@ const helpTexts = {
     backgroundColor: '#7E2200',
     fontColor: 'white',
   }],
-  AQHI: [{
-    index: '1 - 3',
-    healthRisk: 'Low',
-    hantHealthRisk: '低',
-    hansHealthRisk: '低',
-    backgroundColor: '#4DB748',
-  }, {
-    index: '4 - 6',
-    healthRisk: 'Moderate',
-    hantHealthRisk: '中',
-    hansHealthRisk: '中',
-    backgroundColor: '#F9AB1A',
-  }, {
-    index: '7',
-    healthRisk: 'High',
-    hantHealthRisk: '高',
-    hansHealthRisk: '高',
-    backgroundColor: '#ED1B24',
-  }, {
-    index: '8 - 10',
-    healthRisk: 'Very high',
-    hantHealthRisk: '甚高',
-    hansHealthRisk: '甚高',
-    backgroundColor: '#A04623',
-  }, {
-    index: '10+',
-    healthRisk: 'Serious',
-    hantHealthRisk: '嚴重',
-    hansHealthRisk: '严重',
-    backgroundColor: '#000000',
-  }],
 };
 
 export default class HelpView extends Component {

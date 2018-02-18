@@ -26,7 +26,6 @@
 
 * [analytics-react-native](https://github.com/neiker/analytics-react-native) - The hassle-free way to integrate analytics into any React Native application.
 * [react-native-admob](https://github.com/sbugert/react-native-admob) - A react-native component for Google AdMob banners.
-* [react-native-communications](https://github.com/anarchicknight/react-native-communications) - Open a web address or call, email, text or iMessage (iOS only) someone in React Native.
 * [react-native-device-info](https://github.com/rebeccahughes/react-native-device-info) - Device Information for React Native iOS and Android.
 * [react-native-fabric](https://github.com/corymsmith/react-native-fabric) - A React Native library for Fabric, Crashlytics and Answers.
 * [react-native-fabric-crashlytics](https://github.com/mikelambert/react-native-fabric-crashlytics) - Implements crash reporting on top of react-native-fabric library.
