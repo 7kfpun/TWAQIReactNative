@@ -46,6 +46,12 @@ I18n.translations = {
 
     cancel: 'Cancel',
     search: 'Search',
+
+    do_not_disturb: {
+      title: 'Do not disturb',
+      start_time: 'Start time',
+      end_time: 'End time',
+    },
   },
   zh: {
     main: '地圖',
@@ -90,16 +96,18 @@ I18n.translations = {
 
     cancel: '取消',
     search: '搜素',
+
+    do_not_disturb: {
+      title: '請勿打擾',
+      start_time: '開始',
+      end_time: '結束',
+    },
   },
 };
 
-I18n.translations['zh-Hans-US'] = I18n.translations.zh;
-I18n.translations['zh-Hans-HK'] = I18n.translations.zh;
-I18n.translations['zh-Hans-MN'] = I18n.translations.zh;
-I18n.translations['zh-Hant-US'] = I18n.translations.zh;
-I18n.translations['zh-Hant-HK'] = I18n.translations.zh;
-I18n.translations['zh-Hant-MN'] = I18n.translations.zh;
-
 I18n.isZh = I18n.locale.startsWith('zh');
+if (I18n.isZh) {
+  I18n.translations[I18n.locale] = I18n.translations.zh;
+}
 
 export default I18n;

@@ -17,6 +17,7 @@ import timer from 'react-native-timer';
 import Fuse from 'fuse.js';
 
 import AdMob from '../elements/admob';
+import SettingsDND from '../elements/settings-dnd';
 import SettingsGroup from '../elements/settings-group';
 import SettingsItem from '../elements/settings-item';
 
@@ -177,12 +178,16 @@ export default class SettingsView extends Component {
             )}
           />}
 
-          {!this.state.searchText && <FlatList
-            style={styles.list}
-            data={countys}
-            keyExtractor={(item, index) => `${index}-${item}`}
-            renderItem={({ item }) => <SettingsGroup groupName={item} />}
-          />}
+          {!this.state.searchText &&
+            <View>
+              <SettingsDND />
+              <FlatList
+                style={styles.list}
+                data={countys}
+                keyExtractor={(item, index) => `${index}-${item}`}
+                renderItem={({ item }) => <SettingsGroup groupName={item} />}
+              />
+            </View>}
         </ScrollView>
         <AdMob unitId="twaqi-ios-settings-footer" />
       </View>

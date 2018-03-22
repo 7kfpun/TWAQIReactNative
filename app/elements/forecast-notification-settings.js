@@ -65,11 +65,7 @@ export default class ForecastNotificationSettings extends Component {
 
   async loadForecastSettings() {
     const tags = await OneSignalGetTags();
-    if (tags) {
-      this.setState({
-        isEnabled: tags.isForecastEnabled === 'true',
-      });
-    }
+    this.setState({ isEnabled: tags && tags.isForecastEnabled === 'true' });
   }
 
   render() {
