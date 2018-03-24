@@ -383,8 +383,20 @@ export default class MainView extends Component {
                       title: I18n.t('app_name'),
                       message: `${I18n.t('app_name')} ${config.appStore}`,
                       url: uri,
-                    });
-                    this.setState({ isShareLoading: false });
+                    })
+                    .then(() => {
+                      this.setState({ isShareLoading: false });
+                      if (result.action === Share.sharedAction) {
+                        if (result.activityType) {
+                          tracker.logEvent('share-map-shared', { activityType: result.activityType });
+                        } else {
+                          tracker.logEvent('share-map-shared');
+                        }
+                      } else if (result.action === Share.dismissedAction) {
+                        tracker.logEvent('share-map-dismiss');
+                      }
+                    })
+                    .catch(() => this.setState({ isShareLoading: false }));
                   },
                   (error) => {
                     console.error('Oops, snapshot failed', error);

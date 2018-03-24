@@ -127,7 +127,10 @@ export default class Rating extends Component {
         <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
           <Icon name="clear" size={24} color="#616161" />
         </TouchableOpacity>
-        <Icon name="thumb-up" size={32} color="#616161" />
+
+        <Animatable.View animation="tada" iterationCount="infinite">
+          <Icon name="thumb-up" size={32} color="#616161" />
+        </Animatable.View>
         <Text style={styles.ratingTitleText}>{I18n.t('rating_title')}</Text>
         <Text style={styles.ratingDescriptionText}>{I18n.t('rating_description')}</Text>
         <StarRating
