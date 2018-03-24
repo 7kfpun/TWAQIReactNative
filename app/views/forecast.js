@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import firebase from 'react-native-firebase';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AdMob from '../elements/admob';
 import ForecastNotificationSettings from '../elements/forecast-notification-settings';
@@ -41,7 +41,7 @@ export default class ForecastView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('forecast'),
-    tabBarIcon: ({ tintColor }) => <Icon name="track-changes" size={21} color={tintColor} />,
+    tabBarIcon: ({ tintColor }) => <Ionicons name="ios-leaf-outline" size={20} color={tintColor} />,
   };
 
   state = {

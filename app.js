@@ -43,12 +43,12 @@ const App = TabNavigator({
   animationEnabled: true,
   tabBarOptions: {
     activeTintColor: iOSColors.tealBlue,
-    inactiveTintColor: iOSColors.gray,
+    inactiveTintColor: iOSColors.black,
     // showIcon and pressColor are for Android
     showIcon: true,
     pressColor: '#E0E0E0',
     labelStyle: {
-      fontSize: Platform.OS === 'ios' && I18n.isZh ? 12 : 10,
+      fontSize: Platform.OS === 'ios' && I18n.isZh ? 12 : 11,
       paddingBottom: Platform.OS === 'ios' && I18n.isZh ? 4 : 2,
     },
     style: {

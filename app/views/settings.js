@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import OneSignal from 'react-native-onesignal';
 import Search from 'react-native-search-box';
 import timer from 'react-native-timer';
@@ -62,7 +62,7 @@ export default class SettingsView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('settings'),
-    tabBarIcon: ({ tintColor }) => <Icon name="notifications-none" size={21} color={tintColor} />,
+    tabBarIcon: ({ tintColor }) => <Ionicons name="ios-notifications-outline" size={21} color={tintColor} />,
   };
 
   static requestPermissions() {

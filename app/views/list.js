@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Search from 'react-native-search-box';
 
 import Fuse from 'fuse.js';
@@ -47,7 +47,7 @@ export default class SettingsView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('list'),
-    tabBarIcon: ({ tintColor }) => <Icon name="view-list" size={22} color={tintColor} />,
+    tabBarIcon: ({ tintColor }) => <Ionicons name="ios-list-outline" size={26} color={tintColor} />,
   };
 
   static propTypes = {

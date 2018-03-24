@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 import firebase from 'react-native-firebase';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AdMob from '../elements/admob';
 import Chart from '../elements/chart';
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: Platform.OS === 'ios' ? 50 : 20,
-    paddingLeft: 2,
+    paddingLeft: 12,
     marginBottom: 10,
   },
   block: {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     color: 'black',
-    marginLeft: 2,
+    marginLeft: 10,
   },
   text: {
     marginTop: 4,
@@ -84,11 +84,7 @@ export default class DetailsView extends Component {
   static navigationOptions = () => ({
     header: null,
     tabBarLabel: I18n.t('details'),
-    tabBarIcon: ({ tintColor }) => (<Icon
-      name="timeline"
-      size={21}
-      color={tintColor}
-    />),
+    tabBarIcon: ({ tintColor }) => (<Ionicons name="ios-stats-outline" size={21} color={tintColor} />),
   })
 
   state = {
@@ -140,7 +136,7 @@ export default class DetailsView extends Component {
       <View style={styles.container}>
         <TouchableOpacity onPress={this.goBack} >
           <View style={styles.titleBlock}>
-            <Icon name="chevron-left" size={40} color="gray" />
+            <Ionicons name="ios-arrow-back-outline" size={30} color="gray" />
             <Text style={styles.title}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
           </View>
         </TouchableOpacity>

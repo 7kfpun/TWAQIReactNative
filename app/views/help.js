@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import SafariView from 'react-native-safari-view';
 
 import AdMob from '../elements/admob';
@@ -138,7 +138,7 @@ export default class HelpView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('help'),
-    tabBarIcon: ({ tintColor }) => <Icon name="info-outline" size={21} color={tintColor} />,
+    tabBarIcon: ({ tintColor }) => <Ionicons name="ios-help-circle-outline" size={21} color={tintColor} />,
   };
 
   static openFeedbackUrl() {
@@ -162,7 +162,7 @@ export default class HelpView extends Component {
         <View style={styles.titleBlock}>
           <Text style={styles.title}>{I18n.t('help_definition')}</Text>
           <TouchableOpacity onPress={HelpView.openFeedbackUrl}>
-            <Icon name="mail-outline" size={30} color={iOSColors.gray} />
+            <Ionicons name="ios-mail-outline" size={30} color={iOSColors.gray} />
           </TouchableOpacity>
         </View>
         <ScrollView>

@@ -20,7 +20,6 @@ import { ifIphoneX } from 'react-native-iphone-x-helper';
 import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
 import FusedLocation from 'react-native-fused-location';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MapView from 'react-native-maps';
 import store from 'react-native-simple-store';
@@ -155,7 +154,7 @@ export default class MainView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('main'),
-    tabBarIcon: ({ tintColor }) => <Icon name="place" size={19} color={tintColor} />,
+    tabBarIcon: ({ tintColor }) => <Ionicons name="ios-map-outline" size={20} color={tintColor} />,
   };
 
   static isOutOfBound(latitude, longitude) {
@@ -359,7 +358,7 @@ export default class MainView extends Component {
         >
           <View style={styles.refreshContainerBody}>
             <Text style={styles.refreshContainerText}>{this.state.aqiResult && this.state.aqiResult['中山'] && this.state.aqiResult['中山'].PublishTime}</Text>
-            {!this.state.isLoading && <Icon name="refresh" style={{ marginLeft: 5 }} size={20} color="#616161" />}
+            {!this.state.isLoading && <Ionicons name="ios-refresh-outline" style={{ marginLeft: 5 }} size={20} color="#616161" />}
             {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
           </View>
         </TouchableOpacity>
@@ -396,7 +395,7 @@ export default class MainView extends Component {
               tracker.logEvent('move-to-default-location');
             }}
           >
-            <Icon name="crop-free" size={28} color={iOSColors.gray} />
+            <Ionicons name="ios-qr-scanner-outline" size={28} color={iOSColors.gray} />
           </TouchableOpacity>}
 
         {Platform.OS === 'ios' && this.state.gpsEnabled &&
@@ -407,7 +406,7 @@ export default class MainView extends Component {
               tracker.logEvent('move-to-current-location');
             }}
           >
-            <Icon name="near-me" size={28} color={iOSColors.gray} />
+            <Ionicons name="md-navigate" size={28} color={iOSColors.gray} />
           </TouchableOpacity>}
 
         <View>
