@@ -180,6 +180,7 @@ export default class MainView extends Component {
     selectedIndex: indexTypes[0].key,
     isLoading: false,
     gpsEnabled: false,
+    isShareLoading: false,
   };
 
   onRegionChange(region) {
@@ -371,24 +372,30 @@ export default class MainView extends Component {
           <TouchableOpacity
             style={styles.shareImage}
             onPress={() => {
-              captureRef(this.map, {
-                format: 'jpg',
-                quality: 0.8,
-              })
-              .then(
-                (uri) => {
-                  console.log('Image saved to', uri);
-                  Share.share({
-                    title: I18n.t('app_name'),
-                    message: `${I18n.t('app_name')} ${config.appStore}`,
-                    url: uri,
-                  });
-                },
-                error => console.error('Oops, snapshot failed', error),
-              );
+              this.setState({ isShareLoading: true }, () => {
+                captureRef(this.map, {
+                  format: 'jpg',
+                  quality: 0.8,
+                })
+                .then(
+                  (uri) => {
+                    console.log('Image saved to', uri);
+                    Share.share({
+                      title: I18n.t('app_name'),
+                      message: `${I18n.t('app_name')} ${config.appStore}`,
+                      url: uri,
+                    });
+                    this.setState({ isShareLoading: false });
+                  },
+                  (error) => {
+                    console.error('Oops, snapshot failed', error);
+                    this.setState({ isShareLoading: false });
+                  },
+                );
+              });
             }}
           >
-            <Ionicons name="ios-share-outline" size={28} color={iOSColors.gray} />
+            {this.state.isShareLoading ? <ActivityIndicator /> : <Ionicons name="ios-share-outline" size={28} color={iOSColors.gray} />}
           </TouchableOpacity>}
 
         {Platform.OS === 'ios' &&
