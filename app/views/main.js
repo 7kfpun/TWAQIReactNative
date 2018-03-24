@@ -13,6 +13,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Share,
 } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper';
@@ -20,9 +21,11 @@ import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
 import FusedLocation from 'react-native-fused-location';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import MapView from 'react-native-maps';
 import store from 'react-native-simple-store';
 import timer from 'react-native-timer';
+import { captureRef } from 'react-native-view-shot';
 
 import AdMob from '../elements/admob';
 import Indicator from '../elements/indicator';
@@ -35,6 +38,8 @@ import { locations } from '../utils/locations';
 import I18n from '../utils/i18n';
 import log from '../utils/log';
 import tracker from '../utils/tracker';
+
+import { config } from '../config';
 
 const { width, height } = Dimensions.get('window');
 
@@ -57,16 +62,27 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  defaultLocation: {
+  shareImage: {
     position: 'absolute',
     right: 12,
-    bottom: 168,
+    bottom: 220,
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 52,
-    width: 52,
-    borderRadius: 26,
+    height: 48,
+    width: 48,
+    borderRadius: 24,
+  },
+  defaultLocation: {
+    position: 'absolute',
+    right: 12,
+    bottom: 164,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 48,
+    width: 48,
+    borderRadius: 24,
   },
   currentLocation: {
     position: 'absolute',
@@ -75,9 +91,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 52,
-    width: 52,
-    borderRadius: 26,
+    height: 48,
+    width: 48,
+    borderRadius: 24,
   },
   refreshContainer: {
     ...ifIphoneX({
@@ -351,6 +367,26 @@ export default class MainView extends Component {
         <Indicator />
 
         <Rating />
+
+        {Platform.OS === 'ios' &&
+          <TouchableOpacity
+            style={styles.shareImage}
+            onPress={() => {
+              captureRef(this.map, {
+                format: 'jpg',
+                quality: 0.8,
+              })
+              .then(
+                (uri) => {
+                  console.log('Image saved to', uri);
+                  Share.share({ title: I18n.t('app_name'), message: config.appStore, url: uri });
+                },
+                error => console.error('Oops, snapshot failed', error),
+              );
+            }}
+          >
+            <Ionicons name="ios-share-outline" size={28} color={iOSColors.gray} />
+          </TouchableOpacity>}
 
         {Platform.OS === 'ios' &&
           <TouchableOpacity

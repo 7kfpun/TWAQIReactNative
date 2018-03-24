@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import {
   Platform,
   StyleSheet,
@@ -11,7 +10,6 @@ import {
 
 import { iOSColors } from 'react-native-typography';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
 import OneSignal from 'react-native-onesignal';
 

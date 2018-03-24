@@ -71,6 +71,8 @@
 	<string>根據您當前的位置將自動選擇最近的監測站</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>根據您當前的位置將自動選擇最近的監測站</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>可以將圖片圖存到相簿嗎？</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>

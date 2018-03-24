@@ -121,6 +121,8 @@ PODS:
     - React
   - RNVectorIcons (4.4.2):
     - React
+  - RNViewShot (2.3.0):
+    - React
   - yoga (0.51.0.React)
 
 DEPENDENCIES:
@@ -154,6 +156,7 @@ DEPENDENCIES:
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - RNI18n (from `../node_modules/react-native-i18n`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - RNViewShot (from `../node_modules/react-native-view-shot`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 EXTERNAL SOURCES:
@@ -177,6 +180,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-i18n"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  RNViewShot:
+    :path: "../node_modules/react-native-view-shot"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -209,8 +214,9 @@ SPEC CHECKSUMS:
   RNFirebase: 22b1917fec663706907bc901ed665ac4f8b9bfd6
   RNI18n: cd4ddd958e326a2427b70f5474b3fb04aea793b2
   RNVectorIcons: c1821d56c775cc5a3bca66c77dfc8cb4a90d27e2
+  RNViewShot: 7171cd7d12d467b75b9281872b59ec9a4a61cfc6
   yoga: b5d96400ca8b2936965a7a6516da7c1177f432a3
 
-PODFILE CHECKSUM: 5a13de8d0add967f11b8c8aa243404afba16f56e
+PODFILE CHECKSUM: 4d30ba21e4acaea360fe7e9334a32cccfbe9ae15
 
 COCOAPODS: 1.2.1

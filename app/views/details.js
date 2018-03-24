@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -137,10 +138,13 @@ export default class DetailsView extends Component {
     tracker.view('History-Details');
     return (
       <View style={styles.container}>
-        <View style={styles.titleBlock}>
-          <Icon name="chevron-left" size={40} color="gray" onPress={this.goBack} />
-          <Text style={styles.title}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
-        </View>
+        <TouchableOpacity onPress={this.goBack} >
+          <View style={styles.titleBlock}>
+            <Icon name="chevron-left" size={40} color="gray" />
+            <Text style={styles.title}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
+          </View>
+        </TouchableOpacity>
+
         <ScrollView
           refreshControl={
             <RefreshControl

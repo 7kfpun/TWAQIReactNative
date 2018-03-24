@@ -105,10 +105,10 @@ export default class Rating extends Component {
         StoreReview.requestReview();
         type = 'inapp-store-review';
       } else if (Platform.OS === 'ios') {
-        Linking.openURL('itms-apps://itunes.apple.com/app/id1286516443');
+        Linking.openURL(config.appStore);
         type = 'apple-store';
       } else if (Platform.OS === 'android') {
-        Linking.openURL('market://details?id=com.kfpun.aqi');
+        Linking.openURL(config.googlePlay);
         type = 'google-play';
       }
     }

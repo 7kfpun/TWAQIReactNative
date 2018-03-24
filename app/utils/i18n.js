@@ -4,6 +4,8 @@ I18n.fallbacks = true;
 
 I18n.translations = {
   en: {
+    app_name: 'Taiwan AQI',
+
     main: 'Map',
     list: 'List',
     details: 'Details',
@@ -54,6 +56,8 @@ I18n.translations = {
     },
   },
   zh: {
+    app_name: '台灣空氣品質指標',
+
     main: '地圖',
     list: '列表',
     details: '詳細',

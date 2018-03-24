@@ -51,6 +51,8 @@ target 'TWAQI' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'GoogleMobileAdsMediationFacebook'
+  pod 'RNViewShot', :path => '../node_modules/react-native-view-shot'
+
 end
 
 post_install do |installer|
