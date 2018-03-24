@@ -138,7 +138,7 @@ export default class HelpView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('help'),
-    tabBarIcon: ({ tintColor }) => <Ionicons name="ios-help-circle-outline" size={21} color={tintColor} />,
+    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-help-circle' : 'ios-help-circle-outline'} size={21} color={tintColor} />,
   };
 
   static openFeedbackUrl() {

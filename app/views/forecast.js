@@ -41,7 +41,7 @@ export default class ForecastView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('forecast'),
-    tabBarIcon: ({ tintColor }) => <Ionicons name="ios-leaf-outline" size={20} color={tintColor} />,
+    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-leaf' : 'ios-leaf-outline'} size={20} color={tintColor} />,
   };
 
   state = {

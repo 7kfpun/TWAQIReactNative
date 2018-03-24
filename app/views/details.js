@@ -84,7 +84,7 @@ export default class DetailsView extends Component {
   static navigationOptions = () => ({
     header: null,
     tabBarLabel: I18n.t('details'),
-    tabBarIcon: ({ tintColor }) => (<Ionicons name="ios-stats-outline" size={21} color={tintColor} />),
+    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-stats' : 'ios-stats-outline'} size={21} color={tintColor} />,
   })
 
   state = {

@@ -67,7 +67,7 @@ export default class SettingsView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('settings'),
-    tabBarIcon: ({ tintColor }) => <Ionicons name="ios-notifications-outline" size={21} color={tintColor} />,
+    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-notifications' : 'ios-notifications-outline'} size={21} color={tintColor} />,
   };
 
   static requestPermissions() {

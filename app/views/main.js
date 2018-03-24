@@ -154,7 +154,7 @@ export default class MainView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('main'),
-    tabBarIcon: ({ tintColor }) => <Ionicons name="ios-map-outline" size={20} color={tintColor} />,
+    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={20} color={tintColor} />,
   };
 
   static isOutOfBound(latitude, longitude) {

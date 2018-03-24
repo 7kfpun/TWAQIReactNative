@@ -52,7 +52,7 @@ export default class SettingsView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('list'),
-    tabBarIcon: ({ tintColor }) => <Ionicons name="ios-list-outline" size={26} color={tintColor} />,
+    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-list' : 'ios-list-outline'} size={26} color={tintColor} />,
   };
 
   static propTypes = {
