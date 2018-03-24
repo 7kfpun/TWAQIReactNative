@@ -378,7 +378,11 @@ export default class MainView extends Component {
               .then(
                 (uri) => {
                   console.log('Image saved to', uri);
-                  Share.share({ title: I18n.t('app_name'), message: config.appStore, url: uri });
+                  Share.share({
+                    title: I18n.t('app_name'),
+                    message: `${I18n.t('app_name')} ${config.appStore}`,
+                    url: uri,
+                  });
                 },
                 error => console.error('Oops, snapshot failed', error),
               );
@@ -395,7 +399,7 @@ export default class MainView extends Component {
               tracker.logEvent('move-to-default-location');
             }}
           >
-            <Ionicons name="ios-qr-scanner-outline" size={28} color={iOSColors.gray} />
+            <Ionicons name="ios-qr-scanner-outline" style={{ paddingTop: 2 }} size={28} color={iOSColors.gray} />
           </TouchableOpacity>}
 
         {Platform.OS === 'ios' && this.state.gpsEnabled &&
@@ -406,7 +410,7 @@ export default class MainView extends Component {
               tracker.logEvent('move-to-current-location');
             }}
           >
-            <Ionicons name="md-navigate" size={28} color={iOSColors.gray} />
+            <Ionicons name="md-navigate" style={{ paddingRight: 2, paddingBottom: 2, transform: [{ rotate: '45deg' }] }} size={28} color={iOSColors.gray} />
           </TouchableOpacity>}
 
         <View>
