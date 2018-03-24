@@ -52,6 +52,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'white',
   },
+  searchBlock: {
+    padding: 10,
+    borderBottomColor: iOSColors.lightGray,
+    borderBottomWidth: 1,
+  },
   list: {
     paddingVertical: 30,
   },
@@ -153,15 +158,18 @@ export default class SettingsView extends Component {
             <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
           </View>}
 
-        <Search
-          backgroundColor={iOSColors.lightGray}
-          onChangeText={this.onChangeText}
-          onCancel={this.onCancelOrDelete}
-          onDelete={this.onCancelOrDelete}
-          cancelTitle={I18n.t('cancel')}
-          placeholder={I18n.t('search')}
-          titleCancelColor={iOSColors.gray}
-        />
+        <View style={styles.searchBlock}>
+          <Search
+            backgroundColor={iOSColors.white}
+            titleCancelColor={iOSColors.blue}
+
+            onChangeText={this.onChangeText}
+            onCancel={this.onCancelOrDelete}
+            onDelete={this.onCancelOrDelete}
+            cancelTitle={I18n.t('cancel')}
+            placeholder={I18n.t('search')}
+          />
+        </View>
 
         <ScrollView>
           {!!this.state.searchText && <FlatList
@@ -180,7 +188,7 @@ export default class SettingsView extends Component {
 
           {!this.state.searchText &&
             <View>
-              <SettingsDND />
+              {false && <SettingsDND />}
               <FlatList
                 style={styles.list}
                 data={countys}
