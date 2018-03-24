@@ -16,7 +16,6 @@ import SafariView from 'react-native-safari-view';
 import AdMob from '../elements/admob';
 
 import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
 
 import { config } from '../config';
 
@@ -156,7 +155,6 @@ export default class HelpView extends Component {
   }
 
   render() {
-    tracker.view('Help');
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>

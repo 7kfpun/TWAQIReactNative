@@ -24,7 +24,6 @@ import SettingsItem from '../elements/settings-item';
 import { history } from '../utils/api';
 import { indexTypes } from '../utils/indexes';
 import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
 
 const { width } = Dimensions.get('window');
 
@@ -131,7 +130,7 @@ export default class DetailsView extends Component {
   render() {
     const { state } = this.props.navigation;
     const { item } = state.params;
-    tracker.view('History-Details');
+
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.goBack} >

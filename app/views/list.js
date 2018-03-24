@@ -21,7 +21,6 @@ import HistoryItem from '../elements/history-item';
 
 import { countys, locations } from '../utils/locations';
 import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
   container: {
@@ -92,7 +91,6 @@ export default class SettingsView extends Component {
   }
 
   render() {
-    tracker.view('History-List');
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>

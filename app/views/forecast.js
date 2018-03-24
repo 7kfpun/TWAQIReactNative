@@ -15,7 +15,6 @@ import ForecastNotificationSettings from '../elements/forecast-notification-sett
 
 import { aqfn } from '../utils/api';
 import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
 
 const styles = StyleSheet.create({
   container: {
@@ -61,7 +60,6 @@ export default class ForecastView extends Component {
   }
 
   render() {
-    tracker.view('Forecast');
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>

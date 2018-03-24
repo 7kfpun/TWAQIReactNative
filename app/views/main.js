@@ -317,7 +317,6 @@ export default class MainView extends Component {
   render() {
     const { navigation } = this.props;
 
-    tracker.view('Main');
     return (
       <View style={styles.container}>
         <MapView
@@ -395,7 +394,7 @@ export default class MainView extends Component {
               });
             }}
           >
-            {this.state.isShareLoading ? <ActivityIndicator /> : <Ionicons name="ios-share-outline" size={28} color={iOSColors.gray} />}
+            {this.state.isShareLoading ? <ActivityIndicator /> : <Ionicons name="ios-share-outline" size={28} color={iOSColors.black} />}
           </TouchableOpacity>}
 
         {Platform.OS === 'ios' &&
@@ -406,7 +405,7 @@ export default class MainView extends Component {
               tracker.logEvent('move-to-default-location');
             }}
           >
-            <Ionicons name="ios-qr-scanner-outline" style={{ paddingTop: 2 }} size={28} color={iOSColors.gray} />
+            <Ionicons name="ios-qr-scanner-outline" style={{ paddingTop: 2 }} size={28} color={iOSColors.black} />
           </TouchableOpacity>}
 
         {Platform.OS === 'ios' && this.state.gpsEnabled &&
@@ -417,7 +416,7 @@ export default class MainView extends Component {
               tracker.logEvent('move-to-current-location');
             }}
           >
-            <Ionicons name="md-navigate" style={{ paddingRight: 2, paddingBottom: 2, transform: [{ rotate: '45deg' }] }} size={28} color={iOSColors.gray} />
+            <Ionicons name="md-navigate" style={{ paddingRight: 2, paddingBottom: 2, transform: [{ rotate: '45deg' }] }} size={28} color={iOSColors.black} />
           </TouchableOpacity>}
 
         <View>

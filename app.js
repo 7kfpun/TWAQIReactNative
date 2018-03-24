@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Platform,
 } from 'react-native';
@@ -15,15 +16,16 @@ import Help from './app/views/help';
 // import Contact from './app/views/contact';
 
 import I18n from './app/utils/i18n';
+import tracker from './app/utils/tracker';
 
 if (!__DEV__) {
   console.log = () => {};
 }
 
 const App = TabNavigator({
-  Main: {
+  Home: {
     screen: StackNavigator({
-      MainMap: { screen: Main },
+      Main: { screen: Main },
       MainDetails: { screen: Details },
     }),
   },
@@ -67,4 +69,29 @@ console.ignoredYellowBox = [
   'Warning: Can only update a mounted or mounting component.',
 ];
 
-module.exports = App;
+// gets the current screen from navigation state
+function getCurrentRouteName(navigationState) {
+  if (!navigationState) {
+    return null;
+  }
+  const route = navigationState.routes[navigationState.index];
+  // dive into nested navigators
+  if (route.routes) {
+    return getCurrentRouteName(route);
+  }
+  return route.routeName;
+}
+
+export default () => (
+  <App
+    onNavigationStateChange={(prevState, currentState) => {
+      const currentScreen = getCurrentRouteName(currentState);
+      const prevScreen = getCurrentRouteName(prevState);
+
+      if (prevScreen !== currentScreen) {
+        console.log(currentScreen);
+        tracker.view(currentScreen);
+      }
+    }}
+  />
+);

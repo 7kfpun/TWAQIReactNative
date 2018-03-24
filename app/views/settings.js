@@ -24,7 +24,6 @@ import SettingsItem from '../elements/settings-item';
 import { countys, locations } from '../utils/locations';
 import { OneSignalGetTags } from '../utils/onesignal';
 import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
 
 const CHECK_INTERVAL = 60 * 1000;
 
@@ -147,7 +146,6 @@ export default class SettingsView extends Component {
   }
 
   render() {
-    tracker.view('Settings');
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
