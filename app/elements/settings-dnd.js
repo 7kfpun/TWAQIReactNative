@@ -76,7 +76,12 @@ export default class SettingsDND extends Component {
 
   setDND = (value) => {
     this.setState({ isDndEnabled: value }, () => {
-      OneSignal.sendTags({ isDndEnabled: value });
+      OneSignal.sendTags({
+        isDndEnabled: value,
+        dndStartTime: getTime(this.state.startTime),
+        dndEndTime: getTime(this.state.endTime),
+        isDndStartEarlierThanEnd: moment(this.state.startTime).diff(this.state.endTime) < 0,
+      });
       tracker.logEvent('set-dnd-notification', { label: value ? 'on' : 'off' });
 
       if (value && Platform.OS === 'ios') {
@@ -96,8 +101,8 @@ export default class SettingsDND extends Component {
     if (tags) {
       this.setState({
         isDndEnabled: tags.isDndEnabled === 'true',
-        startTime: convertFromTagToTime(tags.dndStartTime),
-        endTime: convertFromTagToTime(tags.dndEndTime),
+        startTime: tags.dndStartTime ? convertFromTagToTime(tags.dndStartTime) : this.state.startTime,
+        endTime: tags.dndEndTime ? convertFromTagToTime(tags.dndEndTime) : this.state.endTime,
       });
     }
   }
@@ -111,7 +116,7 @@ export default class SettingsDND extends Component {
   handleStartTimePicked = (value) => {
     this.setState({ startTime: value }, () => OneSignal.sendTags({
       dndStartTime: getTime(value),
-      isDndStartEarlierThanEnd: moment(value).diff(this.state.endTime) > 0,
+      isDndStartEarlierThanEnd: moment(value).diff(this.state.endTime) < 0,
     }));
     this.hideStartTimePicker();
   };
@@ -119,7 +124,7 @@ export default class SettingsDND extends Component {
   handleEndTimePicked = (value) => {
     this.setState({ endTime: value }, () => OneSignal.sendTags({
       dndEndTime: getTime(value),
-      isDndStartEarlierThanEnd: moment(this.state.startTime).diff(value) > 0,
+      isDndStartEarlierThanEnd: moment(this.state.startTime).diff(value) < 0,
     }));
     this.hideEndTimePicker();
   };

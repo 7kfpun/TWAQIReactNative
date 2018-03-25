@@ -23,9 +23,10 @@ const styles = StyleSheet.create({
     padding: 1,
   },
   bar: {
-    width: 16,
-    height: 5,
     marginRight: 4,
+    width: 18,
+    height: 4,
+    borderRadius: 2,
   },
   text: {
     color: 'black',

@@ -186,7 +186,7 @@ export default class SettingsView extends Component {
 
           {!this.state.searchText &&
             <View>
-              {false && <SettingsDND />}
+              <SettingsDND />
               <FlatList
                 style={styles.list}
                 data={countys}
