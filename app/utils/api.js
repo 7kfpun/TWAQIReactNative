@@ -55,6 +55,26 @@ const history = (siteName) => {
     });
 };
 
+const realtimeWeather = (lat, lng) => {
+  const form = new FormData();
+  form.append('lat', lat);
+  form.append('lng', lng);
+
+  const REALTIME_WEATHER_URL = config.realtimeWeatherUrl;
+  return fetch(REALTIME_WEATHER_URL, {
+    method: 'post',
+    body: form,
+  })
+    .then(res => res.json())
+    .catch((err) => {
+      console.log('Request for aqi realtimeWeather failed', err);
+      firebase.crash().log('Request for realtimeWeather failed');
+      firebase.crash().report(JSON.stringify(err));
+      return err;
+    });
+};
+
 exports.aqi = aqi;
 exports.aqfn = aqfn;
 exports.history = history;
+exports.realtimeWeather = realtimeWeather;

@@ -427,6 +427,7 @@ const locations = [
     TWD97Lon: '120.7889280000',
     TWD97Lat: '21.9580690000',
     SiteType: '一般測站',
+    ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=61&type=l',
   }, {
     SiteName: '屏東',
     SiteEngName: 'Pingtung',

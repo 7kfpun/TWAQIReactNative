@@ -71,6 +71,10 @@ export default class ForecastView extends Component {
   }
 
   render() {
+    const getForecastContent = text => text
+      .replace(/\r/g, '\n\n')
+      .replace('敏感族群可以利用空氣品質監測網資訊(網址：http://taqm.epa.gov.tw、「愛環境資訊網」http://ienv.epa.gov.tw)查詢最新空氣品質變化，或透過「環境即時通」手機APP可以設定不同警戒值，', '');
+
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
@@ -80,7 +84,7 @@ export default class ForecastView extends Component {
         <ScrollView>
           <ForecastNotificationSettings />
           <View style={{ flex: 1, padding: 10 }}>
-            <Text style={styles.text}>{this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content && this.state.aqfnResult[0].Content.replace(/\r/g, '\n\n')}</Text>
+            <Text style={styles.text}>{this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content && getForecastContent(this.state.aqfnResult[0].Content)}</Text>
           </View>
         </ScrollView>
         <AdMob unitId="twaqi-ios-forecast-footer" />

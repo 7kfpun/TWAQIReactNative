@@ -54,6 +54,10 @@ I18n.translations = {
       start_time: 'Start time',
       end_time: 'End time',
     },
+    realtime_weather: {
+      rain: 'Rainfall',
+      rh: 'RH',
+    },
   },
   zh: {
     app_name: '台灣空氣品質指標',
@@ -99,12 +103,16 @@ I18n.translations = {
     status_hazardous: '有害',
 
     cancel: '取消',
-    search: '搜素',
+    search: '搜索',
 
     do_not_disturb: {
       title: '請勿打擾',
       start_time: '開始',
       end_time: '結束',
+    },
+    realtime_weather: {
+      rain: '時累積雨量',
+      rh: '濕度',
     },
   },
 };

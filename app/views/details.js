@@ -19,9 +19,10 @@ import AdMob from '../elements/admob';
 import Chart from '../elements/chart';
 import IndicatorHorizontal from '../elements/indicator-horizontal';
 import Marker from '../elements/marker';
+import RealtimeWeather from '../elements/realtime-weather';
 import SettingsItem from '../elements/settings-item';
 
-import { history } from '../utils/api';
+import { history, realtimeWeather } from '../utils/api';
 import { indexTypes } from '../utils/indexes';
 import I18n from '../utils/i18n';
 
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: Platform.OS === 'ios' ? 50 : 20,
-    paddingLeft: 12,
+    paddingHorizontal: 12,
     marginBottom: 10,
   },
   block: {
@@ -88,6 +89,7 @@ export default class DetailsView extends Component {
 
   state = {
     refreshing: true,
+    realtimeWeatherData: {},
   }
 
   componentDidMount() {
@@ -117,6 +119,15 @@ export default class DetailsView extends Component {
       }
       this.setState({ refreshing: false });
     });
+
+    this.getRealtimeWeather(item);
+  }
+
+  getRealtimeWeather = (item) => {
+    console.log('itemitemitem', item);
+    realtimeWeather(item.TWD97Lat, item.TWD97Lon).then((result) => {
+      this.setState({ realtimeWeatherData: result });
+    });
   }
 
   goBack = () => {
@@ -140,6 +151,7 @@ export default class DetailsView extends Component {
           </View>
         </TouchableOpacity>
 
+
         <ScrollView
           refreshControl={
             <RefreshControl
@@ -154,6 +166,8 @@ export default class DetailsView extends Component {
           />}
 
           <View style={{ padding: 10 }}>
+            <RealtimeWeather realtimeWeatherData={this.state.realtimeWeatherData} />
+
             <SettingsItem
               text={I18n.t('notify_title')}
               item={item}
