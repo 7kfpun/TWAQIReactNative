@@ -34,6 +34,8 @@ export default class RealtimeWeather extends Component {
       WeatherIcon: PropTypes.string,
       RH: PropTypes.number,
       Rain: PropTypes.number,
+      Cloud: PropTypes.number,
+      Visibility: PropTypes.number,
       // RHColorCode: '#80C266',
       // RainColorCode: '#C2C2C1',
       // WeatherIcon: '02',
@@ -87,6 +89,15 @@ export default class RealtimeWeather extends Component {
         <View style={styles.row}>
           <Text>{I18n.t('realtime_weather.rh')}</Text>
           <Text>{`${this.props.realtimeWeatherData.RH}%`}</Text>
+        </View>
+        {this.props.realtimeWeatherData.Visibility &&
+          <View style={styles.row}>
+            <Text>{I18n.t('realtime_weather.visibility')}</Text>
+            <Text>{this.props.realtimeWeatherData.Visibility}</Text>
+          </View>}
+        <View style={styles.row}>
+          <Text>{I18n.t('realtime_weather.cloud')}</Text>
+          <Text>{`${this.props.realtimeWeatherData.Cloud}%`}</Text>
         </View>
       </View>
     );

@@ -57,6 +57,8 @@ I18n.translations = {
     realtime_weather: {
       rain: 'Rainfall',
       rh: 'RH',
+      cloud: '雲量',
+      visibility: '能見度',
     },
   },
   zh: {
@@ -113,6 +115,8 @@ I18n.translations = {
     realtime_weather: {
       rain: '時累積雨量',
       rh: '濕度',
+      cloud: '雲量',
+      visibility: '能見度',
     },
   },
 };

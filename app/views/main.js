@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     paddingVertical: 6,
     borderRadius: 20,
-    borderColor: iOSColors.lightGray,
+    borderColor: iOSColors.white,
     justifyContent: 'center',
     alignItems: 'center',
   },
