@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import {
   ActivityIndicator,
+  Alert,
   Dimensions,
+  Linking,
   Platform,
   ScrollView,
   StyleSheet,
@@ -19,6 +21,7 @@ import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MapView from 'react-native-maps';
+import OneSignal from 'react-native-onesignal';
 import store from 'react-native-simple-store';
 
 import AdMob from '../elements/admob';
@@ -172,9 +175,28 @@ export default class MainView extends Component {
     isShareLoading: false,
   };
 
+  componentWillMount() {
+    OneSignal.addEventListener('received', this.onReceived);
+    OneSignal.addEventListener('opened', this.onOpened);
+  }
+
   componentWillUnmount() {
     if (this.watchID) navigator.geolocation.clearWatch(this.watchID);
     if (this.reloadFetchLatestDataInterval) clearInterval(this.reloadFetchLatestDataInterval);
+
+    OneSignal.removeEventListener('received', this.onReceived);
+    OneSignal.removeEventListener('opened', this.onOpened);
+  }
+
+  onReceived(notification) {
+    console.log('Notification received: ', notification);
+  }
+
+  onOpened(openResult) {
+    console.log('Message: ', openResult.notification.payload.body);
+    console.log('Data: ', openResult.notification.payload.additionalData);
+    console.log('isActive: ', openResult.notification.isAppInFocus);
+    console.log('openResult: ', openResult);
   }
 
   onRegionChange(region) {
@@ -244,7 +266,7 @@ export default class MainView extends Component {
           }, 2000);
         }
       },
-      error => console.log(error),
+      error => error && this.map.animateToRegion(MainView.getDefaultLocation()),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
 
@@ -448,12 +470,24 @@ export default class MainView extends Component {
             <Ionicons name="ios-qr-scanner-outline" style={{ paddingTop: 2 }} size={28} color={iOSColors.black} />
           </TouchableOpacity>}
 
-        {Platform.OS === 'ios' && this.state.gpsEnabled &&
+        {Platform.OS === 'ios' &&
           <TouchableOpacity
-            style={styles.currentLocation}
+            style={[styles.currentLocation, { backgroundColor: this.state.gpsEnabled ? iOSColors.white : iOSColors.lightGray }]}
             onPress={() => {
-              this.map.animateToRegion(this.getCurrentLocation());
-              tracker.logEvent('move-to-current-location');
+              if (this.state.gpsEnabled) {
+                this.map.animateToRegion(this.getCurrentLocation());
+                tracker.logEvent('move-to-current-location');
+              } else {
+                Alert.alert(
+                  I18n.t('location_permission.title'),
+                  I18n.t('location_permission.description'),
+                  [
+                    { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                    { text: 'OK', onPress: () => Linking.openURL('app-settings:') },
+                  ],
+                  { cancelable: false },
+                );
+              }
             }}
           >
             <Ionicons name="md-navigate" style={{ paddingRight: 2, paddingBottom: 2, transform: [{ rotate: '45deg' }] }} size={28} color={iOSColors.black} />

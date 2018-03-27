@@ -49,6 +49,10 @@ I18n.translations = {
     cancel: 'Cancel',
     search: 'Search',
 
+    location_permission: {
+      title: 'Enable Location Service',
+      description: 'We will select the nearest monitoring station for you automatically based on your current location',
+    },
     do_not_disturb: {
       title: 'Do not disturb',
       start_time: 'Start time',
@@ -107,6 +111,10 @@ I18n.translations = {
     cancel: '取消',
     search: '搜索',
 
+    location_permission: {
+      title: '啟用位置服務',
+      description: '根據您當前的位置將自動選擇最近的監測站',
+    },
     do_not_disturb: {
       title: '請勿打擾',
       start_time: '開始',

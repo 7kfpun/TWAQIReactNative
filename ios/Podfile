@@ -50,16 +50,15 @@ target 'TWAQI' do
   # pod 'GLog', :podspec => react_path + '/third-party-podspecs/GLog.podspec'
   # pod 'Folly', :podspec => react_path + '/third-party-podspecs/Folly.podspec'
 
-  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
   pod 'react-native-google-maps', path: '../node_modules/react-native-maps'
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
   pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
   pod 'react-native-safari-view', :path => '../node_modules/react-native-safari-view'
+  pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
   pod 'RNI18n', :path => '../node_modules/react-native-i18n'
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'RNViewShot', :path => '../node_modules/react-native-view-shot'
-
-  pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
 
 end
 
