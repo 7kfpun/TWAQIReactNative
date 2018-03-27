@@ -76,20 +76,6 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
                        withCurrency:(nullable NSString *)currency;
 
 /**
- This is a method to initialize an FBRewardedVideoAd matching the given placement id and allows the publisher to set
- the reward to give to a user.
-
- - Parameter placementID The id of the ad placement. You can create your placement id from Facebook developers page.
- - Parameter userID the id of the user
- - Parameter currency reward currency type
- - Parameter amount reward amount
- */
-- (instancetype)initWithPlacementID:(NSString *)placementID
-                         withUserID:(nullable NSString *)userID
-                       withCurrency:(nullable NSString *)currency
-                         withAmount:(NSInteger)amount;
-
-/**
   Begins loading the FBRewardedVideoAd content.
 
 
@@ -106,6 +92,17 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  of `FBRewardedVideoAdDelegate` if you would like to be notified as loading succeeds or fails.
  */
 - (void)loadAdWithBidPayload:(NSString *)bidPayload;
+
+/**
+ This method allows the publisher to set the reward to give to a user. Returns NO if it was not able
+ to set Reward Data.
+
+ - Parameter userID the id of the user
+ - Parameter currency reward currency type
+ */
+
+- (BOOL)setRewardDataWithUserID:(NSString *)userID
+                   withCurrency:(NSString *)currency;
 
 /**
   Presents the rewarded video ad modally from the specified view controller.
@@ -184,7 +181,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 
  - Parameter rewardedVideoAd: An FBRewardedVideoAd object sending the message.
  */
-- (void)rewardedVideoAdComplete:(FBRewardedVideoAd *)rewardedVideoAd;
+- (void)rewardedVideoAdVideoComplete:(FBRewardedVideoAd *)rewardedVideoAd;
 
 /**
   Sent immediately before the impression of an FBRewardedVideoAd object will be logged.

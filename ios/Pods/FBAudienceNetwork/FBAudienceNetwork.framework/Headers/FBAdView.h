@@ -142,7 +142,7 @@ FB_CLASS_EXPORT
 
  - Returns: A view controller that is used to present modal content.
  */
-@property (nonatomic, readonly, strong, nonnull) UIViewController *viewControllerForPresentingModalView;
+@property (nonatomic, readonly, strong) UIViewController *viewControllerForPresentingModalView;
 
 @end
 

@@ -18,7 +18,6 @@
 #import <Firebase.h>
 
 @import GoogleMaps;
-
 @implementation AppDelegate
 
 @synthesize oneSignal = _oneSignal;
@@ -28,9 +27,10 @@
   [GMSServices provideAPIKey:@"AIzaSyAu0XNE9Vp6QD6OM3OmKd3Pl0wWwsky6Bk"];
 
   [FIRApp configure];
+
   NSURL *jsCodeLocation;
 
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"TWAQI"
@@ -44,7 +44,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  
+
   self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
                                                          appId:@"e8925b88-4ab5-423b-8f49-c48e78928061"
                                                       settings:@{kOSSettingsKeyAutoPrompt: @false}];
@@ -52,11 +52,6 @@
   [Fabric with:@[[Crashlytics class]]];
 
   return YES;
-}
-
-// Required for the notification event.
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
-  [RCTOneSignal didReceiveRemoteNotification:notification];
 }
 
 @end

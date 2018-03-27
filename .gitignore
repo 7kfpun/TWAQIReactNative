@@ -52,6 +52,7 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
+
 # App
 app/config.js
 android/app/google-services.json
