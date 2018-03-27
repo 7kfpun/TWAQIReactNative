@@ -1,10 +1,10 @@
 import React from 'react';
 import {
   Platform,
+  // YellowBox,
 } from 'react-native';
 
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import { ifIphoneX } from 'react-native-iphone-x-helper';
 import { iOSColors } from 'react-native-typography';
 
 import Main from './app/views/main';
@@ -55,18 +55,18 @@ const App = TabNavigator({
     },
     style: {
       backgroundColor: 'white',
-      ...ifIphoneX({
-        height: 64,
-        paddingBottom: 12,
-      }, {}),
     },
-
   },
+  tabBarPosition: 'bottom',
 });
 
 console.ignoredYellowBox = [
-  'NetInfo\'s "change" event is deprecated. Listen to the "connectionChange" event instead.',
-  'Warning: Can only update a mounted or mounting component.',
+  'Module RCTOneSignalEventEmitter requires main queue setup since it overrides `init` but doesn\'t implement `requiresMainQueueSetup`.',
+  'Module RCTImageLoader requires main queue setup since it overrides `init` but doesn\'t implement `requiresMainQueueSetup`.',
+  'Warning: componentWillReceiveProps is deprecated and will be removed in the next major version.',
+  'Warning: componentWillMount is deprecated and will be removed in the next major version.',
+  'Warning: componentWillUpdate is deprecated and will be removed in the next major version.',
+  'Warning: isMounted(...) is deprecated in plain JavaScript React classes.',
 ];
 
 // gets the current screen from navigation state

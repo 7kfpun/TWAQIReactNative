@@ -12,7 +12,6 @@ import { iOSColors } from 'react-native-typography';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import OneSignal from 'react-native-onesignal';
 import Search from 'react-native-search-box';
-import timer from 'react-native-timer';
 
 import Fuse from 'fuse.js';
 
@@ -92,7 +91,12 @@ export default class SettingsView extends Component {
     SettingsView.requestPermissions();
     this.loadEnabledItems();
 
-    timer.setInterval(this, 'loadEnabledItems', () => this.loadEnabledItems(), CHECK_INTERVAL);
+    this.loadEnabledItemsInterval = setInterval(() => this.loadEnabledItems(), CHECK_INTERVAL);
+  }
+
+  componentWillUnmount() {
+    if (this.loadEnabledItemsInterval) clearInterval(this.loadEnabledItemsInterval);
+    if (this.checkPermissionsInterval) clearInterval(this.checkPermissionsInterval);
   }
 
   onChangeText = (searchText) => {
@@ -142,7 +146,7 @@ export default class SettingsView extends Component {
     this.setState({ tags });
 
     this.checkPermissions(tags);
-    timer.setInterval(this, 'checkPermissionsInterval', () => this.checkPermissions(tags), CHECK_INTERVAL);
+    this.checkPermissionsInterval = setInterval(() => this.checkPermissions(tags), CHECK_INTERVAL);
   }
 
   render() {

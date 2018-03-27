@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 
 import {
   ActivityIndicator,
-  DeviceEventEmitter,
   Dimensions,
-  NativeModules,
-  PermissionsAndroid,
   Platform,
   ScrollView,
   StyleSheet,
@@ -16,15 +13,13 @@ import {
   Share,
 } from 'react-native';
 
-import { ifIphoneX } from 'react-native-iphone-x-helper';
+// import FusedLocation from 'react-native-fused-location';
+import { captureRef } from 'react-native-view-shot';
 import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
-import FusedLocation from 'react-native-fused-location';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MapView from 'react-native-maps';
 import store from 'react-native-simple-store';
-import timer from 'react-native-timer';
-import { captureRef } from 'react-native-view-shot';
 
 import AdMob from '../elements/admob';
 import Indicator from '../elements/indicator';
@@ -41,8 +36,6 @@ import tracker from '../utils/tracker';
 import { config } from '../config';
 
 const { width, height } = Dimensions.get('window');
-
-const { RNLocation } = NativeModules;
 
 const ASPECT_RATIO = width / height;
 const LATITUDE = 23.3;
@@ -95,11 +88,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   refreshContainer: {
-    ...ifIphoneX({
-      top: 35,
-    }, {
-      top: Platform.OS === 'ios' ? 30 : 0,
-    }),
+    top: Platform.OS === 'ios' ? 30 : 0,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
@@ -183,6 +172,11 @@ export default class MainView extends Component {
     isShareLoading: false,
   };
 
+  componentWillUnmount() {
+    if (this.watchID) navigator.geolocation.clearWatch(this.watchID);
+    if (this.reloadFetchLatestDataInterval) clearInterval(this.reloadFetchLatestDataInterval);
+  }
+
   onRegionChange(region) {
     console.log(region);
     // this.setState({ region, selectedLocation: null });
@@ -227,24 +221,21 @@ export default class MainView extends Component {
       }
     });
 
-    if (Platform.OS === 'ios') {
-      RNLocation.requestWhenInUseAuthorization();
-      // RNLocation.requestAlwaysAuthorization();
-      RNLocation.startUpdatingLocation();
-      RNLocation.setDistanceFilter(5.0);
+    navigator.geolocation.requestAuthorization();
 
-      let first = true;
-      DeviceEventEmitter.addListener('locationUpdated', (location) => {
-        console.log('Location updated', location);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log('geolocation', position);
         this.setState({
-          location: location.coords,
+          location: position.coords,
           gpsEnabled: true,
         });
 
+        let first = true;
         if (first) {
           first = false;
-          timer.setTimeout(this, 'MoveInitialLocation', () => {
-            const moveLocation = MainView.isOutOfBound(location.coords.latitude, location.coords.longitude) ? MainView.getDefaultLocation() : this.getCurrentLocation();
+          setTimeout(() => {
+            const moveLocation = MainView.isOutOfBound(position.coords.latitude, position.coords.longitude) ? MainView.getDefaultLocation() : this.getCurrentLocation();
             try {
               this.map.animateToRegion(moveLocation);
             } catch (err) {
@@ -252,63 +243,100 @@ export default class MainView extends Component {
             }
           }, 2000);
         }
+      },
+      error => console.log(error),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      this.setState({
+        location: position.coords,
+        gpsEnabled: true,
       });
-    } else {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: '應用程序需要訪問您的位置',
-          message: '應用程序需要訪問您的位置',
-        },
-      );
-      console.log('granted', granted);
-      if (granted) {
-        FusedLocation.setLocationPriority(FusedLocation.Constants.HIGH_ACCURACY);
+    });
 
-        console.log('Getting GPS location');
-        // Get location once
-        const location = await FusedLocation.getFusedLocation();
-        if (location.latitude && location.longitude) {
-          this.setState({
-            location: {
-              latitude: location.latitude,
-              longitude: location.longitude,
-            },
-            gpsEnabled: true,
-          });
-
-          if (MainView.isOutOfBound(location.latitude, location.longitude)) {
-            this.map.animateToRegion(MainView.getDefaultLocation());
-          } else {
-            this.map.animateToRegion(this.getCurrentLocation());
-          }
-        }
-
-        // Set options.
-        FusedLocation.setLocationPriority(FusedLocation.Constants.BALANCED);
-        FusedLocation.setLocationInterval(3000);
-        FusedLocation.setFastestLocationInterval(1500);
-        FusedLocation.setSmallestDisplacement(10);
-
-        // Keep getting updated location.
-        FusedLocation.startLocationUpdates();
-
-        // Place listeners.
-        this.subscription = FusedLocation.on('fusedLocation', (updatedLocation) => {
-          console.log('GPS location updated', updatedLocation);
-          this.setState({
-            location: {
-              latitude: updatedLocation.latitude,
-              longitude: updatedLocation.longitude,
-            },
-            gpsEnabled: true,
-          });
-        });
-      }
-    }
+    // if (Platform.OS === 'ios') {
+    //   RNLocation.requestWhenInUseAuthorization();
+    //   // RNLocation.requestAlwaysAuthorization();
+    //   RNLocation.startUpdatingLocation();
+    //   RNLocation.setDistanceFilter(5.0);
+    //
+    //   let first = true;
+    //   DeviceEventEmitter.addListener('locationUpdated', (location) => {
+    //     console.log('Location updated', location);
+    //     this.setState({
+    //       location: location.coords,
+    //       gpsEnabled: true,
+    //     });
+    //
+    //     if (first) {
+    //       first = false;
+    //       timer.setTimeout(this, 'MoveInitialLocation', () => {
+    //         const moveLocation = MainView.isOutOfBound(location.coords.latitude, location.coords.longitude) ? MainView.getDefaultLocation() : this.getCurrentLocation();
+    //         try {
+    //           this.map.animateToRegion(moveLocation);
+    //         } catch (err) {
+    //           log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
+    //         }
+    //       }, 2000);
+    //     }
+    //   });
+    // } else {
+    //   const granted = await PermissionsAndroid.request(
+    //     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    //     {
+    //       title: '應用程序需要訪問您的位置',
+    //       message: '應用程序需要訪問您的位置',
+    //     },
+    //   );
+    //   console.log('granted', granted);
+    //   if (granted) {
+    //     FusedLocation.setLocationPriority(FusedLocation.Constants.HIGH_ACCURACY);
+    //
+    //     console.log('Getting GPS location');
+    //     // Get location once
+    //     const location = await FusedLocation.getFusedLocation();
+    //     if (location.latitude && location.longitude) {
+    //       this.setState({
+    //         location: {
+    //           latitude: location.latitude,
+    //           longitude: location.longitude,
+    //         },
+    //         gpsEnabled: true,
+    //       });
+    //
+    //       if (MainView.isOutOfBound(location.latitude, location.longitude)) {
+    //         this.map.animateToRegion(MainView.getDefaultLocation());
+    //       } else {
+    //         this.map.animateToRegion(this.getCurrentLocation());
+    //       }
+    //     }
+    //
+    //     // Set options.
+    //     FusedLocation.setLocationPriority(FusedLocation.Constants.BALANCED);
+    //     FusedLocation.setLocationInterval(3000);
+    //     FusedLocation.setFastestLocationInterval(1500);
+    //     FusedLocation.setSmallestDisplacement(10);
+    //
+    //     // Keep getting updated location.
+    //     FusedLocation.startLocationUpdates();
+    //
+    //     // Place listeners.
+    //     this.subscription = FusedLocation.on('fusedLocation', (updatedLocation) => {
+    //       console.log('GPS location updated', updatedLocation);
+    //       this.setState({
+    //         location: {
+    //           latitude: updatedLocation.latitude,
+    //           longitude: updatedLocation.longitude,
+    //         },
+    //         gpsEnabled: true,
+    //       });
+    //     });
+    //   }
+    // }
 
     this.prepareData();
-    timer.setInterval(this, 'ReloadDataInterval', () => {
+    this.reloadFetchLatestDataInterval = setInterval(() => {
       this.prepareData();
       tracker.logEvent('reload-fetch-latest-data');
     }, RELOAD_INTERVAL);

@@ -13,7 +13,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import SafariView from 'react-native-safari-view';
 import StarRating from 'react-native-star-rating';
 import store from 'react-native-simple-store';
-import timer from 'react-native-timer';
 
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
@@ -76,14 +75,12 @@ export default class Rating extends Component {
   };
 
   componentDidMount() {
-    timer.clearTimeout(this, 'ShowRatingBlock');
-
     const that = this;
     store.get('isRatingGiven').then((isRatingGiven) => {
       if (isRatingGiven) {
         that.setState({ isRatingClose: true });
       } else {
-        timer.setTimeout(that, 'ShowRatingBlock', () => {
+        this.showRatingBlockTimeout = setTimeout(() => {
           that.setState({ isRatingClose: false });
         }, SHOW_RATING_AFTER);
       }
@@ -91,7 +88,7 @@ export default class Rating extends Component {
   }
 
   componentWillUnmount() {
-    timer.clearTimeout(this, 'ShowRatingBlock');
+    if (this.showRatingBlockTimeout) clearTimeout(this.showRatingBlockTimeout);
   }
 
   onStarRatingPress(rating) {

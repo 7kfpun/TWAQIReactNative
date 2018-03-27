@@ -47,7 +47,7 @@ export default class ForecastView extends Component {
       }
 
       return (
-        <Animatable.View style={{ paddingBottom: 22 }} animation="tada" iterationCount="infinite">
+        <Animatable.View animation="tada" iterationCount="infinite">
           <Ionicons name="ios-leaf-outline" size={20} color={tintColor} />
         </Animatable.View>
       );
