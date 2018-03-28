@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    color: 'black',
     marginLeft: 10,
+    color: 'black',
   },
   text: {
     marginTop: 4,
@@ -70,6 +70,10 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 10,
+  },
+  addressText: {
+    marginTop: 10,
+    color: 'black',
   },
 });
 
@@ -176,7 +180,7 @@ export default class DetailsView extends Component {
               descreaseEnabledCount={this.descreaseEnabledCount}
             />
 
-            {I18n.isZh && <Text style={{ marginTop: 10 }}>{item.SiteAddress}</Text>}
+            {I18n.isZh && <Text style={styles.addressText}>{item.SiteAddress}</Text>}
           </View>
 
           <IndicatorHorizontal />

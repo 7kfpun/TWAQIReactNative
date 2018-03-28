@@ -33,13 +33,16 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: '600',
     fontSize: 16,
+    color: 'black',
   },
   noticeText: {
     fontSize: 12,
+    color: 'black',
   },
   noticeWarningText: {
     fontSize: 10,
     marginBottom: 15,
+    color: 'black',
   },
   list: {
     paddingVertical: 10,

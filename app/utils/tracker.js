@@ -1,7 +1,6 @@
 import {
   Dimensions,
   PixelRatio,
-  Platform,
 } from 'react-native';
 
 import { Answers } from 'react-native-fabric';
@@ -103,9 +102,7 @@ const tracker = {
       console.log(message);
       analytics.track(message);
       firebase.analytics().logEvent(event.replace(/-/g, '_'), properties);
-      if (Platform.OS === 'ios') {
-        Answers.logCustom(event, properties);
-      }
+      Answers.logCustom(event, properties);
     }
   },
   view: (screen, properties) => {
@@ -119,9 +116,7 @@ const tracker = {
       console.log(message);
       analytics.screen(message);
       firebase.analytics().setCurrentScreen(screen, screen);
-      if (Platform.OS === 'ios') {
-        Answers.logContentView(screen, '', '', properties);
-      }
+      Answers.logContentView(screen, '', '', properties);
     }
   },
 };

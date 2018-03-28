@@ -43,10 +43,8 @@ const styles = StyleSheet.create({
     borderTopColor: '#EEEEEE',
     borderTopWidth: 1,
   },
-  detailText: {
-    marginTop: 5,
-    fontSize: 12,
-    color: iOSColors.gray,
+  text: {
+    color: iOSColors.black,
   },
   timeText: {
     color: iOSColors.blue,
@@ -133,7 +131,7 @@ export default class SettingsDND extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
-          <Text>{I18n.t('do_not_disturb.title')}</Text>
+          <Text style={styles.text}>{I18n.t('do_not_disturb.title')}</Text>
 
           <Switch
             onValueChange={value => this.setDND(value)}
@@ -147,7 +145,7 @@ export default class SettingsDND extends Component {
             style={[styles.settingsBlock, styles.horizontalLine]}
             onPress={this.showStartTimePicker}
           >
-            <Text>{I18n.t('do_not_disturb.start_time')}</Text>
+            <Text style={styles.text}>{I18n.t('do_not_disturb.start_time')}</Text>
             <Text style={styles.timeText}>{moment(this.state.startTime).format('LT')}</Text>
           </TouchableOpacity>}
 
@@ -156,7 +154,7 @@ export default class SettingsDND extends Component {
             style={styles.settingsBlock}
             onPress={this.showEndTimePicker}
           >
-            <Text>{I18n.t('do_not_disturb.end_time')}</Text>
+            <Text style={styles.text}>{I18n.t('do_not_disturb.end_time')}</Text>
             <Text style={styles.timeText}>{moment(this.state.endTime).format('LT')}</Text>
           </TouchableOpacity>}
 

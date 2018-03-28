@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {
+  PermissionsAndroid,
   ActivityIndicator,
   Alert,
   Dimensions,
@@ -233,6 +234,30 @@ export default class MainView extends Component {
     });
   }
 
+  requestLocationPermission = async () => {
+    if (Platform.OS === 'ios') {
+      navigator.geolocation.requestAuthorization();
+    } else {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: I18n.t('location_permission.title'),
+            message: I18n.t('location_permission.description'),
+          },
+        );
+        console.log(granted);
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          this.setState({
+            gpsEnabled: true,
+          });
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+  }
+
   loadMapContent = async () => {
     const that = this;
     store.get('selectedIndex').then((selectedIndex) => {
@@ -243,7 +268,9 @@ export default class MainView extends Component {
       }
     });
 
-    navigator.geolocation.requestAuthorization();
+    this.prepareData();
+
+    this.requestLocationPermission();
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -357,7 +384,6 @@ export default class MainView extends Component {
     //   }
     // }
 
-    this.prepareData();
     this.reloadFetchLatestDataInterval = setInterval(() => {
       this.prepareData();
       tracker.logEvent('reload-fetch-latest-data');
@@ -417,81 +443,78 @@ export default class MainView extends Component {
 
         <Rating />
 
-        {Platform.OS === 'ios' &&
-          <TouchableOpacity
-            style={styles.shareImage}
-            onPress={() => {
-              this.setState({ isShareLoading: true }, () => {
-                captureRef(this.map, {
-                  format: 'jpg',
-                  quality: 0.8,
-                })
-                .then(
-                  (uri) => {
-                    console.log('Image saved to', uri);
-                    Share.share({
-                      title: I18n.t('app_name'),
-                      message: `${I18n.t('app_name')} ${config.appStore}`,
-                      url: uri,
-                    })
-                    .then(() => {
-                      this.setState({ isShareLoading: false });
-                      if (result.action === Share.sharedAction) {
-                        if (result.activityType) {
-                          tracker.logEvent('share-map-shared', { activityType: result.activityType });
-                        } else {
-                          tracker.logEvent('share-map-shared');
-                        }
-                      } else if (result.action === Share.dismissedAction) {
-                        tracker.logEvent('share-map-dismiss');
-                      }
-                    })
-                    .catch(() => this.setState({ isShareLoading: false }));
-                  },
-                  (error) => {
-                    console.error('Oops, snapshot failed', error);
+        <TouchableOpacity
+          style={styles.shareImage}
+          onPress={() => {
+            this.setState({ isShareLoading: true }, () => {
+              captureRef(this.map, {
+                format: 'jpg',
+                quality: 0.8,
+              })
+              .then(
+                (uri) => {
+                  console.log('Image saved to', uri);
+                  Share.share({
+                    title: I18n.t('app_name'),
+                    message: `${I18n.t('app_name')} ${Platform.OS === 'ios' ? config.appStore : config.googlePlay}`,
+                    url: uri,
+                  })
+                  .then(() => {
                     this.setState({ isShareLoading: false });
-                  },
-                );
-              });
-            }}
-          >
-            {this.state.isShareLoading ? <ActivityIndicator /> : <Ionicons name="ios-share-outline" size={28} color={iOSColors.black} />}
-          </TouchableOpacity>}
+                    if (result.action === Share.sharedAction) {
+                      if (result.activityType) {
+                        tracker.logEvent('share-map-shared', { activityType: result.activityType });
+                      } else {
+                        tracker.logEvent('share-map-shared');
+                      }
+                    } else if (result.action === Share.dismissedAction) {
+                      tracker.logEvent('share-map-dismiss');
+                    }
+                  })
+                  .catch(() => this.setState({ isShareLoading: false }));
+                },
+                (error) => {
+                  console.error('Oops, snapshot failed', error);
+                  this.setState({ isShareLoading: false });
+                },
+              );
+            });
+          }}
+        >
+          {this.state.isShareLoading ? <ActivityIndicator /> : <Ionicons name="ios-share-outline" size={28} color={iOSColors.black} />}
+        </TouchableOpacity>
 
-        {Platform.OS === 'ios' &&
-          <TouchableOpacity
-            style={styles.defaultLocation}
-            onPress={() => {
-              this.map.animateToRegion(MainView.getDefaultLocation());
-              tracker.logEvent('move-to-default-location');
-            }}
-          >
-            <Ionicons name="ios-qr-scanner-outline" style={{ paddingTop: 2 }} size={28} color={iOSColors.black} />
-          </TouchableOpacity>}
+        <TouchableOpacity
+          style={styles.defaultLocation}
+          onPress={() => {
+            this.map.animateToRegion(MainView.getDefaultLocation());
+            tracker.logEvent('move-to-default-location');
+          }}
+        >
+          <Ionicons name="ios-qr-scanner-outline" style={{ paddingTop: 2 }} size={28} color={iOSColors.black} />
+        </TouchableOpacity>
 
-        {Platform.OS === 'ios' &&
-          <TouchableOpacity
-            style={[styles.currentLocation, { backgroundColor: this.state.gpsEnabled ? iOSColors.white : iOSColors.lightGray }]}
-            onPress={() => {
-              if (this.state.gpsEnabled) {
-                this.map.animateToRegion(this.getCurrentLocation());
-                tracker.logEvent('move-to-current-location');
-              } else {
-                Alert.alert(
-                  I18n.t('location_permission.title'),
-                  I18n.t('location_permission.description'),
-                  [
-                    { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                    { text: 'OK', onPress: () => Linking.openURL('app-settings:') },
-                  ],
-                  { cancelable: false },
-                );
-              }
-            }}
-          >
-            <Ionicons name="md-navigate" style={{ paddingRight: 2, paddingBottom: 2, transform: [{ rotate: '45deg' }] }} size={28} color={iOSColors.black} />
-          </TouchableOpacity>}
+        <TouchableOpacity
+          style={[styles.currentLocation, { backgroundColor: this.state.gpsEnabled ? iOSColors.white : iOSColors.lightGray }]}
+          onPress={() => {
+            if (this.state.gpsEnabled) {
+              this.map.animateToRegion(this.getCurrentLocation());
+              tracker.logEvent('move-to-current-location');
+            } else {
+              Alert.alert(
+                I18n.t('location_permission.title'),
+                I18n.t('location_permission.description'),
+                [
+                  { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                  { text: 'OK', onPress: () => Linking.openURL('app-settings:') },
+                ],
+                { cancelable: false },
+              );
+            }
+          }}
+        >
+          <Ionicons name="md-navigate" style={{ paddingRight: 2, paddingBottom: 2, transform: [{ rotate: '45deg' }] }} size={28} color={iOSColors.black} />
+        </TouchableOpacity>
 
         <View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.buttonContainer}>

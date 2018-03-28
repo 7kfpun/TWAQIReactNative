@@ -50,8 +50,8 @@ const App = TabNavigator({
     showIcon: true,
     pressColor: '#E0E0E0',
     labelStyle: {
-      fontSize: Platform.OS === 'ios' && I18n.isZh ? 12 : 11,
-      paddingBottom: Platform.OS === 'ios' && I18n.isZh ? 4 : 2,
+      fontSize: Platform.OS === 'ios' && I18n.isZh ? 12 : 9,
+      paddingBottom: Platform.OS === 'ios' && I18n.isZh ? 4 : 0,
     },
     style: {
       backgroundColor: 'white',
@@ -67,6 +67,7 @@ console.ignoredYellowBox = [
   'Warning: componentWillMount is deprecated and will be removed in the next major version.',
   'Warning: componentWillUpdate is deprecated and will be removed in the next major version.',
   'Warning: isMounted(...) is deprecated in plain JavaScript React classes.',
+  'Setting a timer for a long period of time',
 ];
 
 // gets the current screen from navigation state

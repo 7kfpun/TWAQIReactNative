@@ -50,10 +50,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 30,
   },
-  description: {
+  categoryText: {
+    color: 'black',
+  },
+  descriptionText: {
     fontWeight: '100',
     lineHeight: 20,
-    marginBottom: 10,
+    marginVertical: 10,
+    color: 'black',
   },
 });
 
@@ -171,9 +175,9 @@ export default class HelpView extends Component {
                   <View style={[{ backgroundColor: item.backgroundColor }, styles.index]}>
                     <Text style={{ color: item.fontColor }}>{item.index}</Text>
                   </View>
-                  <Text>{I18n.isZh ? item.hantwCategory : item.category}</Text>
+                  <Text style={styles.categoryText}>{I18n.isZh ? item.hantwCategory : item.category}</Text>
                 </View>
-                <Text style={styles.description}>{I18n.isZh ? item.hantwMeaning : item.meaning}</Text>
+                <Text style={styles.descriptionText}>{I18n.isZh ? item.hantwMeaning : item.meaning}</Text>
               </View>
             ))}
           </View>
