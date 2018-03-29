@@ -251,6 +251,7 @@ export default class MainView extends Component {
           this.setState({
             gpsEnabled: true,
           });
+          this.checkLocation();
         }
       } catch (err) {
         console.warn(err);
@@ -268,8 +269,27 @@ export default class MainView extends Component {
       }
     });
 
-    this.requestLocationPermission();
+    if (Platform.OS === 'ios') {
+      this.checkLocation();
+    } else {
+      const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
 
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        this.checkLocation();
+      } else {
+        this.requestLocationPermission();
+      }
+    }
+
+    this.prepareData();
+
+    this.reloadFetchLatestDataInterval = setInterval(() => {
+      this.prepareData();
+      tracker.logEvent('reload-fetch-latest-data');
+    }, RELOAD_INTERVAL);
+  }
+
+  checkLocation() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log('geolocation', position);
@@ -278,20 +298,15 @@ export default class MainView extends Component {
           gpsEnabled: true,
         });
 
-        let first = true;
-        if (first) {
-          first = false;
-          setTimeout(() => {
-            const moveLocation = MainView.isOutOfBound(position.coords.latitude, position.coords.longitude) ? MainView.getDefaultLocation() : this.getCurrentLocation();
-            try {
-              this.map.animateToRegion(moveLocation);
-            } catch (err) {
-              log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
-            }
-          }, 2000);
+        const moveLocation = MainView.isOutOfBound(position.coords.latitude, position.coords.longitude) ? MainView.getDefaultLocation() : this.getCurrentLocation();
+        try {
+          this.map.animateToRegion(moveLocation);
+        } catch (err) {
+          log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
         }
       },
       (error) => {
+        this.requestLocationPermission();
         setTimeout(() => {
           try {
             console.log(error);
@@ -310,13 +325,6 @@ export default class MainView extends Component {
         gpsEnabled: true,
       });
     });
-
-    this.prepareData();
-
-    this.reloadFetchLatestDataInterval = setInterval(() => {
-      this.prepareData();
-      tracker.logEvent('reload-fetch-latest-data');
-    }, RELOAD_INTERVAL);
   }
 
   render() {
@@ -437,7 +445,7 @@ export default class MainView extends Component {
             if (this.state.gpsEnabled) {
               this.map.animateToRegion(this.getCurrentLocation());
               tracker.logEvent('move-to-current-location');
-            } else {
+            } else if (Platform.OS === 'ios') {
               Alert.alert(
                 I18n.t('location_permission.title'),
                 I18n.t('location_permission.description'),
@@ -447,6 +455,8 @@ export default class MainView extends Component {
                 ],
                 { cancelable: false },
               );
+            } else {
+              this.requestLocationPermission();
             }
           }}
         >
