@@ -268,8 +268,6 @@ export default class MainView extends Component {
       }
     });
 
-    this.prepareData();
-
     this.requestLocationPermission();
 
     navigator.geolocation.getCurrentPosition(
@@ -293,7 +291,16 @@ export default class MainView extends Component {
           }, 2000);
         }
       },
-      error => error && this.map.animateToRegion(MainView.getDefaultLocation()),
+      (error) => {
+        setTimeout(() => {
+          try {
+            console.log(error);
+            this.map.animateToRegion(MainView.getDefaultLocation());
+          } catch (err) {
+            log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
+          }
+        }, 2000);
+      },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
 
@@ -304,85 +311,7 @@ export default class MainView extends Component {
       });
     });
 
-    // if (Platform.OS === 'ios') {
-    //   RNLocation.requestWhenInUseAuthorization();
-    //   // RNLocation.requestAlwaysAuthorization();
-    //   RNLocation.startUpdatingLocation();
-    //   RNLocation.setDistanceFilter(5.0);
-    //
-    //   let first = true;
-    //   DeviceEventEmitter.addListener('locationUpdated', (location) => {
-    //     console.log('Location updated', location);
-    //     this.setState({
-    //       location: location.coords,
-    //       gpsEnabled: true,
-    //     });
-    //
-    //     if (first) {
-    //       first = false;
-    //       timer.setTimeout(this, 'MoveInitialLocation', () => {
-    //         const moveLocation = MainView.isOutOfBound(location.coords.latitude, location.coords.longitude) ? MainView.getDefaultLocation() : this.getCurrentLocation();
-    //         try {
-    //           this.map.animateToRegion(moveLocation);
-    //         } catch (err) {
-    //           log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
-    //         }
-    //       }, 2000);
-    //     }
-    //   });
-    // } else {
-    //   const granted = await PermissionsAndroid.request(
-    //     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    //     {
-    //       title: '應用程序需要訪問您的位置',
-    //       message: '應用程序需要訪問您的位置',
-    //     },
-    //   );
-    //   console.log('granted', granted);
-    //   if (granted) {
-    //     FusedLocation.setLocationPriority(FusedLocation.Constants.HIGH_ACCURACY);
-    //
-    //     console.log('Getting GPS location');
-    //     // Get location once
-    //     const location = await FusedLocation.getFusedLocation();
-    //     if (location.latitude && location.longitude) {
-    //       this.setState({
-    //         location: {
-    //           latitude: location.latitude,
-    //           longitude: location.longitude,
-    //         },
-    //         gpsEnabled: true,
-    //       });
-    //
-    //       if (MainView.isOutOfBound(location.latitude, location.longitude)) {
-    //         this.map.animateToRegion(MainView.getDefaultLocation());
-    //       } else {
-    //         this.map.animateToRegion(this.getCurrentLocation());
-    //       }
-    //     }
-    //
-    //     // Set options.
-    //     FusedLocation.setLocationPriority(FusedLocation.Constants.BALANCED);
-    //     FusedLocation.setLocationInterval(3000);
-    //     FusedLocation.setFastestLocationInterval(1500);
-    //     FusedLocation.setSmallestDisplacement(10);
-    //
-    //     // Keep getting updated location.
-    //     FusedLocation.startLocationUpdates();
-    //
-    //     // Place listeners.
-    //     this.subscription = FusedLocation.on('fusedLocation', (updatedLocation) => {
-    //       console.log('GPS location updated', updatedLocation);
-    //       this.setState({
-    //         location: {
-    //           latitude: updatedLocation.latitude,
-    //           longitude: updatedLocation.longitude,
-    //         },
-    //         gpsEnabled: true,
-    //       });
-    //     });
-    //   }
-    // }
+    this.prepareData();
 
     this.reloadFetchLatestDataInterval = setInterval(() => {
       this.prepareData();
@@ -405,24 +334,32 @@ export default class MainView extends Component {
         >
           {this.state.aqiResult && locations
             .filter(i => this.state.aqiResult[i.SiteName])
-            .map(location => (
-              <MapView.Marker
-                key={location.SiteEngName}
-                coordinate={{
-                  latitude: parseFloat(location.TWD97Lat),
-                  longitude: parseFloat(location.TWD97Lon),
-                }}
-                onPress={() => {
-                  tracker.logEvent('check-main-details', location);
-                  navigation.navigate('MainDetails', { item: location });
-                }}
-              >
-                <Marker
-                  amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
-                  index={this.state.selectedIndex}
-                  isNumericShow={true}
-                />
-              </MapView.Marker>))}
+            .map((location) => {
+              try {
+                return (
+                  <MapView.Marker
+                    key={location.SiteEngName}
+                    coordinate={{
+                      latitude: parseFloat(location.TWD97Lat),
+                      longitude: parseFloat(location.TWD97Lon),
+                    }}
+                    onPress={() => {
+                      tracker.logEvent('check-main-details', location);
+                      navigation.navigate('MainDetails', { item: location });
+                    }}
+                  >
+                    <Marker
+                      SiteEngName={location.SiteEngName}
+                      amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
+                      index={this.state.selectedIndex}
+                      isNumericShow={true}
+                    />
+                  </MapView.Marker>);
+              } catch (err) {
+                log.logError(`Marker failed: ${JSON.stringify(err)}`);
+              }
+              return null;
+            })}
         </MapView>
 
         <TouchableOpacity

@@ -55,10 +55,12 @@ export default class AirMarker extends React.PureComponent {
       isStatusShow,
       isNumericShow,
     } = this.props;
-    let color = 'gray';
 
-    let showAmount;
+    let color = 'gray';
+    let showAmount = '-';
     let status;
+    let fontColor = 'white';
+
     if (['ND', '-', '/*', '-*', '-/-'].includes(amount) || amount < '0' || !amount) {
       showAmount = '-';
       color = '#009866';
