@@ -60,6 +60,8 @@ target 'TWAQI' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'RNViewShot', :path => '../node_modules/react-native-view-shot'
 
+  pod 'RNQuickAction', :path => '../node_modules/react-native-quick-actions'
+
 end
 
 post_install do |installer|

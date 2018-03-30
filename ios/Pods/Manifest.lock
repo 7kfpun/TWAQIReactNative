@@ -133,6 +133,8 @@ PODS:
     - React
   - RNI18n (2.0.12):
     - React
+  - RNQuickAction (0.3.6):
+    - React
   - RNSVG (6.3.1):
     - React
   - RNVectorIcons (4.5.0):
@@ -171,6 +173,7 @@ DEPENDENCIES:
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - ReactNativeFabric (from `../node_modules/react-native-fabric`)
   - RNI18n (from `../node_modules/react-native-i18n`)
+  - RNQuickAction (from `../node_modules/react-native-quick-actions`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - RNViewShot (from `../node_modules/react-native-view-shot`)
@@ -193,6 +196,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fabric"
   RNI18n:
     :path: "../node_modules/react-native-i18n"
+  RNQuickAction:
+    :path: "../node_modules/react-native-quick-actions"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
@@ -232,11 +237,12 @@ SPEC CHECKSUMS:
   react-native-safari-view: 955d7160d159241b8e9395d12d10ea0ef863dcdd
   ReactNativeFabric: 681ea672581869b08108ad6eb7ab3dda67f6f63d
   RNI18n: ee831694f1eaa69b270d345e4617f70735d4cdb9
+  RNQuickAction: c435a4c3500021197667c6407b8d22b878b2d127
   RNSVG: 7fdf22f11089f3842539c4081f9d3be364d91f55
   RNVectorIcons: 00632755ab42ae7b7d1a5877c9840d71e808efad
   RNViewShot: 7171cd7d12d467b75b9281872b59ec9a4a61cfc6
   yoga: 9a1726fa6352849a159acc26520f691b5c599c47
 
-PODFILE CHECKSUM: 830436215d3d496f2755b2374eb578092ec2ae8a
+PODFILE CHECKSUM: 0d26aa4d2ab6cd9efa2794ea14f0aefe8202a3aa
 
 COCOAPODS: 1.2.1

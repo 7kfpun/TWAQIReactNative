@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  PermissionsAndroid,
   ActivityIndicator,
   Alert,
+  DeviceEventEmitter,
   Dimensions,
   Linking,
+  PermissionsAndroid,
   Platform,
   ScrollView,
+  Share,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Share,
 } from 'react-native';
 
-// import FusedLocation from 'react-native-fused-location';
 import { captureRef } from 'react-native-view-shot';
 import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
@@ -176,9 +176,22 @@ export default class MainView extends Component {
     isShareLoading: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
+    const { navigation } = this.props;
+
     OneSignal.addEventListener('received', this.onReceived);
     OneSignal.addEventListener('opened', this.onOpened);
+
+    DeviceEventEmitter.addListener('quickActionShortcut', (data) => {
+      console.log('Quick action data.title', data.title);
+      console.log('Quick action data.type', data.type);
+      console.log('Quick action data.userInfo', data.userInfo);
+      if (data.userInfo && data.userInfo.url === 'app://main') {
+        navigation.navigate('Home');
+      } else if (data.userInfo && data.userInfo.url === 'app://forecast') {
+        navigation.navigate('Forecast');
+      }
+    });
   }
 
   componentWillUnmount() {
@@ -436,7 +449,7 @@ export default class MainView extends Component {
             tracker.logEvent('move-to-default-location');
           }}
         >
-          <Ionicons name="ios-qr-scanner-outline" style={{ paddingTop: 2 }} size={28} color={iOSColors.black} />
+          <Ionicons name="ios-qr-scanner-outline" style={{ paddingTop: 2, paddingLeft: 1 }} size={28} color={iOSColors.black} />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -460,7 +473,7 @@ export default class MainView extends Component {
             }
           }}
         >
-          <Ionicons name="md-navigate" style={{ paddingRight: 2, paddingBottom: 2, transform: [{ rotate: '45deg' }] }} size={28} color={iOSColors.black} />
+          <Ionicons name="md-navigate" style={{ paddingBottom: 1, transform: [{ rotate: '45deg' }] }} size={28} color={iOSColors.black} />
         </TouchableOpacity>
 
         <View>

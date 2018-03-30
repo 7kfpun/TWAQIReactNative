@@ -17,6 +17,8 @@
 
 #import <Firebase.h>
 
+#import "RNQuickActionManager.h"
+
 @import GoogleMaps;
 @implementation AppDelegate
 
@@ -52,6 +54,10 @@
   [Fabric with:@[[Crashlytics class]]];
 
   return YES;
+}
+
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL succeeded)) completionHandler {
+  [RNQuickActionManager onQuickActionPress:shortcutItem completionHandler:completionHandler];
 }
 
 @end

@@ -6,6 +6,7 @@ import {
 
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { iOSColors } from 'react-native-typography';
+import QuickActions from 'react-native-quick-actions';
 
 import Main from './app/views/main';
 import List from './app/views/list';
@@ -21,6 +22,24 @@ import tracker from './app/utils/tracker';
 if (!__DEV__) {
   console.log = () => {};
 }
+
+QuickActions.setShortcutItems([{
+  type: 'go_to_main',
+  title: I18n.t('main'),
+  // subtitle: '',
+  icon: 'Home', // UIApplicationShortcutIconType<name>
+  userInfo: {
+    url: 'app://main',
+  },
+}, {
+  type: 'go_to_history',
+  title: I18n.t('forecast'),
+  // subtitle: '',
+  icon: 'Date',
+  userInfo: {
+    url: 'app://forecast',
+  },
+}]);
 
 const App = TabNavigator({
   Home: {
