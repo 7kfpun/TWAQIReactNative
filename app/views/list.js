@@ -129,7 +129,8 @@ export default class SettingsView extends Component {
             renderItem={({ item }) => <HistoryGroup style={{ fontSize: 30 }} groupName={item} navigation={this.props.navigation} />}
           />}
         </ScrollView>
-        <AdMob unitId="twaqi-ios-list-footer" />
+
+        <AdMob unitId={`twaqi-${Platform.OS}-list-footer`} />
       </View>
     );
   }

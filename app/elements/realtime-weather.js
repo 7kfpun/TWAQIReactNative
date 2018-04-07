@@ -24,6 +24,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 22,
+    color: 'black',
+  },
+  detailText: {
+    fontSize: 14,
+    color: 'black',
   },
 });
 
@@ -83,21 +88,21 @@ export default class RealtimeWeather extends Component {
             && <Ionicons name={weatherIconMapping[this.props.realtimeWeatherData.WeatherIcon]} style={{ marginLeft: 4 }} size={36} color="black" />}
         </View>
         <View style={styles.row}>
-          <Text>{I18n.t('realtime_weather.rain')}</Text>
-          <Text>{`${this.props.realtimeWeatherData.Rain}mm`}</Text>
+          <Text style={styles.detailText}>{I18n.t('realtime_weather.rain')}</Text>
+          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.Rain}mm`}</Text>
         </View>
         <View style={styles.row}>
-          <Text>{I18n.t('realtime_weather.rh')}</Text>
-          <Text>{`${this.props.realtimeWeatherData.RH}%`}</Text>
+          <Text style={styles.detailText}>{I18n.t('realtime_weather.rh')}</Text>
+          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.RH}%`}</Text>
         </View>
         {this.props.realtimeWeatherData.Visibility &&
           <View style={styles.row}>
-            <Text>{I18n.t('realtime_weather.visibility')}</Text>
-            <Text>{this.props.realtimeWeatherData.Visibility}</Text>
+            <Text style={styles.detailText}>{I18n.t('realtime_weather.visibility')}</Text>
+            <Text style={styles.detailText}>{this.props.realtimeWeatherData.Visibility}</Text>
           </View>}
         <View style={styles.row}>
-          <Text>{I18n.t('realtime_weather.cloud')}</Text>
-          <Text>{`${this.props.realtimeWeatherData.Cloud}%`}</Text>
+          <Text style={styles.detailText}>{I18n.t('realtime_weather.cloud')}</Text>
+          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.Cloud}%`}</Text>
         </View>
       </View>
     );

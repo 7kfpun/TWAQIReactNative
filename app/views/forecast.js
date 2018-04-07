@@ -88,7 +88,8 @@ export default class ForecastView extends Component {
             <Text style={styles.text}>{this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content && getForecastContent(this.state.aqfnResult[0].Content)}</Text>
           </View>
         </ScrollView>
-        <AdMob unitId="twaqi-ios-forecast-footer" />
+
+        <AdMob unitId={`twaqi-${Platform.OS}-forecast-footer`} bannerSize="LARGE_BANNER" />
       </View>
     );
   }

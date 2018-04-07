@@ -209,7 +209,8 @@ export default class DetailsView extends Component {
             );
           })}
         </ScrollView>
-        <AdMob unitId="twaqi-ios-details-footer" bannerSize="LARGE_BANNER" />
+
+        <AdMob unitId={`twaqi-${Platform.OS}-details-footer`} bannerSize="LARGE_BANNER" />
       </View>
     );
   }

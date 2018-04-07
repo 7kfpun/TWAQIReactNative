@@ -199,7 +199,8 @@ export default class SettingsView extends Component {
               />
             </View>}
         </ScrollView>
-        <AdMob unitId="twaqi-ios-settings-footer" />
+
+        <AdMob unitId={`twaqi-${Platform.OS}-settings-footer`} />
       </View>
     );
   }

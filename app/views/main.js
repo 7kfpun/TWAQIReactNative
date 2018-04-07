@@ -506,7 +506,7 @@ export default class MainView extends Component {
             ))}
           </ScrollView>
 
-          <AdMob unitId="twaqi-ios-main-footer" />
+          <AdMob unitId={`twaqi-${Platform.OS}-main-footer`} />
         </View>
       </View>
     );
