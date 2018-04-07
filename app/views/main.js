@@ -177,21 +177,10 @@ export default class MainView extends Component {
   };
 
   componentDidMount() {
-    const { navigation } = this.props;
+    OneSignal.addEventListener('received', data => this.onReceived(data));
+    OneSignal.addEventListener('opened', data => this.onOpened(data));
 
-    OneSignal.addEventListener('received', this.onReceived);
-    OneSignal.addEventListener('opened', this.onOpened);
-
-    DeviceEventEmitter.addListener('quickActionShortcut', (data) => {
-      console.log('Quick action data.title', data.title);
-      console.log('Quick action data.type', data.type);
-      console.log('Quick action data.userInfo', data.userInfo);
-      if (data.userInfo && data.userInfo.url === 'app://main') {
-        navigation.navigate('Home');
-      } else if (data.userInfo && data.userInfo.url === 'app://forecast') {
-        navigation.navigate('Forecast');
-      }
-    });
+    DeviceEventEmitter.addListener('quickActionShortcut', data => this.onQuickActionOpened(data));
   }
 
   componentWillUnmount() {
@@ -206,16 +195,38 @@ export default class MainView extends Component {
     console.log('Notification received: ', notification);
   }
 
-  onOpened(openResult) {
-    console.log('Message: ', openResult.notification.payload.body);
-    console.log('Data: ', openResult.notification.payload.additionalData);
-    console.log('isActive: ', openResult.notification.isAppInFocus);
-    console.log('openResult: ', openResult);
+  onOpened(data) {
+    const { navigation } = this.props;
+    console.log('Message: ', data.notification.payload.body);
+    console.log('Data: ', data.notification.payload.additionalData);
+    console.log('isActive: ', data.notification.isAppInFocus);
+    console.log('data: ', data);
+    if (data.notification.payload.additionalData && data.notification.payload.additionalData.url === 'app://main') {
+      setTimeout(() => navigation.navigate('Home'), 2000);
+    } else if (data.notification.payload.additionalData && data.notification.payload.additionalData.url === 'app://forecast') {
+      setTimeout(() => navigation.navigate('Forecast'), 2000);
+    } else if (data.notification.payload.additionalData && data.notification.payload.additionalData.url === 'app://settings') {
+      setTimeout(() => navigation.navigate('Settings'), 2000);
+    } else if (data.notification.payload.additionalData && data.notification.payload.additionalData.url === 'app://forecast') {
+      setTimeout(() => navigation.navigate('Forecast'), 2000);
+    }
   }
 
   onRegionChange(region) {
     console.log(region);
     // this.setState({ region, selectedLocation: null });
+  }
+
+  onQuickActionOpened(data) {
+    const { navigation } = this.props;
+    console.log('Quick action data.title', data.title);
+    console.log('Quick action data.type', data.type);
+    console.log('Quick action data.userInfo', data.userInfo);
+    if (data.userInfo && data.userInfo.url === 'app://main') {
+      setTimeout(() => navigation.navigate('Home'), 2000);
+    } else if (data.userInfo && data.userInfo.url === 'app://forecast') {
+      setTimeout(() => navigation.navigate('Forecast'), 2000);
+    }
   }
 
   getCurrentLocation() {
@@ -420,6 +431,7 @@ export default class MainView extends Component {
                   .then(() => {
                     this.setState({ isShareLoading: false });
                     if (result.action === Share.sharedAction) {
+                      tracker.logEvent('share-map');
                       if (result.activityType) {
                         tracker.logEvent('share-map-shared', { activityType: result.activityType });
                       } else {

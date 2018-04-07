@@ -45,7 +45,7 @@ const aqfn = () => {
 const HISTORY_LIMIT = 24;
 
 const history = (siteName) => {
-  const AQI_HISTORY_URL = `${config.aqiHistoryUrl}?SiteName=${siteName}&limit=${HISTORY_LIMIT}&t=${Math.random()}`;
+  const AQI_HISTORY_URL = `${config.aqiHistoryUrl}?station=${siteName}&limit=${HISTORY_LIMIT}&t=${Math.random()}`;
   return fetch(AQI_HISTORY_URL)
     .then(res => res.json())
     .catch((err) => {

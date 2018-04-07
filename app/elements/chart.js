@@ -15,31 +15,35 @@ const isFloat = n => Number(n) === n && n % 1 !== 0;
 export default class Chart extends Component {
   static propTypes = {
     index: PropTypes.string.isRequired,
-    result: PropTypes.shape({}).isRequired,
+    result: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   }
 
   render() {
     const { index, result } = this.props;
-
-    if (!result || !result[index] || result[index].length === 0) {
+    if (!result || result.length === 0) {
       return null;
     }
 
-    const data = result[index].map((amount) => {
+    const data = result.map((amount) => {
       if (['ND', '-', '/*', '-*', '-/-'].includes(amount) || amount < '0' || !amount) {
         return 0;
       }
-      return amount;
+      return amount[index.replace('_', '')];
     });
 
-    const { length } = result[index];
+    const { length } = result;
     const min = parseFloat(Math.min(...data)) || 0;
     const max = parseFloat(Math.max(...data)) || 1;
 
     return (<VictoryBar
       height={62}
       width={width - 66}
-      padding={{ top: 10, bottom: 2, left: 7, right: 7 }}
+      padding={{
+        top: 10,
+        bottom: 2,
+        left: 7,
+        right: 7,
+      }}
       domain={{ x: [0, length], y: [min / 3, max] }}
       labels={(d) => {
         if (d.y === 0) {

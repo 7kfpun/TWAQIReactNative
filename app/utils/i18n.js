@@ -61,8 +61,8 @@ I18n.translations = {
     realtime_weather: {
       rain: 'Rainfall',
       rh: 'RH',
-      cloud: '雲量',
-      visibility: '能見度',
+      cloud: 'Cloud',
+      visibility: 'Visibility',
     },
   },
   zh: {

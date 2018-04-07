@@ -33,7 +33,10 @@ const styles = StyleSheet.create({
 export default class AirMarker extends React.PureComponent {
   static propTypes = {
     index: PropTypes.string,
-    amount: PropTypes.string,
+    amount: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     fontSize: PropTypes.number,
     isStatusShow: PropTypes.bool,
     isNumericShow: PropTypes.bool,

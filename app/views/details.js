@@ -12,6 +12,8 @@ import {
   View,
 } from 'react-native';
 
+import moment from 'moment';
+
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -97,10 +99,11 @@ export default class DetailsView extends Component {
   }
 
   componentDidMount() {
-    this.prepareData();
-
     const { state } = this.props.navigation;
     const { item } = state.params;
+    this.prepareData();
+    this.getRealtimeWeather(item);
+
     if (item.ImageUrl) {
       Image.getSize(item.ImageUrl, (imageWidth, imageHeight) => {
         console.log('getSize', imageWidth, imageHeight);
@@ -117,18 +120,14 @@ export default class DetailsView extends Component {
     trace.start();
     history(item.SiteName).then((result) => {
       trace.stop();
-      // console.log(result);
-      if (result.SiteName) {
-        this.setState({ result });
+      if (result.data) {
+        this.setState({ result: result.data });
       }
       this.setState({ refreshing: false });
     });
-
-    this.getRealtimeWeather(item);
   }
 
   getRealtimeWeather = (item) => {
-    console.log('itemitemitem', item);
     realtimeWeather(item.TWD97Lat, item.TWD97Lon).then((result) => {
       this.setState({ realtimeWeatherData: result });
     });
@@ -186,12 +185,12 @@ export default class DetailsView extends Component {
           <IndicatorHorizontal />
 
           {!this.state.refreshing && indexTypes.map((indexType) => {
-            const { length } = this.state.result.PublishTime;
+            const { length } = this.state.result;
             return (
               <View key={indexType.key} style={styles.block}>
                 <View style={styles.currentBlock}>
                   <Marker
-                    amount={this.state.result[indexType.key][length - 1]}
+                    amount={this.state.result[length - 1][indexType.key.replace('_', '')]}
                     index={indexType.name}
                     isNumericShow={true}
                   />
@@ -202,8 +201,8 @@ export default class DetailsView extends Component {
                 <View style={{ width: width - 80 }}>
                   <Chart result={this.state.result} index={indexType.key} />
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={styles.dateText}>{this.state.result.PublishTime[0]}</Text>
-                    <Text style={styles.dateText}>{this.state.result.PublishTime[length - 1]}</Text>
+                    <Text style={styles.dateText}>{moment(this.state.result[0].publish_time).format('lll')}</Text>
+                    <Text style={styles.dateText}>{moment(this.state.result[length - 1].publish_time).format('lll')}</Text>
                   </View>
                 </View>
               </View>
