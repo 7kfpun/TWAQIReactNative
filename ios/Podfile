@@ -56,11 +56,10 @@ target 'TWAQI' do
   pod 'react-native-safari-view', :path => '../node_modules/react-native-safari-view'
   pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
   pod 'RNI18n', :path => '../node_modules/react-native-i18n'
+  pod 'RNQuickAction', :path => '../node_modules/react-native-quick-actions'
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'RNViewShot', :path => '../node_modules/react-native-view-shot'
-
-  pod 'RNQuickAction', :path => '../node_modules/react-native-quick-actions'
 
 end
 

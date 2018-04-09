@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Platform,
   View,
 } from 'react-native';
 
@@ -62,7 +61,7 @@ export default class Admob extends Component {
         <ErrorBoundary>
           <Banner
             size={this.props.bannerSize}
-            unitId={(this.props.unitId && config.admob[Platform.OS][this.props.unitId]) || config.admob[Platform.OS].banner}
+            unitId={this.props.unitId && config.admob[this.props.unitId]}
             request={request.build()}
             onAdLoaded={() => {
               console.log('Ads received');

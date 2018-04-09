@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Dimensions,
+  View,
 } from 'react-native';
 
 import { VictoryBar } from 'victory-native';
@@ -35,45 +36,49 @@ export default class Chart extends Component {
     const min = parseFloat(Math.min(...data)) || 0;
     const max = parseFloat(Math.max(...data)) || 1;
 
-    return (<VictoryBar
-      height={62}
-      width={width - 66}
-      padding={{
-        top: 10,
-        bottom: 2,
-        left: 7,
-        right: 7,
-      }}
-      domain={{ x: [0, length], y: [min / 3, max] }}
-      labels={(d) => {
-        if (d.y === 0) {
-          return '';
-        }
+    return (
+      <View pointerEvents="none">
+        <VictoryBar
+          height={62}
+          width={width - 66}
+          padding={{
+            top: 10,
+            bottom: 2,
+            left: 7,
+            right: 7,
+          }}
+          domain={{ x: [0, length], y: [min / 3, max] }}
+          labels={(d) => {
+            if (d.y === 0) {
+              return '';
+            }
 
-        if (d.y === min || d.y === max || d.x === 0 || d.x === length - 1) {
-          return isFloat(d.y) ? d.y.toFixed(1) : d.y;
-        }
+            if (d.y === min || d.y === max || d.x === 0 || d.x === length - 1) {
+              return isFloat(d.y) ? d.y.toFixed(1) : d.y;
+            }
 
-        return '';
-      }}
-      style={{
-        labels: {
-          fill: 'black',
-          fontSize: 8,
-          padding: 2,
-        },
-        data: {
-          fill: d => d.y ? getColor(this.props.index, parseFloat(d.y)).color : '#000000',
-          // stroke: (d) => d.x === 3 ? "#000000" : "#c43a31",
-          fillOpacity: 0.8,
-          strokeWidth: 1,
-        },
-      }}
-      data={data.map((value, i) => ({
-        x: i,
-        y: parseFloat(value),
-        width: (width - 180) / length,
-      }))}
-    />);
+            return '';
+          }}
+          style={{
+            labels: {
+              fill: 'black',
+              fontSize: 8,
+              padding: 2,
+            },
+            data: {
+              fill: d => d.y ? getColor(this.props.index, parseFloat(d.y)).color : '#000000',
+              // stroke: (d) => d.x === 3 ? "#000000" : "#c43a31",
+              fillOpacity: 0.8,
+              strokeWidth: 1,
+            },
+          }}
+          data={data.map((value, i) => ({
+            x: i,
+            y: parseFloat(value),
+            width: (width - 180) / length,
+          }))}
+        />
+      </View>
+    );
   }
 }
