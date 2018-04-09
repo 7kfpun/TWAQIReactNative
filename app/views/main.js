@@ -39,6 +39,14 @@ import tracker from '../utils/tracker';
 
 import { config } from '../config';
 
+const advert = firebase.admob().interstitial(config.admob.android.interstital);
+
+const { AdRequest } = firebase.admob;
+const request = new AdRequest();
+request.addKeyword('weather').addKeyword('health');
+
+advert.loadAd(request.build());
+
 const { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
@@ -181,6 +189,14 @@ export default class MainView extends Component {
     OneSignal.addEventListener('opened', data => this.onOpened(data));
 
     DeviceEventEmitter.addListener('quickActionShortcut', data => this.onQuickActionOpened(data));
+
+    if (Platform.OS === 'android') {
+      setTimeout(() => {
+        if (advert.isLoaded()) {
+          advert.show();
+        }
+      }, 3000);
+    }
   }
 
   componentWillUnmount() {
