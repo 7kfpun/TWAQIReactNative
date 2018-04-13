@@ -17,6 +17,7 @@ import {
   View,
 } from 'react-native';
 
+import * as Animatable from 'react-native-animatable';
 import { captureRef } from 'react-native-view-shot';
 import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
@@ -31,7 +32,7 @@ import Marker from '../elements/marker';
 import Rating from '../elements/rating';
 
 import { aqi } from '../utils/api';
-import { indexTypes } from '../utils/indexes';
+import { indexTypes, getColor } from '../utils/indexes';
 import { locations } from '../utils/locations';
 import I18n from '../utils/i18n';
 import log from '../utils/log';
@@ -98,6 +99,22 @@ const styles = StyleSheet.create({
     height: 48,
     width: 48,
     borderRadius: 24,
+  },
+  windMode: {
+    position: 'absolute',
+    left: 12,
+    bottom: 108,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 48,
+    width: 48,
+    borderRadius: 24,
+    borderWidth: 2,
+    borderColor: iOSColors.white,
+  },
+  windModeSelected: {
+    borderColor: iOSColors.tealBlue,
   },
   refreshContainer: {
     top: Platform.OS === 'ios' ? 30 : 0,
@@ -182,6 +199,7 @@ export default class MainView extends Component {
     isLoading: false,
     gpsEnabled: false,
     isShareLoading: false,
+    isWindMode: false,
   };
 
   componentDidMount() {
@@ -309,6 +327,14 @@ export default class MainView extends Component {
       }
     });
 
+    store.get('isWindMode').then((isWindMode) => {
+      if (isWindMode) {
+        that.setState({
+          isWindMode,
+        });
+      }
+    });
+
     if (Platform.OS === 'ios') {
       this.checkLocation();
     } else {
@@ -384,6 +410,12 @@ export default class MainView extends Component {
             .filter(i => this.state.aqiResult[i.SiteName])
             .map((location) => {
               try {
+                if (this.state.isWindMode
+                  && !(this.state.aqiResult[location.SiteName].WindDirec && this.state.aqiResult[location.SiteName].WindSpeed)
+                ) {
+                  return null;
+                }
+
                 return (
                   <MapView.Marker
                     key={location.SiteEngName}
@@ -396,12 +428,29 @@ export default class MainView extends Component {
                       navigation.navigate('MainDetails', { item: location });
                     }}
                   >
-                    <Marker
-                      SiteEngName={location.SiteEngName}
-                      amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
-                      index={this.state.selectedIndex}
-                      isNumericShow={true}
-                    />
+                    {this.state.isWindMode ?
+                      <Ionicons
+                        name="md-arrow-round-up"
+                        style={{
+                          transform: [{ rotate: `${this.state.aqiResult[location.SiteName].WindDirec}deg` }],
+                          textShadowColor: getColor('AQI', this.state.aqiResult[location.SiteName].AQI).fontColor,
+                          textShadowOffset: {
+                            width: 0.6,
+                            height: 0.6,
+                          },
+                          textShadowRadius: 8,
+                        }}
+                        size={this.state.aqiResult[location.SiteName].WindSpeed * 14}
+                        color={getColor(this.state.selectedIndex, this.state.aqiResult[location.SiteName][this.state.selectedIndex]).color}
+                      />
+                      :
+                      <Marker
+                        SiteEngName={location.SiteEngName}
+                        amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
+                        index={this.state.selectedIndex}
+                        isNumericShow={true}
+                      />
+                    }
                   </MapView.Marker>);
               } catch (err) {
                 log.logError(`Marker failed: ${JSON.stringify(err)}`);
@@ -502,6 +551,24 @@ export default class MainView extends Component {
           }}
         >
           <Ionicons name="md-navigate" style={{ paddingBottom: 1, transform: [{ rotate: '45deg' }] }} size={28} color={iOSColors.black} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.windMode, this.state.isWindMode ? styles.windModeSelected : {}]}
+          onPress={() => {
+            this.setState({ isWindMode: !this.state.isWindMode }, () => {
+              store.save('isWindMode', this.state.isWindMode);
+              tracker.logEvent('set-wind-mode', { label: this.state.isWindMode ? 'on' : 'off' });
+            });
+          }}
+        >
+          {this.state.isWindMode ?
+            <Ionicons name="ios-leaf" style={{ marginLeft: 3 }} size={22} color={iOSColors.tealBlue} />
+            :
+            <Animatable.View animation="tada" iterationCount="infinite">
+              <Ionicons name="ios-leaf-outline" style={{ marginLeft: 3 }} size={22} color={iOSColors.black} />
+            </Animatable.View>
+          }
         </TouchableOpacity>
 
         <View>

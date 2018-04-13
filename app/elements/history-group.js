@@ -44,9 +44,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     color: 'black',
   },
-  list: {
-    paddingVertical: 10,
-  },
 });
 
 export default class HistoryGroup extends Component {
@@ -84,9 +81,8 @@ export default class HistoryGroup extends Component {
           </View>
         </TouchableOpacity>
         {this.state.isOpen && <FlatList
-          style={styles.list}
           data={this.state.locations}
-          keyExtractor={(item, index) => `${index}-${item.key}`}
+          keyExtractor={(item, index) => `${index}-${item.SiteEngName}`}
           renderItem={({ item }) => <HistoryItem item={item} navigation={this.props.navigation} />}
         />}
       </View>

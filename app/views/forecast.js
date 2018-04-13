@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native';
 
-import * as Animatable from 'react-native-animatable';
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -42,17 +41,7 @@ export default class ForecastView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('forecast'),
-    tabBarIcon: ({ tintColor, focused }) => {
-      if (focused) {
-        return <Ionicons name="ios-leaf" size={20} color={tintColor} />;
-      }
-
-      return (
-        <Animatable.View animation="tada" iterationCount="infinite">
-          <Ionicons name="ios-leaf-outline" size={20} color={tintColor} />
-        </Animatable.View>
-      );
-    },
+    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-analytics' : 'ios-analytics-outline'} size={20} color={tintColor} />,
   };
 
   state = {

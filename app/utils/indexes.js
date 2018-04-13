@@ -354,7 +354,7 @@ const getColor = (index, amount) => {
     return isMatched[0];
   }
 
-  return { color: '#212121' };
+  return { color: '#212121', fontColor: 'white' };
 };
 
 exports.getColor = getColor;

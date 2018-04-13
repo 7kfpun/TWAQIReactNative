@@ -65,9 +65,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     color: 'black',
   },
-  list: {
-    paddingVertical: 10,
-  },
 });
 
 export default class SettingsGroup extends Component {
@@ -130,9 +127,8 @@ export default class SettingsGroup extends Component {
           </View>
         </TouchableOpacity>
         {this.state.isOpen && <FlatList
-          style={styles.list}
           data={this.state.locations}
-          keyExtractor={(item, index) => `${index}-${item.key}`}
+          keyExtractor={(item, index) => `${index}-${item.SiteEngName}`}
           renderItem={({ item }) => (
             <SettingsItem
               item={item}
