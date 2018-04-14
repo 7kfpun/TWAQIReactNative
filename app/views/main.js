@@ -430,7 +430,7 @@ export default class MainView extends Component {
                   >
                     {this.state.isWindMode ?
                       <Ionicons
-                        name="md-arrow-round-up"
+                        name="md-arrow-round-down"
                         style={{
                           transform: [{ rotate: `${this.state.aqiResult[location.SiteName].WindDirec}deg` }],
                           textShadowColor: getColor('AQI', this.state.aqiResult[location.SiteName].AQI).fontColor,
@@ -440,7 +440,7 @@ export default class MainView extends Component {
                           },
                           textShadowRadius: 8,
                         }}
-                        size={this.state.aqiResult[location.SiteName].WindSpeed * 14}
+                        size={this.state.aqiResult[location.SiteName].WindSpeed * 8}
                         color={getColor(this.state.selectedIndex, this.state.aqiResult[location.SiteName][this.state.selectedIndex]).color}
                       />
                       :
