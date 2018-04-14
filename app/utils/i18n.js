@@ -59,9 +59,9 @@ I18n.translations = {
       end_time: 'End time',
     },
     realtime_weather: {
-      rain: 'Rainfall',
-      rh: 'RH',
-      cloud: 'Cloud',
+      rain: 'Hourly Precipitation',
+      rh: 'Relative Humidity',
+      cloud: 'Cloud Cover',
       visibility: 'Visibility',
     },
   },

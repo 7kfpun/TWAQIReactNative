@@ -89,20 +89,20 @@ export default class RealtimeWeather extends Component {
         </View>
         <View style={styles.row}>
           <Text style={styles.detailText}>{I18n.t('realtime_weather.rain')}</Text>
-          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.Rain}mm`}</Text>
+          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.Rain} mm`}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.detailText}>{I18n.t('realtime_weather.rh')}</Text>
-          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.RH}%`}</Text>
+          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.RH} %`}</Text>
         </View>
         {this.props.realtimeWeatherData.Visibility &&
           <View style={styles.row}>
             <Text style={styles.detailText}>{I18n.t('realtime_weather.visibility')}</Text>
-            <Text style={styles.detailText}>{this.props.realtimeWeatherData.Visibility}</Text>
+            <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.Visibility} km`}</Text>
           </View>}
         <View style={styles.row}>
           <Text style={styles.detailText}>{I18n.t('realtime_weather.cloud')}</Text>
-          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.Cloud}%`}</Text>
+          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.Cloud} %`}</Text>
         </View>
       </View>
     );
