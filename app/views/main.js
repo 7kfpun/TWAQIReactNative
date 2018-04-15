@@ -200,6 +200,7 @@ export default class MainView extends Component {
     gpsEnabled: false,
     isShareLoading: false,
     isWindMode: false,
+    isLocationMovedToDefault: false,
   };
 
   componentDidMount() {
@@ -251,6 +252,11 @@ export default class MainView extends Component {
     // this.setState({ region, selectedLocation: null });
   }
 
+  onRegionChangeComplete(region) {
+    console.log(region);
+    // this.setState({ region, selectedLocation: null });
+  }
+
   onQuickActionOpened(data) {
     const { navigation } = this.props;
     console.log('Quick action data.title', data.title);
@@ -275,7 +281,6 @@ export default class MainView extends Component {
   prepareData() {
     this.setState({ isLoading: true }, () => {
       const that = this;
-      store.delete('aqiResult');
       const trace = firebase.perf().newTrace('api_get_aqi');
       trace.start();
       aqi().then((result) => {
@@ -373,14 +378,18 @@ export default class MainView extends Component {
       },
       (error) => {
         this.requestLocationPermission();
-        setTimeout(() => {
-          try {
-            console.log(error);
-            this.map.animateToRegion(MainView.getDefaultLocation());
-          } catch (err) {
-            log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
-          }
-        }, 2000);
+        if (!this.state.isLocationMovedToDefault) {
+          // alert(error.message);
+          this.setState({ isLocationMovedToDefault: true });
+          setTimeout(() => {
+            try {
+              console.log(error);
+              this.map.animateToRegion(MainView.getDefaultLocation());
+            } catch (err) {
+              log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
+            }
+          }, 2000);
+        }
       },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
@@ -403,6 +412,7 @@ export default class MainView extends Component {
           ref={(ref) => { this.map = ref; }}
           initialRegion={this.getCurrentLocation()}
           onRegionChange={region => this.onRegionChange(region)}
+          onRegionChangeComplete={region => this.onRegionChangeComplete(region)}
           onMapReady={this.loadMapContent}
           showsUserLocation={true}
         >
@@ -427,6 +437,8 @@ export default class MainView extends Component {
                       tracker.logEvent('check-main-details', location);
                       navigation.navigate('MainDetails', { item: location });
                     }}
+                    flat={this.state.isWindMode}
+                    // rotation={parseFloat(this.state.aqiResult[location.SiteName].WindDirec)}
                   >
                     {this.state.isWindMode ?
                       <Ionicons
@@ -440,7 +452,7 @@ export default class MainView extends Component {
                           },
                           textShadowRadius: 8,
                         }}
-                        size={this.state.aqiResult[location.SiteName].WindSpeed * 8}
+                        size={this.state.aqiResult[location.SiteName].WindSpeed * 5}
                         color={getColor(this.state.selectedIndex, this.state.aqiResult[location.SiteName][this.state.selectedIndex]).color}
                       />
                       :
