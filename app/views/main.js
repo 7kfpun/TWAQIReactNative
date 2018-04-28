@@ -574,13 +574,7 @@ export default class MainView extends Component {
             });
           }}
         >
-          {this.state.isWindMode ?
-            <Ionicons name="ios-leaf" style={{ marginLeft: 3 }} size={22} color={iOSColors.tealBlue} />
-            :
-            <Animatable.View animation="tada" iterationCount="infinite">
-              <Ionicons name="ios-leaf-outline" style={{ marginLeft: 3 }} size={22} color={iOSColors.black} />
-            </Animatable.View>
-          }
+          <Ionicons name={this.state.isWindMode ? 'ios-leaf' : 'ios-leaf-outline'} style={{ marginLeft: 3 }} size={22} color={this.state.isWindMode ? iOSColors.tealBlue : iOSColors.black} />
         </TouchableOpacity>
 
         <View>

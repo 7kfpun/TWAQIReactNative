@@ -20,15 +20,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 5,
+    padding: 5,
+  },
+  details: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  detailItem: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 50,
   },
   text: {
     fontSize: 22,
     color: 'black',
   },
+  detailLabelText: {
+    fontSize: I18n.isZh ? 12 : 10,
+    fontWeight: '300',
+    color: 'black',
+    textAlign: 'center',
+  },
   detailText: {
     fontSize: 14,
     color: 'black',
+    textAlign: 'center',
   },
 });
 
@@ -41,32 +59,10 @@ export default class RealtimeWeather extends Component {
       Rain: PropTypes.number,
       Cloud: PropTypes.number,
       Visibility: PropTypes.number,
-      // RHColorCode: '#80C266',
-      // RainColorCode: '#C2C2C1',
-      // WeatherIcon: '02',
-      // Temp: 23,
-      // RH: 54,
-      // Rain: 0,
-      // Cloud: 90,
-      // Weather: '多雲',
-      // Weather_original: null,
-      // Visibility: null,
-      // WindSpeed: null,
-      // WindDirect: null,
-      // DataCreTime: null,
-      // StatusCode: null,
-      // Message: null,
-      // SiteName: null
     }).isRequired,
   }
 
   render() {
-    // const weatherIconMapping = {
-    //   '01': '☀️/🌙',
-    //   '02': '⛅️',
-    //   '03': '☁️',
-    //   26: '🌧',
-    // };
     const weatherIconMapping = {
       '01': (moment().format('H') >= 6 || moment().format('H') < 18) ? 'ios-sunny' : 'ios-moon',
       '02': 'ios-cloud-outline',
@@ -79,30 +75,36 @@ export default class RealtimeWeather extends Component {
       return null;
     }
 
+    const { realtimeWeatherData } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.row}>
-          {this.props.realtimeWeatherData.Temp && <Text style={styles.text}>{`${this.props.realtimeWeatherData.Temp}℃`}</Text>}
-          {this.props.realtimeWeatherData.WeatherIcon
-            && weatherIconMapping[this.props.realtimeWeatherData.WeatherIcon]
-            && <Ionicons name={weatherIconMapping[this.props.realtimeWeatherData.WeatherIcon]} style={{ marginLeft: 4 }} size={36} color="black" />}
+          {realtimeWeatherData.Temp && <Text style={styles.text}>{`${realtimeWeatherData.Temp}℃`}</Text>}
+          {realtimeWeatherData.WeatherIcon
+            && weatherIconMapping[realtimeWeatherData.WeatherIcon]
+            && <Ionicons name={weatherIconMapping[realtimeWeatherData.WeatherIcon]} style={{ marginLeft: 4 }} size={36} color="black" />}
         </View>
-        <View style={styles.row}>
-          <Text style={styles.detailText}>{I18n.t('realtime_weather.rain')}</Text>
-          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.Rain} mm`}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.detailText}>{I18n.t('realtime_weather.rh')}</Text>
-          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.RH} %`}</Text>
-        </View>
-        {this.props.realtimeWeatherData.Visibility &&
-          <View style={styles.row}>
-            <Text style={styles.detailText}>{I18n.t('realtime_weather.visibility')}</Text>
-            <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.Visibility} km`}</Text>
-          </View>}
-        <View style={styles.row}>
-          <Text style={styles.detailText}>{I18n.t('realtime_weather.cloud')}</Text>
-          <Text style={styles.detailText}>{`${this.props.realtimeWeatherData.Cloud} %`}</Text>
+
+        <View style={styles.details}>
+          <View style={styles.detailItem}>
+            <Text style={styles.detailText}>{`${realtimeWeatherData.Rain} mm`}</Text>
+            <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.rain')}</Text>
+          </View>
+          <View style={styles.detailItem}>
+            <Text style={styles.detailText}>{`${realtimeWeatherData.RH} %`}</Text>
+            <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.rh')}</Text>
+          </View>
+          <View style={styles.detailItem}>
+            <Text style={styles.detailText}>
+              {(realtimeWeatherData.Visibility && `${realtimeWeatherData.Visibility} km`) || '--'}
+            </Text>
+            <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.visibility')}</Text>
+          </View>
+          <View style={styles.detailItem}>
+            <Text style={styles.detailText}>{`${realtimeWeatherData.Cloud} %`}</Text>
+            <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.cloud')}</Text>
+          </View>
         </View>
       </View>
     );

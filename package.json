@@ -38,6 +38,7 @@
     "react-native-vector-icons": "^4.5.0",
     "react-native-view-shot": "^2.3.0",
     "react-navigation": "1.5.8",
+    "rn-viewpager": "^1.2.9",
     "victory-native": "^0.17.2"
   },
   "devDependencies": {

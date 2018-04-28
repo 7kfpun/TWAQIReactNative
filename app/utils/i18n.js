@@ -34,6 +34,7 @@ I18n.translations = {
 
     forecast_title: 'Forecast',
     forecast_notification_label: 'Forecast Notification (daily)',
+    forecast_publish_time: 'Publish Time: ',
 
     help_definition: 'Definition',
 
@@ -96,6 +97,7 @@ I18n.translations = {
 
     forecast_title: '空氣品質預報',
     forecast_notification_label: '空氣品質預報通知（每日）',
+    forecast_publish_time: '發布時間：',
 
     help_definition: '空氣品質指標的定義',
 

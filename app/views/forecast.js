@@ -7,10 +7,16 @@ import {
   View,
 } from 'react-native';
 
+import {
+  IndicatorViewPager,
+  PagerDotIndicator,
+} from 'rn-viewpager';
+import * as Animatable from 'react-native-animatable';
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AdMob from '../elements/admob';
+import Marker from '../elements/marker';
 import ForecastNotificationSettings from '../elements/forecast-notification-settings';
 
 import { aqfn } from '../utils/api';
@@ -30,18 +36,46 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'black',
   },
+  body: {
+    flex: 1,
+    padding: 10,
+  },
+  publishTimeText: {
+    fontSize: 14,
+    marginBottom: 15,
+  },
   text: {
-    lineHeight: 22,
+    lineHeight: 24,
     fontSize: 14,
     color: 'black',
   },
+  selectDot: {
+    backgroundColor: '#424242',
+  }
 });
+
+const groupBy = (list, key) => list.reduce((r, a) => {
+  r[a[key]] = r[a[key]] || [];
+  r[a[key]].push(a);
+  return r;
+}, Object.create(null));
+
 
 export default class ForecastView extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: I18n.t('forecast'),
-    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-analytics' : 'ios-analytics-outline'} size={20} color={tintColor} />,
+    tabBarIcon: ({ tintColor, focused }) => {
+      if (focused) {
+        return <Ionicons name="ios-analytics" size={20} color={tintColor} />;
+      }
+
+      return (
+        <Animatable.View animation="tada" iterationCount="infinite">
+          <Ionicons name="ios-analytics-outline" size={20} color={tintColor} />
+        </Animatable.View>
+      );
+    },
   };
 
   state = {
@@ -53,12 +87,18 @@ export default class ForecastView extends Component {
       const trace = firebase.perf().newTrace('api_get_aqfn');
       trace.start();
       aqfn().then((json) => {
+        this.setState({
+          aqfnResult: json,
+          aqfnResultGroup: groupBy(json, 'Area'),
+        });
         console.log('aqfnResult', json);
-        this.setState({ aqfnResult: json });
+        console.log('aqfnResultGroup', this.state.aqfnResultGroup);
         trace.stop();
       });
     }
   }
+
+  renderDotIndicator = () => <PagerDotIndicator selectedDotStyle={styles.selectDot} pageCount={2} />
 
   render() {
     const getForecastContent = text => text
@@ -71,12 +111,66 @@ export default class ForecastView extends Component {
           <Text style={styles.titleText}>{I18n.t('forecast_title')}</Text>
         </View>
 
-        <ScrollView>
-          <ForecastNotificationSettings />
-          <View style={{ flex: 1, padding: 10 }}>
-            <Text style={styles.text}>{this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content && getForecastContent(this.state.aqfnResult[0].Content)}</Text>
+        <ForecastNotificationSettings />
+
+        <IndicatorViewPager
+          style={{ flex: 1 }}
+          indicator={this.renderDotIndicator()}
+        >
+          <View>
+            <ScrollView>
+              <View style={styles.body}>
+                {this.state.aqfnResult && this.state.aqfnResult[0] &&
+                  <Text style={styles.publishTimeText}>{I18n.t('forecast_publish_time')}{this.state.aqfnResult[0].PublishTime}</Text>}
+
+                {this.state.aqfnResultGroup &&
+                  <View>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                      <View style={{ flex: 1 }} />
+                      {this.state.aqfnResultGroup[Object.keys(this.state.aqfnResultGroup)[0]].map(item => (
+                        <View style={{ flex: 2, alignItems: 'center' }} key={item.ForecastDate}>
+                          <Text style={styles.text}>{item.ForecastDate}</Text>
+                        </View>
+                      ))}
+                    </View>
+
+                    <View>
+                      {Object.keys(this.state.aqfnResultGroup).map(key => (
+                        <View key={key} style={{ flexDirection: 'row', padding: 4, justifyContent: 'center' }}>
+                          <View style={{ flex: 1 }}>
+                            <Text style={styles.text}>{key}</Text>
+                          </View>
+                          {this.state.aqfnResultGroup[key].map(item => (
+                            <View style={{ flex: 2, alignItems: 'center' }} key={`${key}${item.ForecastDate}`}>
+                              <Marker
+                                amount={item.AQI}
+                                index="AQI"
+                                isNumericShow={true}
+                              />
+                            </View>
+                          ))}
+                          {this.state.aqfnResultGroup[key].length === 1 && <View style={{ flex: 2 }} />}
+                          {this.state.aqfnResultGroup[key].length === 1 && <View style={{ flex: 2 }} />}
+                        </View>
+                      ))
+                    }
+                    </View>
+                  </View>}
+              </View>
+            </ScrollView>
           </View>
-        </ScrollView>
+
+          <View>
+            <ScrollView style={styles.body}>
+              {this.state.aqfnResult && this.state.aqfnResult[0] &&
+                <Text style={styles.publishTimeText}>{I18n.t('forecast_publish_time')}{this.state.aqfnResult[0].PublishTime}</Text>}
+
+              {this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content &&
+                <Text style={styles.text}>{getForecastContent(this.state.aqfnResult[0].Content)}</Text>
+              }
+            </ScrollView>
+          </View>
+        </IndicatorViewPager>
 
         <AdMob unitId={`twaqi-${Platform.OS}-forecast-footer`} bannerSize="LARGE_BANNER" />
       </View>
