@@ -14,7 +14,7 @@ import I18n from '../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 10,
+    paddingBottom: 15,
   },
   row: {
     flexDirection: 'row',
@@ -88,22 +88,22 @@ export default class RealtimeWeather extends Component {
 
         <View style={styles.details}>
           <View style={styles.detailItem}>
-            <Text style={styles.detailText}>{`${realtimeWeatherData.Rain} mm`}</Text>
             <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.rain')}</Text>
+            <Text style={styles.detailText}>{`${realtimeWeatherData.Rain} mm`}</Text>
           </View>
           <View style={styles.detailItem}>
-            <Text style={styles.detailText}>{`${realtimeWeatherData.RH} %`}</Text>
             <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.rh')}</Text>
+            <Text style={styles.detailText}>{`${realtimeWeatherData.RH} %`}</Text>
           </View>
           <View style={styles.detailItem}>
+            <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.visibility')}</Text>
             <Text style={styles.detailText}>
               {(realtimeWeatherData.Visibility && `${realtimeWeatherData.Visibility} km`) || '--'}
             </Text>
-            <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.visibility')}</Text>
           </View>
           <View style={styles.detailItem}>
-            <Text style={styles.detailText}>{`${realtimeWeatherData.Cloud} %`}</Text>
             <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.cloud')}</Text>
+            <Text style={styles.detailText}>{`${realtimeWeatherData.Cloud} %`}</Text>
           </View>
         </View>
       </View>

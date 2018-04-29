@@ -182,7 +182,9 @@ export default class DetailsView extends Component {
             {I18n.isZh && <Text style={styles.addressText}>{item.SiteAddress}</Text>}
           </View>
 
-          <IndicatorHorizontal />
+          <View style={{ padding: 10 }}>
+            <IndicatorHorizontal />
+          </View>
 
           {!this.state.refreshing && indexTypes.map((indexType) => {
             const { length } = this.state.result;

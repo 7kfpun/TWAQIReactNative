@@ -15,7 +15,10 @@ import * as Animatable from 'react-native-animatable';
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import moment from 'moment';
+
 import AdMob from '../elements/admob';
+import IndicatorHorizontal from '../elements/indicator-horizontal';
 import Marker from '../elements/marker';
 import ForecastNotificationSettings from '../elements/forecast-notification-settings';
 
@@ -51,7 +54,7 @@ const styles = StyleSheet.create({
   },
   selectDot: {
     backgroundColor: '#424242',
-  }
+  },
 });
 
 const groupBy = (list, key) => list.reduce((r, a) => {
@@ -123,13 +126,15 @@ export default class ForecastView extends Component {
                 {this.state.aqfnResult && this.state.aqfnResult[0] &&
                   <Text style={styles.publishTimeText}>{I18n.t('forecast_publish_time')}{this.state.aqfnResult[0].PublishTime}</Text>}
 
+                <IndicatorHorizontal />
+
                 {this.state.aqfnResultGroup &&
                   <View>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
-                      <View style={{ flex: 1 }} />
+                      <View style={{ flex: 2 }} />
                       {this.state.aqfnResultGroup[Object.keys(this.state.aqfnResultGroup)[0]].map(item => (
-                        <View style={{ flex: 2, alignItems: 'center' }} key={item.ForecastDate}>
-                          <Text style={styles.text}>{item.ForecastDate}</Text>
+                        <View style={{ flex: 1, alignItems: 'center' }} key={item.ForecastDate}>
+                          <Text style={styles.text}>{moment(item.ForecastDate).format('D/M')}</Text>
                         </View>
                       ))}
                     </View>
@@ -137,11 +142,11 @@ export default class ForecastView extends Component {
                     <View>
                       {Object.keys(this.state.aqfnResultGroup).map(key => (
                         <View key={key} style={{ flexDirection: 'row', padding: 4, justifyContent: 'center' }}>
-                          <View style={{ flex: 1 }}>
+                          <View style={{ flex: 2 }}>
                             <Text style={styles.text}>{key}</Text>
                           </View>
                           {this.state.aqfnResultGroup[key].map(item => (
-                            <View style={{ flex: 2, alignItems: 'center' }} key={`${key}${item.ForecastDate}`}>
+                            <View style={{ flex: 1, alignItems: 'center' }} key={`${key}${item.ForecastDate}`}>
                               <Marker
                                 amount={item.AQI}
                                 index="AQI"
@@ -149,8 +154,8 @@ export default class ForecastView extends Component {
                               />
                             </View>
                           ))}
-                          {this.state.aqfnResultGroup[key].length === 1 && <View style={{ flex: 2 }} />}
-                          {this.state.aqfnResultGroup[key].length === 1 && <View style={{ flex: 2 }} />}
+                          {this.state.aqfnResultGroup[key].length === 1 && <View style={{ flex: 1 }} />}
+                          {this.state.aqfnResultGroup[key].length === 1 && <View style={{ flex: 1 }} />}
                         </View>
                       ))
                     }
