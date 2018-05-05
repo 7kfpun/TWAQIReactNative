@@ -22,7 +22,7 @@
     "react-native-animatable": "^1.2.4",
     "react-native-device-info": "^0.21.3",
     "react-native-fabric": "^0.5.1",
-    "react-native-firebase": "4.0.0-rc.2",
+    "react-native-firebase": "7kfpun/react-native-firebase",
     "react-native-i18n": "^2.0.12",
     "react-native-maps": "^0.20.1",
     "react-native-modal-datetime-picker": "^4.13.0",

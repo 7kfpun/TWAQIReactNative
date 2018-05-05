@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     padding: 10,
+    paddingBottom: 20,
   },
   publishTimeText: {
     fontSize: 14,
@@ -134,7 +135,7 @@ export default class ForecastView extends Component {
                       <View style={{ flex: 2 }} />
                       {this.state.aqfnResultGroup[Object.keys(this.state.aqfnResultGroup)[0]].map(item => (
                         <View style={{ flex: 1, alignItems: 'center' }} key={item.ForecastDate}>
-                          <Text style={styles.text}>{moment(item.ForecastDate).format('D/M')}</Text>
+                          <Text style={styles.text}>{moment(item.ForecastDate).format('M/D')}</Text>
                         </View>
                       ))}
                     </View>

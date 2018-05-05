@@ -4865,9 +4865,17 @@ react-native-fabric@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/react-native-fabric/-/react-native-fabric-0.5.1.tgz#e5eb65c56196355b41f230c14adcc9c4bcf60dda"
 
-react-native-firebase@4.0.0-rc.2:
-  version "4.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-4.0.0-rc.2.tgz#8787165829334249aa4ce59896b5a7f7187c2570"
+react-native-firebase@7kfpun/react-native-firebase:
+  version "4.0.7"
+  resolved "https://codeload.github.com/7kfpun/react-native-firebase/tar.gz/bc14c2d8708cea467f78215e0411f24638486b05"
+  dependencies:
+    opencollective "^1.0.3"
+    postinstall-build "^5.0.1"
+    prop-types "^15.6.1"
+
+react-native-firebase@^4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-4.0.7.tgz#83fa95a61454f3ddffbed9d228675b54b39be262"
   dependencies:
     opencollective "^1.0.3"
     postinstall-build "^5.0.1"
