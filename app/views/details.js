@@ -112,6 +112,12 @@ export default class DetailsView extends Component {
     }
   }
 
+  getRealtimeWeather = (item) => {
+    realtimeWeather(item.TWD97Lat, item.TWD97Lon).then((result) => {
+      this.setState({ realtimeWeatherData: result });
+    });
+  }
+
   prepareData = () => {
     const { state } = this.props.navigation;
     const { item } = state.params;
@@ -124,12 +130,6 @@ export default class DetailsView extends Component {
         this.setState({ result: result.data });
       }
       this.setState({ refreshing: false });
-    });
-  }
-
-  getRealtimeWeather = (item) => {
-    realtimeWeather(item.TWD97Lat, item.TWD97Lon).then((result) => {
-      this.setState({ realtimeWeatherData: result });
     });
   }
 
@@ -186,7 +186,7 @@ export default class DetailsView extends Component {
             <IndicatorHorizontal />
           </View>
 
-          {!this.state.refreshing && indexTypes.map((indexType) => {
+          {!this.state.refreshing && this.state.result && indexTypes.map((indexType) => {
             const { length } = this.state.result;
             return (
               <View key={indexType.key} style={styles.block}>
