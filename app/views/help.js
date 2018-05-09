@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Linking,
   Platform,
@@ -9,7 +10,6 @@ import {
   View,
 } from 'react-native';
 
-import { iOSColors } from 'react-native-typography';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SafariView from 'react-native-safari-view';
 
@@ -26,11 +26,10 @@ const styles = StyleSheet.create({
   },
   titleBlock: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: Platform.OS === 'ios' ? 60 : 20,
-    paddingHorizontal: 10,
-    marginBottom: 20,
+    paddingTop: Platform.OS === 'ios' ? 50 : 20,
+    paddingHorizontal: 12,
+    marginBottom: 10,
   },
   block: {
     paddingHorizontal: 10,
@@ -38,6 +37,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    marginLeft: 10,
     color: 'black',
   },
   row: {
@@ -138,9 +138,15 @@ const helpTexts = {
 };
 
 export default class HelpView extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      goBack: PropTypes.func.isRequired,
+    }).isRequired,
+  }
+
   static navigationOptions = {
     header: null,
-    tabBarLabel: I18n.t('help'),
+    tabBarLabel: I18n.t('help_tab'),
     tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-help-circle' : 'ios-help-circle-outline'} size={21} color={tintColor} />,
   };
 
@@ -159,14 +165,24 @@ export default class HelpView extends Component {
   }
 
   render() {
+    const {
+      navigation: {
+        goBack,
+      },
+    } = this.props;
+
     return (
       <View style={styles.container}>
-        <View style={styles.titleBlock}>
-          <Text style={styles.title}>{I18n.t('help_definition')}</Text>
-          <TouchableOpacity onPress={HelpView.openFeedbackUrl}>
-            <Ionicons name="ios-mail-outline" size={30} color={iOSColors.gray} />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => goBack(null)} >
+          <View style={styles.titleBlock}>
+            <Ionicons name="ios-arrow-back-outline" size={30} color="gray" />
+            <Text style={styles.title}>{I18n.t('help_definition')}</Text>
+            {/* <TouchableOpacity onPress={HelpView.openFeedbackUrl}>
+              <Ionicons name="ios-mail-outline" size={30} color={iOSColors.gray} />
+            </TouchableOpacity> */}
+          </View>
+        </TouchableOpacity>
+
         <ScrollView>
           <View style={styles.block}>
             {helpTexts.AQI.map(item => (

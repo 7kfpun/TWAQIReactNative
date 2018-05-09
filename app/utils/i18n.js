@@ -11,7 +11,7 @@ I18n.translations = {
     details: 'Details',
     forecast: 'Forecast',
     settings: 'Settings',
-    help: 'Help',
+    help_tab: 'Help',
     contact: 'Contact',
 
     list_title: 'Detail Data',
@@ -65,6 +65,21 @@ I18n.translations = {
       cloud: 'Cloud Cover',
       visibility: 'Visibility',
     },
+
+    help: {
+      aqi: 'Air quality index (AQI)',
+      aqi_url: 'https://en.wikipedia.org/wiki/Air_quality_index',
+      particulates: 'Particulates (PM)',
+      particulates_url: 'https://en.wikipedia.org/wiki/Particulates',
+      o3: 'Ozone (O3)',
+      o3_url: 'https://en.wikipedia.org/wiki/Ozone',
+      co: 'Carbon monoxide (CO)',
+      co_url: 'https://en.wikipedia.org/wiki/Carbon_monoxide',
+      so2: 'Sulfur dioxide (SO2)',
+      so2_url: 'https://en.wikipedia.org/wiki/Sulfur_dioxide',
+      no2: 'Nitrogen dioxide (NO2)',
+      no2_url: 'https://en.wikipedia.org/wiki/Nitrogen_dioxide',
+    },
   },
   zh: {
     app_name: '台灣空氣品質指標',
@@ -74,7 +89,7 @@ I18n.translations = {
     details: '詳細',
     forecast: '預測',
     settings: '通知設定',
-    help: '幫助',
+    help_tab: '幫助',
     contact: '聯絡',
 
     list_title: '詳細紀錄',
@@ -127,6 +142,21 @@ I18n.translations = {
       rh: '濕度',
       cloud: '雲量',
       visibility: '能見度',
+    },
+
+    help: {
+      aqi: '空氣品質指數（AQI）',
+      aqi_url: 'https://zh.wikipedia.org/wiki/%E7%A9%BA%E6%B0%94%E8%B4%A8%E9%87%8F%E6%8C%87%E6%95%B0',
+      particulates: '懸浮微粒（PM）',
+      particulates_url: 'https://zh.wikipedia.org/wiki/%E6%87%B8%E6%B5%AE%E7%B2%92%E5%AD%90',
+      o3: '臭氧（O3）',
+      o3_url: 'https://zh.wikipedia.org/wiki/%E8%87%AD%E6%B0%A7',
+      co: '一氧化碳 (CO)',
+      co_url: 'https://zh.wikipedia.org/wiki/%E4%B8%80%E6%B0%A7%E5%8C%96%E7%A2%B3',
+      so2: '二氧化硫 (SO2)',
+      so2_url: 'https://zh.wikipedia.org/wiki/%E4%BA%8C%E6%B0%A7%E5%8C%96%E7%A1%AB',
+      no2: '二氧化氮 (NO2)',
+      no2_url: 'https://zh.wikipedia.org/wiki/%E4%BA%8C%E6%B0%A7%E5%8C%96%E6%B0%AE',
     },
   },
 };

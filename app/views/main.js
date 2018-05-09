@@ -17,7 +17,6 @@ import {
   View,
 } from 'react-native';
 
-import * as Animatable from 'react-native-animatable';
 import { captureRef } from 'react-native-view-shot';
 import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';

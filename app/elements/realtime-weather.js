@@ -89,11 +89,15 @@ export default class RealtimeWeather extends Component {
         <View style={styles.details}>
           <View style={styles.detailItem}>
             <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.rain')}</Text>
-            <Text style={styles.detailText}>{`${realtimeWeatherData.Rain} mm`}</Text>
+            <Text style={styles.detailText}>
+              {(realtimeWeatherData.Rain && `${realtimeWeatherData.Rain} mm`) || '--'}
+            </Text>
           </View>
           <View style={styles.detailItem}>
             <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.rh')}</Text>
-            <Text style={styles.detailText}>{`${realtimeWeatherData.RH} %`}</Text>
+            <Text style={styles.detailText}>
+              {(realtimeWeatherData.RH && `${realtimeWeatherData.RH} %`) || '--'}
+            </Text>
           </View>
           <View style={styles.detailItem}>
             <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.visibility')}</Text>
@@ -103,7 +107,9 @@ export default class RealtimeWeather extends Component {
           </View>
           <View style={styles.detailItem}>
             <Text style={styles.detailLabelText}>{I18n.t('realtime_weather.cloud')}</Text>
-            <Text style={styles.detailText}>{`${realtimeWeatherData.Cloud} %`}</Text>
+            <Text style={styles.detailText}>
+              {(realtimeWeatherData.Cloud && `${realtimeWeatherData.Cloud} %`) || '--'}
+            </Text>
           </View>
         </View>
       </View>

@@ -14,7 +14,7 @@ import Details from './app/views/details';
 import Forecast from './app/views/forecast';
 import Settings from './app/views/settings';
 import Help from './app/views/help';
-// import Contact from './app/views/contact';
+import HelpList from './app/views/help-list';
 
 import I18n from './app/utils/i18n';
 import tracker from './app/utils/tracker';
@@ -56,8 +56,12 @@ const App = TabNavigator({
   },
   Forecast: { screen: Forecast },
   Settings: { screen: Settings },
-  Help: { screen: Help },
-  // Contact: { screen: Contact },
+  Help: {
+    screen: StackNavigator({
+      HelpList: { screen: HelpList },
+      HelpAQI: { screen: Help },
+    }),
+  },
 }, {
   headerMode: 'none',
   swipeEnabled: false,

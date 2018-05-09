@@ -99,8 +99,14 @@ export default class DetailsView extends Component {
   }
 
   componentDidMount() {
-    const { state } = this.props.navigation;
-    const { item } = state.params;
+    const {
+      navigation: {
+        state: {
+          item,
+        },
+      },
+    } = this.props;
+
     this.prepareData();
     this.getRealtimeWeather(item);
 
