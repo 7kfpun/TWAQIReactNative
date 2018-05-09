@@ -47,8 +47,7 @@ export default class HistoryItem extends Component {
   }
 
   render() {
-    const { item } = this.props;
-    const { navigation } = this.props;
+    const { item, navigation } = this.props;
     return (
       <TouchableOpacity
         onPress={() => {

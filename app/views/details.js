@@ -102,7 +102,9 @@ export default class DetailsView extends Component {
     const {
       navigation: {
         state: {
-          item,
+          params: {
+            item,
+          },
         },
       },
     } = this.props;
@@ -125,8 +127,15 @@ export default class DetailsView extends Component {
   }
 
   prepareData = () => {
-    const { state } = this.props.navigation;
-    const { item } = state.params;
+    const {
+      navigation: {
+        state: {
+          params: {
+            item,
+          },
+        },
+      },
+    } = this.props;
 
     const trace = firebase.perf().newTrace('api_get_aqi_history');
     trace.start();
@@ -148,8 +157,15 @@ export default class DetailsView extends Component {
   descreaseEnabledCount = () => console.log()
 
   render() {
-    const { state } = this.props.navigation;
-    const { item } = state.params;
+    const {
+      navigation: {
+        state: {
+          params: {
+            item,
+          },
+        },
+      },
+    } = this.props;
 
     return (
       <View style={styles.container}>
