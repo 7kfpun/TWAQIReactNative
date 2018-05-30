@@ -19,6 +19,7 @@ import {
 
 import { captureRef } from 'react-native-view-shot';
 import { iOSColors } from 'react-native-typography';
+import DeviceInfo from 'react-native-device-info';
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MapView from 'react-native-maps';
@@ -489,7 +490,10 @@ export default class MainView extends Component {
         <Rating />
 
         <TouchableOpacity
-          style={styles.shareImage}
+          style={[
+            styles.shareImage,
+            DeviceInfo.isTablet() ? { bottom: 260 } : {},
+          ]}
           onPress={() => {
             this.setState({ isShareLoading: true }, () => {
               captureRef(this.map, {
@@ -531,7 +535,10 @@ export default class MainView extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.defaultLocation}
+          style={[
+            styles.defaultLocation,
+            DeviceInfo.isTablet() ? { bottom: 208 } : {},
+          ]}
           onPress={() => {
             this.map.animateToRegion(MainView.getDefaultLocation());
             tracker.logEvent('move-to-default-location');
@@ -541,7 +548,11 @@ export default class MainView extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.currentLocation, { backgroundColor: this.state.gpsEnabled ? iOSColors.white : iOSColors.lightGray }]}
+          style={[
+            styles.currentLocation,
+            { backgroundColor: this.state.gpsEnabled ? iOSColors.white : iOSColors.lightGray },
+            DeviceInfo.isTablet() ? { bottom: 148 } : {},
+          ]}
           onPress={() => {
             if (this.state.gpsEnabled) {
               this.map.animateToRegion(this.getCurrentLocation());
@@ -565,7 +576,11 @@ export default class MainView extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.windMode, this.state.isWindMode ? styles.windModeSelected : {}]}
+          style={[
+            styles.windMode,
+            this.state.isWindMode ? styles.windModeSelected : {},
+            DeviceInfo.isTablet() ? { bottom: 148 } : {},
+          ]}
           onPress={() => {
             this.setState({ isWindMode: !this.state.isWindMode }, () => {
               store.save('isWindMode', this.state.isWindMode);

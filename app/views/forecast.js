@@ -68,7 +68,7 @@ const groupBy = (list, key) => list.reduce((r, a) => {
 export default class ForecastView extends Component {
   static navigationOptions = {
     header: null,
-    tabBarLabel: I18n.t('forecast'),
+    tabBarLabel: I18n.t('forecast_tab'),
     tabBarIcon: ({ tintColor, focused }) => {
       if (focused) {
         return <Ionicons name="ios-analytics" size={20} color={tintColor} />;
@@ -87,19 +87,17 @@ export default class ForecastView extends Component {
   }
 
   componentDidMount() {
-    if (I18n.isZh) {
-      const trace = firebase.perf().newTrace('api_get_aqfn');
-      trace.start();
-      aqfn().then((json) => {
-        this.setState({
-          aqfnResult: json,
-          aqfnResultGroup: groupBy(json, 'Area'),
-        });
-        console.log('aqfnResult', json);
-        console.log('aqfnResultGroup', this.state.aqfnResultGroup);
-        trace.stop();
+    const trace = firebase.perf().newTrace('api_get_aqfn');
+    trace.start();
+    aqfn().then((json) => {
+      this.setState({
+        aqfnResult: json,
+        aqfnResultGroup: groupBy(json, 'Area'),
       });
-    }
+      console.log('aqfnResult', json);
+      console.log('aqfnResultGroup', this.state.aqfnResultGroup);
+      trace.stop();
+    });
   }
 
   renderDotIndicator = () => <PagerDotIndicator selectedDotStyle={styles.selectDot} pageCount={2} />
@@ -144,7 +142,7 @@ export default class ForecastView extends Component {
                       {Object.keys(this.state.aqfnResultGroup).map(key => (
                         <View key={key} style={{ flexDirection: 'row', padding: 4, justifyContent: 'center' }}>
                           <View style={{ flex: 2 }}>
-                            <Text style={styles.text}>{key}</Text>
+                            <Text style={styles.text}>{I18n.t(`forecast.${key}`)}</Text>
                           </View>
                           {this.state.aqfnResultGroup[key].map(item => (
                             <View style={{ flex: 1, alignItems: 'center' }} key={`${key}${item.ForecastDate}`}>

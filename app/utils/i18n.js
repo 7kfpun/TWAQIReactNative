@@ -9,7 +9,7 @@ I18n.translations = {
     main: 'Map',
     list: 'List',
     details: 'Details',
-    forecast: 'Forecast',
+    forecast_tab: 'Forecast',
     settings: 'Settings',
     help_tab: 'Help',
     contact: 'Contact',
@@ -66,6 +66,19 @@ I18n.translations = {
       visibility: 'Visibility',
     },
 
+    forecast: {
+      北部: 'North',
+      竹苗: 'Chu-Miao',
+      中部: 'Central',
+      雲嘉南: 'Yun-Chia-Nan',
+      高屏: 'KaoPing',
+      宜蘭: 'Yilan',
+      花東: 'Hua-Tun',
+      馬祖: 'Matsu',
+      金門: 'Kinmen',
+      澎湖: 'Magong',
+    },
+
     help: {
       aqi: 'Air quality index (AQI)',
       aqi_url: 'https://en.wikipedia.org/wiki/Air_quality_index',
@@ -87,7 +100,7 @@ I18n.translations = {
     main: '地圖',
     list: '列表',
     details: '詳細',
-    forecast: '預測',
+    forecast_tab: '預測',
     settings: '通知設定',
     help_tab: '幫助',
     contact: '聯絡',
@@ -142,6 +155,19 @@ I18n.translations = {
       rh: '濕度',
       cloud: '雲量',
       visibility: '能見度',
+    },
+
+    forecast: {
+      北部: '北部',
+      竹苗: '竹苗',
+      中部: '中部',
+      雲嘉南: '雲嘉南',
+      高屏: '高屏',
+      宜蘭: '宜蘭',
+      花東: '花東',
+      馬祖: '馬祖',
+      金門: '金門',
+      澎湖: '澎湖',
     },
 
     help: {

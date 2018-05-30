@@ -33,7 +33,7 @@ QuickActions.setShortcutItems([{
   },
 }, {
   type: 'go_to_history',
-  title: I18n.t('forecast'),
+  title: I18n.t('forecast_tab'),
   // subtitle: '',
   icon: 'Date',
   userInfo: {
