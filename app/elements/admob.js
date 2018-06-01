@@ -65,7 +65,9 @@ export default class Admob extends Component {
             request={request.build()}
             onAdLoaded={() => {
               console.log('Ads received');
-              this.setState({ isReceived: true });
+              setTimeout(() => {
+                this.setState({ isReceived: true });
+              }, 1000);
             }}
             onAdFailedToLoad={(error) => {
               console.log('Ads error', error);

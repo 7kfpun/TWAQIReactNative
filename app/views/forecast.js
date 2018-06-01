@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Dimensions,
   Platform,
   ScrollView,
   StyleSheet,
@@ -7,9 +8,10 @@ import {
   View,
 } from 'react-native';
 
+import { iOSColors } from 'react-native-typography';
 import {
   IndicatorViewPager,
-  PagerDotIndicator,
+  PagerTitleIndicator,
 } from 'rn-viewpager';
 import * as Animatable from 'react-native-animatable';
 import firebase from 'react-native-firebase';
@@ -24,6 +26,8 @@ import ForecastNotificationSettings from '../elements/forecast-notification-sett
 
 import { aqfn } from '../utils/api';
 import I18n from '../utils/i18n';
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +46,23 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     padding: 10,
-    paddingBottom: 20,
+    paddingVertical: 20,
+  },
+  indicatorContainer: {
+    backgroundColor: iOSColors.white,
+    height: 30,
+  },
+  indicatorText: {
+    fontSize: 15,
+    color: iOSColors.gray,
+  },
+  indicatorSelectedText: {
+    fontSize: 15,
+    color: iOSColors.black,
+  },
+  selectedBorderStyle: {
+    height: 2,
+    backgroundColor: iOSColors.tealBlue,
   },
   publishTimeText: {
     fontSize: 14,
@@ -100,7 +120,17 @@ export default class ForecastView extends Component {
     });
   }
 
-  renderDotIndicator = () => <PagerDotIndicator selectedDotStyle={styles.selectDot} pageCount={2} />
+  renderIndicator = () => (<PagerTitleIndicator
+    style={styles.indicatorContainer}
+    trackScroll={true}
+    itemTextStyle={styles.indicatorText}
+    selectedItemTextStyle={styles.indicatorSelectedText}
+    selectedBorderStyle={styles.selectedBorderStyle}
+    itemStyle={{ width: width / 2 }}
+    selectedItemStyle={{ width: width / 2 }}
+    titles={[I18n.t('forecast.three_days'), I18n.t('forecast.details')]}
+  />)
+  // renderIndicator = () => <PagerDotIndicator selectedDotStyle={styles.selectDot} pageCount={2} />
 
   render() {
     const getForecastContent = text => text
@@ -116,8 +146,8 @@ export default class ForecastView extends Component {
         <ForecastNotificationSettings />
 
         <IndicatorViewPager
-          style={{ flex: 1 }}
-          indicator={this.renderDotIndicator()}
+          style={{ flex: 1, flexDirection: 'column-reverse' }}
+          indicator={this.renderIndicator()}
         >
           <View>
             <ScrollView>

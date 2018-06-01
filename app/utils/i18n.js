@@ -67,6 +67,8 @@ I18n.translations = {
     },
 
     forecast: {
+      three_days: '3 days',
+      details: 'Details',
       北部: 'North',
       竹苗: 'Chu-Miao',
       中部: 'Central',
@@ -158,6 +160,8 @@ I18n.translations = {
     },
 
     forecast: {
+      three_days: '3 天預測',
+      details: '詳細預測',
       北部: '北部',
       竹苗: '竹苗',
       中部: '中部',
