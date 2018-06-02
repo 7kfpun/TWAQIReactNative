@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Dimensions,
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -14,15 +13,17 @@ import {
   PagerTitleIndicator,
 } from 'rn-viewpager';
 import * as Animatable from 'react-native-animatable';
+import Collapsible from 'react-native-collapsible';
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import moment from 'moment';
 
 import AdMob from '../elements/admob';
+import ForecastNotificationSettings from '../elements/forecast-notification-settings';
 import IndicatorHorizontal from '../elements/indicator-horizontal';
 import Marker from '../elements/marker';
-import ForecastNotificationSettings from '../elements/forecast-notification-settings';
+import SwipeScrollView from '../elements/SwipeScrollView';
 
 import { aqfn } from '../utils/api';
 import I18n from '../utils/i18n';
@@ -104,6 +105,7 @@ export default class ForecastView extends Component {
 
   state = {
     aqfnResult: null,
+    collapsed: false,
   }
 
   componentDidMount() {
@@ -130,7 +132,6 @@ export default class ForecastView extends Component {
     selectedItemStyle={{ width: width / 2 }}
     titles={[I18n.t('forecast.three_days'), I18n.t('forecast.details')]}
   />)
-  // renderIndicator = () => <PagerDotIndicator selectedDotStyle={styles.selectDot} pageCount={2} />
 
   render() {
     const getForecastContent = text => text
@@ -139,9 +140,11 @@ export default class ForecastView extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.titleBlock}>
-          <Text style={styles.titleText}>{I18n.t('forecast_title')}</Text>
-        </View>
+        <Collapsible collapsed={this.state.collapsed}>
+          <View style={styles.titleBlock}>
+            <Text style={styles.titleText}>{I18n.t('forecast_title')}</Text>
+          </View>
+        </Collapsible>
 
         <ForecastNotificationSettings />
 
@@ -150,7 +153,11 @@ export default class ForecastView extends Component {
           indicator={this.renderIndicator()}
         >
           <View>
-            <ScrollView>
+            <SwipeScrollView
+              scrollActionOffset={220}
+              onScrollUp={() => this.setState({ collapsed: true })}
+              onScrollDown={() => this.setState({ collapsed: false })}
+            >
               <View style={styles.body}>
                 {this.state.aqfnResult && this.state.aqfnResult[0] &&
                   <Text style={styles.publishTimeText}>{I18n.t('forecast_publish_time')}{this.state.aqfnResult[0].PublishTime}</Text>}
@@ -191,19 +198,24 @@ export default class ForecastView extends Component {
                     </View>
                   </View>}
               </View>
-            </ScrollView>
+            </SwipeScrollView>
             <AdMob unitId={`twaqi-${Platform.OS}-forecast-3days-footer`} />
           </View>
 
           <View>
-            <ScrollView style={styles.body}>
+            <SwipeScrollView
+              style={styles.body}
+              scrollActionOffset={80}
+              onScrollUp={() => this.setState({ collapsed: true })}
+              onScrollDown={() => this.setState({ collapsed: false })}
+            >
               {this.state.aqfnResult && this.state.aqfnResult[0] &&
                 <Text style={styles.publishTimeText}>{I18n.t('forecast_publish_time')}{this.state.aqfnResult[0].PublishTime}</Text>}
 
               {this.state.aqfnResult && this.state.aqfnResult[0] && this.state.aqfnResult[0].Content &&
                 <Text style={styles.text}>{getForecastContent(this.state.aqfnResult[0].Content)}</Text>
               }
-            </ScrollView>
+            </SwipeScrollView>
             <AdMob unitId={`twaqi-${Platform.OS}-forecast-detailed-footer`} />
           </View>
         </IndicatorViewPager>

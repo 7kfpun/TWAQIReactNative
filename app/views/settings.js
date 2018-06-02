@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import {
   FlatList,
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
+import Collapsible from 'react-native-collapsible';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import OneSignal from 'react-native-onesignal';
 import Search from 'react-native-search-box';
@@ -19,6 +19,7 @@ import AdMob from '../elements/admob';
 import SettingsDND from '../elements/settings-dnd';
 import SettingsGroup from '../elements/settings-group';
 import SettingsItem from '../elements/settings-item';
+import SwipeScrollView from '../elements/SwipeScrollView';
 
 import { countys, locations } from '../utils/locations';
 import { OneSignalGetTags } from '../utils/onesignal';
@@ -34,7 +35,6 @@ const styles = StyleSheet.create({
   titleBlock: {
     paddingTop: Platform.OS === 'ios' ? 60 : 20,
     paddingLeft: 10,
-    paddingBottom: 10,
   },
   titleText: {
     fontSize: 24,
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   },
   searchBlock: {
     padding: 10,
+    paddingTop: 20,
     borderBottomColor: iOSColors.lightGray,
     borderBottomWidth: 1,
   },
@@ -84,6 +85,7 @@ export default class SettingsView extends Component {
     isShowPermissionReminderBlock: false,
     searchText: '',
     searchResult: [],
+    collapsed: false,
   };
 
   componentDidMount() {
@@ -152,9 +154,12 @@ export default class SettingsView extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.titleBlock}>
-          <Text style={styles.titleText}>{I18n.t('notify_title')}</Text>
-        </View>
+        <Collapsible collapsed={this.state.collapsed}>
+          <View style={styles.titleBlock}>
+            <Text style={styles.titleText}>{I18n.t('notify_title')}</Text>
+          </View>
+        </Collapsible>
+
         {this.state.isShowPermissionReminderBlock &&
           <View style={styles.permissionReminderBlock}>
             <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
@@ -173,7 +178,11 @@ export default class SettingsView extends Component {
           />
         </View>
 
-        <ScrollView>
+        <SwipeScrollView
+          scrollActionOffset={80}
+          onScrollUp={() => this.setState({ collapsed: true })}
+          onScrollDown={() => this.setState({ collapsed: false })}
+        >
           {!!this.state.searchText && <FlatList
             style={styles.list}
             data={this.state.searchResult}
@@ -198,7 +207,7 @@ export default class SettingsView extends Component {
                 renderItem={({ item }) => <SettingsGroup groupName={item} />}
               />
             </View>}
-        </ScrollView>
+        </SwipeScrollView>
 
         <AdMob unitId={`twaqi-${Platform.OS}-settings-footer`} />
       </View>
