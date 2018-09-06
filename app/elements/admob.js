@@ -13,6 +13,24 @@ import { config } from '../config';
 
 const { AdRequest, Banner } = firebase.admob;
 const request = new AdRequest();
+request
+  .addKeyword('口罩')
+  .addKeyword('空氣 品質')
+  .addKeyword('空氣 污染')
+  .addKeyword('pm 2.5 過濾')
+  .addKeyword('吸塵器')
+  .addKeyword('負離子')
+  .addKeyword('環保')
+  .addKeyword('淨化')
+  .addKeyword('空氣清新機')
+  .addKeyword('清淨')
+  .addKeyword('冷氣')
+  .addKeyword('air condition')
+  .addKeyword('air purifier')
+  .addKeyword('air filter machine')
+  .addKeyword('worldwide air quality')
+  .addKeyword('health')
+  .addKeyword('pollution');
 
 export default class Admob extends Component {
   static propTypes = {

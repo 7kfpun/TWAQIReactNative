@@ -109,7 +109,7 @@ const tracker = {
     if (isTracking) {
       const message = {
         userId,
-        screen,
+        name: screen,
         properties,
         context,
       };
