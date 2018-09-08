@@ -19,18 +19,24 @@ PODS:
   - Firebase/Performance (4.11.0):
     - Firebase/Core
     - FirebasePerformance (= 1.1.2)
+  - Firebase/RemoteConfig (4.11.0):
+    - Firebase/Core
+    - FirebaseRemoteConfig (= 2.1.2)
+  - FirebaseABTesting (1.0.0):
+    - FirebaseCore (~> 4.0)
+    - Protobuf (~> 3.1)
   - FirebaseAnalytics (4.1.0):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
   - FirebaseCore (4.0.18):
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
   - FirebaseCrash (2.0.2):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - Protobuf (~> 3.1)
   - FirebaseInstanceID (2.0.10):
     - FirebaseCore (~> 4.0)
@@ -39,9 +45,16 @@ PODS:
     - FirebaseInstanceID (~> 2.0)
     - FirebaseSwizzlingUtilities (~> 1.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - GTMSessionFetcher/Core (~> 1.1)
     - Protobuf (~> 3.5)
+  - FirebaseRemoteConfig (2.1.2):
+    - FirebaseABTesting (~> 1.0)
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - Protobuf (~> 3.1)
   - FirebaseSwizzlingUtilities (1.0.0)
   - Folly (2016.09.26.00):
     - boost-for-react-native
@@ -60,7 +73,7 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.3)
   - GoogleToolboxForMac/Logger (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
-  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
     - GoogleToolboxForMac/Defines (= 2.1.3)
   - GTMSessionFetcher/Core (1.1.14)
   - nanopb (0.3.8):
@@ -152,6 +165,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Crash
   - Firebase/Performance
+  - Firebase/RemoteConfig
   - GoogleMaps (~> 2.5.0)
   - GoogleMobileAdsMediationFacebook
   - react-native-google-maps (from `../node_modules/react-native-maps`)
@@ -178,6 +192,32 @@ DEPENDENCIES:
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - RNViewShot (from `../node_modules/react-native-view-shot`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - boost-for-react-native
+    - Crashlytics
+    - Fabric
+    - FBAudienceNetwork
+    - Firebase
+    - FirebaseABTesting
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseCrash
+    - FirebaseInstanceID
+    - FirebasePerformance
+    - FirebaseRemoteConfig
+    - FirebaseSwizzlingUtilities
+    - Folly
+    - glog
+    - Google-Mobile-Ads-SDK
+    - GoogleMaps
+    - GoogleMobileAdsMediationFacebook
+    - GoogleToolboxForMac
+    - GTMSessionFetcher
+    - nanopb
+    - OneSignal
+    - Protobuf
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -214,11 +254,13 @@ SPEC CHECKSUMS:
   Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   FBAudienceNetwork: 25decde0ee5bfee9573d1d729ace66a66827de41
   Firebase: cc13dfab1038c8b45d7903e01fc690451d6d0b24
+  FirebaseABTesting: d07d0ee833b842d5153549e4c7e2e2cb1c23a3f9
   FirebaseAnalytics: 3dfae28d4a5e06f86c4fae830efc2ad3fadb19bc
   FirebaseCore: b981f47e5254cbcfdeb483355300d743f6fcab2c
-  FirebaseCrash: cded0fc566c03651aea606a101bc156085f333ca
+  FirebaseCrash: a7d980468dc8aa2db9792493c3e02722d601f6ab
   FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
   FirebasePerformance: 96c831a9eaf8d2ddf8bb37a4a6f6dd1b4bfe929f
+  FirebaseRemoteConfig: df64ce784a45e9b9d4988030a59da6baede8bdb0
   FirebaseSwizzlingUtilities: f1c49a5a372ac852c853722a5891a0a5e2344a6c
   Folly: 211775e49d8da0ca658aebc8eab89d642935755c
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
@@ -230,19 +272,19 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   OneSignal: ab5c509192ca8390bdd3570a6261e6decf4c79c1
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
-  React: a7cff9b5a64028b569ac7ab01ecc9b5d572fa633
-  react-native-google-maps: 74a81c3aa24f2095fe8c8d27cb80b2b3808a5bc3
-  react-native-maps: 6ab4fa4f78e88824ec300de0eb412f0556b6a84b
-  react-native-onesignal: a9d9b575525fc23099ac39c44bf75a472e237b01
-  react-native-safari-view: 955d7160d159241b8e9395d12d10ea0ef863dcdd
-  ReactNativeFabric: 681ea672581869b08108ad6eb7ab3dda67f6f63d
-  RNI18n: ee831694f1eaa69b270d345e4617f70735d4cdb9
-  RNQuickAction: c435a4c3500021197667c6407b8d22b878b2d127
-  RNSVG: 7fdf22f11089f3842539c4081f9d3be364d91f55
-  RNVectorIcons: 00632755ab42ae7b7d1a5877c9840d71e808efad
-  RNViewShot: 7171cd7d12d467b75b9281872b59ec9a4a61cfc6
-  yoga: 9a1726fa6352849a159acc26520f691b5c599c47
+  React: 35618ff86985ccc5a8a17d3ca0dd76fd47e0c690
+  react-native-google-maps: 963fc78a5ac32dad3a726e4fa08b5307faa5cab2
+  react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
+  react-native-onesignal: 799a5cb9639b476b0f939e1e90eae917711f8bff
+  react-native-safari-view: a20edf45cdf96f32649e66924ee04d725a170bff
+  ReactNativeFabric: 3912bf9c714d7cc98110eadf06ca6dedef219322
+  RNI18n: db9be06a40336f04d136f24dd5de3f5eb9f3207c
+  RNQuickAction: dc9742cd5a114a5cd6b33b9eaba3e8302df874a2
+  RNSVG: 6252323c0312735f0af5f58b5adf2965b6a9ffbf
+  RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
+  RNViewShot: fdf9a64f0621ebc4e7c3392a10d2ffb70a7faee4
+  yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 0d26aa4d2ab6cd9efa2794ea14f0aefe8202a3aa
+PODFILE CHECKSUM: 65a083134c772bb52629336fca11a6e109068b70
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.5.2

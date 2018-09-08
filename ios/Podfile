@@ -38,6 +38,7 @@ target 'TWAQI' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Crash'
   pod 'Firebase/Performance'
+  pod 'Firebase/RemoteConfig'
 
   pod 'Fabric', '~> 1.7.5'
   pod 'Crashlytics', '~> 3.10.1'
