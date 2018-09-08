@@ -8,7 +8,6 @@ import DeviceInfo from 'react-native-device-info';
 import firebase from 'react-native-firebase';
 
 import AdCustom from './ad-custom';
-import ErrorBoundary from './error-boundary';
 
 import { config } from '../config';
 
@@ -89,23 +88,21 @@ export default class Admob extends Component {
           justifyContent: 'flex-end',
         }}
       >
-        <ErrorBoundary>
-          <Banner
-            size={this.props.bannerSize}
-            unitId={this.props.unitId && config.admob[this.props.unitId]}
-            request={request.build()}
-            onAdLoaded={() => {
-              console.log('Ads received');
-              setTimeout(() => {
-                this.setState({ isReceived: true });
-              }, 1000);
-            }}
-            onAdFailedToLoad={(error) => {
-              console.log('Ads error', error);
-              this.setState({ isReceivedFailed: true });
-            }}
-          />
-        </ErrorBoundary>
+        <Banner
+          size={this.props.bannerSize}
+          unitId={this.props.unitId && config.admob[this.props.unitId]}
+          request={request.build()}
+          onAdLoaded={() => {
+            console.log('Ads received');
+            setTimeout(() => {
+              this.setState({ isReceived: true });
+            }, 1000);
+          }}
+          onAdFailedToLoad={(error) => {
+            console.log('Ads error', error);
+            this.setState({ isReceivedFailed: true });
+          }}
+        />
       </View>
     );
   }
