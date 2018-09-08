@@ -8,10 +8,10 @@ import {
   View,
 } from 'react-native';
 
-import firebase from 'react-native-firebase';
 import SafariView from 'react-native-safari-view';
 
 import tracker from '../utils/tracker';
+import { getAd } from '../utils/firebase-config';
 
 export default class AdCustom extends Component {
   static propTypes = {
@@ -34,35 +34,21 @@ export default class AdCustom extends Component {
     destinationUrl: '',
   };
 
-  componentDidMount() {
-    firebase.config().fetch(60) // cache for 60 seconds
-      .then(() => firebase.config().activateFetched())
-      .then(() => firebase.config().getKeysByPrefix(`ad_custom_${this.props.client}_`))
-      .then(arr => firebase.config().getValues(arr))
-      .then((objects) => {
-        const data = {};
-        // Retrieve values
-        Object.keys(objects).forEach((key) => {
-          data[key] = objects[key].val();
-        });
+  async componentDidMount() {
+    const ad = await getAd(this.props.client);
+    if (ad.impressionRate > 0) {
+      this.setState({
+        isReceived: true,
+        imageUrl: ad.imageUrl,
+        destinationUrl: ad.destinationUrl,
+      });
+    }
 
-        console.log('firebase config values', data);
-        if (data[`ad_custom_${this.props.client}_impression_rate`] > 0) {
-          this.setState({
-            isReceived: true,
-            imageUrl: data[`ad_custom_${this.props.client}_image_url`],
-            destinationUrl: data[`ad_custom_${this.props.client}_destination_url`],
-          });
-        }
-      })
-      .then(() => {
-        tracker.logEvent(`ad-custom-${this.props.client}-impression`, {
-          client: this.props.client,
-          url: this.state.imageUrl,
-          destinationUrl: this.state.destinationUrl,
-        });
-      })
-      .catch(console.error);
+    tracker.logEvent(`ad-custom-${this.props.client}-impression`, {
+      client: this.props.client,
+      url: ad.imageUrl,
+      destinationUrl: ad.destinationUrl,
+    });
   }
 
   onOpenAd = (url) => {

@@ -57,8 +57,10 @@ export default class Admob extends Component {
 
   componentDidMount() {
     this.setIsReceivedFailedTimeout = setTimeout(() => {
-      this.setState({ isReceivedFailed: true });
-    }, 15 * 1000);
+      if (!this.state.isReceived) {
+        this.setState({ isReceivedFailed: true });
+      }
+    }, 30 * 1000);
   }
 
   componentWillUnmount() {
