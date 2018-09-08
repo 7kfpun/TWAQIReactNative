@@ -4,8 +4,9 @@ import {
   // YellowBox,
 } from 'react-native';
 
-import { StackNavigator, TabNavigator } from 'react-navigation';
 import { iOSColors } from 'react-native-typography';
+import { StackNavigator, TabNavigator } from 'react-navigation';
+import firebase from 'react-native-firebase';
 import QuickActions from 'react-native-quick-actions';
 
 import Main from './app/views/main';
@@ -21,6 +22,10 @@ import tracker from './app/utils/tracker';
 
 if (!__DEV__) {
   console.log = () => {};
+}
+
+if (__DEV__) {
+  firebase.config().enableDeveloperMode();
 }
 
 QuickActions.setShortcutItems([{

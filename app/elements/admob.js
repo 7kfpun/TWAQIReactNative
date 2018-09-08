@@ -7,6 +7,7 @@ import {
 import DeviceInfo from 'react-native-device-info';
 import firebase from 'react-native-firebase';
 
+import AdCustom from './ad-custom';
 import ErrorBoundary from './error-boundary';
 
 import { config } from '../config';
@@ -54,9 +55,19 @@ export default class Admob extends Component {
     isReceivedFailed: false,
   };
 
+  componentDidMount() {
+    this.setIsReceivedFailedTimeout = setTimeout(() => {
+      this.setState({ isReceivedFailed: true });
+    }, 15 * 1000);
+  }
+
+  componentWillUnmount() {
+    if (this.setIsReceivedFailedTimeout) clearTimeout(this.setIsReceivedFailedTimeout);
+  }
+
   render() {
     if (this.state.isReceivedFailed) {
-      return null;
+      return <AdCustom />;
     }
 
     let height = 50;
