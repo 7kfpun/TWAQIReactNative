@@ -42,13 +42,13 @@ export default class AdCustom extends Component {
         imageUrl: ad.imageUrl,
         destinationUrl: ad.destinationUrl,
       });
-    }
 
-    tracker.logEvent(`ad-custom-${this.props.client}-impression`, {
-      client: this.props.client,
-      url: ad.imageUrl,
-      destinationUrl: ad.destinationUrl,
-    });
+      tracker.logEvent(`ad-custom-${this.props.client}-impression`, {
+        client: this.props.client,
+        url: ad.imageUrl,
+        destinationUrl: ad.destinationUrl,
+      });
+    }
   }
 
   onOpenAd = (url) => {

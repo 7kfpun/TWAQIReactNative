@@ -10,6 +10,7 @@ import firebase from 'react-native-firebase';
 import AdCustom from './ad-custom';
 
 import { config } from '../config';
+import { getAd } from '../utils/firebase-config';
 
 const { AdRequest, Banner } = firebase.admob;
 const request = new AdRequest();
@@ -52,23 +53,51 @@ export default class Admob extends Component {
   state = {
     isReceived: false,
     isReceivedFailed: false,
+    isShowAdCustom: false,
   };
 
   componentDidMount() {
     this.setIsReceivedFailedTimeout = setTimeout(() => {
-      if (!this.state.isReceived) {
+      if (!this.state.isReceived && !this.state.isShowAdCustom) {
         this.setState({ isReceivedFailed: true });
       }
     }, 30 * 1000);
+
+    this.checkShinbaAd();
+    this.checkShinbaAdInterval = setInterval(() => {
+      this.checkShinbaAd();
+    }, 60 * 1000);
   }
 
   componentWillUnmount() {
     if (this.setIsReceivedFailedTimeout) clearTimeout(this.setIsReceivedFailedTimeout);
+    if (this.checkShinbaAdInterval) clearInterval(this.checkShinbaAdInterval);
+  }
+
+  async checkShinbaAd() {
+    const ad = await getAd('shinba');
+    const isShowAdCustom = ad.impressionRate > Math.random();
+    console.log('isShowAdCustom', isShowAdCustom);
+
+    if (isShowAdCustom && ad.impressionRate > 0) {
+      this.setState({
+        isShowAdCustom: true,
+        key: Math.random(),
+      });
+    } else {
+      this.setState({
+        isShowAdCustom: false,
+      });
+    }
   }
 
   render() {
     if (this.state.isReceivedFailed) {
       return <AdCustom />;
+    }
+
+    if (this.state.isShowAdCustom) {
+      return <AdCustom client="shinba" />;
     }
 
     let height = 50;
@@ -89,6 +118,7 @@ export default class Admob extends Component {
         }}
       >
         <Banner
+          key={this.state.key}
           size={this.props.bannerSize}
           unitId={this.props.unitId && config.admob[this.props.unitId]}
           request={request.build()}
