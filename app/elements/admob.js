@@ -61,7 +61,7 @@ export default class Admob extends Component {
       if (!this.state.isReceived && !this.state.isShowAdCustom) {
         this.setState({ isReceivedFailed: true });
       }
-    }, 30 * 1000);
+    }, 60 * 1000);
 
     this.checkShinbaAd();
     this.checkShinbaAdInterval = setInterval(() => {

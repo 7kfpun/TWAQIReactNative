@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Linking,
   Platform,
   StyleSheet,
   Text,
@@ -10,12 +9,12 @@ import {
 import * as Animatable from 'react-native-animatable';
 import * as StoreReview from 'react-native-store-review';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import SafariView from 'react-native-safari-view';
 import StarRating from 'react-native-star-rating';
 import store from 'react-native-simple-store';
 
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
+import { openURL } from '../utils/helpers';
 
 import { config } from '../config';
 
@@ -61,12 +60,7 @@ const styles = StyleSheet.create({
 export default class Rating extends Component {
   static openFeedbackUrl() {
     const url = I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en;
-    SafariView.isAvailable()
-      .then(SafariView.show({ url }))
-      .catch((error) => {
-        console.log(error);
-        Linking.openURL(url);
-      });
+    openURL(url);
   }
 
   state = {
@@ -102,10 +96,10 @@ export default class Rating extends Component {
         StoreReview.requestReview();
         type = 'inapp-store-review';
       } else if (Platform.OS === 'ios') {
-        Linking.openURL(config.appStore);
+        openURL(config.appStore);
         type = 'apple-store';
       } else if (Platform.OS === 'android') {
-        Linking.openURL(config.googlePlay);
+        openURL(config.googlePlay);
         type = 'google-play';
       }
     }

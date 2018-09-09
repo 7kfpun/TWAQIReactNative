@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Linking,
   Platform,
   ScrollView,
   StyleSheet,
@@ -11,7 +10,6 @@ import {
 } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import SafariView from 'react-native-safari-view';
 
 import AdMob from '../elements/admob';
 
@@ -152,16 +150,7 @@ export default class HelpView extends Component {
 
   static openFeedbackUrl() {
     const url = I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en;
-    if (Platform.OS === 'ios') {
-      SafariView.isAvailable()
-        .then(SafariView.show({ url }))
-        .catch((error) => {
-          console.log(error);
-          Linking.openURL(url);
-        });
-    } else {
-      Linking.openURL(url);
-    }
+    openURL(url);
   }
 
   render() {

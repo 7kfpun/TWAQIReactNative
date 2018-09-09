@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Image,
-  Linking,
-  Platform,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
-import SafariView from 'react-native-safari-view';
-
-import tracker from '../utils/tracker';
 import { getAd } from '../utils/firebase-config';
+import { openURL } from '../utils/helpers';
+import tracker from '../utils/tracker';
 
 export default class AdCustom extends Component {
   static propTypes = {
@@ -35,7 +32,9 @@ export default class AdCustom extends Component {
   };
 
   async componentDidMount() {
-    const ad = await getAd(this.props.client);
+    const { client } = this.props;
+
+    const ad = await getAd(client);
     if (ad.impressionRate > 0) {
       this.setState({
         isReceived: true,
@@ -43,8 +42,8 @@ export default class AdCustom extends Component {
         destinationUrl: ad.destinationUrl,
       });
 
-      tracker.logEvent(`ad-custom-${this.props.client}-impression`, {
-        client: this.props.client,
+      tracker.logEvent(`ad-custom-${client}-impression`, {
+        client,
         url: ad.imageUrl,
         destinationUrl: ad.destinationUrl,
       });
@@ -52,44 +51,40 @@ export default class AdCustom extends Component {
   }
 
   onOpenAd = (url) => {
-    if (Platform.OS === 'ios') {
-      SafariView.isAvailable()
-        .then(SafariView.show({ url }))
-        .catch((error) => {
-          console.log(error);
-          Linking.openURL(url);
-        });
-    } else {
-      Linking.openURL(url);
-    }
-    tracker.logEvent(`ad-custom-${this.props.client}-click`, {
+    const { client } = this.props;
+    openURL(url);
+
+    tracker.logEvent(`ad-custom-${client}-click`, {
       url,
-      client: this.props.client,
+      client,
     });
   }
 
   render() {
-    if (!this.state.isReceived) {
+    const { margin, backgroundColor, alignItems } = this.props;
+    const { isReceived, destinationUrl, imageUrl } = this.state;
+
+    if (!isReceived) {
       return null;
     }
 
     return (
       <TouchableWithoutFeedback
-        onPress={() => this.onOpenAd(this.state.destinationUrl)}
+        onPress={() => this.onOpenAd(destinationUrl)}
       >
         <View
           style={{
             height: 50,
-            margin: this.props.margin,
-            backgroundColor: this.props.backgroundColor,
-            alignItems: this.props.alignItems,
+            margin,
+            backgroundColor,
+            alignItems,
             justifyContent: 'flex-end',
           }}
         >
           <Image
             style={{ width: 320, height: 50 }}
             source={{
-              uri: this.state.imageUrl,
+              uri: imageUrl,
             }}
           />
         </View>

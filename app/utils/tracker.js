@@ -86,6 +86,7 @@ const tracker = {
         console.log('IP address', ip);
         context.ip = ip;
       }
+      console.log('identify', userId, context);
       analytics.identify({ userId, context });
       firebase.analytics().setUserId(userId);
       firebase.analytics().setUserProperties(firebaseContext);
@@ -99,7 +100,7 @@ const tracker = {
         properties,
         context,
       };
-      console.log(message);
+      console.log('logEvent', message);
       analytics.track(message);
       firebase.analytics().logEvent(event.replace(/-/g, '_'), properties);
       Answers.logCustom(event, properties);
@@ -113,7 +114,7 @@ const tracker = {
         properties,
         context,
       };
-      console.log(message);
+      console.log('view', message);
       analytics.screen(message);
       firebase.analytics().setCurrentScreen(screen, screen);
       Answers.logContentView(screen, '', '', properties);
