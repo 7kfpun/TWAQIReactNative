@@ -45,7 +45,7 @@ export default class Admob extends Component {
   static defaultProps = {
     margin: 0,
     unitId: null,
-    bannerSize: 'SMART_BANNER',
+    bannerSize: 'BANNER',
     backgroundColor: 'rgba(0,0,0,0)',
     alignItems: 'center',
   }
@@ -100,11 +100,13 @@ export default class Admob extends Component {
       return <AdCustom client="shinba" />;
     }
 
+    let { bannerSize } = this.props;
     let height = 50;
-    if (this.props.bannerSize === 'LARGE_BANNER') {
+    if (bannerSize === 'LARGE_BANNER') {
       height = 100;
     } else if (DeviceInfo.isTablet()) {
       height = 90;
+      bannerSize = 'SMART_BANNER';
     }
 
     return (
@@ -119,7 +121,7 @@ export default class Admob extends Component {
       >
         <Banner
           key={this.state.key}
-          size={this.props.bannerSize}
+          size={bannerSize}
           unitId={this.props.unitId && config.admob[this.props.unitId]}
           request={request.build()}
           onAdLoaded={() => {

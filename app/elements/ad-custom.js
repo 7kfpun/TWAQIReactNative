@@ -27,36 +27,37 @@ export default class AdCustom extends Component {
 
   state = {
     isReceived: false,
-    imageUrl: '',
     destinationUrl: '',
+    imageUrl: '',
   };
 
   async componentDidMount() {
     const { client } = this.props;
 
     const ad = await getAd(client);
-    if (ad.impressionRate > 0) {
+    if (ad.impressionRate > 0 && ad.destinationUrl && ad.imageUrl) {
       this.setState({
         isReceived: true,
-        imageUrl: ad.imageUrl,
         destinationUrl: ad.destinationUrl,
+        imageUrl: ad.imageUrl,
       });
 
       tracker.logEvent(`ad-custom-${client}-impression`, {
         client,
-        url: ad.imageUrl,
         destinationUrl: ad.destinationUrl,
+        imageUrl: ad.imageUrl,
       });
     }
   }
 
-  onOpenAd = (url) => {
+  onOpenAd = (imageUrl, destinationUrl) => {
     const { client } = this.props;
-    openURL(url);
+    openURL(destinationUrl);
 
     tracker.logEvent(`ad-custom-${client}-click`, {
-      url,
       client,
+      destinationUrl,
+      imageUrl,
     });
   }
 
@@ -70,7 +71,7 @@ export default class AdCustom extends Component {
 
     return (
       <TouchableWithoutFeedback
-        onPress={() => this.onOpenAd(destinationUrl)}
+        onPress={() => this.onOpenAd(imageUrl, destinationUrl)}
       >
         <View
           style={{
