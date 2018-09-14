@@ -20,9 +20,10 @@ import com.crashlytics.android.answers.Answers;
 
 import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
+import io.invertase.firebase.config.RNFirebaseRemoteConfigPackage;
 import io.invertase.firebase.crash.RNFirebaseCrashPackage;
-import io.invertase.firebase.perf.RNFirebasePerformancePackage;
 import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
+import io.invertase.firebase.perf.RNFirebasePerformancePackage;
 
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -47,9 +48,10 @@ public class MainApplication extends Application implements ReactApplication {
           new AppShortcutsPackage(),
           new RNFirebaseAdMobPackage(),
           new RNFirebaseAnalyticsPackage(),
+          new RNFirebaseCrashlyticsPackage(),
           new RNFirebaseCrashPackage(),
           new RNFirebasePerformancePackage(),
-          new RNFirebaseCrashlyticsPackage(),
+          new RNFirebaseRemoteConfigPackage(),
           new FabricPackage(),
           new MapsPackage(),
           new RNViewShotPackage(),

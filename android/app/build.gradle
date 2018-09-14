@@ -121,9 +121,9 @@ android {
     defaultConfig {
         applicationId "com.kfpun.twaqi"
         minSdkVersion 16
-        targetSdkVersion 23
-        versionCode 17
-        versionName "1.0.10"
+        targetSdkVersion 26
+        versionCode 20
+        versionName "1.0.12"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -205,6 +205,7 @@ dependencies {
     compile 'com.google.firebase:firebase-analytics:11.8.0'
     compile 'com.google.firebase:firebase-crash:11.8.0'
     compile 'com.google.firebase:firebase-perf:11.8.0'
+    compile 'com.google.firebase:firebase-config:11.8.0'
 
     compile project(':react-native-vector-icons')
     compile project(':react-native-i18n')
@@ -218,6 +219,10 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
         transitive = true;
     }
+
+    // For animated GIF support
+    compile 'com.facebook.fresco:fresco:1.9.0'
+    compile 'com.facebook.fresco:animated-gif:1.9.0'
 
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
