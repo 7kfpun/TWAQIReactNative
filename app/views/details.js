@@ -87,12 +87,6 @@ export default class DetailsView extends Component {
     }).isRequired,
   }
 
-  static navigationOptions = () => ({
-    header: null,
-    tabBarLabel: I18n.t('details'),
-    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-stats' : 'ios-stats-outline'} size={21} color={tintColor} />,
-  })
-
   state = {
     refreshing: true,
     realtimeWeatherData: {},
@@ -171,7 +165,7 @@ export default class DetailsView extends Component {
       <View style={styles.container}>
         <TouchableOpacity onPress={this.goBack} >
           <View style={styles.titleBlock}>
-            <Ionicons name="ios-arrow-back-outline" size={30} color="gray" />
+            <Ionicons name="ios-arrow-back" size={30} color="gray" />
             <Text style={styles.title}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
           </View>
         </TouchableOpacity>

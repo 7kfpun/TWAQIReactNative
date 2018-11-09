@@ -5,8 +5,8 @@ import {
 
 import SafariView from 'react-native-safari-view';
 
-const openURL = (url) => {
-  if (Platform.OS === 'ios') {
+const openURL = (url, isInApp = 1) => {
+  if (Platform.OS === 'ios' && isInApp) {
     SafariView.isAvailable()
       .then(SafariView.show({ url }))
       .catch((error) => {

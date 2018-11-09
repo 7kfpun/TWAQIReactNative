@@ -61,12 +61,6 @@ export default class HelpView extends Component {
     }).isRequired,
   }
 
-  static navigationOptions = {
-    header: null,
-    tabBarLabel: I18n.t('help_tab'),
-    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-help-circle' : 'ios-help-circle-outline'} size={21} color={tintColor} />,
-  };
-
   render() {
     const {
       navigation,
@@ -77,7 +71,7 @@ export default class HelpView extends Component {
         <View style={styles.titleBlock}>
           <Text style={styles.title}>{I18n.t('help_tab')}</Text>
           <TouchableOpacity onPress={() => openURL(I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en)}>
-            <Ionicons name="ios-mail-outline" size={30} color={iOSColors.gray} />
+            <Ionicons name="ios-mail" size={30} color={iOSColors.gray} />
           </TouchableOpacity>
         </View>
         <ScrollView>

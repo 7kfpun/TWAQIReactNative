@@ -18,9 +18,10 @@ const getAd = (client) => {
         impressionRate: data[`ad_custom_${client}_impression_rate`],
         imageUrl: data[`ad_custom_${client}_image_url`],
         destinationUrl: data[`ad_custom_${client}_destination_url`],
+        isInApp: data[`ad_custom_${client}_is_in_app`],
       };
     })
-    .catch(console.error);
+    .catch(console.warn);
 };
 
 exports.getAd = getAd;

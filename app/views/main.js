@@ -169,12 +169,6 @@ export default class MainView extends Component {
     }).isRequired,
   }
 
-  static navigationOptions = {
-    header: null,
-    tabBarLabel: I18n.t('main'),
-    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={20} color={tintColor} />,
-  };
-
   static isOutOfBound(latitude, longitude) {
     const distance = ((latitude - LATITUDE) * (latitude - LATITUDE)) + ((longitude - LONGITUDE) * (longitude - LONGITUDE));
     console.log('Distance', distance);
@@ -237,7 +231,7 @@ export default class MainView extends Component {
     console.log('isActive: ', data.notification.isAppInFocus);
     console.log('data: ', data);
     if (data.notification.payload.additionalData && data.notification.payload.additionalData.url === 'app://main') {
-      setTimeout(() => navigation.navigate('Home'), 2000);
+      setTimeout(() => navigation.navigate('Main'), 2000);
     } else if (data.notification.payload.additionalData && data.notification.payload.additionalData.url === 'app://forecast') {
       setTimeout(() => navigation.navigate('Forecast'), 2000);
     } else if (data.notification.payload.additionalData && data.notification.payload.additionalData.url === 'app://settings') {
@@ -263,7 +257,7 @@ export default class MainView extends Component {
     console.log('Quick action data.type', data.type);
     console.log('Quick action data.userInfo', data.userInfo);
     if (data.userInfo && data.userInfo.url === 'app://main') {
-      setTimeout(() => navigation.navigate('Home'), 2000);
+      setTimeout(() => navigation.navigate('Main'), 2000);
     } else if (data.userInfo && data.userInfo.url === 'app://forecast') {
       setTimeout(() => navigation.navigate('Forecast'), 2000);
     }
@@ -480,7 +474,7 @@ export default class MainView extends Component {
         >
           <View style={styles.refreshContainerBody}>
             <Text style={styles.refreshContainerText}>{this.state.aqiResult && this.state.aqiResult['中山'] && this.state.aqiResult['中山'].PublishTime}</Text>
-            {!this.state.isLoading && <Ionicons name="ios-refresh-outline" style={{ marginLeft: 5 }} size={20} color="#616161" />}
+            {!this.state.isLoading && <Ionicons name="ios-refresh" style={{ marginLeft: 5 }} size={14} color="#616161" />}
             {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
           </View>
         </TouchableOpacity>
@@ -531,7 +525,7 @@ export default class MainView extends Component {
             });
           }}
         >
-          {this.state.isShareLoading ? <ActivityIndicator /> : <Ionicons name="ios-share-outline" size={28} color={iOSColors.black} />}
+          {this.state.isShareLoading ? <ActivityIndicator /> : <Ionicons name="ios-share" size={28} color={iOSColors.black} />}
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -544,7 +538,7 @@ export default class MainView extends Component {
             tracker.logEvent('move-to-default-location');
           }}
         >
-          <Ionicons name="ios-qr-scanner-outline" style={{ paddingTop: 2, paddingLeft: 1 }} size={28} color={iOSColors.black} />
+          <Ionicons name="ios-qr-scanner" style={{ paddingTop: 2, paddingLeft: 1 }} size={28} color={iOSColors.black} />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -588,7 +582,7 @@ export default class MainView extends Component {
             });
           }}
         >
-          <Ionicons name={this.state.isWindMode ? 'ios-leaf' : 'ios-leaf-outline'} style={{ marginLeft: 3 }} size={22} color={this.state.isWindMode ? iOSColors.tealBlue : iOSColors.black} />
+          <Ionicons name="ios-leaf" style={{ marginLeft: 3 }} size={22} color={this.state.isWindMode ? iOSColors.tealBlue : iOSColors.black} />
         </TouchableOpacity>
 
         <View>

@@ -136,7 +136,7 @@ export default class SettingsDND extends Component {
           <Switch
             onValueChange={value => this.setDND(value)}
             value={this.state.isDndEnabled}
-            tintColor="#EEEEEE"
+            trackColor="#EEEEEE"
           />
         </View>
 

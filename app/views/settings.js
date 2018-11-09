@@ -9,7 +9,6 @@ import {
 
 import { iOSColors } from 'react-native-typography';
 import Collapsible from 'react-native-collapsible';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import OneSignal from 'react-native-onesignal';
 import Search from 'react-native-search-box';
 
@@ -63,12 +62,6 @@ const styles = StyleSheet.create({
 
 
 export default class SettingsView extends Component {
-  static navigationOptions = {
-    header: null,
-    tabBarLabel: I18n.t('settings'),
-    tabBarIcon: ({ tintColor, focused }) => <Ionicons name={focused ? 'ios-notifications' : 'ios-notifications-outline'} size={21} color={tintColor} />,
-  };
-
   static requestPermissions() {
     if (Platform.OS === 'ios') {
       const permissions = {

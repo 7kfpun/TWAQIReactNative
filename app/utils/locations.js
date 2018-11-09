@@ -606,8 +606,8 @@ const locations = [
     County: '新北市',
     Township: '汐止區',
     SiteAddress: '新北市汐止區樟樹一路141巷2號',
-    TWD97Lon: '121.6423000000',
-    TWD97Lat: '25.0671310000',
+    TWD97Lon: '121.6405878',
+    TWD97Lat: '25.0658384',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=2&type=l',
   }, {

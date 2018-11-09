@@ -164,7 +164,7 @@ export default class HelpView extends Component {
       <View style={styles.container}>
         <TouchableOpacity onPress={() => goBack(null)} >
           <View style={styles.titleBlock}>
-            <Ionicons name="ios-arrow-back-outline" size={30} color="gray" />
+            <Ionicons name="ios-arrow-back" size={30} color="gray" />
             <Text style={styles.title}>{I18n.t('help_definition')}</Text>
             {/* <TouchableOpacity onPress={HelpView.openFeedbackUrl}>
               <Ionicons name="ios-mail-outline" size={30} color={iOSColors.gray} />

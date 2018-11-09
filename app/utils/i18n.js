@@ -6,6 +6,14 @@ I18n.translations = {
   en: {
     app_name: 'Taiwan AQI',
 
+    tab: {
+      main: 'Map',
+      history: 'List',
+      forecast: 'Forecast',
+      settings: 'Settings',
+      help: 'Help',
+    },
+
     main: 'Map',
     list: 'List',
     details: 'Details',
@@ -98,6 +106,14 @@ I18n.translations = {
   },
   zh: {
     app_name: '台灣空氣品質指標',
+
+    tab: {
+      main: '地圖',
+      history: '列表',
+      forecast: '預測',
+      settings: '通知設定',
+      help: '幫助',
+    },
 
     main: '地圖',
     list: '列表',
