@@ -1,6 +1,6 @@
 {
   "name": "react-native-onesignal",
-  "version": "3.1.2",
+  "version": "3.2.8",
   "summary": "React Native OneSignal Component",
   "homepage": "https://github.com/geektimecoil/react-native-onesignal",
   "license": "MIT",
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/geektimecoil/react-native-onesignal.git",
-    "tag": "v3.1.2"
+    "tag": "3.2.8"
   },
   "source_files": "ios/RCTOneSignal/*.{h,m}",
   "dependencies": {
@@ -20,7 +20,7 @@
 
     ],
     "OneSignal": [
-
+      "2.9.3"
     ]
   }
 }

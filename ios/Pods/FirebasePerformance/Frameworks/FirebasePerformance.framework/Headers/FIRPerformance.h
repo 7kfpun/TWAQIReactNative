@@ -4,6 +4,11 @@
 
 /** This class allows you to configure the Firebase Performance Reporting SDK. It also provides the
  *  interfaces to create timers and enable or disable automatic metrics capture.
+ *
+ * This SDK uses a Firebase Instance ID token to identify the app instance and periodically sends
+ * data to the Firebase backend. (see `[FIRInstanceID getIDWithHandler:]`).
+ * To stop the periodic sync, call `[FIRInstanceID deleteIDWithHandler:]` and
+ * either disable this SDK or set FIRPerformance.dataCollectionEnabled to NO.
  */
 NS_EXTENSION_UNAVAILABLE("FirebasePerformance does not support app extensions at this time.")
 NS_SWIFT_NAME(Performance)
@@ -19,9 +24,12 @@ NS_SWIFT_NAME(Performance)
 @property(nonatomic, assign, getter=isDataCollectionEnabled) BOOL dataCollectionEnabled;
 
 /**
- * Controls the instrumentation of the app to capture performance data. When this value is set to
- * NO, the app will not be instrumented to collect performance data (in scenarios like app_start,
- * networking monitoring). Default is YES.
+ * Controls the instrumentation of the app to capture performance data. Setting this value to NO has
+ * immediate effect only if it is done so before calling [FIRApp configure]. Otherwise it takes
+ * effect after the app starts again the next time.
+ *
+ * If set to NO, the app will not be instrumented to collect performance
+ * data (in scenarios like app_start, networking monitoring). Default is YES.
  *
  * This setting is persisted, and is applied on future invocations of your application. Once
  * explicitly set, it overrides any settings in your Info.plist.

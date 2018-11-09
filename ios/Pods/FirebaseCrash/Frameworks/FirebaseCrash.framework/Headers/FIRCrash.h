@@ -1,6 +1,16 @@
 #import "FIRCrashLog.h"
 
-FIR_SWIFT_NAME(Crash)
+/**
+ * This class allows you to configure the Firebase Crash SDK.
+ *
+ * This SDK uses a Firebase Instance ID token to identify the app instance and periodically sends
+ * data to the Firebase backend. (see `[FIRInstanceID getIDWithHandler:]`).
+ * To stop the periodic sync, call `[FIRInstanceID deleteIDWithHandler:]` and
+ * either disable this SDK or set FIRCrash.crashCollectionEnabled to NO.
+ */
+DEPRECATED_MSG_ATTRIBUTE
+    ("Use Crashlytics instead. https://firebase.google.com/docs/crashlytics/get-started")
+NS_SWIFT_NAME(Crash)
 @interface FIRCrash : NSObject
 
 /**
@@ -19,6 +29,8 @@ FIR_SWIFT_NAME(Crash)
  * you want to prompt the user before collecting crashes) set firebase_crash_enabled to false in
  * your application's Info.plist.
  */
-@property(nonatomic, assign, getter=isCrashCollectionEnabled) BOOL crashCollectionEnabled;
+@property(nonatomic, assign, getter=isCrashCollectionEnabled) BOOL crashCollectionEnabled
+    DEPRECATED_MSG_ATTRIBUTE
+        ("Use Crashlytics instead. https://firebase.google.com/docs/crashlytics/get-started");
 
 @end

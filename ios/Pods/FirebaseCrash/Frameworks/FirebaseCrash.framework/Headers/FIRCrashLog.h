@@ -1,15 +1,5 @@
 #import <Foundation/Foundation.h>
 
-// NS_SWIFT_NAME can only translate factory methods before the iOS 9.3 SDK.
-// Wrap it in our own macro if it's a non-compatible SDK.
-#ifndef FIR_SWIFT_NAME
-#ifdef __IPHONE_9_3
-#define FIR_SWIFT_NAME(X) NS_SWIFT_NAME(X)
-#else
-#define FIR_SWIFT_NAME(X)  // Intentionally blank.
-#endif  // #ifdef __IPHONE_9_3
-#endif  // #ifndef FIR_SWIFT_NAME
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -34,7 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 FOUNDATION_EXTERN NS_FORMAT_FUNCTION(1, 0)
 NS_SWIFT_UNAVAILABLE("Use `FirebaseCrashMessage(_:)` instead.")
-void FIRCrashLogv(NSString *format, va_list ap);
+void FIRCrashLogv(NSString *format, va_list ap)
+    DEPRECATED_MSG_ATTRIBUTE
+        ("Use Crashlytics instead. https://firebase.google.com/docs/crashlytics/get-started");
 
 /**
  * @abstract Logs a message to the Firebase Crash Reporter system.
@@ -60,6 +52,8 @@ void FIRCrashLogv(NSString *format, va_list ap);
  * @see FIRCrashLogv(format, ap)
  */
 FOUNDATION_STATIC_INLINE NS_FORMAT_FUNCTION(1, 2)
+DEPRECATED_MSG_ATTRIBUTE
+    ("Use Crashlytics instead. https://firebase.google.com/docs/crashlytics/get-started")
 void FIRCrashLog(NSString *format, ...) {
   va_list ap;
 
@@ -90,7 +84,9 @@ void FIRCrashLog(NSString *format, ...) {
  * @param ap A variable argument list.
  */
 FOUNDATION_STATIC_INLINE NS_FORMAT_FUNCTION(1, 0)
-FIR_SWIFT_NAME(FirebaseCrashNSLogv(_:_:))
+DEPRECATED_MSG_ATTRIBUTE
+    ("Use Crashlytics instead. https://firebase.google.com/docs/crashlytics/get-started")
+NS_SWIFT_NAME(FirebaseCrashNSLogv(_:_:))
 void FIRCrashNSLogv(NSString *format, va_list ap) {
   va_list ap2;
 
@@ -125,6 +121,8 @@ void FIRCrashNSLogv(NSString *format, va_list ap) {
  * @see FIRCrashLogv(format, ap)
  */
 FOUNDATION_STATIC_INLINE NS_FORMAT_FUNCTION(1, 2)
+DEPRECATED_MSG_ATTRIBUTE
+    ("Use Crashlytics instead. https://firebase.google.com/docs/crashlytics/get-started")
 void FIRCrashNSLog(NSString *format, ...) {
   va_list ap;
 
@@ -158,7 +156,9 @@ void FIRCrashNSLog(NSString *format, ...) {
  *
  * @see FIRCrashLog(format, ...)
  */
-FOUNDATION_STATIC_INLINE FIR_SWIFT_NAME(FirebaseCrashMessage(_:))
+FOUNDATION_STATIC_INLINE NS_SWIFT_NAME(FirebaseCrashMessage(_:))
+DEPRECATED_MSG_ATTRIBUTE
+    ("Use Crashlytics instead. https://firebase.google.com/docs/crashlytics/get-started")
 void FIRCrashMessage(NSString *message) {
   FIRCrashLog(@"%@", message);
 }

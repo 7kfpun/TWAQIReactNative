@@ -17,7 +17,7 @@ target 'TWAQI' do
   #React Pods
   pod 'React', :path => react_path, :subspecs => [
     'Core',
-    'CxxBridge',
+    # 'CxxBridge',
     'DevSupport',
     'RCTActionSheet',
     'RCTAnimation',
@@ -39,29 +39,26 @@ target 'TWAQI' do
   pod 'Firebase/Crash'
   pod 'Firebase/Performance'
   pod 'Firebase/RemoteConfig'
+  pod 'Firebase/Messaging'
 
-  pod 'Fabric', '~> 1.7.5'
-  pod 'Crashlytics', '~> 3.10.1'
+  pod 'GoogleMaps'
+  # pod 'Google-Maps-iOS-Utils'
 
-  pod 'GoogleMaps', '~> 2.5.0'
-  pod 'GoogleMobileAdsMediationFacebook'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
-  # Third party deps
-  pod 'DoubleConversion', :podspec => react_path + '/third-party-podspecs/DoubleConversion.podspec'
-  # pod 'GLog', :podspec => react_path + '/third-party-podspecs/GLog.podspec'
-  # pod 'Folly', :podspec => react_path + '/third-party-podspecs/Folly.podspec'
-
-  pod 'react-native-google-maps', path: '../node_modules/react-native-maps'
+  # pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
-  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
+  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal/react-native-onesignal.podspec', :inhibit_warnings => true
   pod 'react-native-safari-view', :path => '../node_modules/react-native-safari-view'
   pod 'ReactNativeFabric', :path => '../node_modules/react-native-fabric'
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
   pod 'RNI18n', :path => '../node_modules/react-native-i18n'
   pod 'RNQuickAction', :path => '../node_modules/react-native-quick-actions'
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'RNViewShot', :path => '../node_modules/react-native-view-shot'
-
 end
 
 post_install do |installer|

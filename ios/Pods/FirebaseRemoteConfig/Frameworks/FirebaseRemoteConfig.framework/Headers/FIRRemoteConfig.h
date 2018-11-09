@@ -84,7 +84,7 @@ NS_SWIFT_NAME(RemoteConfigSettings)
 /// Initializes FIRRemoteConfigSettings, which is used to set properties for custom settings. To
 /// make custom settings take effect, pass the FIRRemoteConfigSettings instance to the
 /// configSettings property of FIRRemoteConfig.
-- (nullable FIRRemoteConfigSettings *)initWithDeveloperModeEnabled:(BOOL)developerModeEnabled
+- (nonnull FIRRemoteConfigSettings *)initWithDeveloperModeEnabled:(BOOL)developerModeEnabled
     NS_DESIGNATED_INITIALIZER;
 @end
 
@@ -116,11 +116,25 @@ NS_SWIFT_NAME(RemoteConfig)
 #pragma mark - Fetch
 /// Fetches Remote Config data with a callback. Call activateFetched to make fetched data available
 /// to your app.
+///
+/// Note: This method uses a Firebase Instance ID token to identify the app instance, and once it's
+/// called, it periodically sends data to the Firebase backend. (see
+/// `[FIRInstanceID getIDWithHandler:]`).
+/// To stop the periodic sync, developers need to call `[FIRInstanceID deleteIDWithHandler:]` and
+/// avoid calling this method again.
+///
 /// @param completionHandler Fetch operation callback.
 - (void)fetchWithCompletionHandler:(nullable FIRRemoteConfigFetchCompletion)completionHandler;
 
 /// Fetches Remote Config data and sets a duration that specifies how long config data lasts.
 /// Call activateFetched to make fetched data available to your app.
+///
+/// Note: This method uses a Firebase Instance ID token to identify the app instance, and once it's
+/// called, it periodically sends data to the Firebase backend. (see
+/// `[FIRInstanceID getIDWithHandler:]`).
+/// To stop the periodic sync, developers need to call `[FIRInstanceID deleteIDWithHandler:]` and
+/// avoid calling this method again.
+///
 /// @param expirationDuration  Duration that defines how long fetched config data is available, in
 ///                            seconds. When the config data expires, a new fetch is required.
 /// @param completionHandler   Fetch operation callback.

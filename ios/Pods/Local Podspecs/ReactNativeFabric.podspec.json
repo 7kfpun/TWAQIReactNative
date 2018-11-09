@@ -1,6 +1,6 @@
 {
   "name": "ReactNativeFabric",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "summary": "A React Native library for Fabric, Crashlytics and Answers",
   "description": "A React Native library for Fabric, Crashlytics and Answers",
   "homepage": "https://github.com/corymsmith/react-native-fabric",
@@ -11,10 +11,10 @@
   },
   "source": {
     "git": "https://github.com/corymsmith/react-native-fabric.git",
-    "tag": "v0.5.1"
+    "tag": "v0.5.2"
   },
   "platforms": {
-    "ios": "8.0",
+    "ios": "9.0",
     "tvos": "9.0"
   },
   "dependencies": {

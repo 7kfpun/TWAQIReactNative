@@ -1,6 +1,6 @@
 {
   "name": "RNViewShot",
-  "version": "2.3.0",
+  "version": "2.5.0",
   "summary": "Capture a React Native view to an image",
   "homepage": "https://github.com/gre/react-native-view-shot",
   "license": "MIT",
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/gre/react-native-view-shot.git",
-    "tag": "v2.3.0"
+    "tag": "v2.5.0"
   },
   "source_files": "ios/*.{h,m}",
   "preserve_paths": "**/*.js",
