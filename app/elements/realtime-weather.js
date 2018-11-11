@@ -64,7 +64,7 @@ export default class RealtimeWeather extends Component {
 
   render() {
     const weatherIconMapping = {
-      '01': (moment().format('H') >= 6 || moment().format('H') < 18) ? 'ios-sunny' : 'ios-moon',
+      '01': moment().format('H') >= 6 && moment().format('H') < 18 ? 'ios-sunny' : 'ios-moon',
       '02': 'ios-cloud-outline',
       '03': 'ios-cloud',
       26: 'ios-rainy',
@@ -83,7 +83,7 @@ export default class RealtimeWeather extends Component {
           {realtimeWeatherData.Temp && <Text style={styles.text}>{`${realtimeWeatherData.Temp}℃`}</Text>}
           {realtimeWeatherData.WeatherIcon
             && weatherIconMapping[realtimeWeatherData.WeatherIcon]
-            && <Ionicons name={weatherIconMapping[realtimeWeatherData.WeatherIcon]} style={{ marginLeft: 4 }} size={36} color="black" />}
+            && <Ionicons name={weatherIconMapping[realtimeWeatherData.WeatherIcon]} style={{ marginLeft: 4 }} size={32} color="black" />}
         </View>
 
         <View style={styles.details}>

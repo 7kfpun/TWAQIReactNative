@@ -47,7 +47,7 @@ export default class AdCustom extends Component {
         client,
         destinationUrl: ad.destinationUrl,
         imageUrl: ad.imageUrl,
-        isInApp: ad.isInApp,
+        isInApp: ad.isInApp ? 'true' : 'false',
       });
     }
   }
@@ -60,7 +60,7 @@ export default class AdCustom extends Component {
       client,
       destinationUrl,
       imageUrl,
-      isInApp,
+      isInApp: isInApp ? 'true' : 'false',
     });
   }
 

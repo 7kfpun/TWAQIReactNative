@@ -64,10 +64,7 @@ export default class AirMarker extends React.PureComponent {
     let status;
     let fontColor = 'white';
 
-    if (['ND', '-', '/*', '-*', '-/-'].includes(amount) || amount < '0' || !amount) {
-      showAmount = '-';
-      color = '#009866';
-    } else {
+    if (!(['ND', '-', '/*', '-*', '-/-'].includes(amount) || amount <= 0 || !amount)) {
       showAmount = amount;
 
       const isMatched = indexRanges[index].filter(item => amount >= item.min && amount <= item.max);
