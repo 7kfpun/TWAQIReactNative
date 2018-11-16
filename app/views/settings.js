@@ -138,7 +138,7 @@ export default class SettingsView extends Component {
 
   async loadEnabledItems() {
     const tags = await OneSignalGetTags();
-    this.setState({ tags });
+    this.setState({ tags, k: Math.random() });
 
     this.checkPermissions(tags);
     this.checkPermissionsInterval = setInterval(() => this.checkPermissions(tags), CHECK_INTERVAL);
@@ -192,12 +192,12 @@ export default class SettingsView extends Component {
 
           {!this.state.searchText &&
             <View>
-              <SettingsDND />
+              <SettingsDND key={this.state.k} tags={this.state.tags} />
               <FlatList
                 style={styles.list}
                 data={countys}
                 keyExtractor={(item, index) => `${index}-${item}`}
-                renderItem={({ item }) => <SettingsGroup groupName={item} />}
+                renderItem={({ item }) => <SettingsGroup key={this.state.k} groupName={item} tags={this.state.tags} />}
               />
             </View>}
         </SwipeScrollView>

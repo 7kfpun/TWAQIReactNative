@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Platform,
   StyleSheet,
@@ -13,7 +14,6 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import OneSignal from 'react-native-onesignal';
 
-import { OneSignalGetTags } from '../utils/onesignal';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -57,7 +57,11 @@ const convertFromTagToTime = value => moment(`${parseInt(value / 60, 10)} ${valu
 
 export default class SettingsDND extends Component {
   static propTypes = {
-    // groupName: PropTypes.string.isRequired,
+    tags: PropTypes.shape({}),
+  }
+
+  static defaultProps = {
+    tags: {},
   }
 
   state = {
@@ -94,8 +98,8 @@ export default class SettingsDND extends Component {
     });
   }
 
-  async loadDNDSettings() {
-    const tags = await OneSignalGetTags();
+  loadDNDSettings() {
+    const { tags } = this.props;
     if (tags) {
       this.setState({
         isDndEnabled: tags.isDndEnabled === 'true',

@@ -15,7 +15,6 @@ import SettingsItem from '../elements/settings-item';
 
 import { countyZh2En } from '../utils/county-mapping';
 import { locations } from '../utils/locations';
-import { OneSignalGetTags } from '../utils/onesignal';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
 
@@ -70,6 +69,11 @@ const styles = StyleSheet.create({
 export default class SettingsGroup extends Component {
   static propTypes = {
     groupName: PropTypes.string.isRequired,
+    tags: PropTypes.shape({}),
+  }
+
+  static defaultProps = {
+    tags: {},
   }
 
   state = {
@@ -87,8 +91,8 @@ export default class SettingsGroup extends Component {
     this.setState({ locations: locations.filter(item => item.County === this.props.groupName).sort() });
   }
 
-  async loadEnabledItems() {
-    const tags = await OneSignalGetTags();
+  loadEnabledItems() {
+    const { tags } = this.props;
     if (tags) {
       this.setState({
         tags,

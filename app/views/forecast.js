@@ -16,7 +16,6 @@ import * as Animatable from 'react-native-animatable';
 import Collapsible from 'react-native-collapsible';
 import firebase from 'react-native-firebase';
 import OneSignal from 'react-native-onesignal';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import moment from 'moment';

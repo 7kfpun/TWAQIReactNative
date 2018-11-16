@@ -24,8 +24,8 @@ const aqi = () => {
     .then(results => toObject(results))
     .catch((err) => {
       console.log('Request for aqi failed', err);
-      firebase.crash().log('Request for aqi failed');
-      firebase.crash().report(JSON.stringify(err));
+      // firebase.crash().log('Request for aqi failed');
+      // firebase.crash().report(JSON.stringify(err));
     });
 };
 
@@ -36,8 +36,8 @@ const aqfn = () => {
     .then(res => res.json())
     .catch((err) => {
       console.log('Request for forecast failed', err);
-      firebase.crash().log('Request for forecast failed');
-      firebase.crash().report(JSON.stringify(err));
+      // firebase.crash().log('Request for forecast failed');
+      // firebase.crash().report(JSON.stringify(err));
     });
 };
 
@@ -50,8 +50,8 @@ const history = (siteName) => {
     .then(res => res.json())
     .catch((err) => {
       console.log('Request for aqi history failed', err);
-      firebase.crash().log('Request for history failed');
-      firebase.crash().report(JSON.stringify(err));
+      // firebase.crash().log('Request for history failed');
+      // firebase.crash().report(JSON.stringify(err));
     });
 };
 
@@ -68,8 +68,8 @@ const realtimeWeather = (lat, lng) => {
     .then(res => res.json())
     .catch((err) => {
       console.log('Request for aqi realtimeWeather failed', err);
-      firebase.crash().log('Request for realtimeWeather failed');
-      firebase.crash().report(JSON.stringify(err));
+      // firebase.crash().log('Request for realtimeWeather failed');
+      // firebase.crash().report(JSON.stringify(err));
       return err;
     });
 };
