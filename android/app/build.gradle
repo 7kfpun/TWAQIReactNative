@@ -1,6 +1,10 @@
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
 buildscript {
   repositories {
-    maven { url 'https://maven.fabric.io/public' }
+    maven {
+        url 'https://maven.fabric.io/public'
+    }
   }
 
   dependencies {
@@ -14,6 +18,7 @@ buildscript {
 }
 
 apply plugin: "com.android.application"
+apply plugin: "com.google.firebase.firebase-perf"
 
 apply plugin: 'io.fabric'
 
@@ -115,22 +120,18 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.kfpun.twaqi"
-        minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 20
-        versionName "1.0.12"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 21
+        versionName "1.0.13"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-
-        manifestPlaceholders = [onesignal_app_id: ONESIGNAL_APP_ID,
-                                onesignal_google_project_number: ONESIGNAL_GOOGLE_PROJECT_NUMBER]
-
         multiDexEnabled true
     }
     splits {
@@ -172,61 +173,83 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-quick-actions')
-    compile project(':react-native-fabric')
-    compile project(':react-native-view-shot')
-    compile project(':react-native-svg')
-    compile (project(':react-native-onesignal')) {
-       exclude group: 'com.google.android.gms', module: 'play-services-base'
-       exclude group: 'com.google.android.gms', module: 'play-services-location'
-       exclude group: 'com.google.android.gms', module: 'play-services-ads'
-       exclude group: 'com.google.android.gms', module: 'play-services-base'
-       exclude group: 'com.google.android.gms', module: 'play-services-maps'
-       exclude group: 'com.google.android.gms', module: 'play-services-gcm'
-       exclude group: 'com.google.android.gms', module: 'play-services-analytics'
-       exclude group: 'com.google.android.gms', module: 'play-services-location'
+    implementation (project(':react-native-device-info')) {
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.android.gms', module: 'play-services-ads'
+        exclude group: 'com.google.android.gms', module: 'play-services-analytics'
+        exclude group: 'com.google.android.gms', module: 'play-services-gcm'
+        exclude group: 'com.google.android.gms', module: 'play-services-location'
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
     }
 
-    compile (project(':react-native-device-info')) {
-       exclude group: 'com.google.android.gms', module: 'play-services-gcm'
+    implementation project(':react-native-fabric')
+    implementation (project(':react-native-firebase')) {
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.android.gms', module: 'play-services-ads'
+        exclude group: 'com.google.android.gms', module: 'play-services-analytics'
+        exclude group: 'com.google.android.gms', module: 'play-services-gcm'
+        exclude group: 'com.google.android.gms', module: 'play-services-location'
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
+
+        exclude group: 'com.google.firebase', module: 'firebase-core'
+        exclude group: 'com.google.firebase', module: 'firebase-config'
+        exclude group: 'com.google.firebase', module: 'firebase-auth'
+        exclude group: 'com.google.firebase', module: 'firebase-database'
+        exclude group: 'com.google.firebase', module: 'firebase-storage'
+        exclude group: 'com.google.firebase', module: 'firebase-messaging'
+        exclude group: 'com.google.firebase', module: 'firebase-crash'
+        exclude group: 'com.google.firebase', module: 'firebase-perf'
+        exclude group: 'com.google.firebase', module: 'firebase-ads'
+        exclude group: 'com.google.firebase', module: 'firebase-firestore'
+        exclude group: 'com.google.firebase', module: 'firebase-invites'
     }
 
-    compile(project(':react-native-maps')){
-       exclude group: 'com.google.android.gms', module: 'play-services-base'
-       exclude group: 'com.google.android.gms', module: 'play-services-maps'
+    implementation project(':react-native-i18n')
+    implementation(project(':react-native-maps')) {
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
     }
 
-    compile 'com.google.android.gms:play-services-base:11.8.0'
-    compile 'com.google.android.gms:play-services-maps:11.8.0'
+    implementation (project(':react-native-onesignal')) {
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.android.gms', module: 'play-services-ads'
+        exclude group: 'com.google.android.gms', module: 'play-services-analytics'
+        exclude group: 'com.google.android.gms', module: 'play-services-gcm'
+        exclude group: 'com.google.android.gms', module: 'play-services-location'
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
+        exclude group: 'com.google.firebase', module: 'firebase-iid'
+    }
+    implementation project(':react-native-quick-actions')
+    implementation project(':react-native-svg')
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-view-shot')
 
     // Firebase dependencies
-    compile 'com.google.firebase:firebase-core:11.8.0'
-    compile 'com.google.firebase:firebase-ads:11.8.0'
-    compile 'com.google.firebase:firebase-analytics:11.8.0'
-    compile 'com.google.firebase:firebase-crash:11.8.0'
-    compile 'com.google.firebase:firebase-perf:11.8.0'
-    compile 'com.google.firebase:firebase-config:11.8.0'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-ads:16.0.1'
+    implementation 'com.google.firebase:firebase-perf:16.2.0'  // need multidex
+    implementation 'com.google.firebase:firebase-config:16.1.0'
+    // implementation 'com.google.firebase:firebase-messaging:17.3.4'  // need multidex
 
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-i18n')
-    compile(project(':react-native-firebase')) {
-        exclude group: 'com.google.android.gms', module: 'play-services-base'
-        transitive = false
-    }
-    compile('com.crashlytics.sdk.android:answers:1.4.1@aar') {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
         transitive = true;
     }
-    compile('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
-        transitive = true;
-    }
+
+    implementation 'com.google.android.gms:play-services-base:16.0.1'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    // implementation 'com.google.android.gms:play-services-stats:16.0.1'
+
+    implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
 
     // For animated GIF support
-    compile 'com.facebook.fresco:fresco:1.9.0'
-    compile 'com.facebook.fresco:animated-gif:1.9.0'
+    implementation 'com.facebook.fresco:fresco:1.9.0'
+    implementation 'com.facebook.fresco:animated-gif:1.9.0'
 
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:23.0.1"
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation 'com.android.support:multidex:1.0.3'
 }
 
 // Run this once to be able to run the application with BUCK

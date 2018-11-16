@@ -53,6 +53,7 @@ buck-out/
 */fastlane/screenshots
 
 # App
+index.android.bundle
 app/config.js
 android/app/google-services.json
 ios/GoogleService-Info.plist

@@ -2,29 +2,27 @@ package com.kfpun.twaqi;
 
 import android.app.Application;
 
-import com.facebook.react.ReactApplication;
-import com.reactNativeQuickActions.AppShortcutsPackage;
-import io.fabric.sdk.android.Fabric;
 import com.airbnb.android.react.maps.MapsPackage;
-import fr.greweb.reactnativeviewshot.RNViewShotPackage;
-import com.horcrux.svg.SvgPackage;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.Crashlytics;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
+import com.horcrux.svg.SvgPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
-import io.invertase.firebase.RNFirebasePackage;
-
+import com.reactNativeQuickActions.AppShortcutsPackage;
 import com.smixx.fabric.FabricPackage;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.answers.Answers;
-
+import fr.greweb.reactnativeviewshot.RNViewShotPackage;
+import io.fabric.sdk.android.Fabric;
 import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import io.invertase.firebase.config.RNFirebaseRemoteConfigPackage;
-import io.invertase.firebase.crash.RNFirebaseCrashPackage;
 import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.perf.RNFirebasePerformancePackage;
+import io.invertase.firebase.RNFirebasePackage;
 
+import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -46,21 +44,21 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
           new AppShortcutsPackage(),
+          new FabricPackage(),
+          new MapsPackage(),
+          new ReactNativeOneSignalPackage(),
+          new RNDeviceInfo(),
           new RNFirebaseAdMobPackage(),
           new RNFirebaseAnalyticsPackage(),
           new RNFirebaseCrashlyticsPackage(),
-          new RNFirebaseCrashPackage(),
+          new RNFirebaseMessagingPackage(),
+          new RNFirebasePackage(),
           new RNFirebasePerformancePackage(),
           new RNFirebaseRemoteConfigPackage(),
-          new FabricPackage(),
-          new MapsPackage(),
+          new RNI18nPackage(),
           new RNViewShotPackage(),
           new SvgPackage(),
-          new ReactNativeOneSignalPackage(),
-          new RNDeviceInfo(),
-          new VectorIconsPackage(),
-          new RNI18nPackage(),
-          new RNFirebasePackage()
+          new VectorIconsPackage()
       );
     }
 
