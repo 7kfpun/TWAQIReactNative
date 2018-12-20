@@ -203,13 +203,9 @@ export default class MainView extends Component {
 
     DeviceEventEmitter.addListener('quickActionShortcut', data => this.onQuickActionOpened(data));
 
-    if (Platform.OS === 'android') {
-      setTimeout(() => {
-        if (advert.isLoaded()) {
-          advert.show();
-        }
-      }, 3000);
-    }
+    // if (Platform.OS === 'android' && advert.isLoaded()) {
+    //   advert.show();
+    // }
   }
 
   componentWillUnmount() {
