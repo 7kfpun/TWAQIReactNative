@@ -102,6 +102,7 @@ export default class SettingsItem extends Component {
       TWD97Lat: PropTypes.string,
       SiteType: PropTypes.string,
     }).isRequired,
+    isNeedLoad: PropTypes.bool,
     increaseEnabledCount: PropTypes.func,
     descreaseEnabledCount: PropTypes.func,
   }
@@ -109,6 +110,7 @@ export default class SettingsItem extends Component {
   static defaultProps = {
     text: '',
     tags: {},
+    isNeedLoad: false,
     increaseEnabledCount: () => console.log(),
     descreaseEnabledCount: () => console.log(),
   }
@@ -176,7 +178,7 @@ export default class SettingsItem extends Component {
   }
 
   async loadEnabledItems() {
-    const { item, tags, text } = this.props;
+    const { item, tags, isNeedLoad } = this.props;
     if (tags) {
       this.setState({
         isEnabled: tags[item.SiteEngName] === 'true',
@@ -185,7 +187,7 @@ export default class SettingsItem extends Component {
       });
     }
 
-    if (text) {
+    if (isNeedLoad) {
       const onesignalTags = await OneSignalGetTags();
       if (onesignalTags) {
         this.setState({

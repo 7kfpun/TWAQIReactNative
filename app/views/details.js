@@ -190,7 +190,7 @@ export default class DetailsView extends Component {
             <SettingsItem
               text={I18n.t('notify_title')}
               item={item}
-              tags={this.state.tags || {}}
+              isNeedLoad
               increaseEnabledCount={this.increaseEnabledCount}
               descreaseEnabledCount={this.descreaseEnabledCount}
             />

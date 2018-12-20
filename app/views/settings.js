@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
 export default class SettingsView extends Component {
   static requestPermissions() {
     if (Platform.OS === 'ios') {
@@ -138,7 +137,9 @@ export default class SettingsView extends Component {
 
   async loadEnabledItems() {
     const tags = await OneSignalGetTags();
-    this.setState({ tags, k: Math.random() });
+    if (JSON.stringify(tags) !== JSON.stringify(this.state.tags)) {
+      this.setState({ tags, k: Math.random() });
+    }
 
     this.checkPermissions(tags);
     this.checkPermissionsInterval = setInterval(() => this.checkPermissions(tags), CHECK_INTERVAL);
@@ -177,6 +178,7 @@ export default class SettingsView extends Component {
           onScrollDown={() => this.setState({ collapsed: false })}
         >
           {!!this.state.searchText && <FlatList
+            key={this.state.k}
             style={styles.list}
             data={this.state.searchResult}
             keyExtractor={(item, index) => `${index}-${item}`}
@@ -191,13 +193,17 @@ export default class SettingsView extends Component {
           />}
 
           {!this.state.searchText &&
-            <View>
-              <SettingsDND key={this.state.k} tags={this.state.tags} />
+            <View key={this.state.k}>
+              <SettingsDND tags={this.state.tags} />
               <FlatList
                 style={styles.list}
                 data={countys}
                 keyExtractor={(item, index) => `${index}-${item}`}
-                renderItem={({ item }) => <SettingsGroup key={this.state.k} groupName={item} tags={this.state.tags} />}
+                renderItem={({ item }) => (<SettingsGroup
+                  groupName={item}
+                  tags={this.state.tags}
+                  onToggle={() => this.loadEnabledItems()}
+                />)}
               />
             </View>}
         </SwipeScrollView>

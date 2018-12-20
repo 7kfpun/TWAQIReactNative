@@ -70,10 +70,12 @@ export default class SettingsGroup extends Component {
   static propTypes = {
     groupName: PropTypes.string.isRequired,
     tags: PropTypes.shape({}),
+    onToggle: PropTypes.func,
   }
 
   static defaultProps = {
     tags: {},
+    onToggle: () => {},
   }
 
   state = {
@@ -83,7 +85,7 @@ export default class SettingsGroup extends Component {
   };
 
   componentDidMount() {
-    this.loadEnabledItems();
+    this.loadEnabledCount();
     this.prepareLocations();
   }
 
@@ -91,11 +93,10 @@ export default class SettingsGroup extends Component {
     this.setState({ locations: locations.filter(item => item.County === this.props.groupName).sort() });
   }
 
-  loadEnabledItems() {
+  loadEnabledCount() {
     const { tags } = this.props;
     if (tags) {
       this.setState({
-        tags,
         enabledCount: locations
           .filter(item => item.County === this.props.groupName)
           .filter(item => tags[item.SiteEngName] === 'true')
@@ -109,13 +110,14 @@ export default class SettingsGroup extends Component {
   descreaseEnabledCount = () => this.setState({ enabledCount: this.state.enabledCount - 1 })
 
   render() {
-    const { groupName } = this.props;
+    const { groupName, tags } = this.props;
 
     return (
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() => {
             this.setState({ isOpen: !this.state.isOpen });
+            this.props.onToggle();
             tracker.logEvent('toggle-settings-group', { label: groupName });
           }}
         >
@@ -136,7 +138,7 @@ export default class SettingsGroup extends Component {
           renderItem={({ item }) => (
             <SettingsItem
               item={item}
-              tags={this.state.tags || {}}
+              tags={tags}
               increaseEnabledCount={this.increaseEnabledCount}
               descreaseEnabledCount={this.descreaseEnabledCount}
             />
