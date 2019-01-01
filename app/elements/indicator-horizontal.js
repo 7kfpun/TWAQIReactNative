@@ -12,6 +12,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
+    backgroundColor: 'white',
+    padding: 10,
+    paddingTop: 15,
+    marginTop: 10,
   },
   item: {
     flex: 1,

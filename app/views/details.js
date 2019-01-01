@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Dimensions,
+  ImageBackground,
   Image,
   Platform,
   RefreshControl,
@@ -14,6 +15,7 @@ import {
 
 import moment from 'moment';
 
+import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -33,22 +35,36 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: iOSColors.customGray,
   },
-  titleBlock: {
+  titleContainer: {
+    // position: 'absolute',
+    // top: 0,
+    // left: 0,
+    // right: 0,
+  },
+  titleBody: {
     flexDirection: 'row',
     alignItems: 'center',
+    // justifyContent: 'space-between',
     paddingTop: Platform.OS === 'ios' ? 50 : 20,
     paddingHorizontal: 12,
-    marginBottom: 10,
+    paddingBottom: 5,
+    backgroundColor: iOSColors.white,
+    // backgroundColor: 'rgba(55,55,55,0.7)',
+  },
+  imageBackground: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 4,
   },
   block: {
     flexDirection: 'row',
-    marginLeft: 10,
-    paddingRight: 10,
+    paddingHorizontal: 10,
     paddingVertical: 20,
     borderBottomColor: '#EEEEEE',
     borderBottomWidth: 1,
+    backgroundColor: 'white',
   },
   currentBlock: {
     flex: 1,
@@ -57,9 +73,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     marginLeft: 10,
-    color: 'black',
+    // color: 'white',
   },
   text: {
     marginTop: 4,
@@ -151,6 +167,14 @@ export default class DetailsView extends Component {
   descreaseEnabledCount = () => console.log()
 
   render() {
+    const weatherIconMapping = {
+      '01': moment().format('H') >= 6 && moment().format('H') < 18 ? 'ios-sunny' : 'ios-moon',
+      '02': 'ios-cloud-outline',
+      '03': 'ios-cloud',
+      26: 'ios-rainy',
+      99: false,
+    };
+
     const {
       navigation: {
         state: {
@@ -161,15 +185,17 @@ export default class DetailsView extends Component {
       },
     } = this.props;
 
+    const { realtimeWeatherData } = this.state;
+
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={this.goBack} >
-          <View style={styles.titleBlock}>
-            <Ionicons name="ios-arrow-back" size={30} color="gray" />
+        <TouchableOpacity style={styles.titleContainer} onPress={this.goBack}>
+          <View style={styles.titleBody}>
+            <Ionicons name="ios-arrow-back" size={30} color="black" />
             <Text style={styles.title}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
+            <View />
           </View>
         </TouchableOpacity>
-
 
         <ScrollView
           refreshControl={
@@ -179,14 +205,25 @@ export default class DetailsView extends Component {
             />
           }
         >
-          {item.ImageUrl && <Image
-            style={{ width, height: this.state.ratio * width }}
-            source={{ uri: item.ImageUrl }}
-          />}
+          {item.ImageUrl &&
+            <ImageBackground
+              style={{ width, height: this.state.ratio * width, justifyContent: 'flex-end' }}
+              source={{ uri: item.ImageUrl }}
+            >
+              <View style={styles.imageBackground}>
+                <View>
+                  <Text style={{ color: 'white' }}>{`${realtimeWeatherData.Temp || '- '}℃`}</Text>
+                  {realtimeWeatherData.WeatherIcon
+                    && weatherIconMapping[realtimeWeatherData.WeatherIcon]
+                    && <Ionicons name={weatherIconMapping[realtimeWeatherData.WeatherIcon]} style={{ marginLeft: 4 }} size={32} color="black" />}
+                </View>
+                {I18n.isZh && <Text style={{ color: 'white' }}>{item.SiteAddress}</Text>}
+              </View>
+            </ImageBackground>}
 
-          <View style={{ padding: 10 }}>
-            <RealtimeWeather realtimeWeatherData={this.state.realtimeWeatherData} />
+          <RealtimeWeather realtimeWeatherData={realtimeWeatherData} />
 
+          <View style={{ padding: 10, backgroundColor: 'white' }}>
             <SettingsItem
               text={I18n.t('notify_title')}
               item={item}
@@ -194,13 +231,9 @@ export default class DetailsView extends Component {
               increaseEnabledCount={this.increaseEnabledCount}
               descreaseEnabledCount={this.descreaseEnabledCount}
             />
-
-            {I18n.isZh && <Text style={styles.addressText}>{item.SiteAddress}</Text>}
           </View>
 
-          <View style={{ padding: 10 }}>
-            <IndicatorHorizontal />
-          </View>
+          <IndicatorHorizontal />
 
           {!this.state.refreshing && this.state.result && indexTypes.map((indexType) => {
             const { length } = this.state.result;

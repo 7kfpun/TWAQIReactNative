@@ -25,6 +25,7 @@ import Marker from '../elements/marker';
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 6,
+    backgroundColor: 'white',
   },
   switchBlock: {
     flexDirection: 'row',

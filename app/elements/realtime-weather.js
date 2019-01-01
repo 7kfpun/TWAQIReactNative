@@ -6,15 +6,18 @@ import {
   View,
 } from 'react-native';
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { iOSColors } from 'react-native-typography';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import moment from 'moment';
+// import moment from 'moment';
 
 import I18n from '../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 15,
+    marginBottom: 10,
+    backgroundColor: iOSColors.white,
+    padding: 10,
   },
   row: {
     flexDirection: 'row',
@@ -30,7 +33,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     height: 50,
   },
   text: {
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   detailLabelText: {
-    fontSize: I18n.isZh ? 12 : 10,
+    fontSize: 10,
     fontWeight: '300',
     color: 'black',
     textAlign: 'center',
@@ -63,13 +66,13 @@ export default class RealtimeWeather extends Component {
   }
 
   render() {
-    const weatherIconMapping = {
-      '01': moment().format('H') >= 6 && moment().format('H') < 18 ? 'ios-sunny' : 'ios-moon',
-      '02': 'ios-cloud-outline',
-      '03': 'ios-cloud',
-      26: 'ios-rainy',
-      99: false,
-    };
+    // const weatherIconMapping = {
+    //   '01': moment().format('H') >= 6 && moment().format('H') < 18 ? 'ios-sunny' : 'ios-moon',
+    //   '02': 'ios-cloud-outline',
+    //   '03': 'ios-cloud',
+    //   26: 'ios-rainy',
+    //   99: false,
+    // };
 
     if (!this.props.realtimeWeatherData.Temp) {
       return null;
@@ -79,12 +82,12 @@ export default class RealtimeWeather extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.row}>
-          {realtimeWeatherData.Temp && <Text style={styles.text}>{`${realtimeWeatherData.Temp}℃`}</Text>}
+        {/* <View style={styles.row}>
+          {realtimeWeatherData.Temp && <Text style={styles.text}>{`${realtimeWeatherData.Temp || '- '}℃`}</Text>}
           {realtimeWeatherData.WeatherIcon
             && weatherIconMapping[realtimeWeatherData.WeatherIcon]
             && <Ionicons name={weatherIconMapping[realtimeWeatherData.WeatherIcon]} style={{ marginLeft: 4 }} size={32} color="black" />}
-        </View>
+        </View> */}
 
         <View style={styles.details}>
           <View style={styles.detailItem}>
