@@ -93,6 +93,12 @@ export default class ClosestStation extends Component {
     this.getRealtimeWeather(lat, long);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.lat !== this.props.lat || prevProps.long !== this.props.long) {
+      this.getRealtimeWeather(this.props.lat, this.props.long);
+    }
+  }
+
   getRealtimeWeather = (lat, long) => {
     realtimeWeather(lat, long).then((result) => {
       this.setState({ realtimeWeatherData: result });
