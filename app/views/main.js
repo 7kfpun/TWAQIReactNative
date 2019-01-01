@@ -190,6 +190,10 @@ export default class MainView extends Component {
       latitude: LATITUDE,
       longitude: LONGITUDE,
     },
+    centerLocation: {
+      latitude: LATITUDE,
+      longitude: LONGITUDE,
+    },
     selectedIndex: indexTypes[0].key,
     isLoading: false,
     gpsEnabled: false,
@@ -244,8 +248,10 @@ export default class MainView extends Component {
   }
 
   onRegionChangeComplete(region) {
-    console.log(region);
-    // this.setState({ region, selectedLocation: null });
+    console.log('onRegionChangeComplete', region);
+    this.setState({
+      centerLocation: region,
+    });
   }
 
   onQuickActionOpened(data) {
@@ -401,6 +407,7 @@ export default class MainView extends Component {
         latitude,
         longitude,
       },
+      centerLocation,
       aqiResult,
     } = this.state;
 
@@ -484,7 +491,7 @@ export default class MainView extends Component {
           </View> */}
         </TouchableOpacity>
 
-        <ClosestStation lat={latitude} long={longitude} aqiResult={aqiResult} />
+        <ClosestStation lat={centerLocation.latitude} long={centerLocation.longitude} aqiResult={aqiResult} />
 
         <Indicator />
 
