@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
   imageBackground: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 4,
+    paddingHorizontal: 10,
+    paddingBottom: 5,
   },
   block: {
     flexDirection: 'row',
@@ -220,6 +221,11 @@ export default class DetailsView extends Component {
                 {I18n.isZh && <Text style={{ color: 'white' }}>{item.SiteAddress}</Text>}
               </View>
             </ImageBackground>}
+
+          {!item.ImageUrl && I18n.isZh &&
+            <View style={{ padding: 10, backgroundColor: 'white' }}>
+              <Text style={styles.addressText}>{item.SiteAddress}</Text>
+            </View>}
 
           <RealtimeWeather realtimeWeatherData={realtimeWeatherData} />
 
