@@ -40,6 +40,7 @@ const indexRanges = {
   AQI: [{
     key: 0,
     status: I18n.t('status_good'),
+    image: require('../res/status_good.png'),
     color: '#009866',
     fontColor: 'white',
     min: 0,
@@ -47,6 +48,7 @@ const indexRanges = {
   }, {
     key: 1,
     status: I18n.t('status_moderate'),
+    image: require('../res/status_moderate.png'),
     color: '#FEDE33',
     fontColor: 'black',
     min: 51,
@@ -54,6 +56,7 @@ const indexRanges = {
   }, {
     key: 2,
     status: I18n.t('status_unhealthy_for_sensitive_groups'),
+    image: require('../res/status_unhealthy_for_sensitive_groups.png'),
     color: '#FE9833',
     fontColor: 'black',
     min: 101,
@@ -61,6 +64,7 @@ const indexRanges = {
   }, {
     key: 3,
     status: I18n.t('status_unhealthy'),
+    image: require('../res/status_unhealthy.png'),
     color: '#CC0033',
     fontColor: 'white',
     min: 151,
@@ -68,6 +72,7 @@ const indexRanges = {
   }, {
     key: 4,
     status: I18n.t('status_very_unhealthy'),
+    image: require('../res/status_very_unhealthy.png'),
     color: '#660098',
     fontColor: 'white',
     min: 201,
@@ -75,6 +80,7 @@ const indexRanges = {
   }, {
     key: 5,
     status: I18n.t('status_hazardous'),
+    image: require('../res/status_hazardous.png'),
     color: '#7E2200',
     fontColor: 'white',
     min: 301,
@@ -354,7 +360,7 @@ const getColor = (index, amount) => {
     return isMatched[0];
   }
 
-  return { color: '#212121', fontColor: 'white' };
+  return { color: 'gray', fontColor: 'white' };
 };
 
 exports.getColor = getColor;

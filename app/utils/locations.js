@@ -847,6 +847,24 @@ const locations = [
   },
 ];
 
-exports.countys = uniq(locations.sort(compare).map(item => item.County));
 
+const getClosestStation = (lat, long) => {
+  let distance = Number.POSITIVE_INFINITY;
+  let closestIndex = 40;
+
+  for (i = 0; i < locations.length; i += 1) {
+    const squarePlus = ((lat - locations[i].TWD97Lat) ** 2) + ((long - locations[i].TWD97Lon) ** 2);
+
+    if (squarePlus < distance) {
+      distance = Math.min(squarePlus, distance);
+      closestIndex = i;
+    }
+  }
+
+  return locations[closestIndex];
+};
+
+
+exports.getClosestStation = getClosestStation;
+exports.countys = uniq(locations.sort(compare).map(item => item.County));
 exports.locations = locations;

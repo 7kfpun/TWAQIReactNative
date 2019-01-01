@@ -27,6 +27,7 @@ import OneSignal from 'react-native-onesignal';
 import store from 'react-native-simple-store';
 
 import AdMob from '../elements/admob';
+import ClosestStation from '../elements/closest-station';
 import Indicator from '../elements/indicator';
 import Marker from '../elements/marker';
 import Rating from '../elements/rating';
@@ -395,6 +396,14 @@ export default class MainView extends Component {
   render() {
     const { navigation } = this.props;
 
+    const {
+      location: {
+        latitude,
+        longitude,
+      },
+      aqiResult,
+    } = this.state;
+
     return (
       <View style={styles.container}>
         <MapView
@@ -406,12 +415,12 @@ export default class MainView extends Component {
           onMapReady={this.loadMapContent}
           showsUserLocation={true}
         >
-          {this.state.aqiResult && locations
-            .filter(i => this.state.aqiResult[i.SiteName])
+          {aqiResult && locations
+            .filter(i => aqiResult[i.SiteName])
             .map((location) => {
               try {
                 if (this.state.isWindMode
-                  && !(this.state.aqiResult[location.SiteName].WindDirec && this.state.aqiResult[location.SiteName].WindSpeed)
+                  && !(aqiResult[location.SiteName].WindDirec && aqiResult[location.SiteName].WindSpeed)
                 ) {
                   return null;
                 }
@@ -428,27 +437,27 @@ export default class MainView extends Component {
                       navigation.navigate('MainDetails', { item: location });
                     }}
                     flat={this.state.isWindMode}
-                    // rotation={parseFloat(this.state.aqiResult[location.SiteName].WindDirec)}
+                    // rotation={parseFloat(aqiResult[location.SiteName].WindDirec)}
                   >
                     {this.state.isWindMode ?
                       <Ionicons
                         name="md-arrow-round-down"
                         style={{
-                          transform: [{ rotate: `${this.state.aqiResult[location.SiteName].WindDirec}deg` }],
-                          textShadowColor: getColor('AQI', this.state.aqiResult[location.SiteName].AQI).fontColor,
+                          transform: [{ rotate: `${aqiResult[location.SiteName].WindDirec}deg` }],
+                          textShadowColor: getColor('AQI', aqiResult[location.SiteName].AQI).fontColor,
                           textShadowOffset: {
                             width: 0.6,
                             height: 0.6,
                           },
                           textShadowRadius: 8,
                         }}
-                        size={this.state.aqiResult[location.SiteName].WindSpeed * 5}
-                        color={getColor(this.state.selectedIndex, this.state.aqiResult[location.SiteName][this.state.selectedIndex]).color}
+                        size={aqiResult[location.SiteName].WindSpeed * 5}
+                        color={getColor(this.state.selectedIndex, aqiResult[location.SiteName][this.state.selectedIndex]).color}
                       />
                       :
                       <Marker
                         SiteEngName={location.SiteEngName}
-                        amount={this.state.aqiResult[location.SiteName][this.state.selectedIndex]}
+                        amount={aqiResult[location.SiteName][this.state.selectedIndex]}
                         index={this.state.selectedIndex}
                         isNumericShow={true}
                       />
@@ -468,12 +477,14 @@ export default class MainView extends Component {
           }}
           style={styles.refreshContainer}
         >
-          <View style={styles.refreshContainerBody}>
-            <Text style={styles.refreshContainerText}>{this.state.aqiResult && this.state.aqiResult['中山'] && this.state.aqiResult['中山'].PublishTime}</Text>
+          {/* <View style={styles.refreshContainerBody}>
+            <Text style={styles.refreshContainerText}>{aqiResult && aqiResult['中山'] && aqiResult['中山'].PublishTime}</Text>
             {!this.state.isLoading && <Ionicons name="ios-refresh" style={{ marginLeft: 5 }} size={14} color="#616161" />}
             {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
-          </View>
+          </View> */}
         </TouchableOpacity>
+
+        <ClosestStation lat={latitude} long={longitude} aqiResult={aqiResult} />
 
         <Indicator />
 
