@@ -9,6 +9,7 @@ import {
 
 import { iOSColors } from 'react-native-typography';
 import Collapsible from 'react-native-collapsible';
+import DeviceInfo from 'react-native-device-info';
 import OneSignal from 'react-native-onesignal';
 import Search from 'react-native-search-box';
 
@@ -146,20 +147,23 @@ export default class SettingsView extends Component {
   }
 
   render() {
+    const {
+      collapsed,
+      isShowPermissionReminderBlock,
+      searchResult,
+      searchText,
+      tags,
+    } = this.state;
+
     return (
       <View style={styles.container}>
-        <Collapsible collapsed={this.state.collapsed}>
+        <Collapsible collapsed={collapsed}>
           <View style={styles.titleBlock}>
             <Text style={styles.titleText}>{I18n.t('notify_title')}</Text>
           </View>
         </Collapsible>
 
-        {this.state.isShowPermissionReminderBlock &&
-          <View style={styles.permissionReminderBlock}>
-            <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
-          </View>}
-
-        <View style={styles.searchBlock}>
+        <View style={[styles.searchBlock, { marginTop: collapsed && DeviceInfo.hasNotch() ? 20 : 0 }]}>
           <Search
             backgroundColor={iOSColors.white}
             titleCancelColor={iOSColors.blue}
@@ -172,36 +176,38 @@ export default class SettingsView extends Component {
           />
         </View>
 
+        {isShowPermissionReminderBlock &&
+          <View style={styles.permissionReminderBlock}>
+            <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
+          </View>}
+
         <SwipeScrollView
           scrollActionOffset={80}
           onScrollUp={() => this.setState({ collapsed: true })}
           onScrollDown={() => this.setState({ collapsed: false })}
         >
-          {!!this.state.searchText && <FlatList
+          {!!searchText && <FlatList
             key={this.state.k}
             style={styles.list}
-            data={this.state.searchResult}
+            data={searchResult}
             keyExtractor={(item, index) => `${index}-${item}`}
             renderItem={({ item }) => (
               <View style={{ paddingHorizontal: 10 }}>
-                <SettingsItem
-                  item={item}
-                  tags={this.state.tags}
-                />
+                <SettingsItem item={item} tags={tags} />
               </View>
             )}
           />}
 
-          {!this.state.searchText &&
+          {!searchText &&
             <View key={this.state.k}>
-              <SettingsDND tags={this.state.tags} />
+              <SettingsDND tags={tags} />
               <FlatList
                 style={styles.list}
                 data={countys}
                 keyExtractor={(item, index) => `${index}-${item}`}
                 renderItem={({ item }) => (<SettingsGroup
                   groupName={item}
-                  tags={this.state.tags}
+                  tags={tags}
                   onToggle={() => this.loadEnabledItems()}
                 />)}
               />

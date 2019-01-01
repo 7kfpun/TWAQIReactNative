@@ -10,7 +10,7 @@ import {
 
 import { iOSColors } from 'react-native-typography';
 import Collapsible from 'react-native-collapsible';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import DeviceInfo from 'react-native-device-info';
 import Search from 'react-native-search-box';
 
 import Fuse from 'fuse.js';
@@ -87,15 +87,23 @@ export default class SettingsView extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
+
+    const {
+      collapsed,
+      searchText,
+      searchResult,
+    } = this.state;
+
     return (
       <View style={styles.container}>
-        <Collapsible collapsed={this.state.collapsed}>
+        <Collapsible collapsed={collapsed}>
           <View style={styles.titleBlock}>
             <Text style={styles.titleText}>{I18n.t('list_title')}</Text>
           </View>
         </Collapsible>
 
-        <View style={styles.searchBlock}>
+        <View style={[styles.searchBlock, { marginTop: collapsed && DeviceInfo.hasNotch() ? 20 : 0 }]}>
           <Search
             backgroundColor={iOSColors.white}
             titleCancelColor={iOSColors.blue}
@@ -113,22 +121,22 @@ export default class SettingsView extends Component {
           onScrollUp={() => this.setState({ collapsed: true })}
           onScrollDown={() => this.setState({ collapsed: false })}
         >
-          {!!this.state.searchText && <FlatList
+          {!!searchText && <FlatList
             style={styles.list}
-            data={this.state.searchResult}
+            data={searchResult}
             keyExtractor={(item, index) => `${index}-${item}`}
             renderItem={({ item }) => (
               <View style={{ paddingHorizontal: 10 }}>
-                <HistoryItem item={item} navigation={this.props.navigation} />
+                <HistoryItem item={item} navigation={navigation} />
               </View>
             )}
           />}
 
-          {!this.state.searchText && <FlatList
+          {!searchText && <FlatList
             style={styles.list}
             data={countys}
             keyExtractor={(item, index) => `${index}-${item}`}
-            renderItem={({ item }) => <HistoryGroup style={{ fontSize: 30 }} groupName={item} navigation={this.props.navigation} />}
+            renderItem={({ item }) => <HistoryGroup style={{ fontSize: 30 }} groupName={item} navigation={navigation} />}
           />}
         </SwipeScrollView>
 
