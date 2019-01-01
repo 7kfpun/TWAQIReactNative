@@ -409,6 +409,7 @@ export default class MainView extends Component {
       },
       centerLocation,
       aqiResult,
+      selectedIndex,
     } = this.state;
 
     return (
@@ -459,13 +460,13 @@ export default class MainView extends Component {
                           textShadowRadius: 8,
                         }}
                         size={aqiResult[location.SiteName].WindSpeed * 5}
-                        color={getColor(this.state.selectedIndex, aqiResult[location.SiteName][this.state.selectedIndex]).color}
+                        color={getColor(selectedIndex, aqiResult[location.SiteName][selectedIndex]).color}
                       />
                       :
                       <Marker
                         SiteEngName={location.SiteEngName}
-                        amount={aqiResult[location.SiteName][this.state.selectedIndex]}
-                        index={this.state.selectedIndex}
+                        amount={aqiResult[location.SiteName][selectedIndex]}
+                        index={selectedIndex}
                         isNumericShow={true}
                       />
                     }
@@ -491,7 +492,12 @@ export default class MainView extends Component {
           </View> */}
         </TouchableOpacity>
 
-        <ClosestStation lat={centerLocation.latitude} long={centerLocation.longitude} aqiResult={aqiResult} />
+        <ClosestStation
+          lat={centerLocation.latitude}
+          long={centerLocation.longitude}
+          aqiResult={aqiResult}
+          selectedIndex={selectedIndex}
+        />
 
         <Indicator />
 
@@ -610,7 +616,7 @@ export default class MainView extends Component {
                   tracker.logEvent('select-index', { label: item.name });
                   console.log('Select index', item.name);
                 }}
-                style={[styles.bubble, styles.button, this.state.selectedIndex === item.name ? styles.selectedBubble : {}]}
+                style={[styles.bubble, styles.button, selectedIndex === item.name ? styles.selectedBubble : {}]}
               >
                 <Text style={styles.text}>{item.name}</Text>
               </TouchableOpacity>

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   weatherContainer: {
-    flex: 2,
+    flex: 3,
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 10,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   aqiContainer: {
-    flex: 1,
+    flex: 2,
     justifyContent: 'space-between',
     alignItems: 'center',
     borderLeftWidth: 1,
@@ -73,12 +73,14 @@ export default class ClosestStation extends Component {
     lat: PropTypes.number,
     long: PropTypes.number,
     aqiResult: PropTypes.shape({}),
+    selectedIndex: PropTypes.string,
   }
 
   static defaultProps = {
     lat: 25.0623610000,
     long: 121.507972,
     aqiResult: {},
+    selectedIndex: 'AQI',
   }
 
   state = {
@@ -106,12 +108,17 @@ export default class ClosestStation extends Component {
   }
 
   render() {
-    const { lat, long, aqiResult } = this.props;
+    const {
+      lat,
+      long,
+      aqiResult,
+      selectedIndex,
+    } = this.props;
     const { realtimeWeatherData } = this.state;
 
     const { Township, County, SiteName } = getClosestStation(lat, long);
 
-    const aqi = (aqiResult && aqiResult[SiteName] && aqiResult[SiteName].AQI) || '-';
+    const amount = (aqiResult && aqiResult[SiteName] && aqiResult[SiteName][selectedIndex]) || '-';
     const windDirec = (aqiResult && aqiResult[SiteName] && aqiResult[SiteName].WindDirec) || 0;
 
     return (
@@ -125,7 +132,7 @@ export default class ClosestStation extends Component {
                 marginRight: 5,
               }}
               size={14}
-              color={getColor('AQI', aqi).color}
+              color={getColor(selectedIndex, amount).color}
             />
 
             <Text style={styles.text}>{`${Township}, ${County}`}</Text>
@@ -144,15 +151,15 @@ export default class ClosestStation extends Component {
               borderRadius: 4,
               padding: 2,
               paddingHorizontal: 5,
-              backgroundColor: getColor('AQI', aqi).color,
+              backgroundColor: getColor(selectedIndex, amount).color,
               marginTop: -1,
             }}
           >
-            <Text style={[styles.text, { color: getColor('AQI', aqi).fontColor }]}>AQI {aqi}</Text>
+            <Text style={[styles.text, { color: getColor(selectedIndex, amount).fontColor }]}>{selectedIndex} {amount}</Text>
           </View>
           <Image
             style={{ width: 30, height: 30, marginBottom: -6 }}
-            source={getColor('AQI', aqi).image}
+            source={getColor(selectedIndex, amount).image}
           />
         </View>
       </View>
