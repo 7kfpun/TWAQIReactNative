@@ -16,7 +16,7 @@ I18n.translations = {
 
     main: 'Map',
     list: 'List',
-    details: 'Details',
+    details_tab: 'Details',
     forecast_tab: 'Forecast',
     settings: 'Settings',
     help_tab: 'Help',
@@ -74,6 +74,19 @@ I18n.translations = {
       visibility: 'Visibility',
     },
 
+    details: {
+      air_quality: '空氣品質',
+      weather: '天氣預報',
+    },
+
+    forecast_weather: {
+      now: 'Now',
+      tomorrow: 'TMR',
+      the_day_after_tomorrow: 'DAT',
+      two_days_after_tomorrow: '2 DAT',
+      hours: '',
+    },
+
     forecast: {
       three_days: '3 days',
       details: 'Details',
@@ -117,7 +130,7 @@ I18n.translations = {
 
     main: '地圖',
     list: '列表',
-    details: '詳細',
+    details_tab: '詳細',
     forecast_tab: '預測',
     settings: '通知設定',
     help_tab: '幫助',
@@ -173,6 +186,19 @@ I18n.translations = {
       rh: '濕度',
       cloud: '雲量',
       visibility: '能見度',
+    },
+
+    details: {
+      air_quality: '空氣品質',
+      weather: '天氣預報',
+    },
+
+    forecast_weather: {
+      now: '目前',
+      tomorrow: '明日',
+      the_day_after_tomorrow: '後天',
+      two_days_after_tomorrow: '大後天',
+      hours: '時',
     },
 
     forecast: {

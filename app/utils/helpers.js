@@ -5,7 +5,7 @@ import {
 
 import SafariView from 'react-native-safari-view';
 
-const openURL = (url, isInApp = 1) => {
+export const openURL = (url, isInApp = 1) => {
   if (Platform.OS === 'ios' && isInApp) {
     SafariView.isAvailable()
       .then(SafariView.show({ url }))
@@ -18,4 +18,10 @@ const openURL = (url, isInApp = 1) => {
   }
 };
 
-exports.openURL = openURL;
+// Flatten a list of lists of elements into a list of elements.
+export const flatten = arr =>
+  arr.reduce(
+    (flat, toFlatten) =>
+      flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten),
+    [],
+  );

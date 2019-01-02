@@ -15,6 +15,10 @@ import {
 
 import moment from 'moment';
 
+import {
+  IndicatorViewPager,
+  PagerTitleIndicator,
+} from 'rn-viewpager';
 import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -24,13 +28,15 @@ import Chart from '../elements/chart';
 import IndicatorHorizontal from '../elements/indicator-horizontal';
 import Marker from '../elements/marker';
 import RealtimeWeather from '../elements/realtime-weather';
+import ForecastWeather from '../elements/forecast-weather';
 import SettingsItem from '../elements/settings-item';
 
-import { history, realtimeWeather } from '../utils/api';
+import { flatten } from '../utils/helpers';
+import { forecastWeather, history, realtimeWeather } from '../utils/api';
 import { indexTypes } from '../utils/indexes';
 import I18n from '../utils/i18n';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -57,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 10,
-    paddingBottom: 5,
+    paddingBottom: 4,
   },
   block: {
     flexDirection: 'row',
@@ -72,6 +78,22 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  indicatorContainer: {
+    backgroundColor: iOSColors.white,
+    height: 30,
+  },
+  indicatorText: {
+    fontSize: 15,
+    color: iOSColors.gray,
+  },
+  indicatorSelectedText: {
+    fontSize: 15,
+    color: iOSColors.black,
+  },
+  selectedBorderStyle: {
+    height: 2,
+    backgroundColor: iOSColors.tealBlue,
   },
   title: {
     fontSize: 20,
@@ -107,6 +129,7 @@ export default class DetailsView extends Component {
   state = {
     refreshing: true,
     realtimeWeatherData: {},
+    forecastWeatherData: [],
   }
 
   componentDidMount() {
@@ -122,6 +145,7 @@ export default class DetailsView extends Component {
 
     this.prepareData();
     this.getRealtimeWeather(item);
+    this.getForecastWeather(item);
 
     if (item.ImageUrl) {
       Image.getSize(item.ImageUrl, (imageWidth, imageHeight) => {
@@ -133,7 +157,17 @@ export default class DetailsView extends Component {
 
   getRealtimeWeather = (item) => {
     realtimeWeather(item.TWD97Lat, item.TWD97Lon).then((result) => {
+      console.log('realtimeWeather', result);
       this.setState({ realtimeWeatherData: result });
+    });
+  }
+
+  getForecastWeather = (item) => {
+    forecastWeather(item.TWD97Lat, item.TWD97Lon).then((result) => {
+      console.log('forecastWeather', result);
+      if (result) {
+        this.setState({ forecastWeatherData: flatten(result) });
+      }
     });
   }
 
@@ -163,9 +197,20 @@ export default class DetailsView extends Component {
     this.props.navigation.goBack(null);
   }
 
-  increaseEnabledCount = () => console.log()
+  increaseEnabledCount = () => {}
 
-  descreaseEnabledCount = () => console.log()
+  descreaseEnabledCount = () => {}
+
+  renderIndicator = () => (<PagerTitleIndicator
+    style={styles.indicatorContainer}
+    trackScroll={true}
+    itemTextStyle={styles.indicatorText}
+    selectedItemTextStyle={styles.indicatorSelectedText}
+    selectedBorderStyle={styles.selectedBorderStyle}
+    itemStyle={{ width: width / 2 }}
+    selectedItemStyle={{ width: width / 2 }}
+    titles={[I18n.t('details.air_quality'), I18n.t('details.weather')]}
+  />)
 
   render() {
     const weatherIconMapping = {
@@ -186,7 +231,7 @@ export default class DetailsView extends Component {
       },
     } = this.props;
 
-    const { realtimeWeatherData } = this.state;
+    const { forecastWeatherData, realtimeWeatherData } = this.state;
 
     return (
       <View style={styles.container}>
@@ -212,11 +257,11 @@ export default class DetailsView extends Component {
               source={{ uri: item.ImageUrl }}
             >
               <View style={styles.imageBackground}>
-                <View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Text style={{ color: 'white' }}>{`${realtimeWeatherData.Temp || '- '}℃`}</Text>
                   {realtimeWeatherData.WeatherIcon
                     && weatherIconMapping[realtimeWeatherData.WeatherIcon]
-                    && <Ionicons name={weatherIconMapping[realtimeWeatherData.WeatherIcon]} style={{ marginLeft: 4 }} size={32} color="black" />}
+                    && <Ionicons name={weatherIconMapping[realtimeWeatherData.WeatherIcon]} style={{ marginLeft: 4 }} size={18} color="white" />}
                 </View>
                 {I18n.isZh && <Text style={{ color: 'white' }}>{item.SiteAddress}</Text>}
               </View>
@@ -227,44 +272,55 @@ export default class DetailsView extends Component {
               <Text style={styles.addressText}>{item.SiteAddress}</Text>
             </View>}
 
-          <RealtimeWeather realtimeWeatherData={realtimeWeatherData} />
-
-          <View style={{ padding: 10, backgroundColor: 'white' }}>
-            <SettingsItem
-              text={I18n.t('notify_title')}
-              item={item}
-              isNeedLoad
-              increaseEnabledCount={this.increaseEnabledCount}
-              descreaseEnabledCount={this.descreaseEnabledCount}
-            />
-          </View>
-
-          <IndicatorHorizontal />
-
-          {!this.state.refreshing && this.state.result && indexTypes.map((indexType) => {
-            const { length } = this.state.result;
-            return (
-              <View key={indexType.key} style={styles.block}>
-                <View style={styles.currentBlock}>
-                  <Marker
-                    amount={this.state.result[length - 1][indexType.key.replace('_', '')]}
-                    index={indexType.name}
-                    isNumericShow={true}
-                  />
-                  <Text style={styles.text}>{indexType.name}</Text>
-                  <Text style={styles.unitText}>{indexType.unit}</Text>
-                </View>
-
-                <View style={{ width: width - 80 }}>
-                  <Chart result={this.state.result} index={indexType.key} />
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={styles.dateText}>{moment(this.state.result[0].publish_time).format('lll')}</Text>
-                    <Text style={styles.dateText}>{moment(this.state.result[length - 1].publish_time).format('lll')}</Text>
-                  </View>
-                </View>
+          <IndicatorViewPager
+            style={{ height: height + 300, flexDirection: 'column-reverse' }}
+            indicator={this.renderIndicator()}
+          >
+            <View style={{ flex: 1 }}>
+              <View style={{ padding: 10, backgroundColor: 'white' }}>
+                <SettingsItem
+                  text={I18n.t('notify_title')}
+                  item={item}
+                  isNeedLoad
+                  increaseEnabledCount={this.increaseEnabledCount}
+                  descreaseEnabledCount={this.descreaseEnabledCount}
+                />
               </View>
-            );
-          })}
+
+              <IndicatorHorizontal />
+
+              {!this.state.refreshing && this.state.result && indexTypes.map((indexType) => {
+                const { length } = this.state.result;
+                return (
+                  <View key={indexType.key} style={styles.block}>
+                    <View style={styles.currentBlock}>
+                      <Marker
+                        amount={this.state.result[length - 1][indexType.key.replace('_', '')]}
+                        index={indexType.name}
+                        isNumericShow={true}
+                      />
+                      <Text style={styles.text}>{indexType.name}</Text>
+                      <Text style={styles.unitText}>{indexType.unit}</Text>
+                    </View>
+
+                    <View style={{ width: width - 80 }}>
+                      <Chart result={this.state.result} index={indexType.key} />
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={styles.dateText}>{moment(this.state.result[0].publish_time).format('lll')}</Text>
+                        <Text style={styles.dateText}>{moment(this.state.result[length - 1].publish_time).format('lll')}</Text>
+                      </View>
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+
+            <View style={{ flex: 1 }}>
+              <RealtimeWeather realtimeWeatherData={realtimeWeatherData} />
+              <ForecastWeather data={forecastWeatherData} />
+            </View>
+          </IndicatorViewPager>
+
         </ScrollView>
 
         <AdMob unitId={`twaqi-${Platform.OS}-details-footer`} bannerSize="LARGE_BANNER" />
