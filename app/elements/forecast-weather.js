@@ -1,5 +1,5 @@
 import React from 'react';
-import { arrayOf, number, shape, string } from 'prop-types';
+import { arrayOf, bool, number, shape, string } from 'prop-types';
 import {
   StyleSheet,
   FlatList,
@@ -18,7 +18,7 @@ moment.locale('zh-tw');
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
+    marginTop: 10,
     backgroundColor: iOSColors.white,
     padding: 10,
     flexDirection: 'row',
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 
 const Item = ({ item, isNow }) => {
   const weatherIconMapping = {
-    '01': moment().format('H') >= 6 && moment().format('H') < 18 ? 'ios-sunny' : 'ios-moon',
+    '01': moment(item.Time).format('H') >= 6 && moment(item.Time).format('H') < 18 ? 'ios-sunny' : 'ios-moon',
     '02': 'ios-cloud-outline',
     '03': 'ios-cloud',
     26: 'ios-rainy',
@@ -91,7 +91,7 @@ Item.propTypes = {
     Weather: string,
     Weather_original: string,
   }).isRequired,
-  isNow: boolean,
+  isNow: bool,
 };
 
 Item.defaultProps = {
@@ -109,6 +109,7 @@ const ForecastWeather = ({ data }) => {
       <FlatList
         data={[...data].slice(1)}
         renderItem={({ item }) => <Item item={item} />}
+        keyExtractor={item => item.Time}
         horizontal
         showsHorizontalScrollIndicator={false}
       />
