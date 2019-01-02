@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { number, shape, string } from 'prop-types';
 import {
   StyleSheet,
   Text,
@@ -37,52 +37,51 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class RealtimeWeather extends Component {
-  static propTypes = {
-    realtimeWeatherData: PropTypes.shape({
-      Temp: PropTypes.number,
-      WeatherIcon: PropTypes.string,
-      RH: PropTypes.number,
-      Rain: PropTypes.number,
-      Cloud: PropTypes.number,
-      Visibility: PropTypes.number,
-    }).isRequired,
+
+const RealtimeWeather = ({ data }) => {
+  if (!data.Temp) {
+    return null;
   }
 
-  render() {
-    if (!this.props.realtimeWeatherData.Temp) {
-      return null;
-    }
-
-    const { realtimeWeatherData } = this.props;
-
-    return (
-      <View style={styles.container}>
-        <View style={styles.item}>
-          <Text style={styles.labelText}>{I18n.t('realtime_weather.rain')}</Text>
-          <Text style={styles.valueText}>
-            {realtimeWeatherData.Rain ? `${realtimeWeatherData.Rain} mm` : '--'}
-          </Text>
-        </View>
-        <View style={styles.item}>
-          <Text style={styles.labelText}>{I18n.t('realtime_weather.rh')}</Text>
-          <Text style={styles.valueText}>
-            {realtimeWeatherData.RH ? `${realtimeWeatherData.RH} %` : '--'}
-          </Text>
-        </View>
-        <View style={styles.item}>
-          <Text style={styles.labelText}>{I18n.t('realtime_weather.visibility')}</Text>
-          <Text style={styles.valueText}>
-            {realtimeWeatherData.Visibility ? `${realtimeWeatherData.Visibility} km` : '--'}
-          </Text>
-        </View>
-        <View style={styles.item}>
-          <Text style={styles.labelText}>{I18n.t('realtime_weather.cloud')}</Text>
-          <Text style={styles.valueText}>
-            {realtimeWeatherData.Cloud ? `${realtimeWeatherData.Cloud} %` : '--'}
-          </Text>
-        </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.item}>
+        <Text style={styles.labelText}>{I18n.t('realtime_weather.rain')}</Text>
+        <Text style={styles.valueText}>
+          {data.Rain ? `${data.Rain} mm` : '--'}
+        </Text>
       </View>
-    );
-  }
-}
+      <View style={styles.item}>
+        <Text style={styles.labelText}>{I18n.t('realtime_weather.rh')}</Text>
+        <Text style={styles.valueText}>
+          {data.RH ? `${data.RH} %` : '--'}
+        </Text>
+      </View>
+      <View style={styles.item}>
+        <Text style={styles.labelText}>{I18n.t('realtime_weather.visibility')}</Text>
+        <Text style={styles.valueText}>
+          {data.Visibility ? `${data.Visibility} km` : '--'}
+        </Text>
+      </View>
+      <View style={styles.item}>
+        <Text style={styles.labelText}>{I18n.t('realtime_weather.cloud')}</Text>
+        <Text style={styles.valueText}>
+          {data.Cloud ? `${data.Cloud} %` : '--'}
+        </Text>
+      </View>
+    </View>
+  );
+};
+
+RealtimeWeather.propTypes = {
+  data: shape({
+    Temp: number,
+    WeatherIcon: string,
+    RH: number,
+    Rain: number,
+    Cloud: number,
+    Visibility: number,
+  }).isRequired,
+};
+
+export default RealtimeWeather;

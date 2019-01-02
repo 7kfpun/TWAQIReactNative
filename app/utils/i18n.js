@@ -75,8 +75,8 @@ I18n.translations = {
     },
 
     details: {
-      air_quality: '空氣品質',
-      weather: '天氣預報',
+      air_quality: 'Air quality',
+      weather: 'Weather forecast',
     },
 
     forecast_weather: {

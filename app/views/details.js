@@ -241,7 +241,7 @@ export default class DetailsView extends Component {
               <Text style={styles.addressText}>{item.SiteAddress}</Text>
             </View>}
 
-          <RealtimeWeather realtimeWeatherData={realtimeWeatherData} />
+          <RealtimeWeather data={realtimeWeatherData} />
 
           <View style={{ padding: 10, backgroundColor: 'white' }}>
             <SettingsItem
@@ -280,7 +280,10 @@ export default class DetailsView extends Component {
             );
           })}
 
-          <ForecastWeather data={forecastWeatherData} />
+          <View style={{ backgroundColor: 'white', marginTop: 10 }}>
+            <Text style={{ paddingTop: 15, paddingLeft: 15 }}>{I18n.t('details.weather')}</Text>
+            <ForecastWeather data={forecastWeatherData} />
+          </View>
         </ScrollView>
 
         <AdMob unitId={`twaqi-${Platform.OS}-details-footer`} bannerSize="LARGE_BANNER" />
