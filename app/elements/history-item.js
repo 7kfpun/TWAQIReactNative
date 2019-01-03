@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { shape, string } from 'prop-types';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -32,19 +27,19 @@ const styles = StyleSheet.create({
 
 export default class HistoryItem extends Component {
   static propTypes = {
-    navigation: PropTypes.shape({}).isRequired,
-    item: PropTypes.shape({
-      SiteName: PropTypes.string,
-      SiteEngName: PropTypes.string,
-      AreaName: PropTypes.string,
-      County: PropTypes.string,
-      Township: PropTypes.string,
-      SiteAddress: PropTypes.string,
-      TWD97Lon: PropTypes.string,
-      TWD97Lat: PropTypes.string,
-      SiteType: PropTypes.string,
+    navigation: shape({}).isRequired,
+    item: shape({
+      SiteName: string,
+      SiteEngName: string,
+      AreaName: string,
+      County: string,
+      Township: string,
+      SiteAddress: string,
+      TWD97Lon: string,
+      TWD97Lat: string,
+      SiteType: string,
     }).isRequired,
-  }
+  };
 
   render() {
     const { item, navigation } = this.props;
@@ -56,9 +51,13 @@ export default class HistoryItem extends Component {
         }}
       >
         <View style={styles.container}>
-          <Text style={styles.text}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
+          <Text style={styles.text}>
+            {I18n.isZh ? item.SiteName : item.SiteEngName}
+          </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={styles.addressText}>{I18n.isZh ? item.SiteAddress : ''}</Text>
+            <Text style={styles.addressText}>
+              {I18n.isZh ? item.SiteAddress : ''}
+            </Text>
             <Icon name="chevron-right" size={21} color="gray" />
           </View>
         </View>

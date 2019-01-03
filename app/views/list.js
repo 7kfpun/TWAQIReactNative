@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  FlatList,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { shape } from 'prop-types';
+import { FlatList, Platform, StyleSheet, Text, View } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
 import Collapsible from 'react-native-collapsible';
@@ -47,11 +41,10 @@ const styles = StyleSheet.create({
   },
 });
 
-
 export default class SettingsView extends Component {
   static propTypes = {
-    navigation: PropTypes.shape({}).isRequired,
-  }
+    navigation: shape({}).isRequired,
+  };
 
   state = {
     searchText: '',
@@ -59,7 +52,7 @@ export default class SettingsView extends Component {
     collapsed: false,
   };
 
-  onChangeText = (searchText) => {
+  onChangeText = searchText => {
     const options = {
       shouldSort: true,
       threshold: 0.2,
@@ -80,20 +73,16 @@ export default class SettingsView extends Component {
     const searchResult = fuse.search(searchText);
 
     this.setState({ searchText, searchResult });
-  }
+  };
 
   onCancelOrDelete = () => {
     this.setState({ searchText: '' });
-  }
+  };
 
   render() {
     const { navigation } = this.props;
 
-    const {
-      collapsed,
-      searchText,
-      searchResult,
-    } = this.state;
+    const { collapsed, searchText, searchResult } = this.state;
 
     return (
       <View style={styles.container}>
@@ -103,11 +92,15 @@ export default class SettingsView extends Component {
           </View>
         </Collapsible>
 
-        <View style={[styles.searchBlock, { marginTop: collapsed && DeviceInfo.hasNotch() ? 20 : 0 }]}>
+        <View
+          style={[
+            styles.searchBlock,
+            { marginTop: collapsed && DeviceInfo.hasNotch() ? 20 : 0 },
+          ]}
+        >
           <Search
             backgroundColor={iOSColors.white}
             titleCancelColor={iOSColors.blue}
-
             onChangeText={this.onChangeText}
             onCancel={this.onCancelOrDelete}
             onDelete={this.onCancelOrDelete}
@@ -121,23 +114,33 @@ export default class SettingsView extends Component {
           onScrollUp={() => this.setState({ collapsed: true })}
           onScrollDown={() => this.setState({ collapsed: false })}
         >
-          {!!searchText && <FlatList
-            style={styles.list}
-            data={searchResult}
-            keyExtractor={(item, index) => `${index}-${item}`}
-            renderItem={({ item }) => (
-              <View style={{ paddingHorizontal: 10 }}>
-                <HistoryItem item={item} navigation={navigation} />
-              </View>
-            )}
-          />}
+          {!!searchText && (
+            <FlatList
+              style={styles.list}
+              data={searchResult}
+              keyExtractor={(item, index) => `${index}-${item}`}
+              renderItem={({ item }) => (
+                <View style={{ paddingHorizontal: 10 }}>
+                  <HistoryItem item={item} navigation={navigation} />
+                </View>
+              )}
+            />
+          )}
 
-          {!searchText && <FlatList
-            style={styles.list}
-            data={countys}
-            keyExtractor={(item, index) => `${index}-${item}`}
-            renderItem={({ item }) => <HistoryGroup style={{ fontSize: 30 }} groupName={item} navigation={navigation} />}
-          />}
+          {!searchText && (
+            <FlatList
+              style={styles.list}
+              data={countys}
+              keyExtractor={(item, index) => `${index}-${item}`}
+              renderItem={({ item }) => (
+                <HistoryGroup
+                  style={{ fontSize: 30 }}
+                  groupName={item}
+                  navigation={navigation}
+                />
+              )}
+            />
+          )}
         </SwipeScrollView>
 
         <AdMob unitId={`twaqi-${Platform.OS}-list-footer`} />

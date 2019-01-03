@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { func, shape } from 'prop-types';
 import {
   Platform,
   ScrollView,
@@ -56,21 +56,23 @@ const styles = StyleSheet.create({
 
 export default class HelpView extends Component {
   static propTypes = {
-    navigation: PropTypes.shape({
-      goBack: PropTypes.func.isRequired,
+    navigation: shape({
+      goBack: func.isRequired,
     }).isRequired,
-  }
+  };
 
   render() {
-    const {
-      navigation,
-    } = this.props;
+    const { navigation } = this.props;
 
     return (
       <View style={styles.container}>
         <View style={styles.titleBlock}>
           <Text style={styles.title}>{I18n.t('help_tab')}</Text>
-          <TouchableOpacity onPress={() => openURL(I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en)}>
+          <TouchableOpacity
+            onPress={() =>
+              openURL(I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en)
+            }
+          >
             <Ionicons name="ios-mail" size={30} color={iOSColors.gray} />
           </TouchableOpacity>
         </View>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { func, shape } from 'prop-types';
 
 import {
   ActivityIndicator,
@@ -165,13 +165,15 @@ const styles = StyleSheet.create({
 
 export default class MainView extends Component {
   static propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func.isRequired,
+    navigation: shape({
+      navigate: func.isRequired,
     }).isRequired,
-  }
+  };
 
   static isOutOfBound(latitude, longitude) {
-    const distance = ((latitude - LATITUDE) * (latitude - LATITUDE)) + ((longitude - LONGITUDE) * (longitude - LONGITUDE));
+    const distance =
+      (latitude - LATITUDE) * (latitude - LATITUDE) +
+      (longitude - LONGITUDE) * (longitude - LONGITUDE);
     console.log('Distance', distance);
     return distance > OUT_OF_BOUND;
   }
@@ -206,7 +208,9 @@ export default class MainView extends Component {
     OneSignal.addEventListener('received', data => this.onReceived(data));
     OneSignal.addEventListener('opened', data => this.onOpened(data));
 
-    DeviceEventEmitter.addListener('quickActionShortcut', data => this.onQuickActionOpened(data));
+    DeviceEventEmitter.addListener('quickActionShortcut', data =>
+      this.onQuickActionOpened(data)
+    );
 
     // if (Platform.OS === 'android' && advert.isLoaded()) {
     //   advert.show();
@@ -215,7 +219,8 @@ export default class MainView extends Component {
 
   componentWillUnmount() {
     if (this.watchID) navigator.geolocation.clearWatch(this.watchID);
-    if (this.reloadFetchLatestDataInterval) clearInterval(this.reloadFetchLatestDataInterval);
+    if (this.reloadFetchLatestDataInterval)
+      clearInterval(this.reloadFetchLatestDataInterval);
 
     OneSignal.removeEventListener('received', this.onReceived);
     OneSignal.removeEventListener('opened', this.onOpened);
@@ -231,13 +236,25 @@ export default class MainView extends Component {
     console.log('Data: ', data.notification.payload.additionalData);
     console.log('isActive: ', data.notification.isAppInFocus);
     console.log('data: ', data);
-    if (data.notification.payload.additionalData && data.notification.payload.additionalData.url === 'app://main') {
+    if (
+      data.notification.payload.additionalData &&
+      data.notification.payload.additionalData.url === 'app://main'
+    ) {
       setTimeout(() => navigation.navigate('Main'), 2000);
-    } else if (data.notification.payload.additionalData && data.notification.payload.additionalData.url === 'app://forecast') {
+    } else if (
+      data.notification.payload.additionalData &&
+      data.notification.payload.additionalData.url === 'app://forecast'
+    ) {
       setTimeout(() => navigation.navigate('Forecast'), 2000);
-    } else if (data.notification.payload.additionalData && data.notification.payload.additionalData.url === 'app://settings') {
+    } else if (
+      data.notification.payload.additionalData &&
+      data.notification.payload.additionalData.url === 'app://settings'
+    ) {
       setTimeout(() => navigation.navigate('Settings'), 2000);
-    } else if (data.notification.payload.additionalData && data.notification.payload.additionalData.url === 'app://forecast') {
+    } else if (
+      data.notification.payload.additionalData &&
+      data.notification.payload.additionalData.url === 'app://forecast'
+    ) {
       setTimeout(() => navigation.navigate('Forecast'), 2000);
     }
   }
@@ -271,7 +288,9 @@ export default class MainView extends Component {
       latitude: this.state.location.latitude,
       longitude: this.state.location.longitude,
       latitudeDelta: this.state.gpsEnabled ? 0.2 : LATITUDE_DELTA,
-      longitudeDelta: this.state.gpsEnabled ? 0.2 * ASPECT_RATIO : LONGITUDE_DELTA,
+      longitudeDelta: this.state.gpsEnabled
+        ? 0.2 * ASPECT_RATIO
+        : LONGITUDE_DELTA,
     };
   }
 
@@ -280,7 +299,7 @@ export default class MainView extends Component {
       const that = this;
       const trace = firebase.perf().newTrace('api_get_aqi');
       trace.start();
-      aqi().then((result) => {
+      aqi().then(result => {
         const keys = Object.keys(result || {}).length;
         console.log('AQI:', result);
         console.log('AQI length:', keys);
@@ -304,7 +323,7 @@ export default class MainView extends Component {
           {
             title: I18n.t('location_permission.title'),
             message: I18n.t('location_permission.description'),
-          },
+          }
         );
         console.log(granted);
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
@@ -317,11 +336,11 @@ export default class MainView extends Component {
         console.warn(err);
       }
     }
-  }
+  };
 
   loadMapContent = async () => {
     const that = this;
-    store.get('selectedIndex').then((selectedIndex) => {
+    store.get('selectedIndex').then(selectedIndex => {
       if (selectedIndex) {
         that.setState({
           selectedIndex,
@@ -329,7 +348,7 @@ export default class MainView extends Component {
       }
     });
 
-    store.get('isWindMode').then((isWindMode) => {
+    store.get('isWindMode').then(isWindMode => {
       if (isWindMode) {
         that.setState({
           isWindMode,
@@ -340,7 +359,9 @@ export default class MainView extends Component {
     if (Platform.OS === 'ios') {
       this.checkLocation();
     } else {
-      const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+      const granted = await PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+      );
 
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         this.checkLocation();
@@ -355,25 +376,30 @@ export default class MainView extends Component {
       this.prepareData();
       tracker.logEvent('reload-fetch-latest-data');
     }, RELOAD_INTERVAL);
-  }
+  };
 
   checkLocation() {
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      position => {
         console.log('geolocation', position);
         this.setState({
           location: position.coords,
           gpsEnabled: true,
         });
 
-        const moveLocation = MainView.isOutOfBound(position.coords.latitude, position.coords.longitude) ? MainView.getDefaultLocation() : this.getCurrentLocation();
+        const moveLocation = MainView.isOutOfBound(
+          position.coords.latitude,
+          position.coords.longitude
+        )
+          ? MainView.getDefaultLocation()
+          : this.getCurrentLocation();
         try {
           this.map.animateToRegion(moveLocation);
         } catch (err) {
           log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
         }
       },
-      (error) => {
+      error => {
         this.requestLocationPermission();
         if (!this.state.isLocationMovedToDefault) {
           // alert(error.message);
@@ -383,15 +409,17 @@ export default class MainView extends Component {
               console.log(error);
               this.map.animateToRegion(MainView.getDefaultLocation());
             } catch (err) {
-              log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
+              log.logError(
+                `Map animateToRegion failed: ${JSON.stringify(err)}`
+              );
             }
           }, 2000);
         }
       },
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
 
-    this.watchID = navigator.geolocation.watchPosition((position) => {
+    this.watchID = navigator.geolocation.watchPosition(position => {
       this.setState({
         location: position.coords,
         gpsEnabled: true,
@@ -403,10 +431,7 @@ export default class MainView extends Component {
     const { navigation } = this.props;
 
     const {
-      location: {
-        latitude,
-        longitude,
-      },
+      location: { latitude, longitude },
       centerLocation,
       aqiResult,
       selectedIndex,
@@ -416,66 +441,88 @@ export default class MainView extends Component {
       <View style={styles.container}>
         <MapView
           style={styles.map}
-          ref={(ref) => { this.map = ref; }}
+          ref={ref => {
+            this.map = ref;
+          }}
           initialRegion={this.getCurrentLocation()}
           onRegionChange={region => this.onRegionChange(region)}
           onRegionChangeComplete={region => this.onRegionChangeComplete(region)}
           onMapReady={this.loadMapContent}
           showsUserLocation={true}
         >
-          {aqiResult && locations
-            .filter(i => aqiResult[i.SiteName])
-            .map((location) => {
-              try {
-                if (this.state.isWindMode
-                  && !(aqiResult[location.SiteName].WindDirec && aqiResult[location.SiteName].WindSpeed)
-                ) {
-                  return null;
-                }
+          {aqiResult &&
+            locations
+              .filter(i => aqiResult[i.SiteName])
+              .map(location => {
+                try {
+                  if (
+                    this.state.isWindMode &&
+                    !(
+                      aqiResult[location.SiteName].WindDirec &&
+                      aqiResult[location.SiteName].WindSpeed
+                    )
+                  ) {
+                    return null;
+                  }
 
-                return (
-                  <MapView.Marker
-                    key={location.SiteEngName}
-                    coordinate={{
-                      latitude: parseFloat(location.TWD97Lat),
-                      longitude: parseFloat(location.TWD97Lon),
-                    }}
-                    onPress={() => {
-                      tracker.logEvent('check-main-details', location);
-                      navigation.navigate('MainDetails', { item: location });
-                    }}
-                    flat={this.state.isWindMode}
-                    // rotation={parseFloat(aqiResult[location.SiteName].WindDirec)}
-                  >
-                    {this.state.isWindMode ?
-                      <Ionicons
-                        name="md-arrow-round-down"
-                        style={{
-                          transform: [{ rotate: `${aqiResult[location.SiteName].WindDirec}deg` }],
-                          textShadowColor: getColor('AQI', aqiResult[location.SiteName].AQI).fontColor,
-                          textShadowOffset: {
-                            width: 0.6,
-                            height: 0.6,
-                          },
-                          textShadowRadius: 8,
-                        }}
-                        size={aqiResult[location.SiteName].WindSpeed * 5}
-                        color={getColor(selectedIndex, aqiResult[location.SiteName][selectedIndex]).color}
-                      />
-                      :
-                      <Marker
-                        SiteEngName={location.SiteEngName}
-                        amount={aqiResult[location.SiteName][selectedIndex]}
-                        index={selectedIndex}
-                        isNumericShow={true}
-                      />
-                    }
-                  </MapView.Marker>);
-              } catch (err) {
-                log.logError(`Marker failed: ${JSON.stringify(err)}`);
-              }
-              return null;
-            })}
+                  return (
+                    <MapView.Marker
+                      key={location.SiteEngName}
+                      coordinate={{
+                        latitude: parseFloat(location.TWD97Lat),
+                        longitude: parseFloat(location.TWD97Lon),
+                      }}
+                      onPress={() => {
+                        tracker.logEvent('check-main-details', location);
+                        navigation.navigate('MainDetails', { item: location });
+                      }}
+                      flat={this.state.isWindMode}
+                      // rotation={parseFloat(aqiResult[location.SiteName].WindDirec)}
+                    >
+                      {this.state.isWindMode ? (
+                        <Ionicons
+                          name="md-arrow-round-down"
+                          style={{
+                            transform: [
+                              {
+                                rotate: `${
+                                  aqiResult[location.SiteName].WindDirec
+                                }deg`,
+                              },
+                            ],
+                            textShadowColor: getColor(
+                              'AQI',
+                              aqiResult[location.SiteName].AQI
+                            ).fontColor,
+                            textShadowOffset: {
+                              width: 0.6,
+                              height: 0.6,
+                            },
+                            textShadowRadius: 8,
+                          }}
+                          size={aqiResult[location.SiteName].WindSpeed * 5}
+                          color={
+                            getColor(
+                              selectedIndex,
+                              aqiResult[location.SiteName][selectedIndex]
+                            ).color
+                          }
+                        />
+                      ) : (
+                        <Marker
+                          SiteEngName={location.SiteEngName}
+                          amount={aqiResult[location.SiteName][selectedIndex]}
+                          index={selectedIndex}
+                          isNumericShow={true}
+                        />
+                      )}
+                    </MapView.Marker>
+                  );
+                } catch (err) {
+                  log.logError(`Marker failed: ${JSON.stringify(err)}`);
+                }
+                return null;
+              })}
         </MapView>
 
         <TouchableOpacity
@@ -513,39 +560,48 @@ export default class MainView extends Component {
               captureRef(this.map, {
                 format: 'jpg',
                 quality: 0.8,
-              })
-              .then(
-                (uri) => {
+              }).then(
+                uri => {
                   console.log('Image saved to', uri);
                   Share.share({
                     title: I18n.t('app_name'),
-                    message: `${I18n.t('app_name')} ${Platform.OS === 'ios' ? config.appStore : config.googlePlay}`,
+                    message: `${I18n.t('app_name')} ${
+                      Platform.OS === 'ios'
+                        ? config.appStore
+                        : config.googlePlay
+                    }`,
                     url: uri,
                   })
-                  .then(() => {
-                    this.setState({ isShareLoading: false });
-                    if (result.action === Share.sharedAction) {
-                      tracker.logEvent('share-map');
-                      if (result.activityType) {
-                        tracker.logEvent('share-map-shared', { activityType: result.activityType });
-                      } else {
-                        tracker.logEvent('share-map-shared');
+                    .then(() => {
+                      this.setState({ isShareLoading: false });
+                      if (result.action === Share.sharedAction) {
+                        tracker.logEvent('share-map');
+                        if (result.activityType) {
+                          tracker.logEvent('share-map-shared', {
+                            activityType: result.activityType,
+                          });
+                        } else {
+                          tracker.logEvent('share-map-shared');
+                        }
+                      } else if (result.action === Share.dismissedAction) {
+                        tracker.logEvent('share-map-dismiss');
                       }
-                    } else if (result.action === Share.dismissedAction) {
-                      tracker.logEvent('share-map-dismiss');
-                    }
-                  })
-                  .catch(() => this.setState({ isShareLoading: false }));
+                    })
+                    .catch(() => this.setState({ isShareLoading: false }));
                 },
-                (error) => {
+                error => {
                   console.error('Oops, snapshot failed', error);
                   this.setState({ isShareLoading: false });
-                },
+                }
               );
             });
           }}
         >
-          {this.state.isShareLoading ? <ActivityIndicator /> : <Ionicons name="ios-share" size={28} color={iOSColors.black} />}
+          {this.state.isShareLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <Ionicons name="ios-share" size={28} color={iOSColors.black} />
+          )}
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -558,13 +614,22 @@ export default class MainView extends Component {
             tracker.logEvent('move-to-default-location');
           }}
         >
-          <Ionicons name="ios-qr-scanner" style={{ paddingTop: 2, paddingLeft: 1 }} size={28} color={iOSColors.black} />
+          <Ionicons
+            name="ios-qr-scanner"
+            style={{ paddingTop: 2, paddingLeft: 1 }}
+            size={28}
+            color={iOSColors.black}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[
             styles.currentLocation,
-            { backgroundColor: this.state.gpsEnabled ? iOSColors.white : iOSColors.lightGray },
+            {
+              backgroundColor: this.state.gpsEnabled
+                ? iOSColors.white
+                : iOSColors.lightGray,
+            },
             DeviceInfo.isTablet() ? { bottom: 148 } : {},
           ]}
           onPress={() => {
@@ -576,17 +641,29 @@ export default class MainView extends Component {
                 I18n.t('location_permission.title'),
                 I18n.t('location_permission.description'),
                 [
-                  { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                  { text: 'OK', onPress: () => Linking.openURL('app-settings:') },
+                  {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'OK',
+                    onPress: () => Linking.openURL('app-settings:'),
+                  },
                 ],
-                { cancelable: false },
+                { cancelable: false }
               );
             } else {
               this.requestLocationPermission();
             }
           }}
         >
-          <Ionicons name="md-navigate" style={{ paddingBottom: 1, transform: [{ rotate: '45deg' }] }} size={28} color={iOSColors.black} />
+          <Ionicons
+            name="md-navigate"
+            style={{ paddingBottom: 1, transform: [{ rotate: '45deg' }] }}
+            size={28}
+            color={iOSColors.black}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -598,15 +675,26 @@ export default class MainView extends Component {
           onPress={() => {
             this.setState({ isWindMode: !this.state.isWindMode }, () => {
               store.save('isWindMode', this.state.isWindMode);
-              tracker.logEvent('set-wind-mode', { label: this.state.isWindMode ? 'on' : 'off' });
+              tracker.logEvent('set-wind-mode', {
+                label: this.state.isWindMode ? 'on' : 'off',
+              });
             });
           }}
         >
-          <Ionicons name="ios-leaf" style={{ marginLeft: 3 }} size={22} color={this.state.isWindMode ? iOSColors.tealBlue : iOSColors.black} />
+          <Ionicons
+            name="ios-leaf"
+            style={{ marginLeft: 3 }}
+            size={22}
+            color={this.state.isWindMode ? iOSColors.tealBlue : iOSColors.black}
+          />
         </TouchableOpacity>
 
         <View>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.buttonContainer}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.buttonContainer}
+          >
             {indexTypes.map(item => (
               <TouchableOpacity
                 key={item.key}
@@ -616,7 +704,11 @@ export default class MainView extends Component {
                   tracker.logEvent('select-index', { label: item.name });
                   console.log('Select index', item.name);
                 }}
-                style={[styles.bubble, styles.button, selectedIndex === item.name ? styles.selectedBubble : {}]}
+                style={[
+                  styles.bubble,
+                  styles.button,
+                  selectedIndex === item.name ? styles.selectedBubble : {},
+                ]}
               >
                 <Text style={styles.text}>{item.name}</Text>
               </TouchableOpacity>

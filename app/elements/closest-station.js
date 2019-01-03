@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { number, shape, string } from 'prop-types';
 
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -25,7 +19,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 15,
     top: DeviceInfo.hasNotch() ? 45 : 25,
-    width: (width / 2) - 15,
+    width: width / 2 - 15,
     height: 65,
     flexDirection: 'row',
     backgroundColor: 'white',
@@ -60,34 +54,36 @@ const styles = StyleSheet.create({
 });
 
 const weatherIconMapping = {
-  '01': moment().format('H') >= 6 && moment().format('H') < 18 ? 'ios-sunny' : 'ios-moon',
+  '01':
+    moment().format('H') >= 6 && moment().format('H') < 18
+      ? 'ios-sunny'
+      : 'ios-moon',
   '02': 'ios-cloud-outline',
   '03': 'ios-cloud',
   26: 'ios-rainy',
   99: false,
 };
 
-
 export default class ClosestStation extends Component {
   static propTypes = {
-    lat: PropTypes.number,
-    long: PropTypes.number,
-    aqiResult: PropTypes.shape({}),
-    selectedIndex: PropTypes.string,
-  }
+    lat: number,
+    long: number,
+    aqiResult: shape({}),
+    selectedIndex: string,
+  };
 
   static defaultProps = {
-    lat: 25.0623610000,
+    lat: 25.062361,
     long: 121.507972,
     aqiResult: {},
     selectedIndex: 'AQI',
-  }
+  };
 
   state = {
     realtimeWeatherData: {
       Temp: '- ',
     },
-  }
+  };
 
   componentDidMount() {
     const { lat, long } = this.props;
@@ -96,30 +92,33 @@ export default class ClosestStation extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.lat !== this.props.lat || prevProps.long !== this.props.long) {
+    if (
+      prevProps.lat !== this.props.lat ||
+      prevProps.long !== this.props.long
+    ) {
       this.getRealtimeWeather(this.props.lat, this.props.long);
     }
   }
 
   getRealtimeWeather = (lat, long) => {
-    realtimeWeather(lat, long).then((result) => {
+    realtimeWeather(lat, long).then(result => {
       this.setState({ realtimeWeatherData: result });
     });
-  }
+  };
 
   render() {
-    const {
-      lat,
-      long,
-      aqiResult,
-      selectedIndex,
-    } = this.props;
+    const { lat, long, aqiResult, selectedIndex } = this.props;
     const { realtimeWeatherData } = this.state;
 
     const { Township, County, SiteName } = getClosestStation(lat, long);
 
-    const amount = (aqiResult && aqiResult[SiteName] && aqiResult[SiteName][selectedIndex]) || '-';
-    const windDirec = (aqiResult && aqiResult[SiteName] && aqiResult[SiteName].WindDirec) || 0;
+    const amount =
+      (aqiResult &&
+        aqiResult[SiteName] &&
+        aqiResult[SiteName][selectedIndex]) ||
+      '-';
+    const windDirec =
+      (aqiResult && aqiResult[SiteName] && aqiResult[SiteName].WindDirec) || 0;
 
     return (
       <View style={styles.container}>
@@ -140,9 +139,15 @@ export default class ClosestStation extends Component {
 
           <View style={styles.temperatureContainer}>
             <Text>{`${realtimeWeatherData.Temp}℃`}</Text>
-            {realtimeWeatherData.WeatherIcon
-              && weatherIconMapping[realtimeWeatherData.WeatherIcon]
-              && <Ionicons name={weatherIconMapping[realtimeWeatherData.WeatherIcon]} style={{ marginLeft: 4, marginBottom: -2 }} size={20} color="black" />}
+            {realtimeWeatherData.WeatherIcon &&
+              weatherIconMapping[realtimeWeatherData.WeatherIcon] && (
+                <Ionicons
+                  name={weatherIconMapping[realtimeWeatherData.WeatherIcon]}
+                  style={{ marginLeft: 4, marginBottom: -2 }}
+                  size={20}
+                  color="black"
+                />
+              )}
           </View>
         </View>
         <View style={styles.aqiContainer}>
@@ -155,7 +160,14 @@ export default class ClosestStation extends Component {
               marginTop: -1,
             }}
           >
-            <Text style={[styles.text, { color: getColor(selectedIndex, amount).fontColor }]}>{selectedIndex} {amount}</Text>
+            <Text
+              style={[
+                styles.text,
+                { color: getColor(selectedIndex, amount).fontColor },
+              ]}
+            >
+              {selectedIndex} {amount}
+            </Text>
           </View>
           <Image
             style={{ width: 30, height: 30, marginBottom: -6 }}

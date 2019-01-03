@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import {
   FlatList,
   StyleSheet,
@@ -68,15 +68,15 @@ const styles = StyleSheet.create({
 
 export default class SettingsGroup extends Component {
   static propTypes = {
-    groupName: PropTypes.string.isRequired,
-    tags: PropTypes.shape({}),
-    onToggle: PropTypes.func,
-  }
+    groupName: string.isRequired,
+    tags: shape({}),
+    onToggle: func,
+  };
 
   static defaultProps = {
     tags: {},
     onToggle: () => {},
-  }
+  };
 
   state = {
     locations: [],
@@ -90,7 +90,11 @@ export default class SettingsGroup extends Component {
   }
 
   prepareLocations() {
-    this.setState({ locations: locations.filter(item => item.County === this.props.groupName).sort() });
+    this.setState({
+      locations: locations
+        .filter(item => item.County === this.props.groupName)
+        .sort(),
+    });
   }
 
   loadEnabledCount() {
@@ -99,15 +103,16 @@ export default class SettingsGroup extends Component {
       this.setState({
         enabledCount: locations
           .filter(item => item.County === this.props.groupName)
-          .filter(item => tags[item.SiteEngName] === 'true')
-          .length,
+          .filter(item => tags[item.SiteEngName] === 'true').length,
       });
     }
   }
 
-  increaseEnabledCount = () => this.setState({ enabledCount: this.state.enabledCount + 1 })
+  increaseEnabledCount = () =>
+    this.setState({ enabledCount: this.state.enabledCount + 1 });
 
-  descreaseEnabledCount = () => this.setState({ enabledCount: this.state.enabledCount - 1 })
+  descreaseEnabledCount = () =>
+    this.setState({ enabledCount: this.state.enabledCount - 1 });
 
   render() {
     const { groupName, tags } = this.props;
@@ -122,28 +127,41 @@ export default class SettingsGroup extends Component {
           }}
         >
           <View style={styles.groupNameBlock}>
-            <Text style={styles.text}>{I18n.isZh ? groupName : countyZh2En[groupName]}</Text>
+            <Text style={styles.text}>
+              {I18n.isZh ? groupName : countyZh2En[groupName]}
+            </Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              {this.state.enabledCount > 0 &&
+              {this.state.enabledCount > 0 && (
                 <View style={styles.countBubble}>
-                  <Text style={styles.countBubbleText}>{this.state.enabledCount}</Text>
-                </View>}
-              <Icon name={this.state.isOpen ? 'keyboard-arrow-down' : 'chevron-right'} size={21} color="gray" />
+                  <Text style={styles.countBubbleText}>
+                    {this.state.enabledCount}
+                  </Text>
+                </View>
+              )}
+              <Icon
+                name={
+                  this.state.isOpen ? 'keyboard-arrow-down' : 'chevron-right'
+                }
+                size={21}
+                color="gray"
+              />
             </View>
           </View>
         </TouchableOpacity>
-        {this.state.isOpen && <FlatList
-          data={this.state.locations}
-          keyExtractor={(item, index) => `${index}-${item.SiteEngName}`}
-          renderItem={({ item }) => (
-            <SettingsItem
-              item={item}
-              tags={tags}
-              increaseEnabledCount={this.increaseEnabledCount}
-              descreaseEnabledCount={this.descreaseEnabledCount}
-            />
-          )}
-        />}
+        {this.state.isOpen && (
+          <FlatList
+            data={this.state.locations}
+            keyExtractor={(item, index) => `${index}-${item.SiteEngName}`}
+            renderItem={({ item }) => (
+              <SettingsItem
+                item={item}
+                tags={tags}
+                increaseEnabledCount={this.increaseEnabledCount}
+                descreaseEnabledCount={this.descreaseEnabledCount}
+              />
+            )}
+          />
+        )}
       </View>
     );
   }

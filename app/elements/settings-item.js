@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 import {
   Alert,
   Platform,
@@ -90,23 +90,23 @@ const DEFAULT_CLEANLINESS_THERHOLD = 30;
 
 export default class SettingsItem extends Component {
   static propTypes = {
-    text: PropTypes.string,
-    tags: PropTypes.shape({}),
-    item: PropTypes.shape({
-      SiteName: PropTypes.string,
-      SiteEngName: PropTypes.string,
-      AreaName: PropTypes.string,
-      County: PropTypes.string,
-      Township: PropTypes.string,
-      SiteAddress: PropTypes.string,
-      TWD97Lon: PropTypes.string,
-      TWD97Lat: PropTypes.string,
-      SiteType: PropTypes.string,
+    text: string,
+    tags: shape({}),
+    item: shape({
+      SiteName: string,
+      SiteEngName: string,
+      AreaName: string,
+      County: string,
+      Township: string,
+      SiteAddress: string,
+      TWD97Lon: string,
+      TWD97Lat: string,
+      SiteType: string,
     }).isRequired,
-    isNeedLoad: PropTypes.bool,
-    increaseEnabledCount: PropTypes.func,
-    descreaseEnabledCount: PropTypes.func,
-  }
+    isNeedLoad: bool,
+    increaseEnabledCount: func,
+    descreaseEnabledCount: func,
+  };
 
   static defaultProps = {
     text: '',
@@ -114,7 +114,7 @@ export default class SettingsItem extends Component {
     isNeedLoad: false,
     increaseEnabledCount: () => console.log(),
     descreaseEnabledCount: () => console.log(),
-  }
+  };
 
   state = {
     isEnabled: false,
@@ -149,14 +149,17 @@ export default class SettingsItem extends Component {
       descreaseEnabledCount();
     }
 
-    tracker.logEvent('set-notification-on-off', { label: value ? 'on' : 'off' });
+    tracker.logEvent('set-notification-on-off', {
+      label: value ? 'on' : 'off',
+    });
   }
 
   setNotificationPollutionTherhold(value) {
     let tempValue = parseInt(value, 10) || 0;
     if (!value || value <= 0) {
       tempValue = 0;
-    } if (value > 500) {
+    }
+    if (value > 500) {
       tempValue = 500;
     }
 
@@ -169,7 +172,8 @@ export default class SettingsItem extends Component {
     let tempValue = parseInt(value, 10) || 0;
     if (!value || value <= 0) {
       tempValue = 0;
-    } if (value > 500) {
+    }
+    if (value > 500) {
       tempValue = 500;
     }
 
@@ -183,8 +187,12 @@ export default class SettingsItem extends Component {
     if (tags) {
       this.setState({
         isEnabled: tags[item.SiteEngName] === 'true',
-        pollutionTherhold: tags[`${item.SiteEngName}_pollution_therhold`] ? parseInt(tags[`${item.SiteEngName}_pollution_therhold`], 10) : DEFAULT_POLLUTION_THERHOLD,
-        cleanlinessTherhold: tags[`${item.SiteEngName}_cleanliness_therhold`] ? parseInt(tags[`${item.SiteEngName}_cleanliness_therhold`], 10) : DEFAULT_CLEANLINESS_THERHOLD,
+        pollutionTherhold: tags[`${item.SiteEngName}_pollution_therhold`]
+          ? parseInt(tags[`${item.SiteEngName}_pollution_therhold`], 10)
+          : DEFAULT_POLLUTION_THERHOLD,
+        cleanlinessTherhold: tags[`${item.SiteEngName}_cleanliness_therhold`]
+          ? parseInt(tags[`${item.SiteEngName}_cleanliness_therhold`], 10)
+          : DEFAULT_CLEANLINESS_THERHOLD,
       });
     }
 
@@ -193,8 +201,22 @@ export default class SettingsItem extends Component {
       if (onesignalTags) {
         this.setState({
           isEnabled: onesignalTags[item.SiteEngName] === 'true',
-          pollutionTherhold: onesignalTags[`${item.SiteEngName}_pollution_therhold`] ? parseInt(onesignalTags[`${item.SiteEngName}_pollution_therhold`], 10) : DEFAULT_POLLUTION_THERHOLD,
-          cleanlinessTherhold: onesignalTags[`${item.SiteEngName}_cleanliness_therhold`] ? parseInt(onesignalTags[`${item.SiteEngName}_cleanliness_therhold`], 10) : DEFAULT_CLEANLINESS_THERHOLD,
+          pollutionTherhold: onesignalTags[
+            `${item.SiteEngName}_pollution_therhold`
+          ]
+            ? parseInt(
+                onesignalTags[`${item.SiteEngName}_pollution_therhold`],
+                10
+              )
+            : DEFAULT_POLLUTION_THERHOLD,
+          cleanlinessTherhold: onesignalTags[
+            `${item.SiteEngName}_cleanliness_therhold`
+          ]
+            ? parseInt(
+                onesignalTags[`${item.SiteEngName}_cleanliness_therhold`],
+                10
+              )
+            : DEFAULT_CLEANLINESS_THERHOLD,
         });
       }
     }
@@ -205,13 +227,20 @@ export default class SettingsItem extends Component {
 
     const tags = {};
     tags[item.SiteEngName] = value;
-    tags[`${item.SiteEngName}_pollution_therhold`] = value ? this.state.pollutionTherhold : false;
-    tags[`${item.SiteEngName}_cleanliness_therhold`] = value ? this.state.cleanlinessTherhold : false;
+    tags[`${item.SiteEngName}_pollution_therhold`] = value
+      ? this.state.pollutionTherhold
+      : false;
+    tags[`${item.SiteEngName}_cleanliness_therhold`] = value
+      ? this.state.cleanlinessTherhold
+      : false;
 
     console.log('Send tags', tags);
     OneSignal.sendTags(tags);
 
-    tracker.logEvent('set-notification', { label: value ? 'on' : 'off', ...tags });
+    tracker.logEvent('set-notification', {
+      label: value ? 'on' : 'off',
+      ...tags,
+    });
   }
 
   showPollutionSelector() {
@@ -221,7 +250,8 @@ export default class SettingsItem extends Component {
       [
         {
           text: I18n.t('cancel'),
-          onPress: () => tracker.logEvent('pollution-selector', { label: 'cancel' }),
+          onPress: () =>
+            tracker.logEvent('pollution-selector', { label: 'cancel' }),
           style: 'cancel',
         },
         ...indexRanges.AQI.map(item => ({
@@ -234,7 +264,7 @@ export default class SettingsItem extends Component {
           },
         })),
       ],
-      { cancelable: true },
+      { cancelable: true }
     );
   }
 
@@ -245,7 +275,8 @@ export default class SettingsItem extends Component {
       [
         {
           text: I18n.t('cancel'),
-          onPress: () => tracker.logEvent('cleanliness-selector', { label: 'cancel' }),
+          onPress: () =>
+            tracker.logEvent('cleanliness-selector', { label: 'cancel' }),
           style: 'cancel',
         },
         ...indexRanges.AQI.map(item => ({
@@ -258,7 +289,7 @@ export default class SettingsItem extends Component {
           },
         })),
       ],
-      { cancelable: true },
+      { cancelable: true }
     );
   }
 
@@ -286,15 +317,17 @@ export default class SettingsItem extends Component {
           </View>
         </View>
 
-        {this.state.isEnabled &&
+        {this.state.isEnabled && (
           <View style={{ paddingTop: 10 }}>
             <View style={styles.noticeBlock}>
-              <Text style={styles.noticeText}>{I18n.t('notify_pollution_therhold')}: </Text>
+              <Text style={styles.noticeText}>
+                {I18n.t('notify_pollution_therhold')}:{' '}
+              </Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <TextInput
                   style={styles.input}
                   keyboardType="numeric"
-                  onChangeText={(value) => {
+                  onChangeText={value => {
                     this.setNotificationPollutionTherhold(value);
                     tracker.logEvent('pollution-textinput', item);
                   }}
@@ -318,24 +351,34 @@ export default class SettingsItem extends Component {
                 value={this.state.pollutionTherhold}
                 minimumValue={1}
                 maximumValue={500}
-                onValueChange={value => this.setNotificationPollutionTherhold(value)}
+                onValueChange={value =>
+                  this.setNotificationPollutionTherhold(value)
+                }
               />
             </View>
-            {this.state.pollutionTherhold < DEFAULT_POLLUTION_THERHOLD && <Text style={styles.noticeWarningText}>{I18n.t('too_small_therhold')}</Text>}
+            {this.state.pollutionTherhold < DEFAULT_POLLUTION_THERHOLD && (
+              <Text style={styles.noticeWarningText}>
+                {I18n.t('too_small_therhold')}
+              </Text>
+            )}
 
             <View style={styles.noticeBlock}>
-              <Text style={styles.noticeText}>{I18n.t('notify_cleanliness_therhold')}: </Text>
+              <Text style={styles.noticeText}>
+                {I18n.t('notify_cleanliness_therhold')}:{' '}
+              </Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <TextInput
                   style={styles.input}
                   keyboardType="numeric"
-                  onChangeText={(value) => {
+                  onChangeText={value => {
                     this.setNotificationCleanlinessTherhold(value);
                     tracker.logEvent('cleanliness-textinput', item);
                   }}
                   value={this.state.cleanlinessTherhold.toString()}
                 />
-                <TouchableOpacity onPress={() => this.showCleanlinessSelector()}>
+                <TouchableOpacity
+                  onPress={() => this.showCleanlinessSelector()}
+                >
                   <Marker
                     amount={String(this.state.cleanlinessTherhold)}
                     index="AQI"
@@ -354,11 +397,18 @@ export default class SettingsItem extends Component {
                 value={this.state.cleanlinessTherhold}
                 minimumValue={1}
                 maximumValue={500}
-                onValueChange={value => this.setNotificationCleanlinessTherhold(value)}
+                onValueChange={value =>
+                  this.setNotificationCleanlinessTherhold(value)
+                }
               />
             </View>
-            {this.state.cleanlinessTherhold > DEFAULT_CLEANLINESS_THERHOLD && <Text style={styles.noticeWarningText}>{I18n.t('too_large_therhold')}</Text>}
-          </View>}
+            {this.state.cleanlinessTherhold > DEFAULT_CLEANLINESS_THERHOLD && (
+              <Text style={styles.noticeWarningText}>
+                {I18n.t('too_large_therhold')}
+              </Text>
+            )}
+          </View>
+        )}
       </View>
     );
   }

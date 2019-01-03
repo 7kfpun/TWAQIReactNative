@@ -1,10 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import { bool, number, oneOfType, string } from 'prop-types';
+import { StyleSheet, View, Text } from 'react-native';
 
 import { indexRanges } from '../utils/indexes';
 import I18n from '../utils/i18n';
@@ -32,15 +28,12 @@ const styles = StyleSheet.create({
 
 export default class AirMarker extends React.PureComponent {
   static propTypes = {
-    index: PropTypes.string,
-    amount: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    fontSize: PropTypes.number,
-    isStatusShow: PropTypes.bool,
-    isNumericShow: PropTypes.bool,
-  }
+    index: string,
+    amount: oneOfType([string, number]),
+    fontSize: number,
+    isStatusShow: bool,
+    isNumericShow: bool,
+  };
 
   static defaultProps = {
     index: 'AQI',
@@ -48,26 +41,28 @@ export default class AirMarker extends React.PureComponent {
     fontSize: 15,
     isStatusShow: false,
     isNumericShow: false,
-  }
+  };
 
   render() {
-    const {
-      index,
-      fontSize,
-      amount,
-      isStatusShow,
-      isNumericShow,
-    } = this.props;
+    const { index, fontSize, amount, isStatusShow, isNumericShow } = this.props;
 
     let color = 'gray';
     let showAmount = '-';
     let status;
     let fontColor = 'white';
 
-    if (!(['ND', '-', '/*', '-*', '-/-'].includes(amount) || amount <= 0 || !amount)) {
+    if (
+      !(
+        ['ND', '-', '/*', '-*', '-/-'].includes(amount) ||
+        amount <= 0 ||
+        !amount
+      )
+    ) {
       showAmount = amount;
 
-      const isMatched = indexRanges[index].filter(item => amount >= item.min && amount <= item.max);
+      const isMatched = indexRanges[index].filter(
+        item => amount >= item.min && amount <= item.max
+      );
       if (isMatched && isMatched.length >= 1) {
         color = isMatched[0].color;
         fontColor = isMatched[0].fontColor;
@@ -86,8 +81,15 @@ export default class AirMarker extends React.PureComponent {
 
     return (
       <View style={styles.container}>
-        <View style={[styles.bubble, { backgroundColor: color, borderColor: 'white' }]}>
-          <Text style={[styles.text, { fontSize, color: fontColor }]}>{text}</Text>
+        <View
+          style={[
+            styles.bubble,
+            { backgroundColor: color, borderColor: 'white' },
+          ]}
+        >
+          <Text style={[styles.text, { fontSize, color: fontColor }]}>
+            {text}
+          </Text>
         </View>
       </View>
     );

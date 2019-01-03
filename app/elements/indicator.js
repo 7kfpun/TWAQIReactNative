@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Dimensions, Image, StyleSheet, View } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
 
@@ -18,7 +12,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 15,
     top: DeviceInfo.hasNotch() ? 116 : 94,
-    width: (width / 2) - 15,
+    width: width / 2 - 15,
     height: 30,
     flexDirection: 'row',
     backgroundColor: 'white',
@@ -54,12 +48,10 @@ const Indicator = () => (
   <View style={styles.container}>
     {indexRanges.AQI.map(color => (
       <View style={styles.item} key={color.key}>
-        <Image
-          style={{ width: 16, height: 16 }}
-          source={color.image}
-        />
+        <Image style={{ width: 16, height: 16 }} source={color.image} />
         <View style={[styles.bar, { backgroundColor: color.color }]} />
-      </View>))}
+      </View>
+    ))}
   </View>
 );
 

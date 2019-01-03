@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  Dimensions,
-  View,
-} from 'react-native';
+import { arrayOf, shape, string } from 'prop-types';
+import { Dimensions, View } from 'react-native';
 
 import { VictoryBar } from 'victory-native';
 
@@ -15,9 +12,9 @@ const isFloat = n => Number(n) === n && n % 1 !== 0;
 
 export default class Chart extends Component {
   static propTypes = {
-    index: PropTypes.string.isRequired,
-    result: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
-  }
+    index: string.isRequired,
+    result: arrayOf(shape({}).isRequired).isRequired,
+  };
 
   render() {
     const { index, result } = this.props;
@@ -25,8 +22,12 @@ export default class Chart extends Component {
       return null;
     }
 
-    const data = result.map((amount) => {
-      if (['ND', '-', '/*', '-*', '-/-'].includes(amount) || amount < '0' || !amount) {
+    const data = result.map(amount => {
+      if (
+        ['ND', '-', '/*', '-*', '-/-'].includes(amount) ||
+        amount < '0' ||
+        !amount
+      ) {
         return 0;
       }
       return amount[index.replace('_', '')];
@@ -48,7 +49,7 @@ export default class Chart extends Component {
             right: 7,
           }}
           domain={{ x: [0, length], y: [min / 3, max] }}
-          labels={(d) => {
+          labels={d => {
             if (d.y === 0) {
               return '';
             }
@@ -66,7 +67,10 @@ export default class Chart extends Component {
               padding: 2,
             },
             data: {
-              fill: d => d.y ? getColor(this.props.index, parseFloat(d.y)).color : '#000000',
+              fill: d =>
+                d.y
+                  ? getColor(this.props.index, parseFloat(d.y)).color
+                  : '#000000',
               // stroke: (d) => d.x === 3 ? "#000000" : "#c43a31",
               fillOpacity: 0.8,
               strokeWidth: 1,

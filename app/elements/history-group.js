@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { string, shape } from 'prop-types';
 import {
   FlatList,
   StyleSheet,
@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
 
 export default class HistoryGroup extends Component {
   static propTypes = {
-    groupName: PropTypes.string.isRequired,
-    navigation: PropTypes.shape({}).isRequired,
-  }
+    groupName: string.isRequired,
+    navigation: shape({}).isRequired,
+  };
 
   state = {
     locations: [],
@@ -62,7 +62,11 @@ export default class HistoryGroup extends Component {
   }
 
   prepareLocations() {
-    this.setState({ locations: locations.filter(item => item.County === this.props.groupName).sort() });
+    this.setState({
+      locations: locations
+        .filter(item => item.County === this.props.groupName)
+        .sort(),
+    });
   }
 
   render() {
@@ -76,15 +80,25 @@ export default class HistoryGroup extends Component {
           }}
         >
           <View style={styles.groupNameBlock}>
-            <Text style={styles.text}>{I18n.isZh ? groupName : countyZh2En[groupName]}</Text>
-            <Icon name={this.state.isOpen ? 'keyboard-arrow-down' : 'chevron-right'} size={21} color="gray" />
+            <Text style={styles.text}>
+              {I18n.isZh ? groupName : countyZh2En[groupName]}
+            </Text>
+            <Icon
+              name={this.state.isOpen ? 'keyboard-arrow-down' : 'chevron-right'}
+              size={21}
+              color="gray"
+            />
           </View>
         </TouchableOpacity>
-        {this.state.isOpen && <FlatList
-          data={this.state.locations}
-          keyExtractor={(item, index) => `${index}-${item.SiteEngName}`}
-          renderItem={({ item }) => <HistoryItem item={item} navigation={this.props.navigation} />}
-        />}
+        {this.state.isOpen && (
+          <FlatList
+            data={this.state.locations}
+            keyExtractor={(item, index) => `${index}-${item.SiteEngName}`}
+            renderItem={({ item }) => (
+              <HistoryItem item={item} navigation={this.props.navigation} />
+            )}
+          />
+        )}
       </View>
     );
   }

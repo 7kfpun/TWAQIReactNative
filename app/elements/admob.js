@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  View,
-} from 'react-native';
+import { number, string } from 'prop-types';
+import { View } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
 import firebase from 'react-native-firebase';
@@ -35,12 +33,12 @@ request
 
 export default class Admob extends Component {
   static propTypes = {
-    bannerSize: PropTypes.string,
-    unitId: PropTypes.string,
-    margin: PropTypes.number,
-    backgroundColor: PropTypes.string,
-    alignItems: PropTypes.string,
-  }
+    bannerSize: string,
+    unitId: string,
+    margin: number,
+    backgroundColor: string,
+    alignItems: string,
+  };
 
   static defaultProps = {
     margin: 0,
@@ -48,7 +46,7 @@ export default class Admob extends Component {
     bannerSize: 'BANNER',
     backgroundColor: 'rgba(0,0,0,0)',
     alignItems: 'center',
-  }
+  };
 
   state = {
     isReceived: false,
@@ -70,7 +68,8 @@ export default class Admob extends Component {
   }
 
   componentWillUnmount() {
-    if (this.setIsReceivedFailedTimeout) clearTimeout(this.setIsReceivedFailedTimeout);
+    if (this.setIsReceivedFailedTimeout)
+      clearTimeout(this.setIsReceivedFailedTimeout);
     if (this.checkShinbaAdInterval) clearInterval(this.checkShinbaAdInterval);
   }
 
@@ -130,7 +129,7 @@ export default class Admob extends Component {
               this.setState({ isReceived: true });
             }, 1000);
           }}
-          onAdFailedToLoad={(error) => {
+          onAdFailedToLoad={error => {
             console.log('Ads error', error);
             this.setState({ isReceivedFailed: true });
           }}

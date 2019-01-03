@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  Image,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { number, string } from 'prop-types';
+import { Image, TouchableWithoutFeedback, View } from 'react-native';
 
 import { getAd } from '../utils/firebase-config';
 import { openURL } from '../utils/helpers';
@@ -12,18 +8,18 @@ import tracker from '../utils/tracker';
 
 export default class AdCustom extends Component {
   static propTypes = {
-    margin: PropTypes.number,
-    backgroundColor: PropTypes.string,
-    alignItems: PropTypes.string,
-    client: PropTypes.string,
-  }
+    margin: number,
+    backgroundColor: string,
+    alignItems: string,
+    client: string,
+  };
 
   static defaultProps = {
     margin: 0,
     backgroundColor: 'rgba(0,0,0,0)',
     alignItems: 'center',
     client: 'self',
-  }
+  };
 
   state = {
     isReceived: false,
@@ -62,16 +58,11 @@ export default class AdCustom extends Component {
       imageUrl,
       isInApp: isInApp ? 'true' : 'false',
     });
-  }
+  };
 
   render() {
     const { margin, backgroundColor, alignItems } = this.props;
-    const {
-      isReceived,
-      imageUrl,
-      destinationUrl,
-      isInApp,
-    } = this.state;
+    const { isReceived, imageUrl, destinationUrl, isInApp } = this.state;
 
     if (!isReceived) {
       return null;

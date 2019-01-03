@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { arrayOf, func, node, number, oneOfType } from 'prop-types';
 
 import { ScrollView } from 'react-native';
 
 class SwipeScrollView extends Component {
   static propTypes = {
-    children: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node,
-    ]).isRequired,
-    onScroll: PropTypes.func,
-    onScrollUp: PropTypes.func,
-    onScrollDown: PropTypes.func,
-    scrollActionOffset: PropTypes.number,
+    children: oneOfType([arrayOf(node), node]).isRequired,
+    onScroll: func,
+    onScrollUp: func,
+    onScrollDown: func,
+    scrollActionOffset: number,
   };
 
   static defaultProps = {
@@ -22,7 +19,7 @@ class SwipeScrollView extends Component {
     scrollActionOffset: 0,
   };
 
-  onScroll = (e) => {
+  onScroll = e => {
     /**
      * Allow parent component do something when 'onScroll' event is fired.
      */
@@ -51,7 +48,7 @@ class SwipeScrollView extends Component {
         return;
       }
     } else {
-      if (offsetY > (contentHeight - layoutHeight)) {
+      if (offsetY > contentHeight - layoutHeight) {
         this.setState({
           offsetY,
         });
@@ -64,7 +61,7 @@ class SwipeScrollView extends Component {
     } else {
       this.props.onScrollUp(e);
     }
-  }
+  };
 
   render() {
     return (

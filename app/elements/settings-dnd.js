@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { shape } from 'prop-types';
 import {
   Platform,
   StyleSheet,
@@ -51,18 +51,20 @@ const styles = StyleSheet.create({
   },
 });
 
-
-const getTime = value => (parseInt(moment(value).format('H'), 10) * 60) + parseInt(moment(value).format('m'), 10);
-const convertFromTagToTime = value => moment(`${parseInt(value / 60, 10)} ${value % 60}`, 'H m');
+const getTime = value =>
+  parseInt(moment(value).format('H'), 10) * 60 +
+  parseInt(moment(value).format('m'), 10);
+const convertFromTagToTime = value =>
+  moment(`${parseInt(value / 60, 10)} ${value % 60}`, 'H m');
 
 export default class SettingsDND extends Component {
   static propTypes = {
-    tags: PropTypes.shape({}),
-  }
+    tags: shape({}),
+  };
 
   static defaultProps = {
     tags: {},
-  }
+  };
 
   state = {
     isDndEnabled: false,
@@ -76,13 +78,14 @@ export default class SettingsDND extends Component {
     this.loadDNDSettings();
   }
 
-  setDND = (value) => {
+  setDND = value => {
     this.setState({ isDndEnabled: value }, () => {
       OneSignal.sendTags({
         isDndEnabled: value,
         dndStartTime: getTime(this.state.startTime),
         dndEndTime: getTime(this.state.endTime),
-        isDndStartEarlierThanEnd: moment(this.state.startTime).diff(this.state.endTime) < 0,
+        isDndStartEarlierThanEnd:
+          moment(this.state.startTime).diff(this.state.endTime) < 0,
       });
       tracker.logEvent('set-dnd-notification', { label: value ? 'on' : 'off' });
 
@@ -96,38 +99,47 @@ export default class SettingsDND extends Component {
         OneSignal.registerForPushNotifications();
       }
     });
-  }
+  };
 
   loadDNDSettings() {
     const { tags } = this.props;
     if (tags) {
       this.setState({
         isDndEnabled: tags.isDndEnabled === 'true',
-        startTime: tags.dndStartTime ? convertFromTagToTime(tags.dndStartTime) : this.state.startTime,
-        endTime: tags.dndEndTime ? convertFromTagToTime(tags.dndEndTime) : this.state.endTime,
+        startTime: tags.dndStartTime
+          ? convertFromTagToTime(tags.dndStartTime)
+          : this.state.startTime,
+        endTime: tags.dndEndTime
+          ? convertFromTagToTime(tags.dndEndTime)
+          : this.state.endTime,
       });
     }
   }
 
   showStartTimePicker = () => this.setState({ isStartTimePickerVisible: true });
-  hideStartTimePicker = () => this.setState({ isStartTimePickerVisible: false });
+  hideStartTimePicker = () =>
+    this.setState({ isStartTimePickerVisible: false });
 
   showEndTimePicker = () => this.setState({ isEndTimePickerVisible: true });
   hideEndTimePicker = () => this.setState({ isEndTimePickerVisible: false });
 
-  handleStartTimePicked = (value) => {
-    this.setState({ startTime: value }, () => OneSignal.sendTags({
-      dndStartTime: getTime(value),
-      isDndStartEarlierThanEnd: moment(value).diff(this.state.endTime) < 0,
-    }));
+  handleStartTimePicked = value => {
+    this.setState({ startTime: value }, () =>
+      OneSignal.sendTags({
+        dndStartTime: getTime(value),
+        isDndStartEarlierThanEnd: moment(value).diff(this.state.endTime) < 0,
+      })
+    );
     this.hideStartTimePicker();
   };
 
-  handleEndTimePicked = (value) => {
-    this.setState({ endTime: value }, () => OneSignal.sendTags({
-      dndEndTime: getTime(value),
-      isDndStartEarlierThanEnd: moment(this.state.startTime).diff(value) < 0,
-    }));
+  handleEndTimePicked = value => {
+    this.setState({ endTime: value }, () =>
+      OneSignal.sendTags({
+        dndEndTime: getTime(value),
+        isDndStartEarlierThanEnd: moment(this.state.startTime).diff(value) < 0,
+      })
+    );
     this.hideEndTimePicker();
   };
 
@@ -144,23 +156,31 @@ export default class SettingsDND extends Component {
           />
         </View>
 
-        {this.state.isDndEnabled &&
+        {this.state.isDndEnabled && (
           <TouchableOpacity
             style={[styles.settingsBlock, styles.horizontalLine]}
             onPress={this.showStartTimePicker}
           >
-            <Text style={styles.text}>{I18n.t('do_not_disturb.start_time')}</Text>
-            <Text style={styles.timeText}>{moment(this.state.startTime).format('LT')}</Text>
-          </TouchableOpacity>}
+            <Text style={styles.text}>
+              {I18n.t('do_not_disturb.start_time')}
+            </Text>
+            <Text style={styles.timeText}>
+              {moment(this.state.startTime).format('LT')}
+            </Text>
+          </TouchableOpacity>
+        )}
 
-        {this.state.isDndEnabled &&
+        {this.state.isDndEnabled && (
           <TouchableOpacity
             style={styles.settingsBlock}
             onPress={this.showEndTimePicker}
           >
             <Text style={styles.text}>{I18n.t('do_not_disturb.end_time')}</Text>
-            <Text style={styles.timeText}>{moment(this.state.endTime).format('LT')}</Text>
-          </TouchableOpacity>}
+            <Text style={styles.timeText}>
+              {moment(this.state.endTime).format('LT')}
+            </Text>
+          </TouchableOpacity>
+        )}
 
         <DateTimePicker
           titleIOS={I18n.t('do_not_disturb.start_time')}

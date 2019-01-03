@@ -1,10 +1,6 @@
 import React from 'react';
 import { number, shape, string } from 'prop-types';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
 
@@ -23,10 +19,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    height: 45,
+    height: 50,
   },
   labelText: {
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: '300',
     color: 'black',
   },
@@ -36,7 +32,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
 
 const RealtimeWeather = ({ data }) => {
   if (!data.Temp) {
@@ -53,12 +48,12 @@ const RealtimeWeather = ({ data }) => {
       </View>
       <View style={styles.item}>
         <Text style={styles.labelText}>{I18n.t('realtime_weather.rh')}</Text>
-        <Text style={styles.valueText}>
-          {data.RH ? `${data.RH} %` : '--'}
-        </Text>
+        <Text style={styles.valueText}>{data.RH ? `${data.RH} %` : '--'}</Text>
       </View>
       <View style={styles.item}>
-        <Text style={styles.labelText}>{I18n.t('realtime_weather.visibility')}</Text>
+        <Text style={styles.labelText}>
+          {I18n.t('realtime_weather.visibility')}
+        </Text>
         <Text style={styles.valueText}>
           {data.Visibility ? `${data.Visibility} km` : '--'}
         </Text>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { func, shape } from 'prop-types';
 import {
   Dimensions,
   ImageBackground,
@@ -115,9 +115,9 @@ const styles = StyleSheet.create({
 
 export default class DetailsView extends Component {
   static propTypes = {
-    navigation: PropTypes.shape({
-      state: PropTypes.shape({}).isRequired,
-      goBack: PropTypes.func.isRequired,
+    navigation: shape({
+      state: shape({}).isRequired,
+      goBack: func.isRequired,
     }).isRequired,
   };
 
