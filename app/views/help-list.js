@@ -89,10 +89,10 @@ export default class HelpView extends Component {
             style={styles.row}
             onPress={() => {
               tracker.logEvent('help-aqi-wiki');
-              openURL(I18n.t('help.aqi_url'));
+              openURL(I18n.t('help.AQI_url'));
             }}
           >
-            <Text style={styles.text}>{I18n.t('help.aqi')}</Text>
+            <Text style={styles.text}>{I18n.t('help.AQI')}</Text>
             <Icon name="chevron-right" size={21} color="gray" />
           </TouchableOpacity>
           <TouchableOpacity
@@ -102,47 +102,47 @@ export default class HelpView extends Component {
               openURL(I18n.t('help.particulates_url'));
             }}
           >
-            <Text style={styles.text}>{I18n.t('help.particulates')}</Text>
+            <Text style={styles.text}>{I18n.t('help.PM2_5')}</Text>
             <Icon name="chevron-right" size={21} color="gray" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.row}
             onPress={() => {
               tracker.logEvent('help-o3-wiki');
-              openURL(I18n.t('help.o3_url'));
+              openURL(I18n.t('help.O3_url'));
             }}
           >
-            <Text style={styles.text}>{I18n.t('help.o3')}</Text>
+            <Text style={styles.text}>{I18n.t('help.O3')}</Text>
             <Icon name="chevron-right" size={21} color="gray" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.row}
             onPress={() => {
               tracker.logEvent('help-co-wiki');
-              openURL(I18n.t('help.co_url'));
+              openURL(I18n.t('help.CO_url'));
             }}
           >
-            <Text style={styles.text}>{I18n.t('help.co')}</Text>
+            <Text style={styles.text}>{I18n.t('help.CO')}</Text>
             <Icon name="chevron-right" size={21} color="gray" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.row}
             onPress={() => {
               tracker.logEvent('help-so2-wiki');
-              openURL(I18n.t('help.so2_url'));
+              openURL(I18n.t('help.SO2_url'));
             }}
           >
-            <Text style={styles.text}>{I18n.t('help.so2')}</Text>
+            <Text style={styles.text}>{I18n.t('help.SO2')}</Text>
             <Icon name="chevron-right" size={21} color="gray" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.row}
             onPress={() => {
               tracker.logEvent('help-no2-wiki');
-              openURL(I18n.t('help.no2_url'));
+              openURL(I18n.t('help.NO2_url'));
             }}
           >
-            <Text style={styles.text}>{I18n.t('help.no2')}</Text>
+            <Text style={styles.text}>{I18n.t('help.NO2')}</Text>
             <Icon name="chevron-right" size={21} color="gray" />
           </TouchableOpacity>
         </ScrollView>

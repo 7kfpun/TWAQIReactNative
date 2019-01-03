@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: iOSColors.black,
   },
-  selectedBorderStyle: {
+  indicatorSelectedBorderStyle: {
     height: 2,
     backgroundColor: iOSColors.tealBlue,
   },
@@ -104,11 +104,6 @@ export default class ForecastView extends Component {
     },
   };
 
-  state = {
-    aqfnResult: null,
-    collapsed: false,
-  }
-
   static requestPermissions() {
     if (Platform.OS === 'ios') {
       const permissions = {
@@ -119,6 +114,11 @@ export default class ForecastView extends Component {
       OneSignal.requestPermissions(permissions);
       OneSignal.registerForPushNotifications();
     }
+  }
+
+  state = {
+    aqfnResult: null,
+    collapsed: false,
   }
 
   componentDidMount() {
@@ -142,7 +142,7 @@ export default class ForecastView extends Component {
     trackScroll={true}
     itemTextStyle={styles.indicatorText}
     selectedItemTextStyle={styles.indicatorSelectedText}
-    selectedBorderStyle={styles.selectedBorderStyle}
+    selectedBorderStyle={styles.indicatorSelectedBorderStyle}
     itemStyle={{ width: width / 2 }}
     selectedItemStyle={{ width: width / 2 }}
     titles={[I18n.t('forecast.three_days'), I18n.t('forecast.details')]}

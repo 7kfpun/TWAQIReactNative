@@ -5,8 +5,8 @@ import {
   View,
 } from 'react-native';
 
-import I18n from '../utils/i18n';
 import { indexRanges } from '../utils/indexes';
+import I18n from '../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {

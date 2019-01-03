@@ -15,6 +15,10 @@ import {
 
 import moment from 'moment';
 
+import {
+  IndicatorViewPager,
+  PagerTitleIndicator,
+} from 'rn-viewpager';
 import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -64,9 +68,7 @@ const styles = StyleSheet.create({
   block: {
     flexDirection: 'row',
     paddingHorizontal: 10,
-    paddingVertical: 20,
-    borderBottomColor: '#EEEEEE',
-    borderBottomWidth: 1,
+    paddingTop: 20,
     backgroundColor: 'white',
   },
   currentBlock: {
@@ -74,6 +76,22 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  indicatorContainer: {
+    backgroundColor: iOSColors.white,
+    height: 30,
+  },
+  indicatorText: {
+    fontSize: 12,
+    color: iOSColors.gray,
+  },
+  indicatorSelectedText: {
+    fontSize: 12,
+    color: iOSColors.black,
+  },
+  indicatorSelectedBorderStyle: {
+    height: 2,
+    backgroundColor: iOSColors.tealBlue,
   },
   title: {
     fontSize: 20,
@@ -181,6 +199,18 @@ export default class DetailsView extends Component {
 
   descreaseEnabledCount = () => {}
 
+  // TODO: make it component
+  renderIndicator = () => (<PagerTitleIndicator
+    style={styles.indicatorContainer}
+    trackScroll={true}
+    itemTextStyle={styles.indicatorText}
+    selectedItemTextStyle={styles.indicatorSelectedText}
+    selectedBorderStyle={styles.indicatorSelectedBorderStyle}
+    itemStyle={{ width: width / indexTypes.length }}
+    selectedItemStyle={{ width: width / indexTypes.length }}
+    titles={indexTypes.map(i => i.name)}
+  />)
+
   render() {
     const weatherIconMapping = {
       '01': moment().format('H') >= 6 && moment().format('H') < 18 ? 'ios-sunny' : 'ios-moon',
@@ -255,30 +285,42 @@ export default class DetailsView extends Component {
 
           <IndicatorHorizontal />
 
-          {!this.state.refreshing && this.state.result && indexTypes.map((indexType) => {
-            const { length } = this.state.result;
-            return (
-              <View key={indexType.key} style={styles.block}>
-                <View style={styles.currentBlock}>
-                  <Marker
-                    amount={this.state.result[length - 1][indexType.key.replace('_', '')]}
-                    index={indexType.name}
-                    isNumericShow={true}
-                  />
-                  <Text style={styles.text}>{indexType.name}</Text>
-                  <Text style={styles.unitText}>{indexType.unit}</Text>
-                </View>
+          {!this.state.refreshing &&
+            <IndicatorViewPager
+              style={{ height: 180, flexDirection: 'column-reverse' }}
+              indicator={this.renderIndicator()}
+            >
+              {!this.state.refreshing && this.state.result && indexTypes.map((indexType) => {
+                const { length } = this.state.result;
+                return (
+                  <View key={indexType.key}>
+                    <View style={styles.block}>
+                      <View style={styles.currentBlock}>
+                        <Marker
+                          amount={this.state.result[length - 1][indexType.key.replace('_', '')]}
+                          index={indexType.name}
+                          isNumericShow={true}
+                        />
+                        <Text style={styles.text}>{indexType.name}</Text>
+                        <Text style={styles.unitText}>{indexType.unit}</Text>
+                      </View>
 
-                <View style={{ width: width - 80 }}>
-                  <Chart result={this.state.result} index={indexType.key} />
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={styles.dateText}>{moment(this.state.result[0].publish_time).format('lll')}</Text>
-                    <Text style={styles.dateText}>{moment(this.state.result[length - 1].publish_time).format('lll')}</Text>
+                      <View style={{ width: width - 80 }}>
+                        <Chart result={this.state.result} index={indexType.key} />
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                          <Text style={styles.dateText}>{moment(this.state.result[0].publish_time).format('lll')}</Text>
+                          <Text style={styles.dateText}>{moment(this.state.result[length - 1].publish_time).format('lll')}</Text>
+                        </View>
+                      </View>
+                    </View>
+                    <View style={{ padding: 15, backgroundColor: 'white', marginBottom: 10 }}>
+                      <Text style={{ fontSize: 10 }}>{indexType.name} - {I18n.t(`help.${indexType.key}`)}</Text>
+                      {I18n.isZh && <Text style={{ fontSize: 10, fontWeight: '300', marginTop: 5 }}>{I18n.t(`help.${indexType.key}_description`)}</Text>}
+                    </View>
                   </View>
-                </View>
-              </View>
-            );
-          })}
+                );
+              })}
+            </IndicatorViewPager>}
 
           <View style={{ backgroundColor: 'white', marginTop: 10 }}>
             <Text style={{ paddingTop: 15, paddingLeft: 15 }}>{I18n.t('details.weather')}</Text>
