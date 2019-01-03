@@ -11,7 +11,18 @@
     "uninstall-android": "adb uninstall com.kfpun.twaqi",
     "capture-android": "adb shell screencap /sdcard/temp.png && adb pull /sdcard/temp.png screenshot.png",
     "post-install": "cd node_modules/react-native/scripts && ./ios-install-third-party.sh && cd ../../../ && cd node_modules/react-native/third-party/glog-0.3.5/ && ../../scripts/ios-configure-glog.sh && cd ../../../../",
-    "test": "jest"
+    "test": "jest",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.{js,json,css}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "analytics-react-native": "^1.2.0",
@@ -45,8 +56,13 @@
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^1.3.1",
     "jest": "23.6.0",
+    "lint-staged": "^8.1.0",
     "metro-react-native-babel-preset": "0.49.0",
+    "prettier": "^1.15.3",
     "react-test-renderer": "16.6.0-alpha.8af6728"
   },
   "jest": {

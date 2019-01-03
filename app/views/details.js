@@ -15,10 +15,7 @@ import {
 
 import moment from 'moment';
 
-import {
-  IndicatorViewPager,
-  PagerTitleIndicator,
-} from 'rn-viewpager';
+import { IndicatorViewPager, PagerTitleIndicator } from 'rn-viewpager';
 import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -122,21 +119,19 @@ export default class DetailsView extends Component {
       state: PropTypes.shape({}).isRequired,
       goBack: PropTypes.func.isRequired,
     }).isRequired,
-  }
+  };
 
   state = {
     refreshing: true,
     realtimeWeatherData: {},
     forecastWeatherData: [],
-  }
+  };
 
   componentDidMount() {
     const {
       navigation: {
         state: {
-          params: {
-            item,
-          },
+          params: { item },
         },
       },
     } = this.props;
@@ -153,67 +148,70 @@ export default class DetailsView extends Component {
     }
   }
 
-  getRealtimeWeather = (item) => {
-    realtimeWeather(item.TWD97Lat, item.TWD97Lon).then((result) => {
+  getRealtimeWeather = item => {
+    realtimeWeather(item.TWD97Lat, item.TWD97Lon).then(result => {
       console.log('realtimeWeather', result);
       this.setState({ realtimeWeatherData: result });
     });
-  }
+  };
 
-  getForecastWeather = (item) => {
-    forecastWeather(item.TWD97Lat, item.TWD97Lon).then((result) => {
+  getForecastWeather = item => {
+    forecastWeather(item.TWD97Lat, item.TWD97Lon).then(result => {
       console.log('forecastWeather', result);
       if (result) {
         this.setState({ forecastWeatherData: flatten(result) });
       }
     });
-  }
+  };
 
   prepareData = () => {
     const {
       navigation: {
         state: {
-          params: {
-            item,
-          },
+          params: { item },
         },
       },
     } = this.props;
 
     const trace = firebase.perf().newTrace('api_get_aqi_history');
     trace.start();
-    history(item.SiteName).then((result) => {
+    history(item.SiteName).then(result => {
       trace.stop();
       if (result.data) {
         this.setState({ result: result.data });
       }
       this.setState({ refreshing: false });
     });
-  }
+  };
 
   goBack = () => {
     this.props.navigation.goBack(null);
-  }
+  };
 
-  increaseEnabledCount = () => {}
+  increaseEnabledCount = () => {};
 
-  descreaseEnabledCount = () => {}
+  descreaseEnabledCount = () => {};
 
   // TODO: make it component
-  renderIndicator = () => (<PagerTitleIndicator
-    style={styles.indicatorContainer}
-    trackScroll={true}
-    itemTextStyle={styles.indicatorText}
-    selectedItemTextStyle={styles.indicatorSelectedText}
-    selectedBorderStyle={styles.indicatorSelectedBorderStyle}
-    itemStyle={{ width: width / indexTypes.length }}
-    selectedItemStyle={{ width: width / indexTypes.length }}
-    titles={indexTypes.map(i => i.name)}
-  />)
+  renderIndicator = () => (
+    <PagerTitleIndicator
+      style={styles.indicatorContainer}
+      trackScroll={true}
+      itemTextStyle={styles.indicatorText}
+      selectedItemTextStyle={styles.indicatorSelectedText}
+      selectedBorderStyle={styles.indicatorSelectedBorderStyle}
+      itemStyle={{ width: width / indexTypes.length }}
+      selectedItemStyle={{ width: width / indexTypes.length }}
+      titles={indexTypes.map(i => i.name)}
+    />
+  );
 
   render() {
     const weatherIconMapping = {
-      '01': moment().format('H') >= 6 && moment().format('H') < 18 ? 'ios-sunny' : 'ios-moon',
+      '01':
+        moment().format('H') >= 6 && moment().format('H') < 18
+          ? 'ios-sunny'
+          : 'ios-moon',
       '02': 'ios-cloud-outline',
       '03': 'ios-cloud',
       26: 'ios-rainy',
@@ -223,9 +221,7 @@ export default class DetailsView extends Component {
     const {
       navigation: {
         state: {
-          params: {
-            item,
-          },
+          params: { item },
         },
       },
     } = this.props;
@@ -237,7 +233,9 @@ export default class DetailsView extends Component {
         <TouchableOpacity style={styles.titleContainer} onPress={this.goBack}>
           <View style={styles.titleBody}>
             <Ionicons name="ios-arrow-back" size={30} color="black" />
-            <Text style={styles.title}>{I18n.isZh ? item.SiteName : item.SiteEngName}</Text>
+            <Text style={styles.title}>
+              {I18n.isZh ? item.SiteName : item.SiteEngName}
+            </Text>
             <View />
           </View>
         </TouchableOpacity>
@@ -250,26 +248,44 @@ export default class DetailsView extends Component {
             />
           }
         >
-          {item.ImageUrl &&
+          {item.ImageUrl && (
             <ImageBackground
-              style={{ width, height: this.state.ratio * width, justifyContent: 'flex-end' }}
+              style={{
+                width,
+                height: this.state.ratio * width,
+                justifyContent: 'flex-end',
+              }}
               source={{ uri: item.ImageUrl }}
             >
               <View style={styles.imageBackground}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Text style={{ color: 'white' }}>{`${realtimeWeatherData.Temp || '- '}℃`}</Text>
-                  {realtimeWeatherData.WeatherIcon
-                    && weatherIconMapping[realtimeWeatherData.WeatherIcon]
-                    && <Ionicons name={weatherIconMapping[realtimeWeatherData.WeatherIcon]} style={{ marginLeft: 4 }} size={18} color="white" />}
+                  <Text
+                    style={{ color: 'white' }}
+                  >{`${realtimeWeatherData.Temp || '- '}℃`}</Text>
+                  {realtimeWeatherData.WeatherIcon &&
+                    weatherIconMapping[realtimeWeatherData.WeatherIcon] && (
+                      <Ionicons
+                        name={
+                          weatherIconMapping[realtimeWeatherData.WeatherIcon]
+                        }
+                        style={{ marginLeft: 4 }}
+                        size={18}
+                        color="white"
+                      />
+                    )}
                 </View>
-                {I18n.isZh && <Text style={{ color: 'white' }}>{item.SiteAddress}</Text>}
+                {I18n.isZh && (
+                  <Text style={{ color: 'white' }}>{item.SiteAddress}</Text>
+                )}
               </View>
-            </ImageBackground>}
+            </ImageBackground>
+          )}
 
-          {!item.ImageUrl && I18n.isZh &&
+          {!item.ImageUrl && I18n.isZh && (
             <View style={{ padding: 10, backgroundColor: 'white' }}>
               <Text style={styles.addressText}>{item.SiteAddress}</Text>
-            </View>}
+            </View>
+          )}
 
           <RealtimeWeather data={realtimeWeatherData} />
 
@@ -285,50 +301,96 @@ export default class DetailsView extends Component {
 
           <IndicatorHorizontal />
 
-          {!this.state.refreshing &&
+          {!this.state.refreshing && (
             <IndicatorViewPager
-              style={{ height: 180, flexDirection: 'column-reverse' }}
+              style={{ height: 185, flexDirection: 'column-reverse' }}
               indicator={this.renderIndicator()}
             >
-              {!this.state.refreshing && this.state.result && indexTypes.map((indexType) => {
-                const { length } = this.state.result;
-                return (
-                  <View key={indexType.key}>
-                    <View style={styles.block}>
-                      <View style={styles.currentBlock}>
-                        <Marker
-                          amount={this.state.result[length - 1][indexType.key.replace('_', '')]}
-                          index={indexType.name}
-                          isNumericShow={true}
-                        />
-                        <Text style={styles.text}>{indexType.name}</Text>
-                        <Text style={styles.unitText}>{indexType.unit}</Text>
-                      </View>
+              {!this.state.refreshing &&
+                this.state.result &&
+                indexTypes.map(indexType => {
+                  const { length } = this.state.result;
+                  return (
+                    <View key={indexType.key}>
+                      <View style={styles.block}>
+                        <View style={styles.currentBlock}>
+                          <Marker
+                            amount={
+                              this.state.result[length - 1][
+                                indexType.key.replace('_', '')
+                              ]
+                            }
+                            index={indexType.name}
+                            isNumericShow={true}
+                          />
+                          <Text style={styles.text}>{indexType.name}</Text>
+                          <Text style={styles.unitText}>{indexType.unit}</Text>
+                        </View>
 
-                      <View style={{ width: width - 80 }}>
-                        <Chart result={this.state.result} index={indexType.key} />
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                          <Text style={styles.dateText}>{moment(this.state.result[0].publish_time).format('lll')}</Text>
-                          <Text style={styles.dateText}>{moment(this.state.result[length - 1].publish_time).format('lll')}</Text>
+                        <View style={{ width: width - 80 }}>
+                          <Chart
+                            result={this.state.result}
+                            index={indexType.key}
+                          />
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              justifyContent: 'space-between',
+                            }}
+                          >
+                            <Text style={styles.dateText}>
+                              {moment(this.state.result[0].publish_time).format(
+                                'lll'
+                              )}
+                            </Text>
+                            <Text style={styles.dateText}>
+                              {moment(
+                                this.state.result[length - 1].publish_time
+                              ).format('lll')}
+                            </Text>
+                          </View>
                         </View>
                       </View>
+                      <View
+                        style={{
+                          padding: 15,
+                          backgroundColor: 'white',
+                          marginBottom: 10,
+                        }}
+                      >
+                        <Text style={{ fontSize: 12 }}>
+                          {indexType.name} - {I18n.t(`help.${indexType.key}`)}
+                        </Text>
+                        {I18n.isZh && (
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              fontWeight: '300',
+                              marginTop: 5,
+                            }}
+                          >
+                            {I18n.t(`help.${indexType.key}_description`)}
+                          </Text>
+                        )}
+                      </View>
                     </View>
-                    <View style={{ padding: 15, backgroundColor: 'white', marginBottom: 10 }}>
-                      <Text style={{ fontSize: 10 }}>{indexType.name} - {I18n.t(`help.${indexType.key}`)}</Text>
-                      {I18n.isZh && <Text style={{ fontSize: 10, fontWeight: '300', marginTop: 5 }}>{I18n.t(`help.${indexType.key}_description`)}</Text>}
-                    </View>
-                  </View>
-                );
-              })}
-            </IndicatorViewPager>}
+                  );
+                })}
+            </IndicatorViewPager>
+          )}
 
           <View style={{ backgroundColor: 'white', marginTop: 10 }}>
-            <Text style={{ paddingTop: 15, paddingLeft: 15 }}>{I18n.t('details.weather')}</Text>
+            <Text style={{ paddingTop: 15, paddingLeft: 15 }}>
+              {I18n.t('details.weather')}
+            </Text>
             <ForecastWeather data={forecastWeatherData} />
           </View>
         </ScrollView>
 
-        <AdMob unitId={`twaqi-${Platform.OS}-details-footer`} bannerSize="LARGE_BANNER" />
+        <AdMob
+          unitId={`twaqi-${Platform.OS}-details-footer`}
+          bannerSize="LARGE_BANNER"
+        />
       </View>
     );
   }
