@@ -4,8 +4,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
+import I18n from '../../../utils/i18n';
+import tracker from '../../../utils/tracker';
 
 const styles = StyleSheet.create({
   container: {

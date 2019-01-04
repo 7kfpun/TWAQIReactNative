@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
 import * as StoreReview from 'react-native-store-review';
@@ -70,7 +65,7 @@ export default class Rating extends Component {
 
   componentDidMount() {
     const that = this;
-    store.get('isRatingGiven').then((isRatingGiven) => {
+    store.get('isRatingGiven').then(isRatingGiven => {
       if (isRatingGiven) {
         that.setState({ isRatingClose: true });
       } else {
@@ -115,7 +110,10 @@ export default class Rating extends Component {
 
     return (
       <Animatable.View style={styles.container} animation="fadeIn">
-        <TouchableOpacity style={styles.close} onPress={() => this.setState({ isRatingClose: true })}>
+        <TouchableOpacity
+          style={styles.close}
+          onPress={() => this.setState({ isRatingClose: true })}
+        >
           <Icon name="clear" size={24} color="#616161" />
         </TouchableOpacity>
 
@@ -123,19 +121,23 @@ export default class Rating extends Component {
           <Icon name="thumb-up" size={32} color="#616161" />
         </Animatable.View>
         <Text style={styles.ratingTitleText}>{I18n.t('rating_title')}</Text>
-        <Text style={styles.ratingDescriptionText}>{I18n.t('rating_description')}</Text>
+        <Text style={styles.ratingDescriptionText}>
+          {I18n.t('rating_description')}
+        </Text>
         <StarRating
           starSize={36}
           rating={this.state.starCount}
           selectedStar={rating => this.onStarRatingPress(rating)}
         />
-        {this.state.starCount > 0 &&
-          this.state.starCount < STARS_TO_APP_STORE &&
+        {this.state.starCount > 0 && this.state.starCount < STARS_TO_APP_STORE && (
           <TouchableOpacity onPress={() => Rating.openFeedbackUrl()}>
             <Animatable.View style={styles.button} animation="fadeIn">
-              <Text style={styles.feedbackDescriptionText}>{I18n.t('feedback_description')}</Text>
+              <Text style={styles.feedbackDescriptionText}>
+                {I18n.t('feedback_description')}
+              </Text>
             </Animatable.View>
-          </TouchableOpacity>}
+          </TouchableOpacity>
+        )}
       </Animatable.View>
     );
   }

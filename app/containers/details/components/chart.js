@@ -4,7 +4,7 @@ import { Dimensions, View } from 'react-native';
 
 import { VictoryBar } from 'victory-native';
 
-import { getColor } from '../utils/indexes';
+import { getColor } from '../../../utils/indexes';
 
 const { width } = Dimensions.get('window');
 

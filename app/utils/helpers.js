@@ -2,6 +2,8 @@ import { Linking, Platform } from 'react-native';
 
 import SafariView from 'react-native-safari-view';
 
+import moment from 'moment';
+
 export const openURL = (url, isInApp = 1) => {
   if (Platform.OS === 'ios' && isInApp) {
     SafariView.isAvailable()
@@ -34,7 +36,7 @@ export const getWeatherIconName = (code, time) => {
   }
 
   return {
-    '01': dayHour >= 6 && hour < 18 ? 'ios-sunny' : 'ios-moon',
+    '01': dayHour >= 6 && dayHour < 18 ? 'ios-sunny' : 'ios-moon',
     '02': 'ios-cloud-outline',
     '03': 'ios-cloud',
     26: 'ios-rainy',

@@ -9,13 +9,14 @@ import Search from 'react-native-search-box';
 
 import Fuse from 'fuse.js';
 
-import AdMob from '../elements/admob';
-import HistoryGroup from '../elements/history-group';
-import HistoryItem from '../elements/history-item';
-import SwipeScrollView from '../elements/SwipeScrollView';
+import AdMob from '../../components/admob';
+import SwipeScrollView from '../../components/swipe-scroll-view';
 
-import { countys, locations } from '../utils/locations';
-import I18n from '../utils/i18n';
+import HistoryGroup from './components/history-group';
+import HistoryItem from './components/history-item';
+
+import { countys, locations } from '../../utils/locations';
+import I18n from '../../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {

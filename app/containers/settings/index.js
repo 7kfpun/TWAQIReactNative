@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  FlatList,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { FlatList, Platform, StyleSheet, Text, View } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
 import Collapsible from 'react-native-collapsible';
@@ -15,15 +9,16 @@ import Search from 'react-native-search-box';
 
 import Fuse from 'fuse.js';
 
-import AdMob from '../elements/admob';
-import SettingsDND from '../elements/settings-dnd';
-import SettingsGroup from '../elements/settings-group';
-import SettingsItem from '../elements/settings-item';
-import SwipeScrollView from '../elements/SwipeScrollView';
+import AdMob from '../../components/admob';
+import SettingsGroup from '../../components/settings-group';
+import SettingsItem from '../../components/settings-item';
+import SwipeScrollView from '../../components/swipe-scroll-view';
 
-import { countys, locations } from '../utils/locations';
-import { OneSignalGetTags } from '../utils/onesignal';
-import I18n from '../utils/i18n';
+import SettingsDND from './components/settings-dnd';
+
+import { countys, locations } from '../../utils/locations';
+import { OneSignalGetTags } from '../../utils/onesignal';
+import I18n from '../../utils/i18n';
 
 const CHECK_INTERVAL = 60 * 1000;
 
@@ -86,15 +81,20 @@ export default class SettingsView extends Component {
     SettingsView.requestPermissions();
     this.loadEnabledItems();
 
-    this.loadEnabledItemsInterval = setInterval(() => this.loadEnabledItems(), CHECK_INTERVAL);
+    this.loadEnabledItemsInterval = setInterval(
+      () => this.loadEnabledItems(),
+      CHECK_INTERVAL
+    );
   }
 
   componentWillUnmount() {
-    if (this.loadEnabledItemsInterval) clearInterval(this.loadEnabledItemsInterval);
-    if (this.checkPermissionsInterval) clearInterval(this.checkPermissionsInterval);
+    if (this.loadEnabledItemsInterval)
+      clearInterval(this.loadEnabledItemsInterval);
+    if (this.checkPermissionsInterval)
+      clearInterval(this.checkPermissionsInterval);
   }
 
-  onChangeText = (searchText) => {
+  onChangeText = searchText => {
     const options = {
       shouldSort: true,
       threshold: 0.2,
@@ -115,15 +115,19 @@ export default class SettingsView extends Component {
     const searchResult = fuse.search(searchText);
 
     this.setState({ searchText, searchResult });
-  }
+  };
 
   onCancelOrDelete = () => {
     this.setState({ searchText: '' });
-  }
+  };
 
   checkPermissions(tags) {
-    if (Platform.OS === 'ios' && tags && Object.values(tags).indexOf('true') !== -1) {
-      OneSignal.checkPermissions((permissions) => {
+    if (
+      Platform.OS === 'ios' &&
+      tags &&
+      Object.values(tags).indexOf('true') !== -1
+    ) {
+      OneSignal.checkPermissions(permissions => {
         console.log('checkPermissions', permissions);
         if (!permissions || (permissions && !permissions.alert)) {
           this.setState({ isShowPermissionReminderBlock: true });
@@ -143,7 +147,10 @@ export default class SettingsView extends Component {
     }
 
     this.checkPermissions(tags);
-    this.checkPermissionsInterval = setInterval(() => this.checkPermissions(tags), CHECK_INTERVAL);
+    this.checkPermissionsInterval = setInterval(
+      () => this.checkPermissions(tags),
+      CHECK_INTERVAL
+    );
   }
 
   render() {
@@ -163,11 +170,15 @@ export default class SettingsView extends Component {
           </View>
         </Collapsible>
 
-        <View style={[styles.searchBlock, { marginTop: collapsed && DeviceInfo.hasNotch() ? 20 : 0 }]}>
+        <View
+          style={[
+            styles.searchBlock,
+            { marginTop: collapsed && DeviceInfo.hasNotch() ? 20 : 0 },
+          ]}
+        >
           <Search
             backgroundColor={iOSColors.white}
             titleCancelColor={iOSColors.blue}
-
             onChangeText={this.onChangeText}
             onCancel={this.onCancelOrDelete}
             onDelete={this.onCancelOrDelete}
@@ -176,42 +187,50 @@ export default class SettingsView extends Component {
           />
         </View>
 
-        {isShowPermissionReminderBlock &&
+        {isShowPermissionReminderBlock && (
           <View style={styles.permissionReminderBlock}>
-            <Text style={styles.permissionReminderText}>{I18n.t('permissions_required')}</Text>
-          </View>}
+            <Text style={styles.permissionReminderText}>
+              {I18n.t('permissions_required')}
+            </Text>
+          </View>
+        )}
 
         <SwipeScrollView
           scrollActionOffset={80}
           onScrollUp={() => this.setState({ collapsed: true })}
           onScrollDown={() => this.setState({ collapsed: false })}
         >
-          {!!searchText && <FlatList
-            key={this.state.k}
-            style={styles.list}
-            data={searchResult}
-            keyExtractor={(item, index) => `${index}-${item}`}
-            renderItem={({ item }) => (
-              <View style={{ paddingHorizontal: 10 }}>
-                <SettingsItem item={item} tags={tags} />
-              </View>
-            )}
-          />}
+          {!!searchText && (
+            <FlatList
+              key={this.state.k}
+              style={styles.list}
+              data={searchResult}
+              keyExtractor={(item, index) => `${index}-${item}`}
+              renderItem={({ item }) => (
+                <View style={{ paddingHorizontal: 10 }}>
+                  <SettingsItem item={item} tags={tags} />
+                </View>
+              )}
+            />
+          )}
 
-          {!searchText &&
+          {!searchText && (
             <View key={this.state.k}>
               <SettingsDND tags={tags} />
               <FlatList
                 style={styles.list}
                 data={countys}
                 keyExtractor={(item, index) => `${index}-${item}`}
-                renderItem={({ item }) => (<SettingsGroup
-                  groupName={item}
-                  tags={tags}
-                  onToggle={() => this.loadEnabledItems()}
-                />)}
+                renderItem={({ item }) => (
+                  <SettingsGroup
+                    groupName={item}
+                    tags={tags}
+                    onToggle={() => this.loadEnabledItems()}
+                  />
+                )}
               />
-            </View>}
+            </View>
+          )}
         </SwipeScrollView>
 
         <AdMob unitId={`twaqi-${Platform.OS}-settings-footer`} />

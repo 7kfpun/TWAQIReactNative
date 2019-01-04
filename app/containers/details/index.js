@@ -20,18 +20,19 @@ import { iOSColors } from 'react-native-typography';
 import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import AdMob from '../elements/admob';
-import Chart from '../elements/chart';
-import IndicatorHorizontal from '../elements/indicator-horizontal';
-import Marker from '../elements/marker';
-import RealtimeWeather from '../elements/realtime-weather';
-import ForecastWeather from '../elements/forecast-weather';
-import SettingsItem from '../elements/settings-item';
+import AdMob from '../../components/admob';
+import IndicatorHorizontal from '../../components/indicator-horizontal';
+import Marker from '../../components/marker';
+import SettingsItem from '../../components/settings-item';
 
-import { flatten, getWeatherIconName, noop } from '../utils/helpers';
-import { forecastWeather, history, realtimeWeather } from '../utils/api';
-import { indexTypes } from '../utils/indexes';
-import I18n from '../utils/i18n';
+import Chart from './components/chart';
+import RealtimeWeather from './components/realtime-weather';
+import ForecastWeather from './components/forecast-weather';
+
+import { flatten, getWeatherIconName, noop } from '../../utils/helpers';
+import { forecastWeather, history, realtimeWeather } from '../../utils/api';
+import { indexTypes } from '../../utils/indexes';
+import I18n from '../../utils/i18n';
 
 const { width } = Dimensions.get('window');
 

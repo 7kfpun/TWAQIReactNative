@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
 
-import I18n from '../utils/i18n';
+import I18n from '../../../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {

@@ -11,7 +11,7 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import AdMob from '../elements/admob';
+import AdMob from '../components/admob';
 
 import I18n from '../utils/i18n';
 

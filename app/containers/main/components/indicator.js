@@ -3,7 +3,7 @@ import { Dimensions, Image, StyleSheet, View } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
 
-import { indexRanges } from '../utils/indexes';
+import { indexRanges } from '../../../utils/indexes';
 
 const { width } = Dimensions.get('window');
 

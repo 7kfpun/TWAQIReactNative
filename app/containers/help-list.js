@@ -13,7 +13,7 @@ import { iOSColors } from 'react-native-typography';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import AdMob from '../elements/admob';
+import AdMob from '../components/admob';
 
 import { openURL } from '../utils/helpers';
 import I18n from '../utils/i18n';

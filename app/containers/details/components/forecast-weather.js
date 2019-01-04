@@ -7,8 +7,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import moment from 'moment';
 
-import { getWeatherIconName } from '../utils/helpers';
-import I18n from '../utils/i18n';
+import { getWeatherIconName } from '../../../utils/helpers';
+import I18n from '../../../utils/i18n';
 
 moment.locale('zh-tw');
 

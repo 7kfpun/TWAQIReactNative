@@ -15,13 +15,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import OneSignal from 'react-native-onesignal';
 import QuickActions from 'react-native-quick-actions';
 
-import Main from './views/main';
-import List from './views/list';
-import Details from './views/details';
-import Forecast from './views/forecast';
-import Settings from './views/settings';
-import Help from './views/help';
-import HelpList from './views/help-list';
+import Main from './containers/main';
+import List from './containers/list';
+import Details from './containers/details';
+import Forecast from './containers/forecast';
+import Settings from './containers/settings';
+import Help from './containers/help';
+import HelpList from './containers/help-list';
 
 import I18n from './utils/i18n';
 import tracker from './utils/tracker';
@@ -38,23 +38,26 @@ if (__DEV__) {
 
 OneSignal.init(config.onesignal, { kOSSettingsKeyAutoPrompt: true });
 
-QuickActions.setShortcutItems([{
-  type: 'go_to_main',
-  title: I18n.t('main'),
-  // subtitle: '',
-  icon: 'Home', // UIApplicationShortcutIconType<name>
-  userInfo: {
-    url: 'app://main',
+QuickActions.setShortcutItems([
+  {
+    type: 'go_to_main',
+    title: I18n.t('main'),
+    // subtitle: '',
+    icon: 'Home', // UIApplicationShortcutIconType<name>
+    userInfo: {
+      url: 'app://main',
+    },
   },
-}, {
-  type: 'go_to_history',
-  title: I18n.t('forecast_tab'),
-  // subtitle: '',
-  icon: 'Date',
-  userInfo: {
-    url: 'app://forecast',
+  {
+    type: 'go_to_history',
+    title: I18n.t('forecast_tab'),
+    // subtitle: '',
+    icon: 'Date',
+    userInfo: {
+      url: 'app://forecast',
+    },
   },
-}]);
+]);
 
 const navigationOptions = {
   header: null,
@@ -215,8 +218,8 @@ const AppTab = createBottomTabNavigator(
 // });
 
 console.ignoredYellowBox = [
-  'Module RCTOneSignalEventEmitter requires main queue setup since it overrides `init` but doesn\'t implement `requiresMainQueueSetup`.',
-  'Module RCTImageLoader requires main queue setup since it overrides `init` but doesn\'t implement `requiresMainQueueSetup`.',
+  "Module RCTOneSignalEventEmitter requires main queue setup since it overrides `init` but doesn't implement `requiresMainQueueSetup`.",
+  "Module RCTImageLoader requires main queue setup since it overrides `init` but doesn't implement `requiresMainQueueSetup`.",
   'Warning: componentWillReceiveProps is deprecated and will be removed in the next major version.',
   'Warning: componentWillMount is deprecated and will be removed in the next major version.',
   'Warning: componentWillUpdate is deprecated and will be removed in the next major version.',

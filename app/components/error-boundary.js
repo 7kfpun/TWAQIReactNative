@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-} from 'react-native';
+import { Text, View } from 'react-native';
 
 export default class ErrorBoundary extends Component {
-  state = { hasError: false }
+  state = { hasError: false };
 
   componentDidCatch(error, info) {
     this.setState({ hasError: true });
@@ -15,7 +12,11 @@ export default class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <View><Text>Something went wrong.</Text></View>;
+      return (
+        <View>
+          <Text>Something went wrong.</Text>
+        </View>
+      );
     }
     return this.props.children;
   }

@@ -10,12 +10,12 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import HistoryItem from '../elements/history-item';
+import HistoryItem from './history-item';
 
-import { countyZh2En } from '../utils/county-mapping';
-import { locations } from '../utils/locations';
-import tracker from '../utils/tracker';
-import I18n from '../utils/i18n';
+import { countyZh2En } from '../../../utils/county-mapping';
+import { locations } from '../../../utils/locations';
+import tracker from '../../../utils/tracker';
+import I18n from '../../../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {

@@ -11,7 +11,7 @@ import {
 import { iOSColors } from 'react-native-typography';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import SettingsItem from '../elements/settings-item';
+import SettingsItem from './settings-item';
 
 import { countyZh2En } from '../utils/county-mapping';
 import { locations } from '../utils/locations';

@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Switch,
-  Text,
-  View,
-} from 'react-native';
+import { Platform, StyleSheet, Switch, Text, View } from 'react-native';
 
 import OneSignal from 'react-native-onesignal';
 
-import { OneSignalGetTags } from '../utils/onesignal';
-import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
+import { OneSignalGetTags } from '../../../utils/onesignal';
+import I18n from '../../../utils/i18n';
+import tracker from '../../../utils/tracker';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,18 +31,20 @@ export default class ForecastNotificationSettings extends Component {
     console.log('Send tags', tags);
     OneSignal.sendTags(tags);
 
-    tracker.logEvent('set-forecast-notification', { label: value ? 'on' : 'off' });
+    tracker.logEvent('set-forecast-notification', {
+      label: value ? 'on' : 'off',
+    });
   }
 
   state = {
     isEnabled: false,
-  }
+  };
 
   componentDidMount() {
     this.loadForecastSettings();
   }
 
-  setNotification = (value) => {
+  setNotification = value => {
     this.setState({ isEnabled: value }, () => {
       ForecastNotificationSettings.sendTags(value);
 
@@ -62,7 +58,7 @@ export default class ForecastNotificationSettings extends Component {
         OneSignal.registerForPushNotifications();
       }
     });
-  }
+  };
 
   async loadForecastSettings() {
     const tags = await OneSignalGetTags();

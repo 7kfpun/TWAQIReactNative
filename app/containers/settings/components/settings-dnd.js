@@ -14,8 +14,8 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import OneSignal from 'react-native-onesignal';
 
-import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
+import I18n from '../../../utils/i18n';
+import tracker from '../../../utils/tracker';
 
 const styles = StyleSheet.create({
   container: {

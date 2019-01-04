@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { indexRanges } from '../utils/indexes';
 import I18n from '../utils/i18n';
@@ -41,7 +37,8 @@ const IndicatorHorizontal = () => (
       <View style={styles.item} key={color.key}>
         <View style={[styles.bar, { backgroundColor: color.color }]} />
         <Text style={styles.text}>{color.status}</Text>
-      </View>))}
+      </View>
+    ))}
   </View>
 );
 

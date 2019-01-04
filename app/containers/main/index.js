@@ -26,20 +26,21 @@ import MapView from 'react-native-maps';
 import OneSignal from 'react-native-onesignal';
 import store from 'react-native-simple-store';
 
-import AdMob from '../elements/admob';
-import ClosestStation from '../elements/closest-station';
-import Indicator from '../elements/indicator';
-import Marker from '../elements/marker';
-import Rating from '../elements/rating';
+import AdMob from '../../components/admob';
+import Marker from '../../components/marker';
+import Rating from '../../components/rating';
 
-import { aqi } from '../utils/api';
-import { indexTypes, getColor } from '../utils/indexes';
-import { locations } from '../utils/locations';
-import I18n from '../utils/i18n';
-import log from '../utils/log';
-import tracker from '../utils/tracker';
+import ClosestStation from './components/closest-station';
+import Indicator from './components/indicator';
 
-import { config } from '../config';
+import { aqi } from '../../utils/api';
+import { getColor, indexTypes } from '../../utils/indexes';
+import { locations } from '../../utils/locations';
+import I18n from '../../utils/i18n';
+import log from '../../utils/log';
+import tracker from '../../utils/tracker';
+
+import { config } from '../../config';
 
 const advert = firebase.admob().interstitial(config.admob.android.interstital);
 

@@ -15,12 +15,12 @@ import {
 import { iOSColors } from 'react-native-typography';
 import OneSignal from 'react-native-onesignal';
 
+import Marker from './marker';
+
 import { indexRanges } from '../utils/indexes';
 import { OneSignalGetTags } from '../utils/onesignal';
 import I18n from '../utils/i18n';
 import tracker from '../utils/tracker';
-
-import Marker from '../elements/marker';
 
 const styles = StyleSheet.create({
   container: {
