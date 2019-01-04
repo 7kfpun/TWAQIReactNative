@@ -1,17 +1,13 @@
 import React from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import moment from 'moment';
 
+import { getWeatherIconName } from '../utils/helpers';
 import I18n from '../utils/i18n';
 
 moment.locale('zh-tw');
@@ -41,35 +37,43 @@ const styles = StyleSheet.create({
 });
 
 const Item = ({ item, isNow }) => {
-  const weatherIconMapping = {
-    '01': moment(item.Time).format('H') >= 6 && moment(item.Time).format('H') < 18 ? 'ios-sunny' : 'ios-moon',
-    '02': 'ios-cloud-outline',
-    '03': 'ios-cloud',
-    26: 'ios-rainy',
-    99: false,
-  };
-
   let timeLabel;
   if (isNow) {
     timeLabel = I18n.t('forecast_weather.now');
-  } else if (moment(item.Time).format('H') === '0' && moment(item.Time).diff(moment().startOf('day'), 'hours') === 24) {
+  } else if (
+    moment(item.Time).format('H') === '0' &&
+    moment(item.Time).diff(moment().startOf('day'), 'hours') === 24
+  ) {
     timeLabel = I18n.t('forecast_weather.tomorrow');
-  } else if (moment(item.Time).format('H') === '0' && moment(item.Time).diff(moment().startOf('day'), 'hours') === 24 * 2) {
+  } else if (
+    moment(item.Time).format('H') === '0' &&
+    moment(item.Time).diff(moment().startOf('day'), 'hours') === 24 * 2
+  ) {
     timeLabel = I18n.t('forecast_weather.the_day_after_tomorrow');
-  } else if (moment(item.Time).format('H') === '0' && moment(item.Time).diff(moment().startOf('day'), 'hours') === 24 * 3) {
+  } else if (
+    moment(item.Time).format('H') === '0' &&
+    moment(item.Time).diff(moment().startOf('day'), 'hours') === 24 * 3
+  ) {
     timeLabel = I18n.t('forecast_weather.two_days_after_tomorrow');
   } else if (moment(item.Time).format('H') === '0') {
     timeLabel = moment(item.Time).format('dddd');
   } else {
-    timeLabel = `${moment(item.Time).format('H')}${I18n.t('forecast_weather.hours')}`;
+    timeLabel = `${moment(item.Time).format('H')}${I18n.t(
+      'forecast_weather.hours'
+    )}`;
   }
 
   return (
     <View key={item.Time} style={styles.item}>
       <View style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-        {item.WeatherIcon
-          && weatherIconMapping[item.WeatherIcon]
-          && <Ionicons name={weatherIconMapping[item.WeatherIcon]} size={24} color="black" />}
+        {item.WeatherIcon &&
+          getWeatherIconName(item.WeatherIcon, item.Time) && (
+            <Ionicons
+              name={getWeatherIconName(item.WeatherIcon, item.Time)}
+              size={24}
+              color="black"
+            />
+          )}
 
         <Text style={styles.labelText}>{item.Weather}</Text>
       </View>
@@ -117,13 +121,15 @@ const ForecastWeather = ({ data }) => {
 };
 
 ForecastWeather.propTypes = {
-  data: arrayOf(shape({
-    Time: string,
-    Temp: number,
-    WeatherIcon: string,
-    Weather: string,
-    Weather_original: string,
-  })).isRequired,
+  data: arrayOf(
+    shape({
+      Time: string,
+      Temp: number,
+      WeatherIcon: string,
+      Weather: string,
+      Weather_original: string,
+    })
+  ).isRequired,
 };
 
 export default ForecastWeather;

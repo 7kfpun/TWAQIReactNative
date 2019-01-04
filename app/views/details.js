@@ -28,7 +28,7 @@ import RealtimeWeather from '../elements/realtime-weather';
 import ForecastWeather from '../elements/forecast-weather';
 import SettingsItem from '../elements/settings-item';
 
-import { flatten } from '../utils/helpers';
+import { flatten, getWeatherIconName, noop } from '../utils/helpers';
 import { forecastWeather, history, realtimeWeather } from '../utils/api';
 import { indexTypes } from '../utils/indexes';
 import I18n from '../utils/i18n';
@@ -188,10 +188,6 @@ export default class DetailsView extends Component {
     this.props.navigation.goBack(null);
   };
 
-  increaseEnabledCount = () => {};
-
-  descreaseEnabledCount = () => {};
-
   // TODO: make it component
   renderIndicator = () => (
     <PagerTitleIndicator
@@ -207,17 +203,6 @@ export default class DetailsView extends Component {
   );
 
   render() {
-    const weatherIconMapping = {
-      '01':
-        moment().format('H') >= 6 && moment().format('H') < 18
-          ? 'ios-sunny'
-          : 'ios-moon',
-      '02': 'ios-cloud-outline',
-      '03': 'ios-cloud',
-      26: 'ios-rainy',
-      99: false,
-    };
-
     const {
       navigation: {
         state: {
@@ -259,15 +244,15 @@ export default class DetailsView extends Component {
             >
               <View style={styles.imageBackground}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Text
-                    style={{ color: 'white' }}
-                  >{`${realtimeWeatherData.Temp || '- '}℃`}</Text>
+                  <Text style={{ color: 'white' }}>
+                    {`${realtimeWeatherData.Temp || '- '}℃`}
+                  </Text>
                   {realtimeWeatherData.WeatherIcon &&
-                    weatherIconMapping[realtimeWeatherData.WeatherIcon] && (
+                    getWeatherIconName(realtimeWeatherData.WeatherIcon) && (
                       <Ionicons
-                        name={
-                          weatherIconMapping[realtimeWeatherData.WeatherIcon]
-                        }
+                        name={getWeatherIconName(
+                          realtimeWeatherData.WeatherIcon
+                        )}
                         style={{ marginLeft: 4 }}
                         size={18}
                         color="white"
@@ -294,8 +279,8 @@ export default class DetailsView extends Component {
               text={I18n.t('notify_title')}
               item={item}
               isNeedLoad
-              increaseEnabledCount={this.increaseEnabledCount}
-              descreaseEnabledCount={this.descreaseEnabledCount}
+              increaseEnabledCount={noop}
+              descreaseEnabledCount={noop}
             />
           </View>
 
