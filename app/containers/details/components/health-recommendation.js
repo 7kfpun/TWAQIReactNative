@@ -1,5 +1,5 @@
 import React from 'react';
-import { number, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
@@ -89,7 +89,7 @@ const HealthRecommendation = ({ data }) => (
 
 HealthRecommendation.propTypes = {
   data: shape({
-    AQI: number,
+    AQI: string,
   }).isRequired,
 };
 

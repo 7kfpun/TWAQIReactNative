@@ -274,7 +274,9 @@ export default class DetailsView extends Component {
             </View>
           )}
 
-          <RealtimeWeather data={realtimeWeatherData} />
+          {realtimeWeatherData.Temp && (
+            <RealtimeWeather data={realtimeWeatherData} />
+          )}
 
           <View style={{ padding: 10, backgroundColor: 'white' }}>
             <SettingsItem

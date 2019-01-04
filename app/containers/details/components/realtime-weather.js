@@ -33,40 +33,34 @@ const styles = StyleSheet.create({
   },
 });
 
-const RealtimeWeather = ({ data }) => {
-  if (!data.Temp) {
-    return null;
-  }
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.item}>
-        <Text style={styles.labelText}>{I18n.t('realtime_weather.rain')}</Text>
-        <Text style={styles.valueText}>
-          {data.Rain ? `${data.Rain} mm` : '--'}
-        </Text>
-      </View>
-      <View style={styles.item}>
-        <Text style={styles.labelText}>{I18n.t('realtime_weather.rh')}</Text>
-        <Text style={styles.valueText}>{data.RH ? `${data.RH} %` : '--'}</Text>
-      </View>
-      <View style={styles.item}>
-        <Text style={styles.labelText}>
-          {I18n.t('realtime_weather.visibility')}
-        </Text>
-        <Text style={styles.valueText}>
-          {data.Visibility ? `${data.Visibility} km` : '--'}
-        </Text>
-      </View>
-      <View style={styles.item}>
-        <Text style={styles.labelText}>{I18n.t('realtime_weather.cloud')}</Text>
-        <Text style={styles.valueText}>
-          {data.Cloud ? `${data.Cloud} %` : '--'}
-        </Text>
-      </View>
+const RealtimeWeather = ({ data }) => (
+  <View style={styles.container}>
+    <View style={styles.item}>
+      <Text style={styles.labelText}>{I18n.t('realtime_weather.rain')}</Text>
+      <Text style={styles.valueText}>
+        {data.Rain ? `${data.Rain} mm` : '--'}
+      </Text>
     </View>
-  );
-};
+    <View style={styles.item}>
+      <Text style={styles.labelText}>{I18n.t('realtime_weather.rh')}</Text>
+      <Text style={styles.valueText}>{data.RH ? `${data.RH} %` : '--'}</Text>
+    </View>
+    <View style={styles.item}>
+      <Text style={styles.labelText}>
+        {I18n.t('realtime_weather.visibility')}
+      </Text>
+      <Text style={styles.valueText}>
+        {data.Visibility ? `${data.Visibility} km` : '--'}
+      </Text>
+    </View>
+    <View style={styles.item}>
+      <Text style={styles.labelText}>{I18n.t('realtime_weather.cloud')}</Text>
+      <Text style={styles.valueText}>
+        {data.Cloud ? `${data.Cloud} %` : '--'}
+      </Text>
+    </View>
+  </View>
+);
 
 RealtimeWeather.propTypes = {
   data: shape({
