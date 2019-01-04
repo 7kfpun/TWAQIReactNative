@@ -50,6 +50,7 @@ export default class HistoryGroup extends Component {
   static propTypes = {
     groupName: string.isRequired,
     navigation: shape({}).isRequired,
+    aqiResult: shape({}).isRequired,
   };
 
   state = {
@@ -70,7 +71,7 @@ export default class HistoryGroup extends Component {
   }
 
   render() {
-    const { groupName } = this.props;
+    const { aqiResult, groupName } = this.props;
     return (
       <View style={styles.container}>
         <TouchableOpacity
@@ -95,7 +96,11 @@ export default class HistoryGroup extends Component {
             data={this.state.locations}
             keyExtractor={(item, index) => `${index}-${item.SiteEngName}`}
             renderItem={({ item }) => (
-              <HistoryItem item={item} navigation={this.props.navigation} />
+              <HistoryItem
+                item={item}
+                aqi={aqiResult[item.SiteName]}
+                navigation={this.props.navigation}
+              />
             )}
           />
         )}

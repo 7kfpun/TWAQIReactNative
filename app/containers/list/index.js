@@ -5,6 +5,7 @@ import { FlatList, Platform, StyleSheet, Text, View } from 'react-native';
 import { iOSColors } from 'react-native-typography';
 import Collapsible from 'react-native-collapsible';
 import DeviceInfo from 'react-native-device-info';
+import firebase from 'react-native-firebase';
 import Search from 'react-native-search-box';
 
 import Fuse from 'fuse.js';
@@ -15,6 +16,7 @@ import SwipeScrollView from '../../components/swipe-scroll-view';
 import HistoryGroup from './components/history-group';
 import HistoryItem from './components/history-item';
 
+import { aqi } from '../../utils/api';
 import { countys, locations } from '../../utils/locations';
 import I18n from '../../utils/i18n';
 
@@ -51,7 +53,12 @@ export default class SettingsView extends Component {
     searchText: '',
     searchResult: [],
     collapsed: false,
+    aqiResult: {},
   };
+
+  componentDidMount() {
+    this.prepareData();
+  }
 
   onChangeText = searchText => {
     const options = {
@@ -80,10 +87,26 @@ export default class SettingsView extends Component {
     this.setState({ searchText: '' });
   };
 
+  prepareData() {
+    const that = this;
+    const trace = firebase.perf().newTrace('api_get_aqi');
+    trace.start();
+    aqi().then(result => {
+      const keys = Object.keys(result || {}).length;
+      console.log('AQI:', result);
+      console.log('AQI length:', keys);
+      if (result && keys > 0) {
+        that.setState({ aqiResult: result });
+      }
+
+      that.setState({ isLoading: false });
+      trace.stop();
+    });
+  }
+
   render() {
     const { navigation } = this.props;
-
-    const { collapsed, searchText, searchResult } = this.state;
+    const { aqiResult, collapsed, searchText, searchResult } = this.state;
 
     return (
       <View style={styles.container}>
@@ -122,7 +145,11 @@ export default class SettingsView extends Component {
               keyExtractor={(item, index) => `${index}-${item}`}
               renderItem={({ item }) => (
                 <View style={{ paddingHorizontal: 10 }}>
-                  <HistoryItem item={item} navigation={navigation} />
+                  <HistoryItem
+                    item={item}
+                    aqi={aqiResult[item.SiteName]}
+                    navigation={navigation}
+                  />
                 </View>
               )}
             />
@@ -137,6 +164,7 @@ export default class SettingsView extends Component {
                 <HistoryGroup
                   style={{ fontSize: 30 }}
                   groupName={item}
+                  aqiResult={aqiResult}
                   navigation={navigation}
                 />
               )}

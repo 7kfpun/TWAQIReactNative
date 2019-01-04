@@ -26,6 +26,7 @@ import Marker from '../../components/marker';
 import SettingsItem from '../../components/settings-item';
 
 import Chart from './components/chart';
+import HealthRecommendation from './components/health-recommendation';
 import RealtimeWeather from './components/realtime-weather';
 import ForecastWeather from './components/forecast-weather';
 
@@ -207,7 +208,7 @@ export default class DetailsView extends Component {
     const {
       navigation: {
         state: {
-          params: { item },
+          params: { item, aqi },
         },
       },
     } = this.props;
@@ -285,6 +286,10 @@ export default class DetailsView extends Component {
             />
           </View>
 
+          {!Number.isNaN(aqi.AQI) && aqi.AQI > 0 && (
+            <HealthRecommendation data={aqi} />
+          )}
+
           <IndicatorHorizontal />
 
           {!this.state.refreshing && (
@@ -350,7 +355,7 @@ export default class DetailsView extends Component {
                         {I18n.isZh && (
                           <Text
                             style={{
-                              fontSize: 12,
+                              fontSize: 10,
                               fontWeight: '300',
                               marginTop: 5,
                             }}

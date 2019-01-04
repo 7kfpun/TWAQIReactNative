@@ -475,7 +475,10 @@ export default class MainView extends Component {
                       }}
                       onPress={() => {
                         tracker.logEvent('check-main-details', location);
-                        navigation.navigate('MainDetails', { item: location });
+                        navigation.navigate('MainDetails', {
+                          item: location,
+                          aqi: aqiResult[location.SiteName],
+                        });
                       }}
                       flat={this.state.isWindMode}
                       // rotation={parseFloat(aqiResult[location.SiteName].WindDirec)}

@@ -25,8 +25,10 @@ I18n.translations = {
     list_title: 'Detail Data',
 
     rating_title: 'Enjoy using "Taiwan Air Quality"?',
-    rating_description: 'Please give us 5 stars to cheer we up if you like this app.',
-    feedback_description: 'Give us some feedbacks. We will definitely keep improving.',
+    rating_description:
+      'Please give us 5 stars to cheer we up if you like this app.',
+    feedback_description:
+      'Give us some feedbacks. We will definitely keep improving.',
 
     notify_title: 'Notification',
 
@@ -37,8 +39,10 @@ I18n.translations = {
     aqi_full: 'Air Quality Index (AQI)',
 
     permissions_required: 'Notification permission required',
-    too_small_therhold: 'The value is too small, you would get lots of notifications',
-    too_large_therhold: 'The value is too large, you would get lots of notifications',
+    too_small_therhold:
+      'The value is too small, you would get lots of notifications',
+    too_large_therhold:
+      'The value is too large, you would get lots of notifications',
 
     forecast_title: 'Forecast',
     forecast_notification_label: 'Forecast Notification (daily)',
@@ -49,18 +53,40 @@ I18n.translations = {
     contact_title: 'Contact Us',
 
     status_good: 'Good',
+    status_good_general_public_guidance: 'Enjoy your usual outdoor activities',
+    status_good_sensitive_groups_guidance:
+      'Enjoy your usual outdoor activities',
     status_moderate: 'Moderate',
+    status_moderate_general_public_guidance:
+      'Enjoy your usual outdoor activities',
+    status_moderate_sensitive_groups_guidance: 'Can still be active outside',
     status_unhealthy_for_sensitive_groups: 'Unhealthy for Sensitive Groups',
+    status_unhealthy_for_sensitive_groups_general_public_guidance:
+      'Consider reducing outdoor activities',
+    status_unhealthy_for_sensitive_groups_sensitive_groups_guidance:
+      'Reduce physical exertion and outdoor activities',
     status_unhealthy: 'Unhealthy',
+    status_unhealthy_general_public_guidance:
+      'Should reduce physical exertion, particularly outdoors',
+    status_unhealthy_sensitive_groups_guidance:
+      'Stay indoors and reduce physical exertion',
     status_very_unhealthy: 'Very Unhealthy',
+    status_very_unhealthy_general_public_guidance: 'Reduce outdoor activities',
+    status_very_unhealthy_sensitive_groups_guidance:
+      'Stay indoors and reduce physical exertion',
     status_hazardous: 'Hazardous',
+    status_hazardous_general_public_guidance:
+      'Avoid outdoor activities and keep doors and windows closed',
+    status_hazardous_sensitive_groups_guidance:
+      'Stay indoors and avoid physical exertion',
 
     cancel: 'Cancel',
     search: 'Search',
 
     location_permission: {
       title: 'Enable Location Service',
-      description: 'We will select the nearest monitoring station for you automatically based on your current location',
+      description:
+        'We will select the nearest monitoring station for you automatically based on your current location',
     },
     do_not_disturb: {
       title: 'Do not disturb',
@@ -77,6 +103,9 @@ I18n.translations = {
     details: {
       air_quality: 'Air quality',
       weather: 'Weather forecast',
+      mask_suggestion: 'Recommend to wear a mask',
+      general_public: 'General public',
+      sensitive_groups: 'Sensitive groups',
     },
 
     forecast_weather: {
@@ -171,11 +200,27 @@ I18n.translations = {
     contact_title: '聯絡我們',
 
     status_good: '良好',
+    status_good_general_public_guidance: '正常戶外活動',
+    status_good_sensitive_groups_guidance: '正常戶外活動',
     status_moderate: '普通',
+    status_moderate_general_public_guidance: '正常戶外活動',
+    status_moderate_sensitive_groups_guidance: '仍可正常戶外活動',
     status_unhealthy_for_sensitive_groups: '對敏感族群不良',
+    status_unhealthy_for_sensitive_groups_general_public_guidance:
+      '考慮減少戶外活動',
+    status_unhealthy_for_sensitive_groups_sensitive_groups_guidance:
+      '減少體力消耗活動及戶外活動',
     status_unhealthy: '對所有族群不良',
+    status_unhealthy_general_public_guidance:
+      '減少體力消耗，特別是減少戶外活動',
+    status_unhealthy_sensitive_groups_guidance: '留在室內並減少體力消耗活動',
     status_very_unhealthy: '非常不良',
+    status_very_unhealthy_general_public_guidance: '減少戶外活動',
+    status_very_unhealthy_sensitive_groups_guidance:
+      '留在室內並減少體力消耗活動',
     status_hazardous: '有害',
+    status_hazardous_general_public_guidance: '避免戶外活動',
+    status_hazardous_sensitive_groups_guidance: '留在室內並避免體力消耗活動',
 
     cancel: '取消',
     search: '搜索',
@@ -199,6 +244,9 @@ I18n.translations = {
     details: {
       air_quality: '空氣品質',
       weather: '天氣預報',
+      general_public: '一般族群',
+      sensitive_groups: '敏感族群',
+      mask_suggestion: '建議配戴口罩',
     },
 
     forecast_weather: {
@@ -227,24 +275,30 @@ I18n.translations = {
     help: {
       AQI: '空氣品質指數',
       AQI_description: '綜合各項污染的空氣指標，數值愈高，空氣愈髒',
-      AQI_url: 'https://zh.wikipedia.org/wiki/%E7%A9%BA%E6%B0%94%E8%B4%A8%E9%87%8F%E6%8C%87%E6%95%B0',
+      AQI_url:
+        'https://zh.wikipedia.org/wiki/%E7%A9%BA%E6%B0%94%E8%B4%A8%E9%87%8F%E6%8C%87%E6%95%B0',
       PM2_5: '細懸浮微粒',
       PM2_5_description: '對心血管、神經系統傷害大，可能含有重金屬等重度污染物',
       PM10: '懸浮微粒',
       PM10_description: '顆粒較大的懸浮微粒，過量可形成霧霾',
-      particulates_url: 'https://zh.wikipedia.org/wiki/%E6%87%B8%E6%B5%AE%E7%B2%92%E5%AD%90',
+      particulates_url:
+        'https://zh.wikipedia.org/wiki/%E6%87%B8%E6%B5%AE%E7%B2%92%E5%AD%90',
       O3: '臭氧',
       O3_description: '對眼睛、呼吸道等有侵蝕和損害作用',
       O3_url: 'https://zh.wikipedia.org/wiki/%E8%87%AD%E6%B0%A7',
       CO: '一氧化碳',
       CO_description: '主要由燃燒化石燃料或火山爆發產生，通常在大氣少量存在',
-      CO_url: 'https://zh.wikipedia.org/wiki/%E4%B8%80%E6%B0%A7%E5%8C%96%E7%A2%B3',
+      CO_url:
+        'https://zh.wikipedia.org/wiki/%E4%B8%80%E6%B0%A7%E5%8C%96%E7%A2%B3',
       SO2: '二氧化硫',
-      SO2_url: 'https://zh.wikipedia.org/wiki/%E4%BA%8C%E6%B0%A7%E5%8C%96%E7%A1%AB',
+      SO2_url:
+        'https://zh.wikipedia.org/wiki/%E4%BA%8C%E6%B0%A7%E5%8C%96%E7%A1%AB',
       SO2_description: '過量接觸將有眼睛疼痛、肺部傷害',
       NO2: '二氧化氮',
-      NO2_url: 'https://zh.wikipedia.org/wiki/%E4%BA%8C%E6%B0%A7%E5%8C%96%E6%B0%AE',
-      NO2_description: '來自於車輛廢氣、火力發電廠或其他工業染料，過量吸收傷害肺部',
+      NO2_url:
+        'https://zh.wikipedia.org/wiki/%E4%BA%8C%E6%B0%A7%E5%8C%96%E6%B0%AE',
+      NO2_description:
+        '來自於車輛廢氣、火力發電廠或其他工業染料，過量吸收傷害肺部',
     },
   },
 };

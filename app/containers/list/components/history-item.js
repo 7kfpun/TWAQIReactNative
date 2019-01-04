@@ -39,15 +39,16 @@ export default class HistoryItem extends Component {
       TWD97Lat: string,
       SiteType: string,
     }).isRequired,
+    aqi: shape({}).isRequired,
   };
 
   render() {
-    const { item, navigation } = this.props;
+    const { aqi, item, navigation } = this.props;
     return (
       <TouchableOpacity
         onPress={() => {
           tracker.logEvent('check-list-details', item);
-          navigation.navigate('HistoryDetails', { item });
+          navigation.navigate('HistoryDetails', { item, aqi });
         }}
       >
         <View style={styles.container}>
