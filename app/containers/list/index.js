@@ -53,7 +53,7 @@ export default class SettingsView extends Component {
     searchText: '',
     searchResult: [],
     collapsed: false,
-    aqiResult: {},
+    aqiResult: null,
   };
 
   componentDidMount() {
@@ -155,7 +155,7 @@ export default class SettingsView extends Component {
             />
           )}
 
-          {!searchText && (
+          {!searchText && aqiResult && (
             <FlatList
               style={styles.list}
               data={countys}
