@@ -14,6 +14,7 @@ const Label = ({ color, isBorderOnly, text, textColor }) => {
   const style = {
     fontSize: 12,
     color: textColor,
+    textAlign: 'center',
   };
 
   if (isBorderOnly) {
