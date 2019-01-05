@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     flex: 3,
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingRight: 10,
   },
   rightContainer: {
     flex: 4,
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   aqiText: {
-    fontSize: 60,
+    fontSize: 65,
     fontWeight: '300',
     marginTop: 5,
   },

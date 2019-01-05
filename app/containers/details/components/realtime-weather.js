@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: iOSColors.white,
     padding: 15,
-    paddingBottom: 20,
     flexDirection: 'row',
   },
   item: {
