@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  Dimensions,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
 import * as StoreReview from 'react-native-store-review';
@@ -13,16 +19,21 @@ import { openURL } from '../utils/helpers';
 
 import { config } from '../config';
 
+const { height } = Dimensions.get('window');
+
+const RATING_VERSION = 1;
 const STARS_TO_APP_STORE = 4;
 const SHOW_RATING_AFTER = 30 * 60 * 1000;
 
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
+    top: height / 3,
     margin: 15,
     padding: 15,
     alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.9)',
-    borderRadius: 10,
+    backgroundColor: 'rgba(255,255,255,0.96)',
+    borderRadius: 8,
   },
   button: {
     marginTop: 6,
@@ -65,7 +76,7 @@ export default class Rating extends Component {
 
   componentDidMount() {
     const that = this;
-    store.get('isRatingGiven').then(isRatingGiven => {
+    store.get(`isRatingGiven.${RATING_VERSION}`).then(isRatingGiven => {
       if (isRatingGiven) {
         that.setState({ isRatingClose: true });
       } else {
@@ -99,7 +110,7 @@ export default class Rating extends Component {
       }
     }
 
-    store.save('isRatingGiven', true);
+    store.save(`isRatingGiven.${RATING_VERSION}`, true);
     tracker.logEvent('give-rating', { type, rating: String(rating) });
   }
 

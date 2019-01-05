@@ -63,7 +63,7 @@ const RELOAD_INTERVAL = 30 * 60 * 1000;
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   map: {
@@ -198,7 +198,6 @@ export default class MainView extends Component {
       longitude: LONGITUDE,
     },
     selectedIndex: indexTypes[0].key,
-    isLoading: false,
     gpsEnabled: false,
     isShareLoading: false,
     isWindMode: false,
@@ -296,21 +295,17 @@ export default class MainView extends Component {
   }
 
   prepareData() {
-    this.setState({ isLoading: true }, () => {
-      const that = this;
-      const trace = firebase.perf().newTrace('api_get_aqi');
-      trace.start();
-      aqi().then(result => {
-        const keys = Object.keys(result || {}).length;
-        console.log('AQI:', result);
-        console.log('AQI length:', keys);
-        if (result && keys > 0) {
-          that.setState({ aqiResult: result });
-        }
-
-        that.setState({ isLoading: false });
-        trace.stop();
-      });
+    const that = this;
+    const trace = firebase.perf().newTrace('api_get_aqi');
+    trace.start();
+    aqi().then(result => {
+      const keys = Object.keys(result || {}).length;
+      console.log('AQI:', result);
+      console.log('AQI length:', keys);
+      if (result && keys > 0) {
+        that.setState({ aqiResult: result });
+      }
+      trace.stop();
     });
   }
 
@@ -529,20 +524,6 @@ export default class MainView extends Component {
               })}
         </MapView>
 
-        <TouchableOpacity
-          onPress={() => {
-            this.prepareData();
-            tracker.logEvent('fetch-latest-data');
-          }}
-          style={styles.refreshContainer}
-        >
-          {/* <View style={styles.refreshContainerBody}>
-            <Text style={styles.refreshContainerText}>{aqiResult && aqiResult['中山'] && aqiResult['中山'].PublishTime}</Text>
-            {!this.state.isLoading && <Ionicons name="ios-refresh" style={{ marginLeft: 5 }} size={14} color="#616161" />}
-            {this.state.isLoading && <ActivityIndicator style={{ marginLeft: 5 }} />}
-          </View> */}
-        </TouchableOpacity>
-
         <ClosestStation
           lat={centerLocation.latitude}
           long={centerLocation.longitude}
@@ -551,8 +532,6 @@ export default class MainView extends Component {
         />
 
         <Indicator />
-
-        <Rating />
 
         <TouchableOpacity
           style={[
@@ -721,6 +700,8 @@ export default class MainView extends Component {
 
           <AdMob unitId={`twaqi-${Platform.OS}-main-footer`} />
         </View>
+
+        <Rating />
       </View>
     );
   }

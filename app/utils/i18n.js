@@ -246,7 +246,7 @@ I18n.translations = {
       weather: '天氣預報',
       general_public: '一般族群',
       sensitive_groups: '敏感族群',
-      mask_suggestion: '建議配戴口罩',
+      mask_suggestion: '出門戴口罩',
     },
 
     forecast_weather: {
