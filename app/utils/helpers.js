@@ -37,10 +37,11 @@ export const getWeatherIconName = (code, time) => {
 
   return {
     '01': dayHour >= 6 && dayHour < 18 ? 'ios-sunny' : 'ios-moon', // 晴
-    '02': dayHour >= 6 && dayHour < 18 ? 'ios-cloud-outline' : 'cloudy-night', // 多雲
+    '02':
+      dayHour >= 6 && dayHour < 18 ? 'ios-cloud-outline' : 'ios-cloudy-night', // 多雲
     '03': 'ios-cloud', // 陰, 陰有靄
     44: 'ios-cloud', // 多雲有霾
-    '04': 'ios-rainy', // 陰有雨
+    '04': 'ios-rainy', // 陰有雨, 有雨
     26: 'ios-rainy', // 短暫雨
     99: false,
   }[code];
