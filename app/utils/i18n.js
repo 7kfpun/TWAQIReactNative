@@ -49,6 +49,7 @@ I18n.translations = {
     forecast_publish_time: 'Publish Time: ',
 
     help_definition: 'Definition',
+    help_cooperation: 'Interested to be Our Business Partner?',
 
     contact_title: 'Contact Us',
 
@@ -196,6 +197,7 @@ I18n.translations = {
     forecast_publish_time: '發布時間：',
 
     help_definition: '空氣品質指標的定義',
+    help_cooperation: '成為我們合作夥伴？',
 
     contact_title: '聯絡我們',
 

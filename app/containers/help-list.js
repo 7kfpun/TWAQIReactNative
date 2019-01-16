@@ -87,6 +87,7 @@ export default class HelpView extends Component {
             <Text style={styles.text}>{I18n.t('help_definition')}</Text>
             <Icon name="chevron-right" size={21} color="gray" />
           </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.row}
             onPress={() => {
@@ -145,6 +146,26 @@ export default class HelpView extends Component {
             }}
           >
             <Text style={styles.text}>{I18n.t('help.NO2')}</Text>
+            <Icon name="chevron-right" size={21} color="gray" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.row}
+            onPress={() => {
+              tracker.logEvent('help-cooperation');
+              openURL(I18n.isZh ? config.partnerUrl.zh : config.partnerUrl.en);
+            }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Icon
+                style={{ marginRight: 6 }}
+                name="business-center"
+                size={21}
+                color={iOSColors.tealBlue}
+              />
+              <Text style={styles.text}>{I18n.t('help_cooperation')}</Text>
+            </View>
+
             <Icon name="chevron-right" size={21} color="gray" />
           </TouchableOpacity>
         </ScrollView>
