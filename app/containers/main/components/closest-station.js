@@ -8,9 +8,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import moment from 'moment';
 
+import { getClosestStation } from '../../../utils/locations';
 import { getColor } from '../../../utils/indexes';
 import { realtimeWeather } from '../../../utils/api';
-import { getClosestStation } from '../../../utils/locations';
 
 const { width } = Dimensions.get('window');
 

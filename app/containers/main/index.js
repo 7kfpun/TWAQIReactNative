@@ -32,6 +32,7 @@ import Rating from '../../components/rating';
 
 import ClosestStation from './components/closest-station';
 import Indicator from './components/indicator';
+import MaskSuggestion from './components/mask-suggestion';
 
 import { aqi } from '../../utils/api';
 import { getColor, indexTypes } from '../../utils/indexes';
@@ -532,6 +533,12 @@ export default class MainView extends Component {
         />
 
         <Indicator />
+
+        <MaskSuggestion
+          lat={centerLocation.latitude}
+          long={centerLocation.longitude}
+          aqiResult={aqiResult}
+        />
 
         <TouchableOpacity
           style={[

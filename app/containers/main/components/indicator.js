@@ -31,17 +31,6 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     marginTop: 3,
   },
-  text: {
-    color: 'black',
-    fontSize: 10,
-    fontWeight: '300',
-    textShadowColor: 'gray',
-    textShadowOffset: {
-      width: 0.6,
-      height: 0.6,
-    },
-    textShadowRadius: 1,
-  },
 });
 
 const Indicator = () => (
