@@ -38,7 +38,6 @@ import { aqi } from '../../utils/api';
 import { getColor, indexTypes } from '../../utils/indexes';
 import { locations } from '../../utils/locations';
 import I18n from '../../utils/i18n';
-import log from '../../utils/log';
 import tracker from '../../utils/tracker';
 
 import { config } from '../../config';
@@ -393,7 +392,7 @@ export default class MainView extends Component {
         try {
           this.map.animateToRegion(moveLocation);
         } catch (err) {
-          log.logError(`Map animateToRegion failed: ${JSON.stringify(err)}`);
+          console.error(`Map animateToRegion failed: ${JSON.stringify(err)}`);
         }
       },
       error => {
@@ -406,7 +405,7 @@ export default class MainView extends Component {
               console.log(error);
               this.map.animateToRegion(MainView.getDefaultLocation());
             } catch (err) {
-              log.logError(
+              console.error(
                 `Map animateToRegion failed: ${JSON.stringify(err)}`
               );
             }
