@@ -25,29 +25,6 @@
 * [react](https://github.com/facebook/react)
 * [react-native](https://github.com/facebook/react-native)
 
-## Plugins
-
-* [analytics-react-native](https://github.com/neiker/analytics-react-native) - The hassle-free way to integrate analytics into any React Native application.
-* [react-native-admob](https://github.com/sbugert/react-native-admob) - A react-native component for Google AdMob banners.
-* [react-native-device-info](https://github.com/rebeccahughes/react-native-device-info) - Device Information for React Native iOS and Android.
-* [react-native-fabric](https://github.com/corymsmith/react-native-fabric) - A React Native library for Fabric, Crashlytics and Answers.
-* [react-native-fabric-crashlytics](https://github.com/mikelambert/react-native-fabric-crashlytics) - Implements crash reporting on top of react-native-fabric library.
-* [react-native-fused-location](https://github.com/MustansirZia/react-native-fused-location) - Finest location for react-native on Android using the new Fused API.
-* [react-native-i18n](https://github.com/AlexanderZaytsev/react-native-i18n) - React Native + i18n.js.
-* [react-native-location](https://github.com/timfpark/react-native-location) - React Native plug-in that provides GPS location information.
-* [react-native-maps](https://github.com/airbnb/react-native-maps) - React Native Mapview component for iOS + Android.
-* [react-native-onesignal](https://github.com/geektimecoil/react-native-onesignal) - React Native Library for OneSignal Push Notifications Service.
-* [react-native-simple-store](https://github.com/jasonmerino/react-native-simple-store) - A minimalistic wrapper around React Native's AsyncStorage.
-* [react-native-star-rating](https://github.com/djchie/react-native-star-rating) - A React Native component for generating and displaying interactive star ratings.
-* [react-native-store-review](https://github.com/oblador/react-native-store-review) - Rate on App Store directly in your React Native app.
-* [react-native-timer](https://github.com/fractaltech/react-native-timer) - Manage timers in react-native.
-* [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons) - 3000 Customizable Icons for React Native with support for NavBar/TabBar/ToolbarAndroid, image source and full styling.
-* [react-navigation](https://github.com/react-community/react-navigation) - Learn once, navigate anywhere.
-
-## Additional
-
-* [eslint](https://github.com/eslint/eslint): A fully pluggable tool for identifying and reporting on patterns in JavaScript.
-
 ## Running
 
 #### Clone & install
