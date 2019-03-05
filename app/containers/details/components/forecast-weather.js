@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   labelText: {
+    textAlign: 'center',
     fontSize: 10,
     fontWeight: '300',
     color: 'black',

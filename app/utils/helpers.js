@@ -44,7 +44,9 @@ export const getWeatherIconName = (code, time) => {
     44: 'ios-cloud', // 多雲有霾
     '04': 'ios-rainy', // 陰有雨, 有雨
     '08': 'ios-rainy', // 陰有雨, 有雨
+    14: 'ios-rainy', // 陣雨
     26: 'ios-rainy', // 短暫雨
+    18: 'ios-thunderstorm', // 陣雨或雷雨
     99: false,
   }[code];
 };

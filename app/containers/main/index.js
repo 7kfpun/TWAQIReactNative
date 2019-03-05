@@ -162,6 +162,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 12,
   },
+  lastUpdatedTime: {
+    position: 'absolute',
+    bottom: 122,
+    fontWeight: '300',
+    fontSize: 12,
+  },
 });
 
 export default class MainView extends Component {
@@ -677,6 +683,10 @@ export default class MainView extends Component {
             color={this.state.isWindMode ? iOSColors.tealBlue : iOSColors.black}
           />
         </TouchableOpacity>
+
+        <Text style={styles.lastUpdatedTime}>
+          {aqiResult && aqiResult['中山'] && aqiResult['中山'].PublishTime}
+        </Text>
 
         <View>
           <ScrollView
