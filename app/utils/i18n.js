@@ -154,6 +154,10 @@ I18n.translations = {
       NO2_description: '',
       NO2_url: 'https://en.wikipedia.org/wiki/Nitrogen_dioxide',
     },
+
+    buy_premium: 'Remove Ads',
+    buy_premium_description:
+      "Basically you can use our APP for free forever, but if you want to support us by purchasing Premium plan. We would remove all the ads for you. Really! You don't need to pay to use the APP.",
   },
   zh: {
     app_name: '台灣空氣品質指標',
@@ -302,6 +306,10 @@ I18n.translations = {
       NO2_description:
         '來自於車輛廢氣、火力發電廠或其他工業染料，過量吸收傷害肺部',
     },
+
+    buy_premium: '想移除廣告？',
+    buy_premium_description:
+      '其實你可以永久免費使用我們的 APP，但如果你想支持我們，請我們喝咖啡，我們會幫你移除所有內置廣告。真的，你並不需要購買！',
   },
 };
 

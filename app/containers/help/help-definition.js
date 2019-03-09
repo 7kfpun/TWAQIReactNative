@@ -11,11 +11,9 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import AdMob from '../components/admob';
+import AdMob from '../../components/admob';
 
-import I18n from '../utils/i18n';
-
-import { config } from '../config';
+import I18n from '../../utils/i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -149,7 +147,7 @@ const helpTexts = {
   ],
 };
 
-export default class HelpView extends Component {
+export default class HelpDefinition extends Component {
   static propTypes = {
     navigation: shape({
       goBack: func.isRequired,
@@ -168,11 +166,6 @@ export default class HelpView extends Component {
     ),
   };
 
-  static openFeedbackUrl() {
-    const url = I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en;
-    openURL(url);
-  }
-
   render() {
     const {
       navigation: { goBack },
@@ -184,9 +177,6 @@ export default class HelpView extends Component {
           <View style={styles.titleBlock}>
             <Ionicons name="ios-arrow-back" size={30} color="gray" />
             <Text style={styles.title}>{I18n.t('help_definition')}</Text>
-            {/* <TouchableOpacity onPress={HelpView.openFeedbackUrl}>
-              <Ionicons name="ios-mail-outline" size={30} color={iOSColors.gray} />
-            </TouchableOpacity> */}
           </View>
         </TouchableOpacity>
 

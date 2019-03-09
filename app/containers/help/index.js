@@ -10,16 +10,16 @@ import {
 } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import AdMob from '../components/admob';
+import AdMob from '../../components/admob';
+import Row from './components/row';
 
-import { openURL } from '../utils/helpers';
-import I18n from '../utils/i18n';
-import tracker from '../utils/tracker';
+import { openURL } from '../../utils/helpers';
+import I18n from '../../utils/i18n';
+import tracker from '../../utils/tracker';
 
-import { config } from '../config';
+import { config } from '../../config';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,16 +40,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    color: 'black',
-  },
-  row: {
-    padding: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  text: {
-    fontSize: 16,
     color: 'black',
   },
 });
@@ -77,97 +67,80 @@ export default class HelpView extends Component {
           </TouchableOpacity>
         </View>
         <ScrollView>
-          <TouchableOpacity
-            style={styles.row}
+          <Row
+            title={I18n.t('help_definition')}
             onPress={() => {
               tracker.logEvent('help-aqi-definition');
               navigation.navigate('HelpAQI');
             }}
-          >
-            <Text style={styles.text}>{I18n.t('help_definition')}</Text>
-            <Icon name="chevron-right" size={21} color="gray" />
-          </TouchableOpacity>
+          />
 
-          <TouchableOpacity
-            style={styles.row}
+          <Row
+            title={I18n.t('help.AQI')}
             onPress={() => {
               tracker.logEvent('help-aqi-wiki');
               openURL(I18n.t('help.AQI_url'));
             }}
-          >
-            <Text style={styles.text}>{I18n.t('help.AQI')}</Text>
-            <Icon name="chevron-right" size={21} color="gray" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.row}
+          />
+
+          <Row
+            title={I18n.t('help.PM2_5')}
             onPress={() => {
               tracker.logEvent('help-particulates-wiki');
               openURL(I18n.t('help.particulates_url'));
             }}
-          >
-            <Text style={styles.text}>{I18n.t('help.PM2_5')}</Text>
-            <Icon name="chevron-right" size={21} color="gray" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.row}
+          />
+
+          <Row
+            title={I18n.t('help.O3')}
             onPress={() => {
               tracker.logEvent('help-o3-wiki');
               openURL(I18n.t('help.O3_url'));
             }}
-          >
-            <Text style={styles.text}>{I18n.t('help.O3')}</Text>
-            <Icon name="chevron-right" size={21} color="gray" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.row}
+          />
+
+          <Row
+            title={I18n.t('help.CO')}
             onPress={() => {
               tracker.logEvent('help-co-wiki');
               openURL(I18n.t('help.CO_url'));
             }}
-          >
-            <Text style={styles.text}>{I18n.t('help.CO')}</Text>
-            <Icon name="chevron-right" size={21} color="gray" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.row}
+          />
+
+          <Row
+            title={I18n.t('help.SO2')}
             onPress={() => {
               tracker.logEvent('help-so2-wiki');
               openURL(I18n.t('help.SO2_url'));
             }}
-          >
-            <Text style={styles.text}>{I18n.t('help.SO2')}</Text>
-            <Icon name="chevron-right" size={21} color="gray" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.row}
+          />
+
+          <Row
+            title={I18n.t('help.NO2')}
             onPress={() => {
               tracker.logEvent('help-no2-wiki');
               openURL(I18n.t('help.NO2_url'));
             }}
-          >
-            <Text style={styles.text}>{I18n.t('help.NO2')}</Text>
-            <Icon name="chevron-right" size={21} color="gray" />
-          </TouchableOpacity>
+          />
 
-          <TouchableOpacity
-            style={styles.row}
+          <Row
+            title={I18n.t('help_cooperation')}
             onPress={() => {
               tracker.logEvent('help-cooperation');
               openURL(I18n.isZh ? config.partnerUrl.zh : config.partnerUrl.en);
             }}
-          >
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Icon
-                style={{ marginRight: 6 }}
-                name="business-center"
-                size={21}
-                color={iOSColors.tealBlue}
-              />
-              <Text style={styles.text}>{I18n.t('help_cooperation')}</Text>
-            </View>
+            iconName="ios-briefcase"
+          />
 
-            <Icon name="chevron-right" size={21} color="gray" />
-          </TouchableOpacity>
+          <Row
+            title={I18n.t('buy_premium')}
+            description={I18n.t('buy_premium_description')}
+            onPress={() => {
+              tracker.logEvent('help-cooperation');
+              openURL(I18n.isZh ? config.partnerUrl.zh : config.partnerUrl.en);
+            }}
+            iconName="ios-cafe"
+          />
         </ScrollView>
 
         <AdMob unitId={`twaqi-${Platform.OS}-help-footer`} />
