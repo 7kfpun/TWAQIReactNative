@@ -1,7 +1,4 @@
-import {
-  Dimensions,
-  PixelRatio,
-} from 'react-native';
+import { Dimensions, PixelRatio } from 'react-native';
 
 import { Answers } from 'react-native-fabric';
 import Analytics from 'analytics-react-native';
@@ -18,10 +15,10 @@ firebase.perf().setPerformanceCollectionEnabled(true);
 const userId = DeviceInfo.getUniqueID();
 
 const isTracking = !(
-  __DEV__
+  __DEV__ ||
   // || DeviceInfo.getDeviceName().includes('kf')
-  || DeviceInfo.getManufacturer() === 'Genymotion'
-  || DeviceInfo.isEmulator()
+  DeviceInfo.getManufacturer() === 'Genymotion' ||
+  DeviceInfo.isEmulator()
 );
 
 const context = {
@@ -60,7 +57,8 @@ const context = {
   isTablet: DeviceInfo.isTablet(),
 };
 
-const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
+const capitalizeFirstLetter = string =>
+  string.charAt(0).toUpperCase() + string.slice(1);
 
 const firebaseContext = {};
 Object.entries(context).forEach(([key0, value0]) => {
@@ -119,6 +117,25 @@ const tracker = {
       firebase.analytics().setCurrentScreen(screen, screen);
       Answers.logContentView(screen, '', '', properties);
     }
+  },
+  logPurchase: (
+    itemPrice,
+    currency,
+    success,
+    itemName,
+    itemType,
+    itemId,
+    properties
+  ) => {
+    Answers.logPurchase(
+      itemPrice,
+      currency,
+      success,
+      itemName,
+      itemType,
+      itemId,
+      properties
+    );
   },
 };
 

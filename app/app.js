@@ -22,6 +22,7 @@ import Forecast from './containers/forecast';
 import Settings from './containers/settings';
 import Help from './containers/help';
 import HelpDefinition from './containers/help/help-definition';
+import HelpAdfree from './containers/help/adfree';
 
 import I18n from './utils/i18n';
 import tracker from './utils/tracker';
@@ -104,7 +105,8 @@ const SettingsNavigator = createStackNavigator(
 const HelpNavigator = createStackNavigator(
   {
     Help,
-    HelpAQI: HelpDefinition,
+    HelpDefinition,
+    HelpAdfree,
   },
   {
     navigationOptions,

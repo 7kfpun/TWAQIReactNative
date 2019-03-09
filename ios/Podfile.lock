@@ -120,7 +120,7 @@ PODS:
   - Protobuf (3.6.1)
   - React (0.57.4):
     - React/Core (= 0.57.4)
-  - react-native-maps (0.22.0):
+  - react-native-maps (0.21.0):
     - React
   - react-native-onesignal (3.2.8):
     - OneSignal (= 2.9.3)
@@ -169,6 +169,8 @@ PODS:
     - React
   - RNI18n (2.0.15):
     - React
+  - RNIap (2.4.1):
+    - React
   - RNQuickAction (0.3.7):
     - React
   - RNSVG (6.5.2):
@@ -209,6 +211,7 @@ DEPENDENCIES:
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - RNI18n (from `../node_modules/react-native-i18n`)
+  - RNIap (from `../node_modules/react-native-iap`)
   - RNQuickAction (from `../node_modules/react-native-quick-actions`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -256,6 +259,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-firebase/ios"
   RNI18n:
     :path: "../node_modules/react-native-i18n"
+  RNIap:
+    :path: "../node_modules/react-native-iap"
   RNQuickAction:
     :path: "../node_modules/react-native-quick-actions"
   RNSVG:
@@ -275,7 +280,7 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 63202d2665de4e6adcbdce189135255d8b5962ba
   FirebaseAnalyticsInterop: e5f21be9af6548372e2f0815834ff909bff395a2
   FirebaseCore: d16552f06821489ce1affe2e5e3e5593402ddfe3
-  FirebaseCrash: fd373fbf5f9d1e235a984f2c7e446a5f26b968e8
+  FirebaseCrash: 011365f2c0dfac64315109103ed350bacfcdc03f
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
   FirebaseMessaging: 0f14a264b0d7f867e8eff5d3556bc5d0d4e57888
   FirebasePerformance: 4adfe91a2c696bc43429822ad0e4aa8753b283b4
@@ -290,19 +295,20 @@ SPEC CHECKSUMS:
   OneSignal: a506e3bc61d2030f0757faf9bd783a9b211c6e3c
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   React: 1f4ca35c4aeac2b47e42e8be98bb9188f48fba84
-  react-native-maps: afb9602cb6e59929716361b7bd9003dd18cd928e
+  react-native-maps: fb06a43ce6884256097eec1dd69d23957b71df88
   react-native-onesignal: ce476dc7cc3302edbac0acb7b8168f4642d6edca
   react-native-safari-view: 955d7160d159241b8e9395d12d10ea0ef863dcdd
   ReactNativeFabric: d05320ff347d5c72567c115b97edeead111ac4d2
   RNDeviceInfo: e7c5fcde13d40e161d8a27f6c5dc69c638936002
   RNFirebase: 4436e397f6c808d21337a7de02b492ec9e8052bb
   RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
+  RNIap: f14559dc4e096d3ee44caffd2afdd0505010e165
   RNQuickAction: 171d7aed1a693c22588d80159aa5b4f8881058bd
   RNSVG: 3c037ade1c42014de732e27e3879bf2b77ea78ea
   RNVectorIcons: d819334932bcda3332deb3d2c8ea4d069e0b98f9
   RNViewShot: 5c5b4c5540046e5fb0de4a48a311571816c43c86
   yoga: ac0f4c6ff31ac05bad1bd166fec5204c19de0277
 
-PODFILE CHECKSUM: b3feaaef82674792b06e6812ee2ad46159ac7220
+PODFILE CHECKSUM: 9d18eebb39347b4405a3fbb4da420fbcba622b35
 
 COCOAPODS: 1.6.0.beta.2

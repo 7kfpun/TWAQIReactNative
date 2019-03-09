@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import { func, shape } from 'prop-types';
-import {
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Platform, ScrollView, StyleSheet, View } from 'react-native';
 
-import { iOSColors } from 'react-native-typography';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import store from 'react-native-simple-store';
 
 import AdMob from '../../components/admob';
+import Header from '../../components/header';
+
 import Row from './components/row';
 
 import { openURL } from '../../utils/helpers';
@@ -26,52 +20,44 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  titleBlock: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: Platform.OS === 'ios' ? 60 : 20,
-    paddingHorizontal: 10,
-    marginBottom: 20,
-  },
-  block: {
-    paddingHorizontal: 10,
-    paddingVertical: 30,
-  },
-  title: {
-    fontSize: 24,
-    color: 'black',
-  },
 });
 
 export default class HelpView extends Component {
-  static propTypes = {
-    navigation: shape({
-      goBack: func.isRequired,
-    }).isRequired,
+  state = {
+    isAdFree: false,
+  };
+
+  componentDidMount() {
+    this.checkIsAdFree();
+  }
+
+  checkIsAdFree = async () => {
+    const currentSubscription = await store.get('currentSubscription');
+    if (currentSubscription === 'adfree') {
+      this.setState({ isAdFree: true });
+    }
   };
 
   render() {
     const { navigation } = this.props;
+    const { isAdFree } = this.state;
 
     return (
       <View style={styles.container}>
-        <View style={styles.titleBlock}>
-          <Text style={styles.title}>{I18n.t('help_tab')}</Text>
-          <TouchableOpacity
-            onPress={() =>
-              openURL(I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en)
-            }
-          >
-            <Ionicons name="ios-mail" size={30} color={iOSColors.gray} />
-          </TouchableOpacity>
-        </View>
+        <Header
+          title={I18n.t('help_tab')}
+          iconName="ios-mail"
+          onPress={() =>
+            openURL(I18n.isZh ? config.feedbackUrl.zh : config.feedbackUrl.en)
+          }
+        />
+
         <ScrollView>
           <Row
             title={I18n.t('help_definition')}
             onPress={() => {
               tracker.logEvent('help-aqi-definition');
-              navigation.navigate('HelpAQI');
+              navigation.navigate('HelpDefinition');
             }}
           />
 
@@ -133,13 +119,14 @@ export default class HelpView extends Component {
           />
 
           <Row
-            title={I18n.t('buy_premium')}
-            description={I18n.t('buy_premium_description')}
+            title={I18n.t('help.buy_premium.title')}
+            description={I18n.t('help.buy_premium.description')}
             onPress={() => {
-              tracker.logEvent('help-cooperation');
-              openURL(I18n.isZh ? config.partnerUrl.zh : config.partnerUrl.en);
+              tracker.logEvent('help-adfree');
+              navigation.navigate('HelpAdfree');
             }}
             iconName="ios-cafe"
+            disabled={isAdFree}
           />
         </ScrollView>
 
@@ -148,3 +135,9 @@ export default class HelpView extends Component {
     );
   }
 }
+
+HelpView.propTypes = {
+  navigation: shape({
+    goBack: func.isRequired,
+  }).isRequired,
+};

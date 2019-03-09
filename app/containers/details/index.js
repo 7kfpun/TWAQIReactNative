@@ -42,13 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: iOSColors.customGray,
   },
-  titleContainer: {
-    // position: 'absolute',
-    // top: 0,
-    // left: 0,
-    // right: 0,
-  },
-  titleBody: {
+  titleBlock: {
     flexDirection: 'row',
     alignItems: 'center',
     // justifyContent: 'space-between',
@@ -217,8 +211,8 @@ export default class DetailsView extends Component {
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.titleContainer} onPress={this.goBack}>
-          <View style={styles.titleBody}>
+        <TouchableOpacity onPress={this.goBack}>
+          <View style={styles.titleBlock}>
             <Ionicons name="ios-arrow-back" size={30} color="black" />
             <Text style={styles.title}>
               {I18n.isZh ? item.SiteName : item.SiteEngName}

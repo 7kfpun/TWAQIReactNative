@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, number, string } from 'prop-types';
+import { bool, func, number, string } from 'prop-types';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 
 import { iOSColors } from 'react-native-typography';
@@ -25,6 +25,9 @@ const styles = StyleSheet.create({
     color: 'black',
     lineHeight: 16,
   },
+  disabled: {
+    color: 'gray',
+  },
 });
 
 const Row = ({
@@ -34,8 +37,9 @@ const Row = ({
   iconName,
   iconSize,
   iconColor,
+  disabled,
 }) => (
-  <TouchableOpacity onPress={onPress}>
+  <TouchableOpacity onPress={disabled ? noop : onPress}>
     <View style={styles.container}>
       {iconName && (
         <Ionicons
@@ -47,9 +51,17 @@ const Row = ({
       )}
 
       <View style={{ flex: 1 }}>
-        {title && <Text style={styles.titleText}>{title}</Text>}
+        {title && (
+          <Text style={[styles.titleText, disabled ? styles.disabled : {}]}>
+            {title}
+          </Text>
+        )}
         {description && (
-          <Text style={styles.descriptionText}>{description}</Text>
+          <Text
+            style={[styles.descriptionText, disabled ? styles.disabled : {}]}
+          >
+            {description}
+          </Text>
         )}
       </View>
 
@@ -65,6 +77,7 @@ Row.defaultProps = {
   iconName: null,
   iconSize: 21,
   iconColor: iOSColors.tealBlue,
+  disabled: false,
 };
 
 Row.propTypes = {
@@ -74,6 +87,7 @@ Row.propTypes = {
   iconName: string,
   iconSize: number,
   iconColor: string,
+  disabled: bool,
 };
 
 export default Row;

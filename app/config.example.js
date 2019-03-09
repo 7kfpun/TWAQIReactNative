@@ -1,7 +1,9 @@
 exports.config = {
-  aqiUrl: 'http://opendata.epa.gov.tw/ws/Data/REWIQA/?$orderby=SiteName&$skip=0&$top=100&format=json',
+  aqiUrl:
+    'http://opendata.epa.gov.tw/ws/Data/REWIQA/?$orderby=SiteName&$skip=0&$top=100&format=json',
   aqiHistoryUrl: '',
-  forecastUrl: 'http://opendata.epa.gov.tw/ws/Data/AQFN/?$orderby=PublishTime%20desc&$skip=0&$top=100&format=json',
+  forecastUrl:
+    'http://opendata.epa.gov.tw/ws/Data/AQFN/?$orderby=PublishTime%20desc&$skip=0&$top=100&format=json',
   realtimeWeatherUrl: 'https://ienv.epa.gov.tw/MyEnv/Weather/_Realtime',
   forecastWeatherUrl: 'https://ienv.epa.gov.tw/MyEnv/Weather/_Forecast',
   uviWeatherUrl: 'https://ienv.epa.gov.tw/MyEnv/Weather/_Uvi',
@@ -36,4 +38,6 @@ exports.config = {
     'twaqi-android-help-footer': '',
   },
   segment: '',
+  onesignal: '',
+  inAppProducts: [''],
 };

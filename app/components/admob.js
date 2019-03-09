@@ -4,6 +4,7 @@ import { View } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
 import firebase from 'react-native-firebase';
+import store from 'react-native-simple-store';
 
 import AdCustom from './ad-custom';
 
@@ -61,6 +62,8 @@ export default class Admob extends Component {
       }
     }, 60 * 1000);
 
+    this.checkIsAdFree();
+
     this.checkShinbaAd();
     this.checkShinbaAdInterval = setInterval(() => {
       this.checkShinbaAd();
@@ -73,7 +76,14 @@ export default class Admob extends Component {
     if (this.checkShinbaAdInterval) clearInterval(this.checkShinbaAdInterval);
   }
 
-  async checkShinbaAd() {
+  checkIsAdFree = async () => {
+    const currentSubscription = await store.get('currentSubscription');
+    if (currentSubscription === 'adfree') {
+      this.setState({ isAdFree: true });
+    }
+  };
+
+  checkShinbaAd = async () => {
     const ad = await getAd('shinba');
     const isShowAdCustom = ad.impressionRate > Math.random();
     console.log('isShowAdCustom', isShowAdCustom);
@@ -88,14 +98,26 @@ export default class Admob extends Component {
         isShowAdCustom: false,
       });
     }
-  }
+  };
 
   render() {
-    if (this.state.isReceivedFailed) {
+    const { margin, backgroundColor, alignItems, unitId } = this.props;
+    const {
+      isAdFree,
+      isReceivedFailed,
+      isShowAdCustom,
+      isReceived,
+    } = this.state;
+
+    if (isAdFree) {
+      return null;
+    }
+
+    if (isReceivedFailed) {
       return <AdCustom />;
     }
 
-    if (this.state.isShowAdCustom) {
+    if (isShowAdCustom) {
       return <AdCustom client="shinba" />;
     }
 
@@ -111,17 +133,17 @@ export default class Admob extends Component {
     return (
       <View
         style={{
-          height: this.state.isReceived ? height : 0,
-          margin: this.props.margin,
-          backgroundColor: this.props.backgroundColor,
-          alignItems: this.props.alignItems,
+          height: isReceived ? height : 0,
+          margin,
+          backgroundColor,
+          alignItems,
           justifyContent: 'flex-end',
         }}
       >
         <Banner
           key={this.state.key}
           size={bannerSize}
-          unitId={this.props.unitId && config.admob[this.props.unitId]}
+          unitId={unitId && config.admob[unitId]}
           request={request.build()}
           onAdLoaded={() => {
             console.log('Ads received');

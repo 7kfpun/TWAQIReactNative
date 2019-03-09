@@ -153,11 +153,34 @@ I18n.translations = {
       NO2: 'Nitrogen dioxide',
       NO2_description: '',
       NO2_url: 'https://en.wikipedia.org/wiki/Nitrogen_dioxide',
+
+      buy_premium: {
+        title: 'Remove Ads',
+        description:
+          "Basically you can use our APP for free forever, but if you want to support us by purchasing Premium plan. We would remove all the ads for you. Really! You don't need to pay to use the APP.",
+      },
     },
 
-    buy_premium: 'Remove Ads',
-    buy_premium_description:
-      "Basically you can use our APP for free forever, but if you want to support us by purchasing Premium plan. We would remove all the ads for you. Really! You don't need to pay to use the APP.",
+    adfree: {
+      title: 'Remove Ads?',
+      restore_purchase: 'Restore your in-app purchases',
+      product: {
+        title: 'Remove Ads',
+        description:
+          "Ensure your user experience won't be disturbed by any ads",
+      },
+      purchase_success: {
+        title: 'Purchased, all ads removed',
+        description: 'Enjoy no ads experience',
+      },
+      restore_success: {
+        title: 'Restored, all ads removed',
+        description: 'Enjoy no ads experience',
+      },
+      restore_failed: {
+        title: 'You have never purchased our Premium before',
+      },
+    },
   },
   zh: {
     app_name: '台灣空氣品質指標',
@@ -305,11 +328,32 @@ I18n.translations = {
         'https://zh.wikipedia.org/wiki/%E4%BA%8C%E6%B0%A7%E5%8C%96%E6%B0%AE',
       NO2_description:
         '來自於車輛廢氣、火力發電廠或其他工業染料，過量吸收傷害肺部',
+      buy_premium: {
+        title: '想移除廣告？',
+        description:
+          '你可以永久免費使用我們的 APP，但如果你想支持我們，請我們喝咖啡，我們將移除所有內置廣告。真的，你並不需要購買！',
+      },
     },
 
-    buy_premium: '想移除廣告？',
-    buy_premium_description:
-      '其實你可以永久免費使用我們的 APP，但如果你想支持我們，請我們喝咖啡，我們會幫你移除所有內置廣告。真的，你並不需要購買！',
+    adfree: {
+      title: '想移除廣告？',
+      restore_purchase: '恢復你的應用內購買',
+      product: {
+        title: '移除廣告',
+        description: '移除所有 APP 內廣告',
+      },
+      purchase_success: {
+        title: '購買成功',
+        description: '感謝支持，你將不再有廣告影響使用體驗',
+      },
+      restore_success: {
+        title: '恢復成功',
+        description: '不再有廣告影響使用體驗',
+      },
+      restore_failed: {
+        title: '你從未購買過我們的進階版',
+      },
+    },
   },
 };
 
