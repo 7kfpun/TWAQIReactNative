@@ -3,6 +3,8 @@
   "parser": "babel-eslint",
 
   "rules": {
+    "comma-dangle": [2, "always-multiline"],
+    "object-curly-newline": ["error", "always"],
     "max-len": ["error", 300, 4],
     "react/jsx-boolean-value": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
