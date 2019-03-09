@@ -17,6 +17,7 @@ import {
   View,
 } from 'react-native';
 
+import * as Animatable from 'react-native-animatable';
 import { captureRef } from 'react-native-view-shot';
 import { iOSColors } from 'react-native-typography';
 import DeviceInfo from 'react-native-device-info';
@@ -676,12 +677,23 @@ export default class MainView extends Component {
             });
           }}
         >
-          <Ionicons
-            name="ios-leaf"
-            style={{ marginLeft: 3 }}
-            size={22}
-            color={this.state.isWindMode ? iOSColors.tealBlue : iOSColors.black}
-          />
+          {this.state.isWindMode ? (
+            <Animatable.View animation="swing" iterationCount="infinite">
+              <Ionicons
+                name="ios-leaf"
+                style={{ marginLeft: 3, transform: [{ rotate: '-25deg' }] }}
+                size={22}
+                color={iOSColors.tealBlue}
+              />
+            </Animatable.View>
+          ) : (
+            <Ionicons
+              name="ios-leaf"
+              style={{ marginLeft: 3 }}
+              size={22}
+              color={iOSColors.black}
+            />
+          )}
         </TouchableOpacity>
 
         <Text style={styles.lastUpdatedTime}>
