@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: Platform.OS === 'ios' ? 50 : 20,
     paddingHorizontal: 10,
-    marginBottom: 10,
+    backgroundColor: 'white',
   },
   titleText: {
     fontSize: 24,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 });
 
 const Header = ({ title, description, iconName, onPress, backOnPress }) => (
-  <TouchableOpacity style={{ height: 110 }} onPress={backOnPress}>
+  <TouchableOpacity style={{ height: 100 }} onPress={backOnPress}>
     <View style={styles.container}>
       {backOnPress && backOnPress !== noop && (
         <Ionicons

@@ -21,6 +21,7 @@ import firebase from 'react-native-firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AdMob from '../../components/admob';
+import Header from '../../components/header';
 import IndicatorHorizontal from '../../components/indicator-horizontal';
 import Marker from '../../components/marker';
 import SettingsItem from '../../components/settings-item';
@@ -180,10 +181,6 @@ export default class DetailsView extends Component {
     });
   };
 
-  goBack = () => {
-    this.props.navigation.goBack(null);
-  };
-
   // TODO: make it component
   renderIndicator = () => (
     <PagerTitleIndicator
@@ -204,6 +201,7 @@ export default class DetailsView extends Component {
         state: {
           params: { item, aqi },
         },
+        goBack,
       },
     } = this.props;
 
@@ -211,15 +209,10 @@ export default class DetailsView extends Component {
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={this.goBack}>
-          <View style={styles.titleBlock}>
-            <Ionicons name="ios-arrow-back" size={30} color="black" />
-            <Text style={styles.title}>
-              {I18n.isZh ? item.SiteName : item.SiteEngName}
-            </Text>
-            <View />
-          </View>
-        </TouchableOpacity>
+        <Header
+          title={I18n.isZh ? item.SiteName : item.SiteEngName}
+          backOnPress={() => goBack(null)}
+        />
 
         <ScrollView
           refreshControl={
