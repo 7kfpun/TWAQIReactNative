@@ -60,7 +60,7 @@ const Item = ({ item, isNow }) => {
     timeLabel = moment(item.Time).format('dddd');
   } else {
     timeLabel = `${moment(item.Time).format('H')}${I18n.t(
-      'forecast_weather.hours'
+      'forecast_weather.hours',
     )}`;
   }
 
@@ -113,7 +113,7 @@ const ForecastWeather = ({ data }) => {
       <FlatList
         data={[...data].slice(1)}
         renderItem={({ item }) => <Item item={item} />}
-        keyExtractor={item => item.Time}
+        keyExtractor={(item) => item.Time}
         horizontal
         showsHorizontalScrollIndicator={false}
       />
@@ -129,7 +129,7 @@ ForecastWeather.propTypes = {
       WeatherIcon: string,
       Weather: string,
       Weather_original: string,
-    })
+    }),
   ).isRequired,
 };
 

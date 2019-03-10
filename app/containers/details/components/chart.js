@@ -8,7 +8,7 @@ import { getColor } from '../../../utils/indexes';
 
 const { width } = Dimensions.get('window');
 
-const isFloat = n => Number(n) === n && n % 1 !== 0;
+const isFloat = (n) => Number(n) === n && n % 1 !== 0;
 
 export default class Chart extends Component {
   static propTypes = {
@@ -22,7 +22,7 @@ export default class Chart extends Component {
       return null;
     }
 
-    const data = result.map(amount => {
+    const data = result.map((amount) => {
       if (
         ['ND', '-', '/*', '-*', '-/-'].includes(amount) ||
         amount < '0' ||
@@ -49,7 +49,7 @@ export default class Chart extends Component {
             right: 7,
           }}
           domain={{ x: [0, length], y: [min / 3, max] }}
-          labels={d => {
+          labels={(d) => {
             if (d.y === 0) {
               return '';
             }
@@ -67,7 +67,7 @@ export default class Chart extends Component {
               padding: 2,
             },
             data: {
-              fill: d =>
+              fill: (d) =>
                 d.y
                   ? getColor(this.props.index, parseFloat(d.y)).color
                   : '#000000',

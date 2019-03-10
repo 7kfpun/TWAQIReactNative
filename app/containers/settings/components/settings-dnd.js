@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const getTime = value =>
+const getTime = (value) =>
   parseInt(moment(value).format('H'), 10) * 60 +
   parseInt(moment(value).format('m'), 10);
-const convertFromTagToTime = value =>
+const convertFromTagToTime = (value) =>
   moment(`${parseInt(value / 60, 10)} ${value % 60}`, 'H m');
 
 export default class SettingsDND extends Component {
@@ -78,7 +78,7 @@ export default class SettingsDND extends Component {
     this.loadDNDSettings();
   }
 
-  setDND = value => {
+  setDND = (value) => {
     this.setState({ isDndEnabled: value }, () => {
       OneSignal.sendTags({
         isDndEnabled: value,
@@ -123,22 +123,22 @@ export default class SettingsDND extends Component {
   showEndTimePicker = () => this.setState({ isEndTimePickerVisible: true });
   hideEndTimePicker = () => this.setState({ isEndTimePickerVisible: false });
 
-  handleStartTimePicked = value => {
+  handleStartTimePicked = (value) => {
     this.setState({ startTime: value }, () =>
       OneSignal.sendTags({
         dndStartTime: getTime(value),
         isDndStartEarlierThanEnd: moment(value).diff(this.state.endTime) < 0,
-      })
+      }),
     );
     this.hideStartTimePicker();
   };
 
-  handleEndTimePicked = value => {
+  handleEndTimePicked = (value) => {
     this.setState({ endTime: value }, () =>
       OneSignal.sendTags({
         dndEndTime: getTime(value),
         isDndStartEarlierThanEnd: moment(this.state.startTime).diff(value) < 0,
-      })
+      }),
     );
     this.hideEndTimePicker();
   };
@@ -150,7 +150,7 @@ export default class SettingsDND extends Component {
           <Text style={styles.text}>{I18n.t('do_not_disturb.title')}</Text>
 
           <Switch
-            onValueChange={value => this.setDND(value)}
+            onValueChange={(value) => this.setDND(value)}
             value={this.state.isDndEnabled}
             trackColor="#EEEEEE"
           />

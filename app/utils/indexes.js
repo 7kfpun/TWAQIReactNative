@@ -56,7 +56,7 @@ const indexRanges = {
       max: 50,
       general_public_guidance: I18n.t('status_good_general_public_guidance'),
       sensitive_groups_guidance: I18n.t(
-        'status_good_sensitive_groups_guidance'
+        'status_good_sensitive_groups_guidance',
       ),
     },
     {
@@ -68,10 +68,10 @@ const indexRanges = {
       min: 51,
       max: 100,
       general_public_guidance: I18n.t(
-        'status_moderate_general_public_guidance'
+        'status_moderate_general_public_guidance',
       ),
       sensitive_groups_guidance: I18n.t(
-        'status_moderate_sensitive_groups_guidance'
+        'status_moderate_sensitive_groups_guidance',
       ),
     },
     {
@@ -83,10 +83,10 @@ const indexRanges = {
       min: 101,
       max: 150,
       general_public_guidance: I18n.t(
-        'status_unhealthy_for_sensitive_groups_general_public_guidance'
+        'status_unhealthy_for_sensitive_groups_general_public_guidance',
       ),
       sensitive_groups_guidance: I18n.t(
-        'status_unhealthy_for_sensitive_groups_sensitive_groups_guidance'
+        'status_unhealthy_for_sensitive_groups_sensitive_groups_guidance',
       ),
     },
     {
@@ -98,10 +98,10 @@ const indexRanges = {
       min: 151,
       max: 200,
       general_public_guidance: I18n.t(
-        'status_unhealthy_general_public_guidance'
+        'status_unhealthy_general_public_guidance',
       ),
       sensitive_groups_guidance: I18n.t(
-        'status_unhealthy_sensitive_groups_guidance'
+        'status_unhealthy_sensitive_groups_guidance',
       ),
     },
     {
@@ -113,10 +113,10 @@ const indexRanges = {
       min: 201,
       max: 300,
       general_public_guidance: I18n.t(
-        'status_very_unhealthy_general_public_guidance'
+        'status_very_unhealthy_general_public_guidance',
       ),
       sensitive_groups_guidance: I18n.t(
-        'status_very_unhealthy_sensitive_groups_guidance'
+        'status_very_unhealthy_sensitive_groups_guidance',
       ),
     },
     {
@@ -128,10 +128,10 @@ const indexRanges = {
       min: 301,
       max: 500,
       general_public_guidance: I18n.t(
-        'status_hazardous_general_public_guidance'
+        'status_hazardous_general_public_guidance',
       ),
       sensitive_groups_guidance: I18n.t(
-        'status_hazardous_sensitive_groups_guidance'
+        'status_hazardous_sensitive_groups_guidance',
       ),
     },
   ],
@@ -484,7 +484,7 @@ exports.indexRanges = indexRanges;
 const getColor = (index, amount) => {
   const isMatched = (
     indexRanges[index] || indexRanges[index.replace('_', '.')]
-  ).filter(item => amount >= item.min && amount <= item.max);
+  ).filter((item) => amount >= item.min && amount <= item.max);
   if (isMatched && isMatched.length >= 1) {
     return isMatched[0];
   }

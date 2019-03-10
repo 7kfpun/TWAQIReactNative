@@ -57,7 +57,7 @@ const context = {
   isTablet: DeviceInfo.isTablet(),
 };
 
-const capitalizeFirstLetter = string =>
+const capitalizeFirstLetter = (string) =>
   string.charAt(0).toUpperCase() + string.slice(1);
 
 const firebaseContext = {};
@@ -76,9 +76,9 @@ const tracker = {
   identify: async () => {
     if (isTracking) {
       const ip = await fetch('http://checkip.amazonaws.com/')
-        .then(res => res.text())
-        .then(ipText => ipText.replace('\n', ''))
-        .catch(err => console.log(err));
+        .then((res) => res.text())
+        .then((ipText) => ipText.replace('\n', ''))
+        .catch((err) => console.log(err));
 
       if (ip) {
         console.log('IP address', ip);
@@ -125,7 +125,7 @@ const tracker = {
     itemName,
     itemType,
     itemId,
-    properties
+    properties,
   ) => {
     Answers.logPurchase(
       itemPrice,
@@ -134,7 +134,7 @@ const tracker = {
       itemName,
       itemType,
       itemId,
-      properties
+      properties,
     );
   },
 };

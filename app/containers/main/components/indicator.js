@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 
 const Indicator = () => (
   <View style={styles.container}>
-    {indexRanges.AQI.map(color => (
+    {indexRanges.AQI.map((color) => (
       <View style={styles.item} key={color.key}>
         <Image style={{ width: 16, height: 16 }} source={color.image} />
         <View style={[styles.bar, { backgroundColor: color.color }]} />

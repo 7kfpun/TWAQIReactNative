@@ -2,10 +2,12 @@ import firebase from 'react-native-firebase';
 
 const getAd = (client) => {
   console.log('Get ad from firebase config', client);
-  return firebase.config().fetch(60) // cache for 60 seconds
+  return firebase
+    .config()
+    .fetch(60) // cache for 60 seconds
     .then(() => firebase.config().activateFetched())
     .then(() => firebase.config().getKeysByPrefix(`ad_custom_${client}_`))
-    .then(arr => firebase.config().getValues(arr))
+    .then((arr) => firebase.config().getValues(arr))
     .then((objects) => {
       const data = {};
       // Retrieve values

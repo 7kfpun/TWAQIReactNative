@@ -19,7 +19,7 @@ class SwipeScrollView extends Component {
     scrollActionOffset: 0,
   };
 
-  onScroll = e => {
+  onScroll = (e) => {
     /**
      * Allow parent component do something when 'onScroll' event is fired.
      */

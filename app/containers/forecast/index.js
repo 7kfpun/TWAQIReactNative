@@ -126,7 +126,7 @@ export default class ForecastView extends Component {
   componentDidMount() {
     const trace = firebase.perf().newTrace('api_get_aqfn');
     trace.start();
-    aqfn().then(json => {
+    aqfn().then((json) => {
       this.setState({
         aqfnResult: json,
         aqfnResultGroup: groupBy(json, 'Area'),
@@ -153,12 +153,12 @@ export default class ForecastView extends Component {
   );
 
   render() {
-    const getForecastContent = text =>
+    const getForecastContent = (text) =>
       text
         .replace(/\r/g, '\n\n')
         .replace(
           '敏感族群可以利用空氣品質監測網資訊(網址：http://taqm.epa.gov.tw、「愛環境資訊網」http://ienv.epa.gov.tw)查詢最新空氣品質變化，或透過「環境即時通」手機APP可以設定不同警戒值，',
-          ''
+          '',
         );
 
     return (
@@ -197,7 +197,7 @@ export default class ForecastView extends Component {
                       <View style={{ flex: 2 }} />
                       {this.state.aqfnResultGroup[
                         Object.keys(this.state.aqfnResultGroup)[0]
-                      ].map(item => (
+                      ].map((item) => (
                         <View
                           style={{ flex: 1, alignItems: 'center' }}
                           key={item.ForecastDate}
@@ -210,7 +210,7 @@ export default class ForecastView extends Component {
                     </View>
 
                     <View>
-                      {Object.keys(this.state.aqfnResultGroup).map(key => (
+                      {Object.keys(this.state.aqfnResultGroup).map((key) => (
                         <View
                           key={key}
                           style={{
@@ -224,7 +224,7 @@ export default class ForecastView extends Component {
                               {I18n.t(`forecast.${key}`)}
                             </Text>
                           </View>
-                          {this.state.aqfnResultGroup[key].map(item => (
+                          {this.state.aqfnResultGroup[key].map((item) => (
                             <View
                               style={{ flex: 1, alignItems: 'center' }}
                               key={`${key}${item.ForecastDate}`}

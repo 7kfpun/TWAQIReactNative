@@ -92,7 +92,7 @@ export default class SettingsGroup extends Component {
   prepareLocations() {
     this.setState({
       locations: locations
-        .filter(item => item.County === this.props.groupName)
+        .filter((item) => item.County === this.props.groupName)
         .sort(),
     });
   }
@@ -102,8 +102,8 @@ export default class SettingsGroup extends Component {
     if (tags) {
       this.setState({
         enabledCount: locations
-          .filter(item => item.County === this.props.groupName)
-          .filter(item => tags[item.SiteEngName] === 'true').length,
+          .filter((item) => item.County === this.props.groupName)
+          .filter((item) => tags[item.SiteEngName] === 'true').length,
       });
     }
   }

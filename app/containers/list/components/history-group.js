@@ -65,7 +65,7 @@ export default class HistoryGroup extends Component {
   prepareLocations() {
     this.setState({
       locations: locations
-        .filter(item => item.County === this.props.groupName)
+        .filter((item) => item.County === this.props.groupName)
         .sort(),
     });
   }

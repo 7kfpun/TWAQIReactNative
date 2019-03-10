@@ -206,7 +206,7 @@ export default class SettingsItem extends Component {
           ]
             ? parseInt(
                 onesignalTags[`${item.SiteEngName}_pollution_therhold`],
-                10
+                10,
               )
             : DEFAULT_POLLUTION_THERHOLD,
           cleanlinessTherhold: onesignalTags[
@@ -214,7 +214,7 @@ export default class SettingsItem extends Component {
           ]
             ? parseInt(
                 onesignalTags[`${item.SiteEngName}_cleanliness_therhold`],
-                10
+                10,
               )
             : DEFAULT_CLEANLINESS_THERHOLD,
         });
@@ -254,7 +254,7 @@ export default class SettingsItem extends Component {
             tracker.logEvent('pollution-selector', { label: 'cancel' }),
           style: 'cancel',
         },
-        ...indexRanges.AQI.map(item => ({
+        ...indexRanges.AQI.map((item) => ({
           text: `${item.status} (${item.min})`,
           onPress: () => {
             this.setState({ pollutionTherhold: item.min }, () => {
@@ -264,7 +264,7 @@ export default class SettingsItem extends Component {
           },
         })),
       ],
-      { cancelable: true }
+      { cancelable: true },
     );
   }
 
@@ -279,7 +279,7 @@ export default class SettingsItem extends Component {
             tracker.logEvent('cleanliness-selector', { label: 'cancel' }),
           style: 'cancel',
         },
-        ...indexRanges.AQI.map(item => ({
+        ...indexRanges.AQI.map((item) => ({
           text: `${item.status} (${item.max})`,
           onPress: () => {
             this.setState({ cleanlinessTherhold: item.max }, () => {
@@ -289,7 +289,7 @@ export default class SettingsItem extends Component {
           },
         })),
       ],
-      { cancelable: true }
+      { cancelable: true },
     );
   }
 
@@ -310,7 +310,7 @@ export default class SettingsItem extends Component {
           </View>
           <View style={styles.switch}>
             <Switch
-              onValueChange={value => this.setNotification(value)}
+              onValueChange={(value) => this.setNotification(value)}
               value={this.state.isEnabled}
               trackColor="#EEEEEE"
             />
@@ -327,7 +327,7 @@ export default class SettingsItem extends Component {
                 <TextInput
                   style={styles.input}
                   keyboardType="numeric"
-                  onChangeText={value => {
+                  onChangeText={(value) => {
                     this.setNotificationPollutionTherhold(value);
                     tracker.logEvent('pollution-textinput', item);
                   }}
@@ -351,7 +351,7 @@ export default class SettingsItem extends Component {
                 value={this.state.pollutionTherhold}
                 minimumValue={1}
                 maximumValue={500}
-                onValueChange={value =>
+                onValueChange={(value) =>
                   this.setNotificationPollutionTherhold(value)
                 }
               />
@@ -370,7 +370,7 @@ export default class SettingsItem extends Component {
                 <TextInput
                   style={styles.input}
                   keyboardType="numeric"
-                  onChangeText={value => {
+                  onChangeText={(value) => {
                     this.setNotificationCleanlinessTherhold(value);
                     tracker.logEvent('cleanliness-textinput', item);
                   }}
@@ -397,7 +397,7 @@ export default class SettingsItem extends Component {
                 value={this.state.cleanlinessTherhold}
                 minimumValue={1}
                 maximumValue={500}
-                onValueChange={value =>
+                onValueChange={(value) =>
                   this.setNotificationCleanlinessTherhold(value)
                 }
               />

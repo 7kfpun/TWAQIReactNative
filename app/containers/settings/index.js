@@ -83,7 +83,7 @@ export default class SettingsView extends Component {
 
     this.loadEnabledItemsInterval = setInterval(
       () => this.loadEnabledItems(),
-      CHECK_INTERVAL
+      CHECK_INTERVAL,
     );
   }
 
@@ -94,7 +94,7 @@ export default class SettingsView extends Component {
       clearInterval(this.checkPermissionsInterval);
   }
 
-  onChangeText = searchText => {
+  onChangeText = (searchText) => {
     const options = {
       shouldSort: true,
       threshold: 0.2,
@@ -127,7 +127,7 @@ export default class SettingsView extends Component {
       tags &&
       Object.values(tags).indexOf('true') !== -1
     ) {
-      OneSignal.checkPermissions(permissions => {
+      OneSignal.checkPermissions((permissions) => {
         console.log('checkPermissions', permissions);
         if (!permissions || (permissions && !permissions.alert)) {
           this.setState({ isShowPermissionReminderBlock: true });
@@ -149,7 +149,7 @@ export default class SettingsView extends Component {
     this.checkPermissions(tags);
     this.checkPermissionsInterval = setInterval(
       () => this.checkPermissions(tags),
-      CHECK_INTERVAL
+      CHECK_INTERVAL,
     );
   }
 

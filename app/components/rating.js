@@ -76,7 +76,7 @@ export default class Rating extends Component {
 
   componentDidMount() {
     const that = this;
-    store.get(`isRatingGiven.${RATING_VERSION}`).then(isRatingGiven => {
+    store.get(`isRatingGiven.${RATING_VERSION}`).then((isRatingGiven) => {
       if (isRatingGiven) {
         that.setState({ isRatingClose: true });
       } else {
@@ -138,7 +138,7 @@ export default class Rating extends Component {
         <StarRating
           starSize={36}
           rating={this.state.starCount}
-          selectedStar={rating => this.onStarRatingPress(rating)}
+          selectedStar={(rating) => this.onStarRatingPress(rating)}
         />
         {this.state.starCount > 0 && this.state.starCount < STARS_TO_APP_STORE && (
           <TouchableOpacity onPress={() => Rating.openFeedbackUrl()}>

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
 const IndicatorHorizontal = () => (
   <View style={styles.container}>
-    {indexRanges.AQI.map(color => (
+    {indexRanges.AQI.map((color) => (
       <View style={styles.item} key={color.key}>
         <View style={[styles.bar, { backgroundColor: color.color }]} />
         <Text style={styles.text}>{color.status}</Text>

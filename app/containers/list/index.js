@@ -60,7 +60,7 @@ export default class SettingsView extends Component {
     this.prepareData();
   }
 
-  onChangeText = searchText => {
+  onChangeText = (searchText) => {
     const options = {
       shouldSort: true,
       threshold: 0.2,
@@ -91,7 +91,7 @@ export default class SettingsView extends Component {
     const that = this;
     const trace = firebase.perf().newTrace('api_get_aqi');
     trace.start();
-    aqi().then(result => {
+    aqi().then((result) => {
       const keys = Object.keys(result || {}).length;
       console.log('AQI:', result);
       console.log('AQI length:', keys);

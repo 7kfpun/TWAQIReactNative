@@ -101,7 +101,7 @@ export default class ClosestStation extends Component {
   }
 
   getRealtimeWeather = (lat, long) => {
-    realtimeWeather(lat, long).then(result => {
+    realtimeWeather(lat, long).then((result) => {
       this.setState({ realtimeWeatherData: result });
     });
   };

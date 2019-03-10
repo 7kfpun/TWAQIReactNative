@@ -61,7 +61,7 @@ export default class AirMarker extends React.PureComponent {
       showAmount = amount;
 
       const isMatched = indexRanges[index].filter(
-        item => amount >= item.min && amount <= item.max
+        (item) => amount >= item.min && amount <= item.max,
       );
       if (isMatched && isMatched.length >= 1) {
         color = isMatched[0].color;

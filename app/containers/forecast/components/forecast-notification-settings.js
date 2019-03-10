@@ -44,7 +44,7 @@ export default class ForecastNotificationSettings extends Component {
     this.loadForecastSettings();
   }
 
-  setNotification = value => {
+  setNotification = (value) => {
     this.setState({ isEnabled: value }, () => {
       ForecastNotificationSettings.sendTags(value);
 

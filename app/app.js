@@ -71,7 +71,7 @@ const MainNavigator = createStackNavigator(
   },
   {
     navigationOptions,
-  }
+  },
 );
 
 const HistoryNavigator = createStackNavigator(
@@ -81,7 +81,7 @@ const HistoryNavigator = createStackNavigator(
   },
   {
     navigationOptions,
-  }
+  },
 );
 
 const ForecastNavigator = createStackNavigator(
@@ -90,7 +90,7 @@ const ForecastNavigator = createStackNavigator(
   },
   {
     navigationOptions,
-  }
+  },
 );
 
 const SettingsNavigator = createStackNavigator(
@@ -99,7 +99,7 @@ const SettingsNavigator = createStackNavigator(
   },
   {
     navigationOptions,
-  }
+  },
 );
 
 const HelpNavigator = createStackNavigator(
@@ -110,7 +110,7 @@ const HelpNavigator = createStackNavigator(
   },
   {
     navigationOptions,
-  }
+  },
 );
 
 const AppTab = createBottomTabNavigator(
@@ -174,7 +174,7 @@ const AppTab = createBottomTabNavigator(
       },
     },
     tabBarPosition: 'bottom',
-  }
+  },
 );
 
 // const App = TabNavigator({

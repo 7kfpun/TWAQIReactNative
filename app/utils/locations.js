@@ -35,7 +35,8 @@ const locations = [
     TWD97Lat: '22.7553580000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=62&type=l',
-  }, {
+  },
+  {
     SiteName: '臺南',
     SiteEngName: 'Tainan',
     AreaName: '雲嘉南空品區',
@@ -45,7 +46,8 @@ const locations = [
     TWD97Lon: '120.2026170000',
     TWD97Lat: '22.9845810000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '臺西',
     SiteEngName: 'Taixi',
     AreaName: '雲嘉南空品區',
@@ -56,7 +58,8 @@ const locations = [
     TWD97Lat: '23.7175330000',
     SiteType: '工業測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=41&type=l',
-  }, {
+  },
+  {
     SiteName: '觀音',
     SiteEngName: 'Guanyin',
     AreaName: '北部空品區',
@@ -67,7 +70,8 @@ const locations = [
     TWD97Lat: '25.0355030000',
     SiteType: '背景測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=19&type=l',
-  }, {
+  },
+  {
     SiteName: '關山',
     SiteEngName: 'Guanshan',
     AreaName: '花東空品區',
@@ -78,7 +82,8 @@ const locations = [
     TWD97Lat: '23.0450830000',
     SiteType: '其它測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=80&type=l',
-  }, {
+  },
+  {
     SiteName: '豐原',
     SiteEngName: 'Fengyuan',
     AreaName: '中部空品區',
@@ -89,7 +94,8 @@ const locations = [
     TWD97Lat: '24.2565860000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=28&type=l',
-  }, {
+  },
+  {
     SiteName: '龍潭',
     SiteEngName: 'Longtan',
     AreaName: '北部空品區',
@@ -99,7 +105,8 @@ const locations = [
     TWD97Lon: '121.2163500000',
     TWD97Lat: '24.8638690000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '頭份',
     SiteEngName: 'Toufen',
     AreaName: '竹苗空品區',
@@ -109,7 +116,8 @@ const locations = [
     TWD97Lon: '120.8985720000',
     TWD97Lat: '24.6969690000',
     SiteType: '工業測站',
-  }, {
+  },
+  {
     SiteName: '橋頭',
     SiteEngName: 'Qiaotou',
     AreaName: '高屏空品區',
@@ -119,7 +127,8 @@ const locations = [
     TWD97Lon: '120.3056890000',
     TWD97Lat: '22.7575060000',
     SiteType: '背景測站',
-  }, {
+  },
+  {
     SiteName: '線西',
     SiteEngName: 'Xianxi',
     AreaName: '中部空品區',
@@ -130,7 +139,8 @@ const locations = [
     TWD97Lat: '24.1316720000',
     SiteType: '工業測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=34&type=l',
-  }, {
+  },
+  {
     SiteName: '潮州',
     SiteEngName: 'Chaozhou',
     AreaName: '高屏空品區',
@@ -141,7 +151,8 @@ const locations = [
     TWD97Lat: '22.5231080000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=60&type=l',
-  }, {
+  },
+  {
     SiteName: '鳳山',
     SiteEngName: 'Fengshan',
     AreaName: '高屏空品區',
@@ -152,7 +163,8 @@ const locations = [
     TWD97Lat: '22.6273920000',
     SiteType: '交通測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=50&type=l',
-  }, {
+  },
+  {
     SiteName: '彰化',
     SiteEngName: 'Changhua',
     AreaName: '中部空品區',
@@ -162,7 +174,8 @@ const locations = [
     TWD97Lon: '120.5415190000',
     TWD97Lat: '24.0660000000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '嘉義',
     SiteEngName: 'Chiayi',
     AreaName: '雲嘉南空品區',
@@ -173,7 +186,8 @@ const locations = [
     TWD97Lat: '23.4627780000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=42&type=l',
-  }, {
+  },
+  {
     SiteName: '萬華',
     SiteEngName: 'Wanhua',
     AreaName: '北部空品區',
@@ -184,7 +198,8 @@ const locations = [
     TWD97Lat: '25.0465030000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=13&type=l',
-  }, {
+  },
+  {
     SiteName: '萬里',
     SiteEngName: 'Wanli',
     AreaName: '北部空品區',
@@ -194,7 +209,8 @@ const locations = [
     TWD97Lon: '121.6898810000',
     TWD97Lat: '25.1796670000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '楠梓',
     SiteEngName: 'Nanzi',
     AreaName: '高屏空品區',
@@ -204,7 +220,8 @@ const locations = [
     TWD97Lon: '120.3282890000',
     TWD97Lat: '22.7336670000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '新營',
     SiteEngName: 'Xinying',
     AreaName: '雲嘉南空品區',
@@ -215,7 +232,8 @@ const locations = [
     TWD97Lat: '23.3056330000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=43&type=l',
-  }, {
+  },
+  {
     SiteName: '新港',
     SiteEngName: 'Xingang',
     AreaName: '雲嘉南空品區',
@@ -226,7 +244,8 @@ const locations = [
     TWD97Lat: '23.5548390000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=39&type=l',
-  }, {
+  },
+  {
     SiteName: '新莊',
     SiteEngName: 'Xinzhuang',
     AreaName: '北部空品區',
@@ -237,7 +256,8 @@ const locations = [
     TWD97Lat: '25.0379720000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=7&type=l',
-  }, {
+  },
+  {
     SiteName: '新店',
     SiteEngName: 'Xindian',
     AreaName: '北部空品區',
@@ -248,7 +268,8 @@ const locations = [
     TWD97Lat: '24.9772220000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=4&type=l',
-  }, {
+  },
+  {
     SiteName: '新竹',
     SiteEngName: 'Hsinchu',
     AreaName: '竹苗空品區',
@@ -258,7 +279,8 @@ const locations = [
     TWD97Lon: '120.9720750000',
     TWD97Lat: '24.8056190000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '陽明',
     SiteEngName: 'Yangming',
     AreaName: '北部空品區',
@@ -269,7 +291,8 @@ const locations = [
     TWD97Lat: '25.1827220000',
     SiteType: '公園測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=64&type=l',
-  }, {
+  },
+  {
     SiteName: '菜寮',
     SiteEngName: 'Cailiao',
     AreaName: '北部空品區',
@@ -279,7 +302,8 @@ const locations = [
     TWD97Lon: '121.4810280000',
     TWD97Lat: '25.0689500000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '善化',
     SiteEngName: 'Shanhua',
     AreaName: '雲嘉南空品區',
@@ -290,7 +314,8 @@ const locations = [
     TWD97Lat: '23.1150970000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=44&type=l',
-  }, {
+  },
+  {
     SiteName: '湖口',
     SiteEngName: 'Hukou',
     AreaName: '竹苗空品區',
@@ -300,7 +325,8 @@ const locations = [
     TWD97Lon: '121.0386530000',
     TWD97Lat: '24.9001420000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '復興',
     SiteEngName: 'Fuxing',
     AreaName: '高屏空品區',
@@ -310,7 +336,8 @@ const locations = [
     TWD97Lon: '120.3120170000',
     TWD97Lat: '22.6087110000',
     SiteType: '交通測站',
-  }, {
+  },
+  {
     SiteName: '麥寮',
     SiteEngName: 'Mailiao',
     AreaName: '雲嘉南空品區',
@@ -321,7 +348,8 @@ const locations = [
     TWD97Lat: '23.7535060000',
     SiteType: '工業測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=83&type=l',
-  }, {
+  },
+  {
     SiteName: '淡水',
     SiteEngName: 'Tamsui',
     AreaName: '北部空品區',
@@ -331,7 +359,8 @@ const locations = [
     TWD97Lon: '121.4492390000',
     TWD97Lat: '25.1645000000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '崙背',
     SiteEngName: 'Lunbei',
     AreaName: '雲嘉南空品區',
@@ -342,7 +371,8 @@ const locations = [
     TWD97Lat: '23.7575470000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=38&type=l',
-  }, {
+  },
+  {
     SiteName: '基隆',
     SiteEngName: 'Keelung',
     AreaName: '北部空品區',
@@ -353,7 +383,8 @@ const locations = [
     TWD97Lat: '25.1291670000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=1&type=l',
-  }, {
+  },
+  {
     SiteName: '馬祖',
     SiteEngName: 'Matsu',
     AreaName: '其他',
@@ -364,7 +395,8 @@ const locations = [
     TWD97Lat: '26.1604690000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=75&type=l',
-  }, {
+  },
+  {
     SiteName: '馬公',
     SiteEngName: 'Magong',
     AreaName: '其他',
@@ -375,7 +407,8 @@ const locations = [
     TWD97Lat: '23.5690310000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=78&type=l',
-  }, {
+  },
+  {
     SiteName: '桃園',
     SiteEngName: 'Taoyuan',
     AreaName: '北部空品區',
@@ -386,7 +419,8 @@ const locations = [
     TWD97Lat: '24.9947890000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=18&type=l',
-  }, {
+  },
+  {
     SiteName: '埔里',
     SiteEngName: 'Puli',
     AreaName: '中部空品區',
@@ -396,7 +430,8 @@ const locations = [
     TWD97Lon: '120.9679030000',
     TWD97Lat: '23.9688420000',
     SiteType: '其它測站',
-  }, {
+  },
+  {
     SiteName: '苗栗',
     SiteEngName: 'Miaoli',
     AreaName: '竹苗空品區',
@@ -406,7 +441,8 @@ const locations = [
     TWD97Lon: '120.8202000000',
     TWD97Lat: '24.5652690000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '美濃',
     SiteEngName: 'Meinong',
     AreaName: '高屏空品區',
@@ -417,7 +453,8 @@ const locations = [
     TWD97Lat: '22.8835830000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=47&type=l',
-  }, {
+  },
+  {
     SiteName: '恆春',
     SiteEngName: 'Hengchun',
     AreaName: '高屏空品區',
@@ -428,7 +465,8 @@ const locations = [
     TWD97Lat: '21.9580690000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=61&type=l',
-  }, {
+  },
+  {
     SiteName: '屏東',
     SiteEngName: 'Pingtung',
     AreaName: '高屏空品區',
@@ -438,7 +476,8 @@ const locations = [
     TWD97Lon: '120.4880330000',
     TWD97Lat: '22.6730810000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '南投',
     SiteEngName: 'Nantou',
     AreaName: '中部空品區',
@@ -449,7 +488,8 @@ const locations = [
     TWD97Lat: '23.9130000000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=36&type=l',
-  }, {
+  },
+  {
     SiteName: '前鎮',
     SiteEngName: 'Qianzhen',
     AreaName: '高屏空品區',
@@ -460,7 +500,8 @@ const locations = [
     TWD97Lat: '22.6053860000',
     SiteType: '工業測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=57&type=l',
-  }, {
+  },
+  {
     SiteName: '前金',
     SiteEngName: 'Qianjin',
     AreaName: '高屏空品區',
@@ -470,7 +511,8 @@ const locations = [
     TWD97Lon: '120.2880860000',
     TWD97Lat: '22.6325670000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '金門',
     SiteEngName: 'Kinmen',
     AreaName: '其他',
@@ -481,7 +523,8 @@ const locations = [
     TWD97Lat: '24.4321330000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=77&type=l',
-  }, {
+  },
+  {
     SiteName: '花蓮',
     SiteEngName: 'Hualien',
     AreaName: '花東空品區',
@@ -492,7 +535,8 @@ const locations = [
     TWD97Lat: '23.9713060000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=63&type=l',
-  }, {
+  },
+  {
     SiteName: '松山',
     SiteEngName: 'Songshan',
     AreaName: '北部空品區',
@@ -502,7 +546,8 @@ const locations = [
     TWD97Lon: '121.5786110000',
     TWD97Lat: '25.0500000000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '板橋',
     SiteEngName: 'Banqiao',
     AreaName: '北部空品區',
@@ -512,7 +557,8 @@ const locations = [
     TWD97Lon: '121.4586670000',
     TWD97Lat: '25.0129720000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '林園',
     SiteEngName: 'Linyuan',
     AreaName: '高屏空品區',
@@ -523,7 +569,8 @@ const locations = [
     TWD97Lat: '22.4795000000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=52&type=l',
-  }, {
+  },
+  {
     SiteName: '林口',
     SiteEngName: 'Linkou',
     AreaName: '北部空品區',
@@ -534,7 +581,8 @@ const locations = [
     TWD97Lat: '25.0771970000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=9&type=l',
-  }, {
+  },
+  {
     SiteName: '忠明',
     SiteEngName: 'Zhongming',
     AreaName: '中部空品區',
@@ -545,7 +593,8 @@ const locations = [
     TWD97Lat: '24.1519580000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=31&type=l',
-  }, {
+  },
+  {
     SiteName: '宜蘭',
     SiteEngName: 'Yilan',
     AreaName: '宜蘭空品區',
@@ -556,7 +605,8 @@ const locations = [
     TWD97Lat: '24.7479170000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=65&type=l',
-  }, {
+  },
+  {
     SiteName: '沙鹿',
     SiteEngName: 'Shalu',
     AreaName: '中部空品區',
@@ -567,7 +617,8 @@ const locations = [
     TWD97Lat: '24.2256280000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=29&type=l',
-  }, {
+  },
+  {
     SiteName: '西屯',
     SiteEngName: 'Xitun',
     AreaName: '中部空品區',
@@ -578,7 +629,8 @@ const locations = [
     TWD97Lat: '24.1621970000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=32&type=l',
-  }, {
+  },
+  {
     SiteName: '竹東',
     SiteEngName: 'Zhudong',
     AreaName: '竹苗空品區',
@@ -588,7 +640,8 @@ const locations = [
     TWD97Lon: '121.0889030000',
     TWD97Lat: '24.7406440000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '竹山',
     SiteEngName: 'Zhushan',
     AreaName: '中部空品區',
@@ -599,7 +652,8 @@ const locations = [
     TWD97Lat: '23.7563890000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=69&type=l',
-  }, {
+  },
+  {
     SiteName: '汐止',
     SiteEngName: 'Xizhi',
     AreaName: '北部空品區',
@@ -610,7 +664,8 @@ const locations = [
     TWD97Lat: '25.0658384',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=2&type=l',
-  }, {
+  },
+  {
     SiteName: '朴子',
     SiteEngName: 'Puzi',
     AreaName: '雲嘉南空品區',
@@ -621,7 +676,8 @@ const locations = [
     TWD97Lat: '23.4653080000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=40&type=l',
-  }, {
+  },
+  {
     SiteName: '安南',
     SiteEngName: 'Annan',
     AreaName: '雲嘉南空品區',
@@ -632,7 +688,8 @@ const locations = [
     TWD97Lat: '23.0481970000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=45&type=l',
-  }, {
+  },
+  {
     SiteName: '永和',
     SiteEngName: 'Yonghe',
     AreaName: '北部空品區',
@@ -643,7 +700,8 @@ const locations = [
     TWD97Lat: '25.0170000000',
     SiteType: '交通測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=70&type=l',
-  }, {
+  },
+  {
     SiteName: '平鎮',
     SiteEngName: 'Pingzhen',
     AreaName: '北部空品區',
@@ -653,7 +711,8 @@ const locations = [
     TWD97Lon: '121.2039860000',
     TWD97Lat: '24.9527860000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '左營',
     SiteEngName: 'Zuoying',
     AreaName: '高屏空品區',
@@ -663,7 +722,8 @@ const locations = [
     TWD97Lon: '120.2929170000',
     TWD97Lat: '22.6748610000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '古亭',
     SiteEngName: 'Guting',
     AreaName: '北部空品區',
@@ -673,7 +733,8 @@ const locations = [
     TWD97Lon: '121.5295560000',
     TWD97Lat: '25.0206080000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '冬山',
     SiteEngName: 'Dongshan',
     AreaName: '宜蘭空品區',
@@ -684,7 +745,8 @@ const locations = [
     TWD97Lat: '24.6322030000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=66&type=l',
-  }, {
+  },
+  {
     SiteName: '斗六',
     SiteEngName: 'Douliu',
     AreaName: '雲嘉南空品區',
@@ -695,7 +757,8 @@ const locations = [
     TWD97Lat: '23.7118530000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=37&type=l',
-  }, {
+  },
+  {
     SiteName: '仁武',
     SiteEngName: 'Renwu',
     AreaName: '高屏空品區',
@@ -706,7 +769,8 @@ const locations = [
     TWD97Lat: '22.6890560000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=49&type=l',
-  }, {
+  },
+  {
     SiteName: '中壢',
     SiteEngName: 'Zhongli',
     AreaName: '北部空品區',
@@ -717,7 +781,8 @@ const locations = [
     TWD97Lat: '24.9532780000',
     SiteType: '交通測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=68&type=l',
-  }, {
+  },
+  {
     SiteName: '中山',
     SiteEngName: 'Zhongshan',
     AreaName: '北部空品區',
@@ -727,7 +792,8 @@ const locations = [
     TWD97Lon: '121.5265280000',
     TWD97Lat: '25.0623610000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '小港',
     SiteEngName: 'Xiaogang',
     AreaName: '高屏空品區',
@@ -738,7 +804,8 @@ const locations = [
     TWD97Lat: '22.5658330000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=58&type=l',
-  }, {
+  },
+  {
     SiteName: '大寮',
     SiteEngName: 'Daliao',
     AreaName: '高屏空品區',
@@ -749,7 +816,8 @@ const locations = [
     TWD97Lat: '22.5657470000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=51&type=l',
-  }, {
+  },
+  {
     SiteName: '大園',
     SiteEngName: 'Dayuan',
     AreaName: '北部空品區',
@@ -760,7 +828,8 @@ const locations = [
     TWD97Lat: '25.0603440000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=18&type=l',
-  }, {
+  },
+  {
     SiteName: '大里',
     SiteEngName: 'Dali',
     AreaName: '中部空品區',
@@ -770,7 +839,8 @@ const locations = [
     TWD97Lon: '120.6776890000',
     TWD97Lat: '24.0996110000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '大同',
     SiteEngName: 'Datong',
     AreaName: '北部空品區',
@@ -780,7 +850,8 @@ const locations = [
     TWD97Lon: '121.5133110000',
     TWD97Lat: '25.0632000000',
     SiteType: '交通測站',
-  }, {
+  },
+  {
     SiteName: '士林',
     SiteEngName: 'Shilin',
     AreaName: '北部空品區',
@@ -791,7 +862,8 @@ const locations = [
     TWD97Lat: '25.1054170000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=11&type=l',
-  }, {
+  },
+  {
     SiteName: '土城',
     SiteEngName: 'Tucheng',
     AreaName: '北部空品區',
@@ -801,7 +873,8 @@ const locations = [
     TWD97Lon: '121.4518610000',
     TWD97Lat: '24.9825280000',
     SiteType: '一般測站',
-  }, {
+  },
+  {
     SiteName: '三義',
     SiteEngName: 'Sanyi',
     AreaName: '竹苗空品區',
@@ -812,7 +885,8 @@ const locations = [
     TWD97Lat: '24.3829420000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=27&type=l',
-  }, {
+  },
+  {
     SiteName: '三重',
     SiteEngName: 'Sanchong',
     AreaName: '北部空品區',
@@ -822,7 +896,8 @@ const locations = [
     TWD97Lon: '121.4938060000',
     TWD97Lat: '25.0726110000',
     SiteType: '交通測站',
-  }, {
+  },
+  {
     SiteName: '二林',
     SiteEngName: 'Erlin',
     AreaName: '中部空品區',
@@ -833,7 +908,8 @@ const locations = [
     TWD97Lat: '23.9251750000',
     SiteType: '一般測站',
     ImageUrl: 'https://taqm.epa.gov.tw/taqm/webcam.ashx?site=35&type=l',
-  }, {
+  },
+  {
     SiteName: '富貴角',
     SiteEngName: 'FugueiCape',
     AreaName: '北部空品區',
@@ -847,13 +923,13 @@ const locations = [
   },
 ];
 
-
 const getClosestStation = (lat, long) => {
   let distance = Number.POSITIVE_INFINITY;
   let closestIndex = 40;
 
   for (i = 0; i < locations.length; i += 1) {
-    const squarePlus = ((lat - locations[i].TWD97Lat) ** 2) + ((long - locations[i].TWD97Lon) ** 2);
+    const squarePlus =
+      (lat - locations[i].TWD97Lat) ** 2 + (long - locations[i].TWD97Lon) ** 2;
 
     if (squarePlus < distance) {
       distance = Math.min(squarePlus, distance);
@@ -864,7 +940,6 @@ const getClosestStation = (lat, long) => {
   return locations[closestIndex];
 };
 
-
 exports.getClosestStation = getClosestStation;
-exports.countys = uniq(locations.sort(compare).map(item => item.County));
+exports.countys = uniq(locations.sort(compare).map((item) => item.County));
 exports.locations = locations;

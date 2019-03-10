@@ -1,13 +1,10 @@
 import { Crashlytics } from 'react-native-fabric';
 import firebase from 'react-native-firebase';
 
-import {
-  Platform,
-} from 'react-native';
+import { Platform } from 'react-native';
 
 const log = {
-  log: () => {
-  },
+  log: () => {},
   logError: (message, error) => {
     console.log('logError', message);
     if (Platform.OS === 'ios') {

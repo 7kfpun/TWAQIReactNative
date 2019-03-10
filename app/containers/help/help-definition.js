@@ -182,7 +182,7 @@ export default class HelpDefinition extends Component {
 
         <ScrollView>
           <View style={styles.block}>
-            {helpTexts.AQI.map(item => (
+            {helpTexts.AQI.map((item) => (
               <View key={`help-text-${Math.random()}`}>
                 <View style={styles.row}>
                   <View

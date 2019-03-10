@@ -20,8 +20,8 @@ const toObject = (arr) => {
 const aqi = () => {
   const AQIURL = `${config.aqiUrl}?t=${Math.random()}`;
   return fetch(AQIURL)
-    .then(res => res.json())
-    .then(results => toObject(results))
+    .then((res) => res.json())
+    .then((results) => toObject(results))
     .catch((err) => {
       console.log('Request for aqi failed', err);
       // firebase.crash().log('Request for aqi failed');
@@ -29,11 +29,10 @@ const aqi = () => {
     });
 };
 
-
 const aqfn = () => {
   const FORECASTURL = `${config.forecastUrl}?t=${Math.random()}`;
   return fetch(FORECASTURL)
-    .then(res => res.json())
+    .then((res) => res.json())
     .catch((err) => {
       console.log('Request for forecast failed', err);
       // firebase.crash().log('Request for forecast failed');
@@ -41,13 +40,14 @@ const aqfn = () => {
     });
 };
 
-
 const HISTORY_LIMIT = 24;
 
 const history = (siteName) => {
-  const AQI_HISTORY_URL = `${config.aqiHistoryUrl}?station=${siteName}&limit=${HISTORY_LIMIT}&t=${Math.random()}`;
+  const AQI_HISTORY_URL = `${
+    config.aqiHistoryUrl
+  }?station=${siteName}&limit=${HISTORY_LIMIT}&t=${Math.random()}`;
   return fetch(AQI_HISTORY_URL)
-    .then(res => res.json())
+    .then((res) => res.json())
     .catch((err) => {
       console.log('Request for aqi history failed', err);
       // firebase.crash().log('Request for history failed');
@@ -64,7 +64,7 @@ const realtimeWeather = (lat, lng) => {
     method: 'post',
     body: form,
   })
-    .then(res => res.json())
+    .then((res) => res.json())
     .catch((err) => {
       console.log('Request for realtimeWeather failed', err);
       // firebase.crash().log('Request for realtimeWeather failed');
@@ -82,7 +82,7 @@ const forecastWeather = (lat, lng) => {
     method: 'post',
     body: form,
   })
-    .then(res => res.json())
+    .then((res) => res.json())
     .catch((err) => {
       console.log('Request for forecastWeather failed', err);
       // firebase.crash().log('Request for forecastWeather failed');
