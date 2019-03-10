@@ -154,6 +154,7 @@ I18n.translations = {
       NO2_description: '',
       NO2_url: 'https://en.wikipedia.org/wiki/Nitrogen_dioxide',
 
+      version: 'Version',
       buy_premium: {
         title: 'Remove Ads',
         description:
@@ -328,6 +329,8 @@ I18n.translations = {
         'https://zh.wikipedia.org/wiki/%E4%BA%8C%E6%B0%A7%E5%8C%96%E6%B0%AE',
       NO2_description:
         '來自於車輛廢氣、火力發電廠或其他工業染料，過量吸收傷害肺部',
+
+      version: 'APP 版本',
       buy_premium: {
         title: '想移除廣告？',
         description:

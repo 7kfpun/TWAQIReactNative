@@ -1,10 +1,16 @@
 {
   "extends": ["airbnb", "prettier"],
+  "parser": "babel-eslint",
   "plugins": ["prettier"],
 
   "rules": {
     "comma-dangle": [2, "always-multiline"],
-    "arrow-parens": ["always"],
+    "arrow-parens": [2, "always"],
+    "react/jsx-boolean-value": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-console": 0,
+    "no-alert": 0,
+    "no-undef": 0,
     "prettier/prettier": ["error"]
   }
 }

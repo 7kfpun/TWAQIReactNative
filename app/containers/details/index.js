@@ -9,7 +9,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -145,15 +144,15 @@ export default class DetailsView extends Component {
     }
   }
 
-  getRealtimeWeather = item => {
-    realtimeWeather(item.TWD97Lat, item.TWD97Lon).then(result => {
+  getRealtimeWeather = (item) => {
+    realtimeWeather(item.TWD97Lat, item.TWD97Lon).then((result) => {
       console.log('realtimeWeather', result);
       this.setState({ realtimeWeatherData: result });
     });
   };
 
-  getForecastWeather = item => {
-    forecastWeather(item.TWD97Lat, item.TWD97Lon).then(result => {
+  getForecastWeather = (item) => {
+    forecastWeather(item.TWD97Lat, item.TWD97Lon).then((result) => {
       console.log('forecastWeather', result);
       if (result) {
         this.setState({ forecastWeatherData: flatten(result) });
@@ -172,7 +171,7 @@ export default class DetailsView extends Component {
 
     const trace = firebase.perf().newTrace('api_get_aqi_history');
     trace.start();
-    history(item.SiteName).then(result => {
+    history(item.SiteName).then((result) => {
       trace.stop();
       if (result.data) {
         this.setState({ result: result.data });
@@ -191,7 +190,7 @@ export default class DetailsView extends Component {
       selectedBorderStyle={styles.indicatorSelectedBorderStyle}
       itemStyle={{ width: width / indexTypes.length }}
       selectedItemStyle={{ width: width / indexTypes.length }}
-      titles={indexTypes.map(i => i.name)}
+      titles={indexTypes.map((i) => i.name)}
     />
   );
 
@@ -240,7 +239,7 @@ export default class DetailsView extends Component {
                     getWeatherIconName(realtimeWeatherData.WeatherIcon) && (
                       <Ionicons
                         name={getWeatherIconName(
-                          realtimeWeatherData.WeatherIcon
+                          realtimeWeatherData.WeatherIcon,
                         )}
                         style={{ marginLeft: 4 }}
                         size={18}
@@ -288,7 +287,7 @@ export default class DetailsView extends Component {
             >
               {!this.state.refreshing &&
                 this.state.result &&
-                indexTypes.map(indexType => {
+                indexTypes.map((indexType) => {
                   const { length } = this.state.result;
                   return (
                     <View key={indexType.key}>
@@ -320,12 +319,12 @@ export default class DetailsView extends Component {
                           >
                             <Text style={styles.dateText}>
                               {moment(this.state.result[0].publish_time).format(
-                                'lll'
+                                'lll',
                               )}
                             </Text>
                             <Text style={styles.dateText}>
                               {moment(
-                                this.state.result[length - 1].publish_time
+                                this.state.result[length - 1].publish_time,
                               ).format('lll')}
                             </Text>
                           </View>

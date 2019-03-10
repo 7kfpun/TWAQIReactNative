@@ -4,11 +4,11 @@ import { View } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
 import firebase from 'react-native-firebase';
-import store from 'react-native-simple-store';
 
 import AdCustom from './ad-custom';
 
 import { config } from '../config';
+import { getPremiumInfo } from '../utils/helpers';
 import { getAd } from '../utils/firebase-config';
 
 const { AdRequest, Banner } = firebase.admob;
@@ -77,10 +77,8 @@ export default class Admob extends Component {
   }
 
   checkIsAdFree = async () => {
-    const currentSubscription = await store.get('currentSubscription');
-    if (currentSubscription === 'adfree') {
-      this.setState({ isAdFree: true });
-    }
+    const premiumInfo = await getPremiumInfo();
+    this.setState(premiumInfo);
   };
 
   checkShinbaAd = async () => {
@@ -151,7 +149,7 @@ export default class Admob extends Component {
               this.setState({ isReceived: true });
             }, 1000);
           }}
-          onAdFailedToLoad={error => {
+          onAdFailedToLoad={(error) => {
             console.log('Ads error', error);
             this.setState({ isReceivedFailed: true });
           }}

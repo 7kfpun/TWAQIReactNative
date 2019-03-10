@@ -1,6 +1,7 @@
 import { Linking, Platform } from 'react-native';
 
 import SafariView from 'react-native-safari-view';
+import store from 'react-native-simple-store';
 
 import moment from 'moment';
 
@@ -8,7 +9,7 @@ export const openURL = (url, isInApp = 1) => {
   if (Platform.OS === 'ios' && isInApp) {
     SafariView.isAvailable()
       .then(SafariView.show({ url }))
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         Linking.openURL(url);
       });
@@ -18,11 +19,11 @@ export const openURL = (url, isInApp = 1) => {
 };
 
 // Flatten a list of lists of elements into a list of elements.
-export const flatten = arr =>
+export const flatten = (arr) =>
   arr.reduce(
     (flat, toFlatten) =>
       flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten),
-    []
+    [],
   );
 
 export const noop = () => {};
@@ -50,4 +51,23 @@ export const getWeatherIconName = (code, time) => {
     18: 'ios-thunderstorm', // 陣雨或雷雨
     99: false,
   }[code];
+};
+
+// Get timestamp
+const getTimestamp = () => new Date().getTime();
+
+export const getPremiumInfo = async () => {
+  const premiumUntil = await store.get('premiumUntil');
+  const adFreeUntil = await store.get('adFreeUntil');
+  const currentSubscription = await store.get('currentSubscription');
+
+  console.log('getPremiumInfo', premiumUntil, adFreeUntil, currentSubscription);
+
+  const isPremium = premiumUntil > getTimestamp();
+  return {
+    userType: isPremium ? 'AdFree' : 'Normal',
+    isAdFree: adFreeUntil > getTimestamp(),
+    adFreeUntil,
+    currentSubscription,
+  };
 };

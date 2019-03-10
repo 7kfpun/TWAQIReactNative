@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 
-import { iOSColors } from 'react-native-typography';
 import DeviceInfo from 'react-native-device-info';
 import firebase from 'react-native-firebase';
 import OneSignal from 'react-native-onesignal';
@@ -19,21 +18,13 @@ import I18n from '../../../utils/i18n';
 import tracker from '../../../utils/tracker';
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 10,
-  },
   row: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     paddingVertical: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: 15,
     backgroundColor: 'white',
-    borderTopColor: iOSColors.midGray,
-    borderTopWidth: 0.5,
-    borderBottomColor: iOSColors.midGray,
-    borderBottomWidth: 0.5,
   },
   text: {
     fontSize: 16,
@@ -115,10 +106,10 @@ export default class Backdoor extends Component {
     const { isInputShown, invitationCodes } = this.state;
 
     return (
-      <View style={styles.container}>
+      <View>
         <TouchableOpacity onPress={this.onPress}>
           <View style={styles.row}>
-            <Text style={styles.text}>{`${I18n.t('app.about.version')}:`}</Text>
+            <Text style={styles.text}>{`${I18n.t('help.version')}:`}</Text>
             <Text style={styles.subtext}>
               {DeviceInfo.getReadableVersion()}
             </Text>
@@ -159,15 +150,11 @@ export default class Backdoor extends Component {
                     'adFreeUntil',
                     parseInt(invitationCodes[`${lowerText}`], 10),
                   );
-                  store.save(
-                    'premiumUntil',
-                    parseInt(invitationCodes[`${lowerText}`], 10),
-                  );
-                  store.save('currentPremiumSubscription', 'backdoor');
+                  store.save('currentSubscription', 'backdoor');
 
                   Alert.alert(
-                    I18n.t('app.about.purchase-title'),
-                    null,
+                    I18n.t('adfree.restore_success.title'),
+                    I18n.t('adfree.restore_success.description'),
                     [{ text: 'OK', onPress: () => RNRestart.Restart() }],
                     { cancelable: false },
                   );

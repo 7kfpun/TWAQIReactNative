@@ -7,9 +7,10 @@ import store from 'react-native-simple-store';
 import AdMob from '../../components/admob';
 import Header from '../../components/header';
 
+import Backdoor from './components/backdoor';
 import Row from './components/row';
 
-import { openURL } from '../../utils/helpers';
+import { getPremiumInfo, openURL } from '../../utils/helpers';
 import I18n from '../../utils/i18n';
 import tracker from '../../utils/tracker';
 
@@ -32,10 +33,8 @@ export default class HelpView extends Component {
   }
 
   checkIsAdFree = async () => {
-    const currentSubscription = await store.get('currentSubscription');
-    if (currentSubscription === 'adfree') {
-      this.setState({ isAdFree: true });
-    }
+    const premiumInfo = await getPremiumInfo();
+    this.setState(premiumInfo);
   };
 
   render() {
@@ -53,6 +52,8 @@ export default class HelpView extends Component {
         />
 
         <ScrollView>
+          <Backdoor />
+
           <Row
             title={I18n.t('help_definition')}
             onPress={() => {
