@@ -84,14 +84,14 @@ export default class AdFree extends Component {
       const products = await RNIap.getProducts(productSkus);
       console.log('getProducts', products);
       this.setState({
-        productList: products.filter(i => productSkus.includes(i.productId)),
+        productList: products.filter((i) => productSkus.includes(i.productId)),
       });
     } catch (err) {
       console.warn(err);
     }
   };
 
-  buyProductItem = async product => {
+  buyProductItem = async (product) => {
     // {
     //   description: '',
     //   introductoryPrice: '',
@@ -131,7 +131,7 @@ export default class AdFree extends Component {
         true,
         product.title,
         product.type,
-        product.productId
+        product.productId,
       );
     } catch (err) {
       if (err.code === 'E_ALREADY_OWNED') {
@@ -150,12 +150,13 @@ export default class AdFree extends Component {
         false,
         product.title,
         product.type,
-        product.productId
+        product.productId,
       );
     }
   };
 
   applyLifetimePurchase = () => {
+    store.save('adFreeUntil', Number.MAX_SAFE_INTEGER);
     store.save('currentSubscription', 'adfree');
   };
 
@@ -172,7 +173,7 @@ export default class AdFree extends Component {
           },
         },
       ],
-      { cancelable: false }
+      { cancelable: false },
     );
   };
 
@@ -192,14 +193,14 @@ export default class AdFree extends Component {
             },
           },
         ],
-        { cancelable: false }
+        { cancelable: false },
       );
     } else {
       Alert.alert(
         I18n.t('adfree.restore_failed.title'),
         null,
         [{ text: 'OK' }],
-        { cancelable: false }
+        { cancelable: false },
       );
     }
   };
@@ -216,7 +217,7 @@ export default class AdFree extends Component {
 
         <ScrollView>
           {productList.length > 0 &&
-            productList.map(product => (
+            productList.map((product) => (
               <Row
                 key={product.productId}
                 title={`${I18n.t('adfree.product.title')} ${

@@ -212,11 +212,11 @@ export default class MainView extends Component {
   };
 
   componentDidMount() {
-    OneSignal.addEventListener('received', data => this.onReceived(data));
-    OneSignal.addEventListener('opened', data => this.onOpened(data));
+    OneSignal.addEventListener('received', (data) => this.onReceived(data));
+    OneSignal.addEventListener('opened', (data) => this.onOpened(data));
 
-    DeviceEventEmitter.addListener('quickActionShortcut', data =>
-      this.onQuickActionOpened(data)
+    DeviceEventEmitter.addListener('quickActionShortcut', (data) =>
+      this.onQuickActionOpened(data),
     );
 
     // if (Platform.OS === 'android' && advert.isLoaded()) {
@@ -305,7 +305,7 @@ export default class MainView extends Component {
     const that = this;
     const trace = firebase.perf().newTrace('api_get_aqi');
     trace.start();
-    aqi().then(result => {
+    aqi().then((result) => {
       const keys = Object.keys(result || {}).length;
       console.log('AQI:', result);
       console.log('AQI length:', keys);
@@ -326,7 +326,7 @@ export default class MainView extends Component {
           {
             title: I18n.t('location_permission.title'),
             message: I18n.t('location_permission.description'),
-          }
+          },
         );
         console.log(granted);
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
@@ -343,7 +343,7 @@ export default class MainView extends Component {
 
   loadMapContent = async () => {
     const that = this;
-    store.get('selectedIndex').then(selectedIndex => {
+    store.get('selectedIndex').then((selectedIndex) => {
       if (selectedIndex) {
         that.setState({
           selectedIndex,
@@ -351,7 +351,7 @@ export default class MainView extends Component {
       }
     });
 
-    store.get('isWindMode').then(isWindMode => {
+    store.get('isWindMode').then((isWindMode) => {
       if (isWindMode) {
         that.setState({
           isWindMode,
@@ -363,7 +363,7 @@ export default class MainView extends Component {
       this.checkLocation();
     } else {
       const granted = await PermissionsAndroid.check(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       );
 
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
@@ -383,7 +383,7 @@ export default class MainView extends Component {
 
   checkLocation() {
     navigator.geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         console.log('geolocation', position);
         this.setState({
           location: position.coords,
@@ -392,7 +392,7 @@ export default class MainView extends Component {
 
         const moveLocation = MainView.isOutOfBound(
           position.coords.latitude,
-          position.coords.longitude
+          position.coords.longitude,
         )
           ? MainView.getDefaultLocation()
           : this.getCurrentLocation();
@@ -402,7 +402,7 @@ export default class MainView extends Component {
           console.error(`Map animateToRegion failed: ${JSON.stringify(err)}`);
         }
       },
-      error => {
+      (error) => {
         this.requestLocationPermission();
         if (!this.state.isLocationMovedToDefault) {
           // alert(error.message);
@@ -413,16 +413,16 @@ export default class MainView extends Component {
               this.map.animateToRegion(MainView.getDefaultLocation());
             } catch (err) {
               console.error(
-                `Map animateToRegion failed: ${JSON.stringify(err)}`
+                `Map animateToRegion failed: ${JSON.stringify(err)}`,
               );
             }
           }, 2000);
         }
       },
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
 
-    this.watchID = navigator.geolocation.watchPosition(position => {
+    this.watchID = navigator.geolocation.watchPosition((position) => {
       this.setState({
         location: position.coords,
         gpsEnabled: true,
@@ -444,19 +444,21 @@ export default class MainView extends Component {
       <View style={styles.container}>
         <MapView
           style={styles.map}
-          ref={ref => {
+          ref={(ref) => {
             this.map = ref;
           }}
           initialRegion={this.getCurrentLocation()}
-          onRegionChange={region => this.onRegionChange(region)}
-          onRegionChangeComplete={region => this.onRegionChangeComplete(region)}
+          onRegionChange={(region) => this.onRegionChange(region)}
+          onRegionChangeComplete={(region) =>
+            this.onRegionChangeComplete(region)
+          }
           onMapReady={this.loadMapContent}
           showsUserLocation={true}
         >
           {aqiResult &&
             locations
-              .filter(i => aqiResult[i.SiteName])
-              .map(location => {
+              .filter((i) => aqiResult[i.SiteName])
+              .map((location) => {
                 try {
                   if (
                     this.state.isWindMode &&
@@ -498,7 +500,7 @@ export default class MainView extends Component {
                             ],
                             textShadowColor: getColor(
                               'AQI',
-                              aqiResult[location.SiteName].AQI
+                              aqiResult[location.SiteName].AQI,
                             ).fontColor,
                             textShadowOffset: {
                               width: 0.6,
@@ -510,7 +512,7 @@ export default class MainView extends Component {
                           color={
                             getColor(
                               selectedIndex,
-                              aqiResult[location.SiteName][selectedIndex]
+                              aqiResult[location.SiteName][selectedIndex],
                             ).color
                           }
                         />
@@ -557,7 +559,7 @@ export default class MainView extends Component {
                 format: 'jpg',
                 quality: 0.8,
               }).then(
-                uri => {
+                (uri) => {
                   console.log('Image saved to', uri);
                   Share.share({
                     title: I18n.t('app_name'),
@@ -585,10 +587,10 @@ export default class MainView extends Component {
                     })
                     .catch(() => this.setState({ isShareLoading: false }));
                 },
-                error => {
+                (error) => {
                   console.error('Oops, snapshot failed', error);
                   this.setState({ isShareLoading: false });
-                }
+                },
               );
             });
           }}
@@ -647,7 +649,7 @@ export default class MainView extends Component {
                     onPress: () => Linking.openURL('app-settings:'),
                   },
                 ],
-                { cancelable: false }
+                { cancelable: false },
               );
             } else {
               this.requestLocationPermission();
@@ -706,7 +708,7 @@ export default class MainView extends Component {
             showsHorizontalScrollIndicator={false}
             style={styles.buttonContainer}
           >
-            {indexTypes.map(item => (
+            {indexTypes.map((item) => (
               <TouchableOpacity
                 key={item.key}
                 onPress={() => {
