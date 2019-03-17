@@ -81,6 +81,7 @@ I18n.translations = {
     status_hazardous_sensitive_groups_guidance:
       'Stay indoors and avoid physical exertion',
 
+    ok: 'OK',
     cancel: 'Cancel',
     search: 'Search',
 
@@ -252,6 +253,7 @@ I18n.translations = {
     status_hazardous_general_public_guidance: '避免戶外活動',
     status_hazardous_sensitive_groups_guidance: '留在室內並避免體力消耗活動',
 
+    ok: '明白',
     cancel: '取消',
     search: '搜索',
 
@@ -334,7 +336,7 @@ I18n.translations = {
       buy_premium: {
         title: '想移除廣告？',
         description:
-          '你可以永久免費使用我們的 APP，但如果你想支持我們，請我們喝咖啡，我們將移除所有內置廣告。真的，你並不需要購買！',
+          '你可以永久免費使用我們的 APP，但如果你想支持我們，請我們喝咖啡，我們將為你移除所有 APP 內廣告。對，你真的不需要購買！',
       },
     },
 

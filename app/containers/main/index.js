@@ -27,13 +27,14 @@ import MapView from 'react-native-maps';
 import OneSignal from 'react-native-onesignal';
 import store from 'react-native-simple-store';
 
-import AdMob from '../../components/admob';
-import Marker from '../../components/marker';
-import Rating from '../../components/rating';
-
 import ClosestStation from './components/closest-station';
 import Indicator from './components/indicator';
 import MaskSuggestion from './components/mask-suggestion';
+
+import AdMob from '../../components/admob';
+import AlertModal from '../../components/alert-modal';
+import Marker from '../../components/marker';
+import Rating from '../../components/rating';
 
 import { aqi } from '../../utils/api';
 import { getColor, indexTypes } from '../../utils/indexes';
@@ -219,6 +220,7 @@ export default class MainView extends Component {
       this.onQuickActionOpened(data),
     );
 
+    this.checkAskBuyPremium();
     // if (Platform.OS === 'android' && advert.isLoaded()) {
     //   advert.show();
     // }
@@ -381,6 +383,13 @@ export default class MainView extends Component {
     }, RELOAD_INTERVAL);
   };
 
+  checkAskBuyPremium = async () => {
+    const isAskedBuyPremium = await store.get('isAskedBuyPremium');
+    if (!isAskedBuyPremium) {
+      this.setState({ isAskBuyPremiumVisible: true });
+    }
+  };
+
   checkLocation() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -434,10 +443,10 @@ export default class MainView extends Component {
     const { navigation } = this.props;
 
     const {
-      location: { latitude, longitude },
       centerLocation,
       aqiResult,
       selectedIndex,
+      isAskBuyPremiumVisible,
     } = this.state;
 
     return (
@@ -732,6 +741,25 @@ export default class MainView extends Component {
         </View>
 
         <Rating />
+
+        <AlertModal
+          isVisible={isAskBuyPremiumVisible}
+          title={I18n.t('help.buy_premium.title')}
+          description={I18n.t('help.buy_premium.description')}
+          okText={I18n.t('ok')}
+          cancelText={I18n.t('cancel')}
+          handleCancel={() => {
+            store.save('isAskedBuyPremium', true);
+            this.setState({ isAskBuyPremiumVisible: false });
+            tracker.logEvent('ask-buy-premium', { value: 'false' });
+          }}
+          handleOK={() => {
+            store.save('isAskedBuyPremium', true);
+            this.setState({ isAskBuyPremiumVisible: false });
+            navigation.navigate('help');
+            tracker.logEvent('ask-buy-premium', { value: 'true' });
+          }}
+        />
       </View>
     );
   }

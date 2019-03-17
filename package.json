@@ -19,7 +19,7 @@
       "prettier --write",
       "git add"
     ],
-    "*.js": [
+    "*.{js,json}": [
       "prettier --write",
       "git add"
     ]
@@ -39,6 +39,7 @@
     "react-native-i18n": "^2.0.15",
     "react-native-iap": "^2.4.1",
     "react-native-maps": "0.21.0",
+    "react-native-modal": "^9.0.0",
     "react-native-modal-datetime-picker": "^6.0.0",
     "react-native-onesignal": "geektimecoil/react-native-onesignal",
     "react-native-quick-actions": "^0.3.7",
