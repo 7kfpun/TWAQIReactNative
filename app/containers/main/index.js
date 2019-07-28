@@ -385,7 +385,7 @@ export default class MainView extends Component {
 
   checkAskBuyPremium = async () => {
     const isAskedBuyPremium = await store.get('isAskedBuyPremium');
-    if (!isAskedBuyPremium) {
+    if (!isAskedBuyPremium && Math.random() < 0.2) {
       this.setState({ isAskBuyPremiumVisible: true });
     }
   };
