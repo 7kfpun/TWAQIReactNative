@@ -76,6 +76,11 @@ exports.siteZh2En = {
   三義: 'Sanyi',
   三重: 'Sanchong',
   二林: 'Erlin',
+  '屏東(琉球)': 'Liuqiu',
+  '苗栗(後龍)': 'Houlong',
+  '桃園(觀音工業區)': 'GuanyinIndustrial',
+  '彰化(大城)': 'Dacheng',
+  '臺南(麻豆)': 'Madou',
 };
 
 exports.siteEn2Zh = {
@@ -85,6 +90,7 @@ exports.siteEn2Zh = {
   Changhua: '彰化',
   Chaozhou: '潮州',
   Chiayi: '嘉義',
+  Dacheng: '彰化(大城)',
   Dali: '大里',
   Daliao: '大寮',
   Datong: '大同',
@@ -100,6 +106,7 @@ exports.siteEn2Zh = {
   Guanyin: '觀音',
   Guting: '古亭',
   Hengchun: '恆春',
+  Houlong: '苗栗(後龍)',
   Hsinchu: '新竹',
   Hualien: '花蓮',
   Hukou: '湖口',
@@ -107,8 +114,10 @@ exports.siteEn2Zh = {
   Kinmen: '金門',
   Linkou: '林口',
   Linyuan: '林園',
+  Liuqiu: '屏東(琉球)',
   Longtan: '龍潭',
   Lunbei: '崙背',
+  Madou: '臺南(麻豆)',
   Magong: '馬公',
   Mailiao: '麥寮',
   Matsu: '馬祖',
@@ -156,4 +165,5 @@ exports.siteEn2Zh = {
   Zhudong: '竹東',
   Zhushan: '竹山',
   Zuoying: '左營',
+  GuanyinIndustrial: '桃園(觀音工業區)',
 };

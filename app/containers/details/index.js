@@ -132,7 +132,7 @@ export default class DetailsView extends Component {
       },
     } = this.props;
 
-    this.prepareData();
+    this.getHistoryAQI();
     this.getRealtimeWeather(item);
     this.getForecastWeather(item);
 
@@ -160,7 +160,7 @@ export default class DetailsView extends Component {
     });
   };
 
-  prepareData = () => {
+  getHistoryAQI = () => {
     const {
       navigation: {
         state: {
@@ -217,7 +217,7 @@ export default class DetailsView extends Component {
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
-              onRefresh={this.prepareData}
+              onRefresh={this.getHistoryAQI}
             />
           }
         >
@@ -280,7 +280,7 @@ export default class DetailsView extends Component {
 
           <IndicatorHorizontal />
 
-          {!this.state.refreshing && (
+          {!this.state.refreshing && this.state.result && (
             <IndicatorViewPager
               style={{ height: 185, flexDirection: 'column-reverse' }}
               indicator={this.renderIndicator()}
